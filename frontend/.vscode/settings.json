@@ -1,0 +1,17 @@
+{
+  // ── Suppress inline-style diagnostics ─────────────────────────────────────
+  // The landing page intentionally uses inline styles for data-driven theming.
+  // These settings silence the IDE-level (non-ESLint) warnings for this workspace.
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "never"
+  },
+  // Cursor / VS Code React diagnostics
+  "javascript.suggest.enabled": true,
+  "typescript.suggest.enabled": true,
+  // Silence the "CSS inline styles should not be used" IDE rule
+  "eslint.rules.customizations": [
+    { "rule": "react/no-inline-styles", "severity": "off" },
+    { "rule": "react/forbid-component-props", "severity": "off" }
+  ]
+}
