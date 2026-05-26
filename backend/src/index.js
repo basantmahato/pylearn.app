@@ -1,13 +1,21 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const connectDB = require('./config/db');
+const errorHandler = require('./middleware/error');
+const helmet = require('helmet');
+const morgan = require('morgan');
+
+// Connect to Database
+connectDB();
 
 const app = express();
 
 // Middleware
+app.use(helmet());
+app.use(morgan('dev'));
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173'],
+    origin: '*', // Allow all for development flexibility with mobile
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'x-auth-token']
@@ -15,16 +23,22 @@ app.use(cors({
 app.use(express.json());
 
 // Routes
-app.use('/api', require('./routes/api'));
+app.use('/api/v1', require('./routes/api'));
 
-app.get('/', (req, res) => {
-    res.send('PyLearn12 API is running...');
+// Info route
+app.get('/api', (req, res) => {
+    res.json({
+        message: "Welcome to PyLearn API",
+        versions: { v1: "/api/v1" }
+    });
 });
 
-// Database Connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.log('MongoDB Connection Error:', err));
+app.get('/', (req, res) => {
+    res.send('PyLearn API is running...');
+});
+
+// Error Handler (must be after routes)
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

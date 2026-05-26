@@ -29,13 +29,14 @@ const seedChapters = async () => {
 
         // --- 1. Upsert Chapter (metadata + summary + practice) ---
         const result = await Chapter.findOneAndUpdate(
-            { chapterId: data.id },
+            { chapterId: data.id, category: 'class12' },
             {
                 chapterId: data.id,
                 title:     data.title,
                 order:     data.order || 0,
                 summary:   data.summary || {},
-                practice:  data.practice || []
+                practice:  data.practice || [],
+                category:  'class12'
             },
             { upsert: true, new: true, setDefaultsOnInsert: true }
         );
@@ -46,11 +47,12 @@ const seedChapters = async () => {
             updated++;
         }
 
-        // --- 2. Replace Note docs for this chapter ---
-        await Note.deleteMany({ chapterId: data.id });
+        // --- 2. Replace Note docs for this chapter (specific to class12) ---
+        await Note.deleteMany({ chapterId: data.id, category: 'class12' });
 
         const noteDocs = (data.content || []).map((block, i) => ({
             chapterId: data.id,
+            category:  'class12',
             type:      block.type      || 'paragraph',
             heading:   block.heading   || '',
             text:      block.text      || '',

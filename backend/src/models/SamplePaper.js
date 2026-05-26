@@ -18,6 +18,8 @@ const SectionSchema = new mongoose.Schema({
     questions: [QuestionSchema]
 }, { _id: false });
 
+const CATEGORIES = ['class11', 'class12', 'bca', 'btech', 'aiml'];
+
 const SamplePaperSchema = new mongoose.Schema({
     paperId:    { type: String, required: true, unique: true },
     title:      { type: String, required: true },
@@ -25,7 +27,7 @@ const SamplePaperSchema = new mongoose.Schema({
     duration:   { type: String },
     totalMarks: { type: Number },
     difficulty: { type: String },
-    class: { type: Number, enum: [11, 12], default: 12 },
+    category:   { type: String, enum: CATEGORIES, default: 'class12' },
     sections:   [SectionSchema]
 }, { timestamps: true });
 

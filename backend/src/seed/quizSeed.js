@@ -19,11 +19,12 @@ const seedQuizzes = async () => {
         const chapterId = data.chapterId;
 
         for (const set of (data.sets || [])) {
-            const filter = { chapterId, setId: set.setId };
+            const filter = { chapterId, setId: set.setId, category: 'class12' };
             const update = {
                 chapterId,
                 setId:      set.setId,
                 setName:    set.setName,
+                category:   'class12',
                 difficulty: set.difficulty || 'Medium',
                 questions:  set.questions  || []
             };

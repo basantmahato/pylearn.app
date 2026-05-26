@@ -1,155 +1,132 @@
-/* eslint-disable react/no-inline-styles, react/forbid-component-props, @typescript-eslint/no-inline-styles */
 "use client";
 
-const UNITS = [
-  {
-    id: "U1",
-    title: "Python Fundamentals",
-    color: "#005ab5",
-    bg: "#eef4ff",
-    icon: "🐍",
-    chapters: ["Introduction to Python", "Variables & Data Types", "Operators", "Control Flow (if/else)", "Loops (for/while)"],
-  },
-  {
-    id: "U2",
-    title: "Functions & Modules",
-    color: "#059669",
-    bg: "#f0fdf4",
-    icon: "⚙️",
-    chapters: ["Functions & Scope", "Recursion", "Built-in Functions", "Modules & Packages", "Python Standard Library"],
-  },
-  {
-    id: "U3",
-    title: "Data Structures",
-    color: "#d97706",
-    bg: "#fffbeb",
-    icon: "📦",
-    chapters: ["Lists & Tuples", "Dictionaries", "Sets", "Stacks & Queues", "Sorting Algorithms"],
-  },
-  {
-    id: "U4",
-    title: "Object-Oriented Programming",
-    color: "#7c3aed",
-    bg: "#faf5ff",
-    icon: "🏗️",
-    chapters: ["Classes & Objects", "Inheritance", "Polymorphism", "Encapsulation", "Exception Handling"],
-  },
-  {
-    id: "U5",
-    title: "File Handling & Databases",
-    color: "#dc2626",
-    bg: "#fef2f2",
-    icon: "💾",
-    chapters: ["Text Files", "Binary Files", "CSV Files", "SQL Basics", "MySQL with Python"],
-  },
-];
+import { useState, useEffect } from "react";
+import { CATEGORIES, fetchChapters, type Chapter, type Category } from "../../lib/api";
 
 export default function Syllabus() {
+  const [activeCategory, setActiveCategory] = useState<Category>("class12");
+  const [chapters, setChapters] = useState<Chapter[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      setLoading(true);
+      try {
+        const data = await fetchChapters(activeCategory);
+        setChapters(data.sort((a, b) => a.order - b.order));
+      } catch (err) {
+        console.error("Failed to fetch syllabus:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, [activeCategory]);
+
+  const activeCatMeta = CATEGORIES.find(c => c.key === activeCategory)!;
+
   return (
-    <section className="section" id="syllabus" style={{ background: "#fff" }}>
-      <div className="container">
+    <section className="py-24 md:py-28 bg-white" id="syllabus">
+      <div className="container mx-auto px-6">
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "64px" }}>
-          <div className="section-label" style={{ justifyContent: "center" }}>
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-2 text-xs font-bold tracking-[0.12em] uppercase text-primary mb-4">
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
             Full Curriculum
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
           </div>
-          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--text)", marginBottom: "16px" }}>
-            Complete CBSE Class 12 Syllabus
+          <h2 className="text-[clamp(2rem,4vw,3rem)] font-black text-text leading-tight mb-4 tracking-tight">
+            Comprehensive Course Syllabus
           </h2>
-          <p style={{ fontSize: "1.05rem", color: "var(--text-secondary)", maxWidth: "520px", margin: "0 auto", lineHeight: 1.75 }}>
-            Every topic in the official CBSE Computer Science (Python) syllabus — 18 chapters across 5 units, fully covered.
+          <p className="text-lg text-text-secondary max-w-[520px] mx-auto leading-relaxed">
+            Explore the complete chapter-wise breakdown for all our courses, updated for the current session.
           </p>
         </div>
 
-        {/* Unit Cards */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "20px",
-        }}>
-          {UNITS.map((unit) => (
-            <div
-              key={unit.id}
-              style={{
-                borderRadius: "var(--radius-lg)",
-                padding: "28px",
-                background: unit.bg,
-                border: `1px solid ${unit.color}20`,
-                transition: "var(--transition)",
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-                (e.currentTarget as HTMLDivElement).style.boxShadow = `0 16px 40px ${unit.color}15`;
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-                (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-              }}
-            >
-              {/* Unit header */}
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
-                <div style={{
-                  width: 48, height: 48, borderRadius: "14px",
-                  background: `${unit.color}15`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "1.3rem", border: `1px solid ${unit.color}25`,
-                }}>
-                  {unit.icon}
-                </div>
-                <div>
-                  <div style={{ fontSize: "0.7rem", fontWeight: 800, color: unit.color, letterSpacing: "0.12em", textTransform: "uppercase" }}>
-                    {unit.id}
-                  </div>
-                  <div style={{ fontWeight: 800, color: "var(--text)", fontSize: "1rem", lineHeight: 1.2, letterSpacing: "-0.02em" }}>
-                    {unit.title}
-                  </div>
-                </div>
-              </div>
-
-              {/* Chapter List */}
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-                {unit.chapters.map((ch, i) => (
-                  <li
-                    key={i}
-                    style={{
-                      display: "flex", alignItems: "center", gap: "10px",
-                      fontSize: "0.875rem", color: "var(--text-secondary)",
-                      padding: "8px 12px",
-                      background: "rgba(255,255,255,0.6)",
-                      borderRadius: "10px",
-                      border: "1px solid rgba(255,255,255,0.8)",
-                    }}
-                  >
-                    <span style={{
-                      width: 20, height: 20, borderRadius: "50%",
-                      background: `${unit.color}18`,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: "0.65rem", fontWeight: 700, color: unit.color, flexShrink: 0,
-                    }}>
-                      {i + 1}
-                    </span>
-                    {ch}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        {/* Category Switcher */}
+        <div className="flex justify-center gap-2.5 mb-14 flex-wrap">
+          {CATEGORIES.map((cat) => {
+            const active = activeCategory === cat.key;
+            return (
+              <button
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                className={`px-6 py-2.5 rounded-full font-bold text-[0.9rem] transition-all cursor-pointer ${
+                  active 
+                    ? 'bg-primary shadow-lg shadow-primary/20 text-white'
+                    : "bg-white text-text-secondary border border-border hover:shadow-md"
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
         </div>
+
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-4">
+            <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+            <p className="text-text-muted font-bold">Loading syllabus...</p>
+          </div>
+        ) : chapters.length === 0 ? (
+          <div className="text-center py-20 px-6 bg-bg-surface rounded-3xl border border-dashed border-border">
+            <p className="mt-3 font-bold text-lg text-text-secondary">No chapters added for {activeCatMeta.label} yet.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Group chapters by some logic or just show them all. 
+                For the landing page, showing a list is clean. */}
+            {chapters.map((ch, i) => {
+              const colorClass = 
+                (i % 5 === 0) ? 'text-primary bg-primary/5 border-primary/10' :
+                (i % 5 === 1) ? 'text-accent bg-accent/5 border-accent/10' :
+                (i % 5 === 2) ? 'text-accent-warm bg-accent-warm/5 border-accent-warm/10' :
+                (i % 5 === 3) ? 'text-purple bg-purple/5 border-purple/10' :
+                'text-red-500 bg-red-50 border-red-100';
+
+              return (
+                <div
+                  key={ch._id}
+                  className={`rounded-3xl p-6 transition-all hover:-translate-y-1 hover:shadow-xl ${colorClass} border`}
+                >
+                  <div className="flex items-center gap-4 mb-2">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center bg-white shadow-sm border border-border">
+                      <div className={`w-2 h-2 rounded-full ${colorClass.split(' ')[0].replace('text-', 'bg-')}`} />
+                    </div>
+                    <div>
+                      <div className="text-[0.7rem] font-black tracking-widest uppercase opacity-70">
+                        Chapter {ch.order}
+                      </div>
+                      <h3 className="font-black text-text text-base leading-tight tracking-tight">
+                        {ch.title}
+                      </h3>
+                    </div>
+                  </div>
+                  {ch.summary?.short_summary && (
+                    <p className="text-xs text-text-secondary line-clamp-2 mt-3 leading-relaxed">
+                      {ch.summary.short_summary}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         {/* Bottom Note */}
-        <div style={{
-          textAlign: "center",
-          marginTop: "48px",
-          padding: "28px 32px",
-          background: "linear-gradient(135deg, rgba(0,90,181,0.05), rgba(139,92,246,0.05))",
-          borderRadius: "var(--radius-lg)",
-          border: "1px solid rgba(0,90,181,0.1)",
-        }}>
-          <p style={{ fontSize: "1rem", color: "var(--text-secondary)", lineHeight: 1.75 }}>
-            ✅ All 18 chapters are available <strong>completely free</strong> — notes, quizzes, and sample papers included.
-            No subscription, no hidden fees.
-          </p>
-        </div>
+        {!loading && chapters.length > 0 && (
+          <div className={`text-center mt-12 p-8 px-10 rounded-3xl border transition-all duration-500 ${
+            activeCategory === 'class11' ? 'bg-purple/5 border-purple/10' :
+            activeCategory === 'class12' ? 'bg-primary/5 border-primary/10' :
+            activeCategory === 'bca' ? 'bg-accent/5 border-accent/10' :
+            activeCategory === 'btech' ? 'bg-accent-warm/5 border-accent-warm/10' :
+            'bg-red-50 border-red-100'
+          }`}>
+            <p className="text-lg text-text-secondary leading-relaxed">
+              All <strong className="text-text font-black">{chapters.length} chapters</strong> for {activeCatMeta.label} are available <strong className="text-text font-black">completely free</strong>.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

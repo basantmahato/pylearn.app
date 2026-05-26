@@ -18,6 +18,7 @@ import { SectionAccordion } from "@/components/samples/SectionAccordion";
 import { ShortAnswerQuestion } from "@/components/samples/ShortAnswerQuestion";
 import { useApi } from "@/hooks/useApi";
 import { api, type ApiSampleSection } from "@/lib/api";
+import { useCourseStore } from "@/lib/course-store";
 
 const DIFFICULTY_COLORS: Record<string, { bg: string; text: string }> = {
   Easy:   { bg: "#e8f5e9", text: "#2e7d32" },
@@ -29,10 +30,11 @@ export default function PaperDetailScreen() {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const paperId = id as string;
+  const { activeCategory } = useCourseStore();
 
   const { data: paper, loading, error } = useApi(
-    () => api.getSamplePaperById(paperId),
-    [paperId]
+    () => api.getSamplePaperById(paperId, activeCategory),
+    [paperId, activeCategory]
   );
 
   const [expandedSection, setExpandedSection] = useState<string | null>("A");

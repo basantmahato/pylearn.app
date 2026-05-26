@@ -9,13 +9,8 @@ const SamplePaper = require('../models/SamplePaper');
 exports.getChapters = async (req, res) => {
     try {
         const query = {};
-        if (req.query.class) {
-            const classNum = parseInt(req.query.class);
-            // Find chapters with matching class OR without class field (treat as class 12)
-            query.$or = [
-                { class: classNum },
-                { class: { $exists: false } }
-            ];
+        if (req.query.category) {
+            query.category = req.query.category;
         }
         const chapters = await Chapter.find(query).sort({ order: 1 });
         res.json(chapters);
@@ -60,9 +55,11 @@ exports.deleteChapter = async (req, res) => {
     try {
         const chapter = await Chapter.findByIdAndDelete(req.params.id);
         if (!chapter) return res.status(404).json({ msg: 'Chapter not found' });
-        // Also remove all associated notes
-        await Note.deleteMany({ chapterId: chapter.chapterId });
-        res.json({ msg: 'Chapter and its notes deleted' });
+        // Also remove all associated notes and quizzes for this specific course category
+        await Note.deleteMany({ chapterId: chapter.chapterId, category: chapter.category });
+        await Quiz.deleteMany({ chapterId: chapter.chapterId, category: chapter.category });
+        
+        res.json({ msg: 'Chapter and its associated content deleted' });
     } catch (err) {
         res.status(500).json({ msg: err.message });
     }
@@ -73,7 +70,9 @@ exports.deleteChapter = async (req, res) => {
 // ─────────────────────────────────────────────────────────────────────────────
 exports.getAllNotes = async (req, res) => {
     try {
-        const notes = await Note.find().sort({ chapterId: 1, order: 1 });
+        const query = {};
+        if (req.query.category) query.category = req.query.category;
+        const notes = await Note.find(query).sort({ chapterId: 1, order: 1 });
         res.json(notes);
     } catch (err) {
         res.status(500).json({ msg: err.message });
@@ -82,7 +81,10 @@ exports.getAllNotes = async (req, res) => {
 
 exports.getNotesByChapter = async (req, res) => {
     try {
-        const notes = await Note.find({ chapterId: req.params.chapterId }).sort({ order: 1 });
+        const query = { chapterId: req.params.chapterId };
+        if (req.query.category) query.category = req.query.category;
+        
+        const notes = await Note.find(query).sort({ order: 1 });
         res.json(notes);
     } catch (err) {
         res.status(500).json({ msg: err.message });
@@ -127,12 +129,8 @@ exports.deleteNote = async (req, res) => {
 exports.getAllQuizzes = async (req, res) => {
     try {
         const query = {};
-        if (req.query.class) {
-            const classNum = parseInt(req.query.class);
-            query.$or = [
-                { class: classNum },
-                { class: { $exists: false } }
-            ];
+        if (req.query.category) {
+            query.category = req.query.category;
         }
         const quizzes = await Quiz.find(query).sort({ chapterId: 1, setId: 1 });
         res.json(quizzes);
@@ -144,12 +142,8 @@ exports.getAllQuizzes = async (req, res) => {
 exports.getQuizzesByChapter = async (req, res) => {
     try {
         const query = { chapterId: req.params.chapterId };
-        if (req.query.class) {
-            const classNum = parseInt(req.query.class);
-            query.$or = [
-                { class: classNum },
-                { class: { $exists: false } }
-            ];
+        if (req.query.category) {
+            query.category = req.query.category;
         }
         const quizzes = await Quiz.find(query);
         res.json(quizzes);
@@ -196,15 +190,10 @@ exports.deleteQuiz = async (req, res) => {
 exports.getSamplePapers = async (req, res) => {
     try {
         const query = {};
-        if (req.query.class) {
-            const classNum = parseInt(req.query.class);
-            query.$or = [
-                { class: classNum },
-                { class: { $exists: false } }
-            ];
+        if (req.query.category) {
+            query.category = req.query.category;
         }
         const papers = await SamplePaper.find(query)
-            .select('-sections')   // exclude heavy sections for listing
             .sort({ paperId: 1 });
         res.json(papers);
     } catch (err) {

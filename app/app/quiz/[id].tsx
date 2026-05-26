@@ -9,6 +9,7 @@ import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context"
 import { useApi } from "@/hooks/useApi";
 import { api, type ApiQuizSet } from "@/lib/api";
 import { QuizResult, useProgressStore } from "@/lib/progress-store";
+import { useCourseStore } from "@/lib/course-store";
 
 export default function QuizPlayerScreen() {
   const { id } = useLocalSearchParams();
@@ -20,12 +21,13 @@ export default function QuizPlayerScreen() {
   const [chapterId, setId] = (id as string).split("_");
 
   // ── Fetch quiz set from backend ───────────────────────────────────────────
+  const { activeCategory } = useCourseStore();
   const { data: quizSet, loading, error } = useApi<ApiQuizSet | null>(
-    () => api.getQuizSet(chapterId, setId),
-    [chapterId, setId]
+    () => api.getQuizSet(chapterId, setId, activeCategory),
+    [chapterId, setId, activeCategory]
   );
 
-  const priorBestScore = getBestQuizScore(chapterId, setId);
+  const priorBestScore = getBestQuizScore(chapterId, setId, activeCategory);
 
   // ── Quiz state ────────────────────────────────────────────────────────────
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -105,7 +107,7 @@ export default function QuizPlayerScreen() {
         date: new Date().toISOString(),
         passed,
       };
-      saveQuizResult(result);
+      saveQuizResult(result, activeCategory);
       setFinalResult(result);
       setShowResults(true);
     }

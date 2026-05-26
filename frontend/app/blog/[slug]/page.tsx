@@ -107,113 +107,44 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       />
       
       <Navbar />
-      <article
-        style={{
-          minHeight: "100vh",
-          background: "var(--background)",
-          padding: "120px 0 60px",
-        }}
-      >
-        <div className="container">
-          <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+      <article className="min-h-screen bg-bg pt-32 pb-20">
+        <div className="container mx-auto px-6">
+          <div className="max-w-[800px] mx-auto">
             {/* Breadcrumb */}
-            <nav
-              style={{
-                marginBottom: "24px",
-                fontSize: "0.875rem",
-                color: "var(--text-secondary)",
-              }}
-            >
-              <Link
-                href="/"
-                style={{ color: "var(--primary)", textDecoration: "none" }}
-              >
-                Home
-              </Link>
-              <span style={{ margin: "0 8px" }}>/</span>
-              <Link
-                href="/blog"
-                style={{ color: "var(--primary)", textDecoration: "none" }}
-              >
-                Blog
-              </Link>
-              <span style={{ margin: "0 8px" }}>/</span>
-              <span style={{ color: "var(--text-secondary)" }}>{blog.title}</span>
+            <nav className="flex items-center gap-2 text-sm text-text-secondary mb-8">
+              <Link href="/" className="text-primary hover:underline font-medium">Home</Link>
+              <span className="opacity-40">/</span>
+              <Link href="/blog" className="text-primary hover:underline font-medium">Blog</Link>
+              <span className="opacity-40">/</span>
+              <span className="text-text-muted truncate">{blog.title}</span>
             </nav>
 
             {/* Header */}
-            <header style={{ marginBottom: "40px" }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12px",
-                  marginBottom: "16px",
-                }}
-              >
-                <span
-                  style={{
-                    background: "rgba(0,90,181,0.1)",
-                    color: "var(--primary)",
-                    padding: "6px 14px",
-                    borderRadius: "100px",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                  }}
-                >
+            <header className="mb-10">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-[0.7rem] font-black uppercase tracking-wider">
                   {blog.category}
                 </span>
-                <span style={{ color: "var(--text-secondary)", fontSize: "0.875rem" }}>
+                <span className="text-text-secondary text-sm font-medium">
                   {blog.readingTime} min read
                 </span>
               </div>
 
-              <h1
-                style={{
-                  fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-                  fontWeight: 900,
-                  letterSpacing: "-0.02em",
-                  color: "var(--text)",
-                  marginBottom: "24px",
-                  lineHeight: 1.2,
-                }}
-              >
+              <h1 className="text-4xl md:text-5xl font-black tracking-tight text-text mb-8 leading-[1.1]">
                 {blog.title}
               </h1>
 
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "16px",
-                  color: "var(--text-secondary)",
-                  fontSize: "0.875rem",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <div
-                    style={{
-                      width: "36px",
-                      height: "36px",
-                      borderRadius: "50%",
-                      background: "linear-gradient(135deg, #005ab5, #4d96e0)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "white",
-                      fontWeight: 700,
-                      fontSize: "0.875rem",
-                    }}
-                  >
+              <div className="flex items-center gap-5 text-text-secondary text-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-light flex items-center justify-center text-white font-black text-sm shadow-md">
                     {blog.author.charAt(0).toUpperCase()}
                   </div>
-                  <span style={{ fontWeight: 600, color: "var(--text)" }}>
+                  <span className="font-bold text-text">
                     {blog.author}
                   </span>
                 </div>
-                <span>•</span>
-                <time dateTime={blog.publishedAt}>
+                <span className="opacity-20">•</span>
+                <time dateTime={blog.publishedAt} className="font-medium">
                   {new Date(blog.publishedAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -225,65 +156,32 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
             {/* Featured Image */}
             {blog.featuredImage && (
-              <div
-                style={{
-                  width: "100%",
-                  height: "400px",
-                  borderRadius: "16px",
-                  overflow: "hidden",
-                  marginBottom: "40px",
-                }}
-              >
+              <div className="w-full aspect-video rounded-3xl overflow-hidden mb-12 shadow-2xl shadow-primary/5">
                 <img
                   src={blog.featuredImage}
                   alt={blog.title}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
+                  className="w-full h-full object-cover"
                 />
               </div>
             )}
 
             {/* Content */}
             <div
-              className="blog-content"
+              className="blog-content prose prose-lg prose-primary max-w-none prose-headings:font-black prose-headings:tracking-tight prose-p:text-text-secondary prose-p:leading-relaxed prose-img:rounded-2xl"
               dangerouslySetInnerHTML={{ __html: blog.content }}
-              style={{
-                fontSize: "1.1rem",
-                lineHeight: 1.8,
-                color: "var(--text)",
-              }}
             />
 
             {/* Tags */}
             {blog.tags && blog.tags.length > 0 && (
-              <div style={{ marginTop: "48px", paddingTop: "32px", borderTop: "1px solid var(--border)" }}>
-                <h3
-                  style={{
-                    fontSize: "0.875rem",
-                    fontWeight: 700,
-                    color: "var(--text-secondary)",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    marginBottom: "16px",
-                  }}
-                >
-                  Tags
+              <div className="mt-16 pt-10 border-t border-border">
+                <h3 className="text-xs font-black text-text-muted uppercase tracking-[0.2em] mb-6">
+                  Related Tags
                 </h3>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                <div className="flex flex-wrap gap-2">
                   {blog.tags.map((tag) => (
                     <span
                       key={tag}
-                      style={{
-                        background: "var(--card-bg)",
-                        border: "1px solid var(--border)",
-                        padding: "6px 14px",
-                        borderRadius: "100px",
-                        fontSize: "0.8rem",
-                        color: "var(--text-secondary)",
-                      }}
+                      className="bg-bg-surface border border-border px-4 py-2 rounded-full text-xs font-bold text-text-secondary hover:text-primary hover:border-primary/30 transition-all cursor-default"
                     >
                       {tag}
                     </span>
@@ -293,21 +191,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             )}
 
             {/* Back to Blog */}
-            <div style={{ marginTop: "48px", textAlign: "center" }}>
+            <div className="mt-16 flex justify-center">
               <Link
                 href="/blog"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "12px 24px",
-                  background: "var(--primary)",
-                  color: "white",
-                  borderRadius: "100px",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  transition: "transform 0.2s ease",
-                }}
+                className="btn-primary inline-flex items-center gap-2 px-10 py-4 rounded-full font-black text-sm transition-all hover:-translate-y-1 hover:shadow-xl"
               >
                 ← Back to Blog
               </Link>

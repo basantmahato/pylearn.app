@@ -1,4 +1,14 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000/api";
+const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:5000/api/v1";
+
+export type Category = 'class11' | 'class12' | 'bca' | 'btech' | 'aiml';
+
+export const CATEGORIES: { key: Category; label: string; color: string }[] = [
+  { key: 'class11', label: 'Class 11',          color: '#8b5cf6' },
+  { key: 'class12', label: 'Class 12',          color: '#005ab5' },
+  { key: 'bca',     label: 'BCA',               color: '#10b981' },
+  { key: 'btech',   label: 'B.Tech',            color: '#f59e0b' },
+  { key: 'aiml',    label: 'AI / ML & Data Sci', color: '#ef4444' },
+];
 
 export async function apiFetch<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`, { cache: "no-store" });
@@ -13,7 +23,7 @@ export interface Chapter {
   chapterId: string;
   title: string;
   order: number;
-  class?: 11 | 12;
+  category?: Category;
   summary?: {
     short_summary?: string;
     detailed_summary?: string;
@@ -25,6 +35,7 @@ export interface Chapter {
 export interface NoteBlock {
   _id: string;
   chapterId: string;
+  category?: Category;
   type: "paragraph" | "bullet_list" | "code";
   heading?: string;
   text?: string;
@@ -48,6 +59,7 @@ export interface QuizSet {
   setId: string;
   setName: string;
   difficulty?: string;
+  category?: Category;
   questions: QuizQuestion[];
 }
 
@@ -59,6 +71,7 @@ export interface SamplePaper {
   duration?: string;
   totalMarks?: number;
   difficulty?: string;
+  category?: Category;
   sections: {
     sectionId: string;
     title: string;
@@ -94,11 +107,12 @@ export interface Blog {
   isFeatured: boolean;
 }
 
-export const fetchChapters   = (classNum?: 11 | 12)  => apiFetch<Chapter[]>(classNum ? `/chapters?class=${classNum}` : "/chapters");
-export const fetchNotes      = ()  => apiFetch<NoteBlock[]>("/notes");
-export const fetchNotesByChapter = (chId: string) => apiFetch<NoteBlock[]>(`/notes/${chId}`);
-export const fetchQuizzes    = ()  => apiFetch<QuizSet[]>("/quizzes");
-export const fetchSamplePapers = () => apiFetch<SamplePaper[]>("/sample-papers");
-export const fetchBlogs      = ()  => apiFetch<{ blogs: Blog[], total: number }>("/blogs");
-export const fetchBlogBySlug = (slug: string) => apiFetch<Blog>(`/blogs/${slug}`);
-export const fetchFeaturedBlogs = () => apiFetch<Blog[]>("/blogs/featured");
+export const fetchChapters          = (category?: Category) => apiFetch<Chapter[]>(category ? `/chapters?category=${category}` : "/chapters");
+export const fetchNotes             = (category?: Category) => apiFetch<NoteBlock[]>(category ? `/notes?category=${category}` : "/notes");
+export const fetchNotesByChapter    = (chId: string, category?: Category) => apiFetch<NoteBlock[]>(category ? `/notes/${chId}?category=${category}` : `/notes/${chId}`);
+export const fetchQuizzes           = (category?: Category) => apiFetch<QuizSet[]>(category ? `/quizzes?category=${category}` : "/quizzes");
+export const fetchQuizzesByChapter  = (chId: string, category?: Category) => apiFetch<QuizSet[]>(category ? `/quizzes/${chId}?category=${category}` : `/quizzes/${chId}`);
+export const fetchSamplePapers      = (category?: Category) => apiFetch<SamplePaper[]>(category ? `/sample-papers?category=${category}` : "/sample-papers");
+export const fetchBlogs             = ()  => apiFetch<{ blogs: Blog[], total: number }>("/blogs");
+export const fetchBlogBySlug        = (slug: string) => apiFetch<Blog>(`/blogs/${slug}`);
+export const fetchFeaturedBlogs     = () => apiFetch<Blog[]>("/blogs/featured");

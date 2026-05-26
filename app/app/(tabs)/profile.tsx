@@ -6,9 +6,11 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Header } from "@/components/ui/Header";
-import { TOTAL_CHAPTERS, UNITS } from "@/constants/chapters";
 import { useProgressStore } from "@/lib/progress-store";
 import { AVATAR_OPTIONS, useUserStore } from "@/lib/storage";
+import { useCourseStore } from "@/lib/course-store";
+import { useApi } from "@/hooks/useApi";
+import { api } from "@/lib/api";
 
 const AVATAR_ICONS: Record<string, string> = {
   fox: "paw",
@@ -49,6 +51,7 @@ export default function ProfileScreen() {
   const name = useUserStore((state) => state.userName);
   const avatar = useUserStore((state) => state.userAvatar);
   const avatarOption = AVATAR_OPTIONS.find((a) => a.id === avatar);
+  const { activeCategory } = useCourseStore();
 
   const {
     getOverallProgress,
@@ -62,20 +65,23 @@ export default function ProfileScreen() {
     getBookmarkedChapters,
   } = useProgressStore();
 
-  const progress = getOverallProgress();
-  const completed = getTotalChaptersCompleted();
-  const quizzesTaken = getTotalQuizzesTaken();
-  const avgScore = getAverageQuizScore();
+  // Fetch live chapters for accurate total and bookmark metadata
+  const { data: chapters } = useApi(() => api.getChapters(activeCategory), [activeCategory]);
+  const totalCh = chapters?.length || 11;
+
+  const progress = getOverallProgress(activeCategory, totalCh);
+  const completed = getTotalChaptersCompleted(activeCategory);
+  const quizzesTaken = getTotalQuizzesTaken(activeCategory);
+  const avgScore = getAverageQuizScore(activeCategory);
   const streak = getStreak();
   const longestStreak = getLongestStreak();
   const streakAtRisk = isStreakAtRisk();
-  const recentQuizzes = getQuizHistory().slice(-5).reverse();
-  const bookmarkedIds = getBookmarkedChapters();
+  const recentQuizzes = getQuizHistory(activeCategory).slice(-5).reverse();
+  const bookmarkedIds = getBookmarkedChapters(activeCategory);
 
-  // Get chapter details from bookmarked IDs
-  const allChapters = UNITS.flatMap((u) => u.chapters);
+  // Get chapter details from bookmarked IDs using live list
   const bookmarkedChapters = bookmarkedIds
-    .map((id) => allChapters.find((c) => c.id === id))
+    .map((id) => chapters?.find((c) => c.chapterId === id))
     .filter(Boolean);
 
   return (
@@ -110,7 +116,7 @@ export default function ProfileScreen() {
           <StatCard
             icon="book-open-variant"
             label="Completed"
-            value={`${completed}/${TOTAL_CHAPTERS}`}
+            value={`${completed}/${totalCh}`}
             color="#005ab5"
           />
           <StatCard
@@ -224,8 +230,8 @@ export default function ProfileScreen() {
           ) : (
             bookmarkedChapters.map((chapter) => (
               <Pressable
-                key={chapter!.id}
-                onPress={() => router.push(`/chapter/${chapter!.id}`)}
+                key={chapter!.chapterId}
+                onPress={() => router.push(`/chapter/${chapter!.chapterId}`)}
                 className="bg-surface-container-low rounded-xl p-4 mb-3 flex-row items-center border border-outline-variant/10 active:scale-[0.98]"
               >
                 <View className="w-10 h-10 rounded-full bg-primary/10 items-center justify-center mr-3">
@@ -233,7 +239,7 @@ export default function ProfileScreen() {
                 </View>
                 <View className="flex-1">
                   <Text className="font-bold text-on-surface" numberOfLines={1}>
-                    Chapter {chapter!.id}: {chapter!.title}
+                    Chapter {chapter!.chapterId}: {chapter!.title}
                   </Text>
                   <Text className="text-xs text-on-surface-variant">
                     Tap to continue reading

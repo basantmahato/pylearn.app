@@ -8,6 +8,7 @@ import { Pencil, Trash2, Save, X, FileText, Code, List } from 'lucide-react';
 interface Note {
     _id: string;
     chapterId: string;
+    category: string;
     type: 'paragraph' | 'bullet_list' | 'code';
     heading?: string;
     text?: string;
@@ -17,30 +18,43 @@ interface Note {
     order: number;
 }
 
+const CATEGORIES = [
+    { key: 'class12', label: 'Class 12' },
+    { key: 'class11', label: 'Class 11' },
+    { key: 'bca',     label: 'BCA' },
+    { key: 'btech',   label: 'B.Tech' },
+    { key: 'aiml',    label: 'AI / ML & Data Sci' },
+] as const;
+
 const Notes = () => {
     const [notes, setNotes] = useState<Note[]>([]);
-    const [chapters, setChapters] = useState<{chapterId: string, title: string, class?: number}[]>([]);
+    const [chapters, setChapters] = useState<{chapterId: string, title: string, category?: string}[]>([]);
     const [selectedChapter, setSelectedChapter] = useState('');
-    const [selectedClass, setSelectedClass] = useState<11 | 12>(12);
+    const [selectedCategory, setSelectedCategory] = useState<string>('class12');
     const [loading, setLoading] = useState(true);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editForm, setEditForm] = useState<Partial<Note>>({});
 
     useEffect(() => {
         fetchChapters();
-    }, [selectedClass]);
+    }, [selectedCategory]);
 
     useEffect(() => {
         if (selectedChapter) {
             fetchNotes();
         }
-    }, [selectedChapter]);
+    }, [selectedChapter, selectedCategory]);
 
     const fetchChapters = async () => {
         try {
-            const res = await api.get(`/chapters?class=${selectedClass}`);
+            const res = await api.get(`/chapters?category=${selectedCategory}`);
             setChapters(res.data);
-            if (res.data.length > 0) setSelectedChapter(res.data[0].chapterId);
+            if (res.data.length > 0) {
+                setSelectedChapter(res.data[0].chapterId);
+            } else {
+                setSelectedChapter('');
+                setNotes([]);
+            }
         } catch (err) {
             console.error(err);
         } finally {
@@ -50,7 +64,7 @@ const Notes = () => {
 
     const fetchNotes = async () => {
         try {
-            const res = await api.get(`/notes/${selectedChapter}`);
+            const res = await api.get(`/notes/${selectedChapter}?category=${selectedCategory}`);
             setNotes(res.data);
         } catch (err) {
             console.error(err);
@@ -65,9 +79,9 @@ const Notes = () => {
     const handleSave = async () => {
         try {
             if (editingId && editingId !== 'new') {
-                await api.put(`/notes/${editingId}`, editForm);
+                await api.put(`/notes/${editingId}`, { ...editForm, category: selectedCategory });
             } else {
-                await api.post('/notes', { ...editForm, chapterId: selectedChapter });
+                await api.post('/notes', { ...editForm, chapterId: selectedChapter, category: selectedCategory });
             }
             setEditingId(null);
             fetchNotes();
@@ -100,8 +114,8 @@ const Notes = () => {
         });
     };
 
-    const handleClassChange = (cls: 11 | 12) => {
-        setSelectedClass(cls);
+    const handleCategoryChange = (cat: string) => {
+        setSelectedCategory(cat);
         setSelectedChapter('');
         setNotes([]);
     };
@@ -114,12 +128,14 @@ const Notes = () => {
                 <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold tracking-tight">Notes & Content</h2>
                     <select
-                        value={selectedClass}
-                        onChange={e => handleClassChange(parseInt(e.target.value) as 11 | 12)}
+                        title="Select Category"
+                        value={selectedCategory}
+                        onChange={e => handleCategoryChange(e.target.value)}
                         className="px-3 py-2 rounded-md border border-input bg-background"
                     >
-                        <option value={12}>Class 12</option>
-                        <option value={11}>Class 11</option>
+                        {CATEGORIES.map(cat => (
+                            <option key={cat.key} value={cat.key}>{cat.label}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -129,19 +145,20 @@ const Notes = () => {
                         onChange={(e) => setSelectedChapter(e.target.value)}
                         aria-label="Select Chapter"
                     >
+                        {chapters.length === 0 && <option value="">No chapters found</option>}
                         {chapters.map(c => <option key={c.chapterId} value={c.chapterId}>{c.title}</option>)}
                     </select>
                     <div className="flex gap-2">
-                    <Button variant="outline" size="sm" onClick={() => addNew('paragraph')}>
-                        <FileText className="mr-2 h-4 w-4" /> Paragraph
-                    </Button>
-                    <Button variant="outline" size="sm" onClick={() => addNew('bullet_list')}>
-                        <List className="mr-2 h-4 w-4" /> List
-                    </Button>
-                    <Button variant="outline" size="sm" onClick={() => addNew('code')}>
-                        <Code className="mr-2 h-4 w-4" /> Code
-                    </Button>
-                </div>
+                        <Button variant="outline" size="sm" onClick={() => addNew('paragraph')} disabled={!selectedChapter}>
+                            <FileText className="mr-2 h-4 w-4" /> Paragraph
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={() => addNew('bullet_list')} disabled={!selectedChapter}>
+                            <List className="mr-2 h-4 w-4" /> List
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={() => addNew('code')} disabled={!selectedChapter}>
+                            <Code className="mr-2 h-4 w-4" /> Code
+                        </Button>
+                    </div>
                 </div>
             </div>
 
@@ -243,6 +260,9 @@ const Notes = () => {
                         </CardContent>
                     </Card>
                 ))}
+                {notes.length === 0 && !loading && selectedChapter && (
+                    <p className="text-center py-10 text-muted-foreground">No notes found for this chapter.</p>
+                )}
             </div>
         </div>
     );

@@ -37,9 +37,10 @@ export default function OnboardingNameScreen() {
         {/* Header */}
         <View className="px-6 pt-4">
           <View className="flex-row items-center justify-between">
-            <Text className="text-sm font-semibold text-primary">Step 1 of 2</Text>
+            <Text className="text-sm font-semibold text-primary">Step 1 of 3</Text>
             <View className="flex-row gap-1">
               <View className="h-2 w-8 rounded-full bg-primary" />
+              <View className="h-2 w-8 rounded-full bg-surface-container-high" />
               <View className="h-2 w-8 rounded-full bg-surface-container-high" />
             </View>
           </View>

@@ -1,15 +1,14 @@
-/* eslint-disable react/no-inline-styles, react/forbid-component-props, @typescript-eslint/no-inline-styles */
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 
 const STATS = [
-  { value: 18, suffix: "", label: "Python Chapters", icon: "📚", color: "#005ab5", desc: "Covering full CBSE Class 12 syllabus" },
-  { value: 100, suffix: "+", label: "Quiz Sets", icon: "🧠", color: "#059669", desc: "10 adaptive sets per chapter" },
-  { value: 20, suffix: "", label: "Sample Papers", icon: "📄", color: "#d97706", desc: "Full-length board-pattern papers" },
-  { value: 10, suffix: "K+", label: "Students", icon: "🎓", color: "#7c3aed", desc: "Across India preparing with PyLearn" },
-  { value: 4.9, suffix: "★", label: "App Rating", icon: "⭐", color: "#f59e0b", desc: "2,400+ verified reviews" },
-  { value: 5, suffix: " Units", label: "Curriculum Units", icon: "🗂️", color: "#dc2626", desc: "Mapped to CBSE CS syllabus" },
+  { value: 50, suffix: "+", label: "Chapters Added", icon: "📚", color: "text-primary", hex: "#005ab5", desc: "Across all categories and units" },
+  { value: 500, suffix: "+", label: "Quiz Questions", icon: "🧠", color: "text-accent", hex: "#059669", desc: "Adaptive difficulty for every chapter" },
+  { value: 30, suffix: "+", label: "Sample Papers", icon: "📄", color: "text-accent-warm", hex: "#d97706", desc: "Targeted practice for all courses" },
+  { value: 10, suffix: "K+", label: "Students", icon: "🎓", color: "text-purple", hex: "#7c3aed", desc: "Learning Python & CS with PyLearn" },
+  { value: 4.9, suffix: "★", label: "App Rating", icon: "⭐", color: "text-yellow-500", hex: "#f59e0b", desc: "2,400+ verified reviews" },
+  { value: 5, suffix: "", label: "Courses Offered", icon: "🗂️", color: "text-red-500", hex: "#dc2626", desc: "Class 11, 12, BCA, B.Tech & AI" },
 ];
 
 function Counter({ target, suffix, duration = 2000 }: { target: number; suffix: string; duration?: number }) {
@@ -50,89 +49,56 @@ function Counter({ target, suffix, duration = 2000 }: { target: number; suffix: 
 export default function Stats() {
   return (
     <section
-      className="section"
+      className="py-24 md:py-28 bg-[#0f1729] relative overflow-hidden"
       id="stats"
-      style={{
-        background: "linear-gradient(135deg, #0f1729 0%, #1a2540 50%, #0f1729 100%)",
-        position: "relative",
-        overflow: "hidden",
-      }}
     >
       {/* Background decoration */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "radial-gradient(ellipse 600px 400px at 20% 50%, rgba(0,90,181,0.15) 0%, transparent 70%), radial-gradient(ellipse 500px 350px at 80% 50%, rgba(139,92,246,0.1) 0%, transparent 70%)",
-        pointerEvents: "none",
-      }} />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[400px] bg-primary/15 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[350px] bg-purple/10 blur-[100px] rounded-full" />
+      </div>
 
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "64px" }}>
-          <div className="section-label" style={{ justifyContent: "center", color: "rgba(255,255,255,0.6)" }}>
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-2 text-xs font-bold tracking-[0.12em] uppercase text-white/50 mb-4">
+            <div className="flex-1 h-px bg-white/10 min-w-[20px]" />
             By the Numbers
+            <div className="flex-1 h-px bg-white/10 min-w-[20px]" />
           </div>
-          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "#fff", marginBottom: "16px" }}>
+          <h2 className="text-[clamp(2rem,4vw,3rem)] font-black text-white leading-tight mb-4 tracking-tight">
             Built for Serious Learners
           </h2>
-          <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.6)", maxWidth: "480px", margin: "0 auto", lineHeight: 1.75 }}>
-            Numbers don&apos;t lie — PyLearn is packed with content and trusted by thousands of Class 12 students.
+          <p className="text-lg text-white/60 max-w-[480px] mx-auto leading-relaxed">
+            Numbers don&apos;t lie — PyLearn is packed with content and trusted by thousands of students across India.
           </p>
         </div>
 
         {/* Stats Grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "20px",
-        }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {STATS.map((stat, i) => (
             <div
               key={i}
-              style={{
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "var(--radius-lg)",
-                padding: "32px 24px",
-                textAlign: "center",
-                transition: "var(--transition)",
-                backdropFilter: "blur(10px)",
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLDivElement).style.background = "rgba(255,255,255,0.09)";
-                (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-                (e.currentTarget as HTMLDivElement).style.borderColor = `${stat.color}60`;
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLDivElement).style.background = "rgba(255,255,255,0.05)";
-                (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.1)";
-              }}
+              className="group bg-white/5 border border-white/10 rounded-3xl p-8 text-center transition-all hover:-translate-y-1 hover:bg-white/10 hover:border-white/20 backdrop-blur-md"
             >
               {/* Icon */}
-              <div style={{
-                width: 52, height: 52, borderRadius: "14px",
-                background: `${stat.color}20`,
-                border: `1px solid ${stat.color}40`,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: "1.4rem", margin: "0 auto 20px",
-              }}>
+              <div 
+                className={`w-14 h-14 rounded-2xl border flex items-center justify-center text-2xl mx-auto mb-5 transition-transform group-hover:scale-110 shadow-lg ${stat.color.replace('text-', 'bg-')}/15 ${stat.color.replace('text-', 'border-')}/30`}
+              >
                 {stat.icon}
               </div>
 
               {/* Counter */}
-              <div style={{
-                fontSize: "2.8rem", fontWeight: 900, lineHeight: 1,
-                letterSpacing: "-0.04em",
-                color: stat.color,
-                marginBottom: "8px",
-              }}>
+              <div 
+                className={`text-[3rem] font-black leading-none tracking-tighter mb-2 ${stat.color}`}
+              >
                 <Counter target={stat.value} suffix={stat.suffix} />
               </div>
 
-              <div style={{ fontSize: "1rem", fontWeight: 700, color: "#fff", marginBottom: "6px" }}>
+              <div className="text-lg font-black text-white mb-1.5 tracking-tight">
                 {stat.label}
               </div>
-              <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.45)", lineHeight: 1.5 }}>
+              <div className="text-[0.9rem] text-white/45 leading-relaxed">
                 {stat.desc}
               </div>
             </div>
@@ -140,11 +106,11 @@ export default function Stats() {
         </div>
 
         {/* Bottom CTA */}
-        <div style={{ textAlign: "center", marginTop: "64px" }}>
-          <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: "24px", fontSize: "0.95rem" }}>
+        <div className="text-center mt-16">
+          <p className="text-white/50 mb-6 text-[0.95rem] font-medium tracking-wide">
             Join 10,000+ students already learning with PyLearn
           </p>
-          <a href="#download" className="btn btn-primary btn-lg" style={{ display: "inline-flex" }}>
+          <a href="#download" className="btn-primary px-8 py-4 text-base rounded-full font-bold inline-flex items-center gap-2 transition-all hover:scale-105 shadow-xl shadow-primary/25">
             Start Learning Free
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/>

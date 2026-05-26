@@ -3,7 +3,6 @@ import { cn } from '../lib/utils';
 import { 
     BookOpen, 
     FileText, 
-    LayoutDashboard, 
     LogOut, 
     HelpCircle,
     ScrollText,
@@ -40,12 +39,12 @@ const DashboardLayout = () => {
                     <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                         <Link to="/" className="flex items-center gap-2 font-semibold">
                             <BookOpen className="h-6 w-6" />
-                            <span>PyLearn12 Admin</span>
+                            <span> Admin Dashbaord</span>
                         </Link>
                     </div>
                     <div className="flex-1 overflow-auto py-2">
                         <nav className="grid items-start px-2 text-sm font-medium lg:px-4 space-y-1">
-                            <SidebarLink to="/" icon={LayoutDashboard} label="Dashboard" active={location.pathname === '/'} />
+
                             <SidebarLink to="/chapters" icon={BookOpen} label="Chapters" active={location.pathname.startsWith('/chapters')} />
                             <SidebarLink to="/notes" icon={FileText} label="Notes & Content" active={location.pathname.startsWith('/notes')} />
                             <SidebarLink to="/quizzes" icon={HelpCircle} label="Quizzes" active={location.pathname.startsWith('/quizzes')} />
@@ -70,7 +69,7 @@ const DashboardLayout = () => {
                 <header className="flex h-14 items-center gap-4 border-b bg-muted/10 px-4 lg:h-[60px] lg:px-6">
                     <div className="w-full flex-1">
                         <h1 className="text-lg font-semibold">
-                            {location.pathname === '/' && 'Welcome Back'}
+
                             {location.pathname.startsWith('/chapters') && 'Manage Chapters'}
                             {location.pathname.startsWith('/notes') && 'Manage Notes'}
                             {location.pathname.startsWith('/quizzes') && 'Manage Quizzes'}

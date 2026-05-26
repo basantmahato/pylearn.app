@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
+const CATEGORIES = ['class11', 'class12', 'bca', 'btech', 'aiml'];
+
 const ChapterSchema = new mongoose.Schema({
-    chapterId: { type: String, required: true, unique: true },
+    chapterId: { type: String, required: true },
     title: { type: String, required: true },
     order: { type: Number, required: true },
-    class: { type: Number, enum: [11, 12], default: 12 },
+    category: { type: String, enum: CATEGORIES, default: 'class12' },
     summary: {
         short_summary: String,
         detailed_summary: String,
@@ -24,5 +26,7 @@ const ChapterSchema = new mongoose.Schema({
         }
     }]
 }, { timestamps: true });
+
+ChapterSchema.index({ chapterId: 1, category: 1 }, { unique: true });
 
 module.exports = mongoose.model('Chapter', ChapterSchema);

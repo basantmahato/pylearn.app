@@ -1,28 +1,31 @@
-/* eslint-disable react/no-inline-styles, react/forbid-component-props, @typescript-eslint/no-inline-styles */
 import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import NotesClient from "./NotesClient";
-import { fetchChapters, fetchNotes, type Chapter, type NoteBlock } from "../../lib/api";
+import { fetchChapters, fetchNotes, CATEGORIES, type Chapter, type NoteBlock } from "../../lib/api";
 
 export const metadata: Metadata = {
-  title: "Notes — PyLearn | CBSE Class 11 & 12 Python",
+  title: "Notes — PyLearn | Python Notes for Class 11, 12, BCA, B.Tech & AI/ML",
   description:
-    "Browse chapter-wise Python notes for CBSE Class 11 & 12 Computer Science — structured paragraphs, bullet summaries and code examples.",
+    "Browse chapter-wise Python notes for Class 11, Class 12, BCA, B.Tech and AI/ML — structured paragraphs, bullet summaries and code examples.",
 };
 
 export default async function NotesPage() {
-  let chapters11: Chapter[] = [];
-  let chapters12: Chapter[] = [];
+  // Fetch chapters for all categories in parallel
+  const chaptersByCategory: Record<string, Chapter[]> = {};
   let notes: NoteBlock[] = [];
   let error = "";
 
   try {
-    [chapters11, chapters12, notes] = await Promise.all([
-      fetchChapters(11),
-      fetchChapters(12),
-      fetchNotes()
+    const results = await Promise.all([
+      ...CATEGORIES.map((cat) => fetchChapters(cat.key)),
+      fetchNotes(),
     ]);
+
+    CATEGORIES.forEach((cat, i) => {
+      chaptersByCategory[cat.key] = results[i] as Chapter[];
+    });
+    notes = results[CATEGORIES.length] as NoteBlock[];
   } catch {
     error = "Could not connect to the backend. Please make sure the server is running.";
   }
@@ -30,8 +33,8 @@ export default async function NotesPage() {
   return (
     <>
       <Navbar />
-      <main style={{ paddingTop: "88px", minHeight: "100vh" }}>
-        <NotesClient chapters11={chapters11} chapters12={chapters12} notes={notes} error={error} />
+      <main className="pt-32 min-h-screen bg-bg">
+        <NotesClient chaptersByCategory={chaptersByCategory} notes={notes} error={error} />
       </main>
       <Footer />
     </>

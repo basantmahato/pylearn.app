@@ -11,6 +11,7 @@ export type QuizResult = {
   percentage: number;
   date: string; // ISO date
   passed: boolean;
+  category?: string;
 };
 
 type StreakData = {
@@ -40,36 +41,36 @@ type ProgressStore = {
   bookmarkedChapters: string[];
 
   // Actions
-  updateChapterProgress: (chapterId: string, progress: number) => void;
-  markChapterComplete: (chapterId: string) => void;
-  isChapterCompleted: (chapterId: string) => boolean;
-  getChapterProgress: (chapterId: string) => number;
+  updateChapterProgress: (chapterId: string, progress: number, category?: string) => void;
+  markChapterComplete: (chapterId: string, category?: string) => void;
+  isChapterCompleted: (chapterId: string, category?: string) => boolean;
+  getChapterProgress: (chapterId: string, category?: string) => number;
 
-  saveQuizResult: (result: QuizResult) => void;
-  getQuizHistory: () => QuizResult[];
-  getBestQuizScore: (chapterId: string, setId: string) => number | null;
-  hasPassedQuiz: (chapterId: string, setId: string) => boolean;
+  saveQuizResult: (result: QuizResult, category?: string) => void;
+  getQuizHistory: (category?: string) => QuizResult[];
+  getBestQuizScore: (chapterId: string, setId: string, category?: string) => number | null;
+  hasPassedQuiz: (chapterId: string, setId: string, category?: string) => boolean;
 
-  updateSamplePaperProgress: (paperId: string, progress: number) => void;
-  markSamplePaperComplete: (paperId: string) => void;
-  getSamplePaperProgress: (paperId: string) => number;
-  getCompletedSamplePapersCount: () => number;
-  getSamplePapersProgress: () => number;
+  updateSamplePaperProgress: (paperId: string, progress: number, category?: string) => void;
+  markSamplePaperComplete: (paperId: string, category?: string) => void;
+  getSamplePaperProgress: (paperId: string, category?: string) => number;
+  getCompletedSamplePapersCount: (category?: string) => number;
+  getSamplePapersProgress: (category?: string) => number;
 
   checkIn: () => void;
   getStreak: () => number;
   getLongestStreak: () => number;
   isStreakAtRisk: () => boolean;
 
-  toggleBookmark: (chapterId: string) => void;
-  isBookmarked: (chapterId: string) => boolean;
-  getBookmarkedChapters: () => string[];
+  toggleBookmark: (chapterId: string, category?: string) => void;
+  isBookmarked: (chapterId: string, category?: string) => boolean;
+  getBookmarkedChapters: (category?: string) => string[];
 
-  getOverallProgress: () => number;
-  getTotalChaptersCompleted: () => number;
-  getTotalQuizzesTaken: () => number;
-  getAverageQuizScore: () => number;
-  getOverallAppProgress: () => number;
+  getOverallProgress: (category?: string, totalCount?: number) => number;
+  getTotalChaptersCompleted: (category?: string) => number;
+  getTotalQuizzesTaken: (category?: string) => number;
+  getAverageQuizScore: (category?: string) => number;
+  getOverallAppProgress: (category?: string, totalCh?: number, totalPapers?: number) => number;
 
   resetAllProgress: () => void;
 };
@@ -123,317 +124,304 @@ const isSameDay = (date1: string, date2: string): boolean => {
 
 export const useProgressStore = create<ProgressStore>()(
   persist(
-    (set, get) => ({
-      // Initial state
-      chapterProgress: {},
-      completedChapters: [] as string[],
-      quizHistory: [] as QuizResult[],
-      samplePaperProgress: {},
-      completedSamplePapers: [] as string[],
-      streak: {
-        current: 0,
-        longest: 0,
-        lastActiveDate: null,
-      },
-      dailyActivity: {},
-      bookmarkedChapters: [] as string[],
+    (set, get) => {
+      const getPrefixedKey = (id: string, category?: string) => {
+        const cat = category || "class12";
+        return id.startsWith(`${cat}_`) ? id : `${cat}_${id}`;
+      };
 
-      // Chapter progress actions
-      updateChapterProgress: (chapterId: string, progress: number) => {
-        const clampedProgress = Math.min(100, Math.max(0, progress));
-        set((state) => ({
-          chapterProgress: {
-            ...state.chapterProgress,
-            [chapterId]: clampedProgress,
-          },
-        }));
+      return {
+        // Initial state
+        chapterProgress: {},
+        completedChapters: [] as string[],
+        quizHistory: [] as (QuizResult & { category?: string })[],
+        samplePaperProgress: {},
+        completedSamplePapers: [] as string[],
+        streak: {
+          current: 0,
+          longest: 0,
+          lastActiveDate: null,
+        },
+        dailyActivity: {},
+        bookmarkedChapters: [] as string[],
 
-        // Auto-mark as completed if 100%
-        if (clampedProgress >= 100) {
-          get().markChapterComplete(chapterId);
-        }
-      },
-
-      markChapterComplete: (chapterId: string) => {
-        set((state) => {
-          if (state.completedChapters.includes(chapterId)) {
-            return state;
-          }
-          return {
-            completedChapters: [...state.completedChapters, chapterId],
+        // Chapter progress actions
+        updateChapterProgress: (chapterId: string, progress: number, category?: string) => {
+          const key = getPrefixedKey(chapterId, category);
+          const clampedProgress = Math.min(100, Math.max(0, progress));
+          set((state) => ({
             chapterProgress: {
               ...state.chapterProgress,
-              [chapterId]: 100,
+              [key]: clampedProgress,
             },
-          };
-        });
-      },
+          }));
 
-      isChapterCompleted: (chapterId: string) => {
-        return get().completedChapters.includes(chapterId);
-      },
-
-      getChapterProgress: (chapterId: string) => {
-        return get().chapterProgress[chapterId] || 0;
-      },
-
-      // Quiz actions
-      saveQuizResult: (result: QuizResult) => {
-        set((state) => ({
-          quizHistory: [...state.quizHistory, result],
-        }));
-        // Check in for streak when completing a quiz
-        get().checkIn();
-      },
-
-      getQuizHistory: () => {
-        return get().quizHistory;
-      },
-
-      getBestQuizScore: (chapterId: string, setId: string) => {
-        const results = get().quizHistory.filter(
-          (r) => r.chapterId === chapterId && r.setId === setId
-        );
-        if (results.length === 0) return null;
-        return Math.max(...results.map((r) => r.percentage));
-      },
-
-      hasPassedQuiz: (chapterId: string, setId: string) => {
-        return get().quizHistory.some(
-          (r) =>
-            r.chapterId === chapterId && r.setId === setId && r.passed
-        );
-      },
-
-      // Sample paper actions
-      updateSamplePaperProgress: (paperId: string, progress: number) => {
-        const clampedProgress = Math.min(100, Math.max(0, progress));
-        set((state) => ({
-          samplePaperProgress: {
-            ...state.samplePaperProgress,
-            [paperId]: clampedProgress,
-          },
-        }));
-        if (clampedProgress >= 100) {
-          get().markSamplePaperComplete(paperId);
-        }
-      },
-
-      markSamplePaperComplete: (paperId: string) => {
-        set((state) => {
-          if (state.completedSamplePapers.includes(paperId)) {
-            return state;
+          if (clampedProgress >= 100) {
+            get().markChapterComplete(chapterId, category);
           }
-          return {
-            completedSamplePapers: [...state.completedSamplePapers, paperId],
+        },
+
+        markChapterComplete: (chapterId: string, category?: string) => {
+          const key = getPrefixedKey(chapterId, category);
+          set((state) => {
+            if (state.completedChapters.includes(key)) {
+              return state;
+            }
+            return {
+              completedChapters: [...state.completedChapters, key],
+              chapterProgress: {
+                ...state.chapterProgress,
+                [key]: 100,
+              },
+            };
+          });
+        },
+
+        isChapterCompleted: (chapterId: string, category?: string) => {
+          const key = getPrefixedKey(chapterId, category);
+          return get().completedChapters.includes(key);
+        },
+
+        getChapterProgress: (chapterId: string, category?: string) => {
+          const key = getPrefixedKey(chapterId, category);
+          return get().chapterProgress[key] || 0;
+        },
+
+        // Quiz actions
+        saveQuizResult: (result: QuizResult, category?: string) => {
+          const cat = category || "class12";
+          set((state) => ({
+            quizHistory: [...state.quizHistory, { ...result, category: cat }],
+          }));
+          get().checkIn();
+        },
+
+        getQuizHistory: (category?: string) => {
+          const cat = category || "class12";
+          return get().quizHistory.filter((r) => r.category === cat);
+        },
+
+        getBestQuizScore: (chapterId: string, setId: string, category?: string) => {
+          const cat = category || "class12";
+          const results = get().quizHistory.filter(
+            (r) => r.chapterId === chapterId && r.setId === setId && (r.category === cat)
+          );
+          if (results.length === 0) return null;
+          return Math.max(...results.map((r) => r.percentage));
+        },
+
+        hasPassedQuiz: (chapterId: string, setId: string, category?: string) => {
+          const cat = category || "class12";
+          return get().quizHistory.some(
+            (r) =>
+              r.chapterId === chapterId && r.setId === setId && r.passed && (r.category === cat)
+          );
+        },
+
+        // Sample paper actions
+        updateSamplePaperProgress: (paperId: string, progress: number, category?: string) => {
+          const key = getPrefixedKey(paperId, category);
+          const clampedProgress = Math.min(100, Math.max(0, progress));
+          set((state) => ({
             samplePaperProgress: {
               ...state.samplePaperProgress,
-              [paperId]: 100,
+              [key]: clampedProgress,
             },
-          };
-        });
-      },
-
-      getSamplePaperProgress: (paperId: string) => {
-        return get().samplePaperProgress[paperId] || 0;
-      },
-
-      getCompletedSamplePapersCount: () => {
-        return get().completedSamplePapers.length;
-      },
-
-      getSamplePapersProgress: () => {
-        // Use 20 as the expected total (matches seeded data)
-        const totalPapers: number = 20;
-        const completed = get().completedSamplePapers.length;
-        if (totalPapers === 0) return 0;
-        return Math.round((completed / totalPapers) * 100);
-      },
-
-      // Streak actions
-      checkIn: () => {
-        const today = getToday();
-        const { streak, dailyActivity } = get();
-
-        // Already checked in today
-        if (dailyActivity[today]) {
-          return;
-        }
-
-        const yesterday = getYesterday();
-        let newStreak = 1;
-
-        if (streak.lastActiveDate && isSameDay(streak.lastActiveDate, yesterday)) {
-          // Consecutive day
-          newStreak = streak.current + 1;
-        }
-
-        const newLongest = Math.max(streak.longest, newStreak);
-
-        set((state) => ({
-          streak: {
-            current: newStreak,
-            longest: newLongest,
-            lastActiveDate: today,
-          },
-          dailyActivity: {
-            ...state.dailyActivity,
-            [today]: true,
-          },
-        }));
-      },
-
-      getStreak: () => get().streak.current,
-
-      getLongestStreak: () => get().streak.longest,
-
-      isStreakAtRisk: () => {
-        const { streak } = get();
-        if (streak.current === 0) return false;
-
-        const today = getToday();
-        const yesterday = getYesterday();
-
-        // If active today, not at risk
-        if (streak.lastActiveDate === today) return false;
-
-        // If active yesterday, not at risk
-        if (streak.lastActiveDate === yesterday) return false;
-
-        // Streak broken
-        return true;
-      },
-
-      // Bookmark actions
-      toggleBookmark: (chapterId: string) => {
-        set((state) => {
-          const isBookmarked = state.bookmarkedChapters.includes(chapterId);
-          if (isBookmarked) {
-            return {
-              bookmarkedChapters: state.bookmarkedChapters.filter(
-                (id) => id !== chapterId
-              ),
-            };
+          }));
+          if (clampedProgress >= 100) {
+            get().markSamplePaperComplete(paperId, category);
           }
-          return {
-            bookmarkedChapters: [...state.bookmarkedChapters, chapterId],
-          };
-        });
-      },
+        },
 
-      isBookmarked: (chapterId: string) => {
-        return get().bookmarkedChapters.includes(chapterId);
-      },
+        markSamplePaperComplete: (paperId: string, category?: string) => {
+          const key = getPrefixedKey(paperId, category);
+          set((state) => {
+            if (state.completedSamplePapers.includes(key)) {
+              return state;
+            }
+            return {
+              completedSamplePapers: [...state.completedSamplePapers, key],
+              samplePaperProgress: {
+                ...state.samplePaperProgress,
+                [key]: 100,
+              },
+            };
+          });
+        },
 
-      getBookmarkedChapters: () => get().bookmarkedChapters,
+        getSamplePaperProgress: (paperId: string, category?: string) => {
+          const key = getPrefixedKey(paperId, category);
+          return get().samplePaperProgress[key] || 0;
+        },
 
-      // Stats
-      getOverallProgress: () => {
-        // Default to 11 chapters; real count comes from API in ProgressHero
-        const totalChapters: number = 11;
-        const completed = get().completedChapters.length;
-        if (totalChapters === 0) return 0;
-        return Math.round((completed / totalChapters) * 100);
-      },
+        getCompletedSamplePapersCount: (category?: string) => {
+          const cat = category || "class12";
+          return get().completedSamplePapers.filter((id) => id.startsWith(`${cat}_`)).length;
+        },
 
-      getTotalChaptersCompleted: () => {
-        return get().completedChapters.length;
-      },
+        getSamplePapersProgress: (category?: string) => {
+          const cat = category || "class12";
+          // Use 20 as the expected total if dynamic not provided
+          const totalPapers = 20; 
+          const completed = get().getCompletedSamplePapersCount(cat);
+          return Math.round((completed / totalPapers) * 100);
+        },
 
-      getTotalQuizzesTaken: () => {
-        return get().quizHistory.length;
-      },
+        // Streak (global)
+        checkIn: () => {
+          const today = getToday();
+          const { streak, dailyActivity } = get();
+          if (dailyActivity[today]) return;
+          const yesterday = getYesterday();
+          let newStreak = 1;
+          if (streak.lastActiveDate && isSameDay(streak.lastActiveDate, yesterday)) {
+            newStreak = streak.current + 1;
+          }
+          const newLongest = Math.max(streak.longest, newStreak);
+          set((state) => ({
+            streak: { current: newStreak, longest: newLongest, lastActiveDate: today },
+            dailyActivity: { ...state.dailyActivity, [today]: true },
+          }));
+        },
 
-      getAverageQuizScore: () => {
-        const history = get().quizHistory;
-        if (history.length === 0) return 0;
-        const sum = history.reduce((acc, r) => acc + r.percentage, 0);
-        return Math.round(sum / history.length);
-      },
+        getStreak: () => get().streak.current,
+        getLongestStreak: () => get().streak.longest,
+        isStreakAtRisk: () => {
+          const { streak } = get();
+          if (streak.current === 0) return false;
+          const today = getToday();
+          const yesterday = getYesterday();
+          if (streak.lastActiveDate === today) return false;
+          if (streak.lastActiveDate === yesterday) return false;
+          return true;
+        },
 
-      getOverallAppProgress: () => {
-        const notesWeight = 0.4;
-        const quizWeight = 0.3;
-        const papersWeight = 0.3;
+        // Bookmarks
+        toggleBookmark: (chapterId: string, category?: string) => {
+          const key = getPrefixedKey(chapterId, category);
+          set((state) => {
+            const isBookmarked = state.bookmarkedChapters.includes(key);
+            if (isBookmarked) {
+              return {
+                bookmarkedChapters: state.bookmarkedChapters.filter((id) => id !== key),
+              };
+            }
+            return { bookmarkedChapters: [...state.bookmarkedChapters, key] };
+          });
+        },
 
-        const notesProgress = get().getOverallProgress();
-        const quizProgress = get().quizHistory.length > 0
-          ? get().getAverageQuizScore()
-          : 0;
-        const papersProgress = get().getSamplePapersProgress();
+        isBookmarked: (chapterId: string, category?: string) => {
+          const key = getPrefixedKey(chapterId, category);
+          return get().bookmarkedChapters.includes(key);
+        },
 
-        return Math.round(
-          notesProgress * notesWeight +
-          quizProgress * quizWeight +
-          papersProgress * papersWeight
-        );
-      },
+        getBookmarkedChapters: (category?: string) => {
+          const cat = category || "class12";
+          return get().bookmarkedChapters
+            .filter((id) => id.startsWith(`${cat}_`))
+            .map((id) => id.replace(`${cat}_`, ""));
+        },
 
-      // Reset
-      resetAllProgress: () => {
-        set({
-          chapterProgress: {},
-          completedChapters: [],
-          quizHistory: [],
-          samplePaperProgress: {},
-          completedSamplePapers: [],
-          streak: {
-            current: 0,
-            longest: 0,
-            lastActiveDate: null,
-          },
-          dailyActivity: {},
-          bookmarkedChapters: [],
-        });
-      },
-    }),
+        // Stats
+        getOverallProgress: (category?: string, totalCount?: number) => {
+          const cat = category || "class12";
+          const totalChapters = totalCount || 11;
+          const completed = get().getTotalChaptersCompleted(cat);
+          if (totalChapters === 0) return 0;
+          return Math.round((completed / totalChapters) * 100);
+        },
+
+        getTotalChaptersCompleted: (category?: string) => {
+          const cat = category || "class12";
+          return get().completedChapters.filter((id) => id.startsWith(`${cat}_`)).length;
+        },
+
+        getTotalQuizzesTaken: (category?: string) => {
+          return get().getQuizHistory(category).length;
+        },
+
+        getAverageQuizScore: (category?: string) => {
+          const history = get().getQuizHistory(category);
+          if (history.length === 0) return 0;
+          const sum = history.reduce((acc, r) => acc + r.percentage, 0);
+          return Math.round(sum / history.length);
+        },
+
+        getOverallAppProgress: (category?: string, totalCh?: number, totalPapers?: number) => {
+          const notesWeight = 0.4;
+          const quizWeight = 0.3;
+          const papersWeight = 0.3;
+
+          const notesProgress = get().getOverallProgress(category, totalCh);
+          const quizProgress = get().getAverageQuizScore(category);
+          const papersProgress = get().getSamplePapersProgress(category);
+
+          return Math.round(
+            notesProgress * notesWeight +
+            quizProgress * quizWeight +
+            papersProgress * papersWeight
+          );
+        },
+
+        // Reset
+        resetAllProgress: () => {
+          set({
+            chapterProgress: {},
+            completedChapters: [],
+            quizHistory: [],
+            samplePaperProgress: {},
+            completedSamplePapers: [],
+            streak: { current: 0, longest: 0, lastActiveDate: null },
+            dailyActivity: {},
+            bookmarkedChapters: [],
+          });
+        },
+      };
+    },
     {
       name: "pylearn-progress-storage",
       storage: createJSONStorage(() => secureStorage),
-      onRehydrateStorage: () => (state) => {
-        // Rehydration complete - no-op for production
-      },
     }
   )
 );
 
-// Export helper functions for non-hook usage
-export function updateChapterProgress(chapterId: string, progress: number): void {
-  useProgressStore.getState().updateChapterProgress(chapterId, progress);
+// Export helper functions (updated to use category from store if possible, but they are external so they'll need it passed if used outside components)
+export function updateChapterProgress(chapterId: string, progress: number, category?: string): void {
+  useProgressStore.getState().updateChapterProgress(chapterId, progress, category);
 }
 
-export function markChapterComplete(chapterId: string): void {
-  useProgressStore.getState().markChapterComplete(chapterId);
+export function markChapterComplete(chapterId: string, category?: string): void {
+  useProgressStore.getState().markChapterComplete(chapterId, category);
 }
 
-export function saveQuizResult(result: QuizResult): void {
-  useProgressStore.getState().saveQuizResult(result);
+export function saveQuizResult(result: QuizResult, category?: string): void {
+  useProgressStore.getState().saveQuizResult(result, category);
 }
 
-export function updateSamplePaperProgress(paperId: string, progress: number): void {
-  useProgressStore.getState().updateSamplePaperProgress(paperId, progress);
+export function updateSamplePaperProgress(paperId: string, progress: number, category?: string): void {
+  useProgressStore.getState().updateSamplePaperProgress(paperId, progress, category);
 }
 
-export function markSamplePaperComplete(paperId: string): void {
-  useProgressStore.getState().markSamplePaperComplete(paperId);
+export function markSamplePaperComplete(paperId: string, category?: string): void {
+  useProgressStore.getState().markSamplePaperComplete(paperId, category);
 }
 
 export function checkIn(): void {
   useProgressStore.getState().checkIn();
 }
 
-export function toggleBookmark(chapterId: string): void {
-  useProgressStore.getState().toggleBookmark(chapterId);
+export function toggleBookmark(chapterId: string, category?: string): void {
+  useProgressStore.getState().toggleBookmark(chapterId, category);
 }
 
-export function getOverallProgress(): number {
-  return useProgressStore.getState().getOverallProgress();
+export function getOverallProgress(category?: string, totalCount?: number): number {
+  return useProgressStore.getState().getOverallProgress(category, totalCount);
 }
 
-export function getSamplePapersProgress(): number {
-  return useProgressStore.getState().getSamplePapersProgress();
+export function getSamplePapersProgress(category?: string): number {
+  return useProgressStore.getState().getSamplePapersProgress(category);
 }
 
-export function getOverallAppProgress(): number {
-  return useProgressStore.getState().getOverallAppProgress();
+export function getOverallAppProgress(category?: string, totalCh?: number, totalPapers?: number): number {
+  return useProgressStore.getState().getOverallAppProgress(category, totalCh, totalPapers);
 }

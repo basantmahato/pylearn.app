@@ -1,4 +1,3 @@
-/* eslint-disable react/no-inline-styles, react/forbid-component-props, @typescript-eslint/no-inline-styles */
 import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -24,7 +23,7 @@ export default async function SamplesPage() {
   return (
     <>
       <Navbar />
-      <main style={{ paddingTop: "88px", minHeight: "100vh" }}>
+      <main className="pt-32 min-h-screen bg-bg">
         <SamplesClient papers={papers} error={error} />
       </main>
       <Footer />

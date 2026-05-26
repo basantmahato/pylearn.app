@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "@/components/ui/Header";
 import { useApi } from "@/hooks/useApi";
 import { api, type ApiChapter, type ApiQuizSet } from "@/lib/api";
+import { useCourseStore } from "@/lib/course-store";
 
 const DIFFICULTY_COLORS: Record<string, string> = {
   easy: "#005ab5",
@@ -23,24 +24,20 @@ const UNIT_MAP: Record<string, string> = {
   "11": "Unit 4",
 };
 
-interface ChapterWithSets {
-  chapter: ApiChapter;
-  sets: ApiQuizSet[];
-}
-
 export default function QuizScreen() {
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null);
+  const { activeCategory } = useCourseStore();
 
   const { data: chapters, loading: loadingCh, error: errorCh, refetch: refetchCh } =
-    useApi(api.getChapters);
+    useApi(() => api.getChapters(activeCategory), [activeCategory]);
 
   /** Fetch all quiz sets for the selected chapter on demand */
   const { data: sets, loading: loadingSets } = useApi(
     () =>
       selectedChapter
-        ? api.getQuizzesByChapter(selectedChapter)
+        ? api.getQuizzesByChapter(selectedChapter, activeCategory)
         : Promise.resolve([] as ApiQuizSet[]),
-    [selectedChapter]
+    [selectedChapter, activeCategory]
   );
 
   const handleSetPress = (chapterId: string, setId: string) => {
@@ -53,14 +50,19 @@ export default function QuizScreen() {
     const sorted = [...chapters].sort((a, b) => a.order - b.order);
     const unitGroups: Record<string, { label: string; chapters: ApiChapter[] }> = {};
 
-    sorted.forEach((ch) => {
-      const label = UNIT_MAP[ch.chapterId] ?? "Other";
-      if (!unitGroups[label]) unitGroups[label] = { label, chapters: [] };
-      unitGroups[label].chapters.push(ch);
-    });
+    if (activeCategory === "class12") {
+      sorted.forEach((ch) => {
+        const label = UNIT_MAP[ch.chapterId] ?? "Other";
+        if (!unitGroups[label]) unitGroups[label] = { label, chapters: [] };
+        unitGroups[label].chapters.push(ch);
+      });
+    } else {
+      // For other categories, group all under "Modules"
+      unitGroups["main"] = { label: "Course Modules", chapters: sorted };
+    }
 
     return Object.entries(unitGroups).map(([key, val]) => ({ id: key, ...val }));
-  }, [chapters]);
+  }, [chapters, activeCategory]);
 
   const isError = !loadingCh && errorCh;
 

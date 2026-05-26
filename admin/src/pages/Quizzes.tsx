@@ -19,34 +19,47 @@ interface QuizSet {
     setId: string;
     setName: string;
     difficulty: string;
-    class?: 11 | 12;
+    category: string;
     questions: Question[];
 }
+
+const CATEGORIES = [
+    { key: 'class12', label: 'Class 12' },
+    { key: 'class11', label: 'Class 11' },
+    { key: 'bca',     label: 'BCA' },
+    { key: 'btech',   label: 'B.Tech' },
+    { key: 'aiml',    label: 'AI / ML & Data Sci' },
+] as const;
 
 const Quizzes = () => {
     const [quizzes, setQuizzes] = useState<QuizSet[]>([]);
     const [chapters, setChapters] = useState<{chapterId: string, title: string}[]>([]);
     const [selectedChapter, setSelectedChapter] = useState('');
-    const [selectedClass, setSelectedClass] = useState<11 | 12>(12);
+    const [selectedCategory, setSelectedCategory] = useState<string>('class12');
     const [loading, setLoading] = useState(true);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editForm, setEditForm] = useState<Partial<QuizSet>>({});
 
     useEffect(() => {
         fetchChapters();
-    }, [selectedClass]);
+    }, [selectedCategory]);
 
     useEffect(() => {
         if (selectedChapter) {
             fetchQuizzes();
         }
-    }, [selectedChapter]);
+    }, [selectedChapter, selectedCategory]);
 
     const fetchChapters = async () => {
         try {
-            const res = await api.get(`/chapters?class=${selectedClass}`);
+            const res = await api.get(`/chapters?category=${selectedCategory}`);
             setChapters(res.data);
-            if (res.data.length > 0) setSelectedChapter(res.data[0].chapterId);
+            if (res.data.length > 0) {
+                setSelectedChapter(res.data[0].chapterId);
+            } else {
+                setSelectedChapter('');
+                setQuizzes([]);
+            }
         } catch (err) {
             console.error(err);
         } finally {
@@ -56,7 +69,7 @@ const Quizzes = () => {
 
     const fetchQuizzes = async () => {
         try {
-            const res = await api.get(`/quizzes/${selectedChapter}?class=${selectedClass}`);
+            const res = await api.get(`/quizzes/${selectedChapter}?category=${selectedCategory}`);
             setQuizzes(res.data);
         } catch (err) {
             console.error(err);
@@ -65,15 +78,16 @@ const Quizzes = () => {
 
     const handleEdit = (quiz: QuizSet) => {
         setEditingId(quiz._id);
-        setEditForm({ ...quiz, class: quiz.class || 12 });
+        setEditForm({ ...quiz, category: quiz.category || selectedCategory });
     };
 
     const handleSave = async () => {
         try {
+            const payload = { ...editForm, chapterId: selectedChapter, category: selectedCategory };
             if (editingId && editingId !== 'new') {
-                await api.put(`/quizzes/${editingId}`, editForm);
+                await api.put(`/quizzes/${editingId}`, payload);
             } else {
-                await api.post('/quizzes', { ...editForm, chapterId: selectedChapter, class: selectedClass });
+                await api.post('/quizzes', payload);
             }
             setEditingId(null);
             fetchQuizzes();
@@ -99,7 +113,7 @@ const Quizzes = () => {
             setId: 's' + (quizzes.length + 1),
             setName: '',
             difficulty: 'Easy',
-            class: selectedClass,
+            category: selectedCategory,
             questions: [{ id: 'q1', question: '', options: ['', '', '', ''], answer: 0 }]
         });
     };
@@ -115,6 +129,12 @@ const Quizzes = () => {
         setEditForm({...editForm, questions: newQuestions});
     };
 
+    const handleCategoryChange = (cat: string) => {
+        setSelectedCategory(cat);
+        setSelectedChapter('');
+        setQuizzes([]);
+    };
+
     if (loading) return <div>Loading Chapters...</div>;
 
     return (
@@ -123,12 +143,14 @@ const Quizzes = () => {
                 <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold tracking-tight">Quiz Management</h2>
                     <select
-                        value={selectedClass}
-                        onChange={e => setSelectedClass(parseInt(e.target.value) as 11 | 12)}
+                        title="Select Category"
+                        value={selectedCategory}
+                        onChange={e => handleCategoryChange(e.target.value)}
                         className="px-3 py-2 rounded-md border border-input bg-background"
                     >
-                        <option value={12}>Class 12</option>
-                        <option value={11}>Class 11</option>
+                        {CATEGORIES.map(cat => (
+                            <option key={cat.key} value={cat.key}>{cat.label}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -138,9 +160,10 @@ const Quizzes = () => {
                         onChange={(e) => setSelectedChapter(e.target.value)}
                         aria-label="Select Chapter"
                     >
+                        {chapters.length === 0 && <option value="">No chapters found</option>}
                         {chapters.map(c => <option key={c.chapterId} value={c.chapterId}>{c.title}</option>)}
                     </select>
-                    <Button onClick={addNewSet}>
+                    <Button onClick={addNewSet} disabled={!selectedChapter}>
                         <Plus className="mr-2 h-4 w-4" /> Add Quiz Set
                     </Button>
                 </div>
@@ -149,7 +172,7 @@ const Quizzes = () => {
             {editingId && (
                 <Card className="border-primary/20 bg-primary/5 max-h-[80vh] overflow-auto">
                     <CardContent className="pt-6 space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-xs font-semibold uppercase text-muted-foreground">Set Name</label>
                                 <Input value={editForm.setName} onChange={e => setEditForm({...editForm, setName: e.target.value})} />
@@ -165,17 +188,6 @@ const Quizzes = () => {
                                     <option>Easy</option>
                                     <option>Medium</option>
                                     <option>Hard</option>
-                                </select>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-xs font-semibold uppercase text-muted-foreground">Class</label>
-                                <select
-                                    value={editForm.class || selectedClass}
-                                    onChange={e => setEditForm({...editForm, class: parseInt(e.target.value) as 11 | 12})}
-                                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                                >
-                                    <option value={12}>Class 12</option>
-                                    <option value={11}>Class 11</option>
                                 </select>
                             </div>
                         </div>
@@ -227,6 +239,14 @@ const Quizzes = () => {
                                             </div>
                                         ))}
                                     </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-semibold uppercase text-muted-foreground">Explanation (Optional)</label>
+                                        <Input value={q.explanation} onChange={e => {
+                                            const newQs = [...(editForm.questions || [])];
+                                            newQs[qIdx].explanation = e.target.value;
+                                            setEditForm({...editForm, questions: newQs});
+                                        }} />
+                                    </div>
                                 </div>
                             ))}
                             <Button variant="outline" className="w-full" onClick={addQuestion}>Add Question</Button>
@@ -251,8 +271,8 @@ const Quizzes = () => {
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <h3 className="font-semibold">{quiz.setName}</h3>
-                                        <span className={`text-xs px-2 py-0.5 rounded ${quiz.class === 11 ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}`}>
-                                            Class {quiz.class || 12}
+                                        <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-muted border">
+                                            {quiz.category}
                                         </span>
                                     </div>
                                     <p className="text-xs text-muted-foreground">{quiz.difficulty} • {quiz.questions.length} Questions</p>
@@ -265,6 +285,9 @@ const Quizzes = () => {
                         </CardContent>
                     </Card>
                 ))}
+                {quizzes.length === 0 && !loading && selectedChapter && (
+                    <p className="col-span-2 text-center py-10 text-muted-foreground">No quiz sets found for this chapter.</p>
+                )}
             </div>
         </div>
     );

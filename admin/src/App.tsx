@@ -28,7 +28,7 @@ const App = () => {
                         </ProtectedRoute>
                     }
                 >
-                    <Route index element={<div className="p-8 text-center text-muted-foreground">Select a category from the sidebar to manage your content.</div>} />
+                    <Route index element={<Navigate to="/chapters" replace />} />
                     <Route path="chapters" element={<Chapters />} />
                     <Route path="notes" element={<Notes />} />
                     <Route path="quizzes" element={<Quizzes />} />

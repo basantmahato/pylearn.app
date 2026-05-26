@@ -1,4 +1,3 @@
-/* eslint-disable react/no-inline-styles, react/forbid-component-props, @typescript-eslint/no-inline-styles */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -16,22 +15,23 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`} id="navbar">
-      <div className="container">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+        scrolled 
+          ? "bg-white/92 backdrop-blur-xl shadow-[0_1px_0_rgba(0,0,0,0.06)] py-3" 
+          : "bg-transparent py-4"
+      }`} 
+      id="navbar"
+    >
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
-            <div style={{
-              width: 40, height: 40, borderRadius: 12,
-              background: "linear-gradient(135deg, #005ab5, #4d96e0)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: "1.2rem", fontWeight: 900, color: "#fff",
-              boxShadow: "0 4px 12px rgba(0,90,181,0.35)",
-            }}>
+          <a href="#" className="flex items-center gap-2.5 no-underline">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center text-lg font-black text-white shadow-[0_4px_12px_rgba(0,90,181,0.35)]">
               Py
             </div>
-            <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "var(--text)", letterSpacing: "-0.03em" }}>
-              Learn<span style={{ color: "var(--primary)" }}>.app</span>
+            <span className="font-black text-xl text-text tracking-tight">
+              Learn<span className="text-primary">.app</span>
             </span>
           </a>
 
@@ -39,11 +39,10 @@ export default function Navbar() {
           <DesktopNav />
 
           {/* CTA + Hamburger */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div className="flex items-center gap-3">
             <a
               href="#download"
-              className="btn btn-primary hide-mobile"
-              style={{ padding: "10px 24px", fontSize: "0.875rem" }}
+              className="btn-primary px-6 py-2.5 text-sm rounded-full font-bold hidden md:flex items-center gap-2"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 16.5l-8-8h5V3h6v5.5h5l-8 8zm-8 3.5h16v2H4v-2z"/>
@@ -56,13 +55,9 @@ export default function Navbar() {
               id="hamburger"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
-              className="show-mobile"
-              style={{
-                background: "rgba(0,90,181,0.06)", border: "none", cursor: "pointer",
-                padding: "8px", borderRadius: "10px",
-              }}
+              className="flex md:hidden bg-primary/5 border-none cursor-pointer p-2 rounded-xl"
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-primary" strokeWidth="2.5" strokeLinecap="round">
                 {menuOpen ? (
                   <>
                     <line x1="18" y1="6" x2="6" y2="18"/>
@@ -93,8 +88,7 @@ function DesktopNav() {
 
   const anchorLinks: [string, string][] = [
     ["/#features", "Features"],
-    // ["/#screens", "App Screens"],
-    ["/#how-it-works", "How It Works"],
+    ["/#how-it-works", "Working"],
     ["/#stats", "Stats"],
     ["/#testimonials", "Reviews"],
   ];
@@ -107,29 +101,19 @@ function DesktopNav() {
   ];
 
   return (
-    <div className="hide-mobile" style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+    <div className="hidden md:flex items-center gap-1">
       {anchorLinks.map(([href, label]) => (
         <a
           key={href}
           href={href}
-          style={{
-            padding: "8px 14px",
-            borderRadius: "100px",
-            color: "var(--text-secondary)",
-            textDecoration: "none",
-            fontWeight: 600,
-            fontSize: "0.875rem",
-            transition: "var(--transition)",
-          }}
-          onMouseEnter={e => { e.currentTarget.style.color = "var(--primary)"; e.currentTarget.style.background = "rgba(0,90,181,0.06)"; }}
-          onMouseLeave={e => { e.currentTarget.style.color = "var(--text-secondary)"; e.currentTarget.style.background = "transparent"; }}
+          className="px-3.5 py-2 rounded-full text-text-secondary no-underline font-semibold text-sm transition-all hover:text-primary hover:bg-primary/5"
         >
           {label}
         </a>
       ))}
 
       {/* Divider */}
-      <div style={{ width: 1, height: 20, background: "var(--border)", margin: "0 6px" }} />
+      <div className="w-px h-5 bg-border mx-1.5" />
 
       {pageLinks.map(([href, icon, label]) => {
         const active = pathname === href;
@@ -137,21 +121,11 @@ function DesktopNav() {
           <Link
             key={href}
             href={href}
-            style={{
-              padding: "8px 14px",
-              borderRadius: "100px",
-              color: active ? "var(--primary)" : "var(--text-secondary)",
-              background: active ? "rgba(0,90,181,0.08)" : "transparent",
-              textDecoration: "none",
-              fontWeight: active ? 700 : 600,
-              fontSize: "0.875rem",
-              transition: "var(--transition)",
-              display: "flex",
-              alignItems: "center",
-              gap: 5,
-            }}
+            className={`px-3.5 py-2 rounded-full no-underline font-semibold text-sm transition-all flex items-center gap-1.5 ${
+              active ? "text-primary bg-primary/10 font-bold" : "text-text-secondary hover:text-primary hover:bg-primary/5"
+            }`}
           >
-            <span style={{ fontSize: "0.95rem" }}>{icon}</span>
+            <span className="text-[0.95rem]">{icon}</span>
             {label}
           </Link>
         );
@@ -165,31 +139,20 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   const pathname = usePathname();
 
   const allLinks: [string, string, boolean][] = [
-    ["/#features",  "✨ Features",   false],
-    ["/#screens",   "📱 App Screens", false],
-    ["/#how-it-works", "🚀 How It Works", false],
-    ["/#stats",     "📊 Stats",      false],
-    ["/#testimonials", "💬 Reviews", false],
-    ["/notes",      "📚 Notes",      true],
-    ["/quiz",       "🧠 Quiz",       true],
-    ["/samples",    "📝 Samples",    true],
-    ["/blog",       "📝 Blog",       true],
-    ["/#download",  "⬇️ Download App", false],
+    ["/#features",  "Features",      false],
+    ["/#screens",   "App Screens",   false],
+    ["/#how-it-works", "How It Works", false],
+    ["/#stats",     "Stats",         false],
+    ["/#testimonials", "Reviews",       false],
+    ["/notes",      "Notes",         true],
+    ["/quiz",       "Quiz",          true],
+    ["/samples",    "Samples",       true],
+    ["/blog",       "Blog",          true],
+    ["/#download",  "Download App",  false],
   ];
 
   return (
-    <div style={{
-      marginTop: "16px",
-      background: "rgba(255,255,255,0.95)",
-      backdropFilter: "blur(20px)",
-      borderRadius: "20px",
-      border: "1px solid var(--border)",
-      padding: "16px",
-      display: "flex",
-      flexDirection: "column",
-      gap: "4px",
-      boxShadow: "var(--shadow-lg)",
-    }}>
+    <div className="mt-4 bg-white/95 backdrop-blur-xl rounded-[20px] border border-border p-4 flex flex-col gap-1 shadow-xl">
       {allLinks.map(([href, label, isPage]) => {
         const active = isPage && pathname === href;
         const Tag = isPage ? Link : "a";
@@ -198,17 +161,9 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
             key={href}
             href={href}
             onClick={onClose}
-            style={{
-              padding: "12px 16px",
-              borderRadius: "12px",
-              color: active ? "var(--primary)" : "var(--text)",
-              background: active ? "rgba(0,90,181,0.07)" : "transparent",
-              textDecoration: "none",
-              fontWeight: active ? 700 : 600,
-              fontSize: "0.95rem",
-              transition: "var(--transition)",
-              display: "block",
-            }}
+            className={`block px-4 py-3 rounded-xl no-underline font-semibold text-base transition-all ${
+              active ? "text-primary bg-primary/10 font-bold" : "text-text hover:bg-primary/5"
+            }`}
           >
             {label}
           </Tag>

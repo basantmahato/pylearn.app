@@ -5,75 +5,35 @@ function BlogCard({ blog }: { blog: Blog }) {
   return (
     <Link
       href={`/blog/${blog.slug}`}
-      className="featured-blog-card"
-      style={{
-        display: "block",
-        background: "var(--card-bg)",
-        borderRadius: "16px",
-        border: "1px solid var(--border)",
-        overflow: "hidden",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-        textDecoration: "none",
-        color: "inherit",
-      }}
+      className="group bg-white rounded-2xl border border-border overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg hover:border-primary/20 block no-underline text-inherit"
     >
-      <div
-        className="blog-image"
-        style={{
-          height: "160px",
-          backgroundImage: blog.featuredImage
-            ? `url(${blog.featuredImage})`
-            : "linear-gradient(135deg, #005ab5, #4d96e0)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-      <div style={{ padding: "20px" }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            marginBottom: "10px",
-            fontSize: "0.7rem",
-            color: "var(--text-secondary)",
-          }}
-        >
-          <span
-            style={{
-              background: "rgba(0,90,181,0.1)",
-              color: "var(--primary)",
-              padding: "3px 8px",
-              borderRadius: "100px",
-              fontWeight: 600,
-            }}
-          >
+      <div className="h-40 overflow-hidden relative">
+        {blog.featuredImage ? (
+          <img 
+            src={blog.featuredImage} 
+            alt={blog.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-primary to-primary-light transition-transform duration-500 group-hover:scale-105" />
+        )}
+      </div>
+      <div className="p-5">
+        <div className="flex items-center gap-2 mb-3 text-[0.7rem] text-text-secondary font-bold uppercase tracking-wider">
+          <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-full">
             {blog.category}
           </span>
-          <span>{blog.readingTime} min</span>
+          <span className="flex items-center gap-1">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            {blog.readingTime} min
+          </span>
         </div>
-        <h3
-          style={{
-            fontSize: "1rem",
-            fontWeight: 700,
-            marginBottom: "8px",
-            color: "var(--text)",
-            lineHeight: 1.3,
-          }}
-        >
+        <h3 className="text-base font-black text-text mb-2 leading-tight tracking-tight group-hover:text-primary transition-colors">
           {blog.title}
         </h3>
-        <p
-          style={{
-            fontSize: "0.8rem",
-            color: "var(--text-secondary)",
-            lineHeight: 1.5,
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-          }}
-        >
+        <p className="text-[0.8rem] text-text-secondary leading-relaxed line-clamp-2">
           {blog.excerpt}
         </p>
       </div>
@@ -96,87 +56,38 @@ export default async function FeaturedBlogs() {
   }
 
   return (
-    <section
-      id="blogs"
-      className="section"
-      style={{
-        background: "var(--background)",
-        padding: "80px 0",
-      }}
-    >
-      <div className="container">
+    <section className="py-20 md:py-24 bg-white" id="blogs">
+      <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="section-header" style={{ textAlign: "center", marginBottom: "48px" }}>
-          <span
-            className="section-label"
-            style={{
-              display: "inline-block",
-              background: "rgba(0,90,181,0.1)",
-              color: "var(--primary)",
-              padding: "6px 16px",
-              borderRadius: "100px",
-              fontSize: "0.75rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              marginBottom: "16px",
-            }}
-          >
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-2 text-xs font-bold tracking-[0.12em] uppercase text-primary mb-4">
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
             Latest from Our Blog
-          </span>
-          <h2
-            style={{
-              fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-              fontWeight: 900,
-              letterSpacing: "-0.02em",
-              color: "var(--text)",
-              marginBottom: "16px",
-            }}
-          >
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
+          </div>
+          <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black text-text leading-tight mb-4 tracking-tight">
             Python Tips & Study Guides
           </h2>
-          <p
-            style={{
-              fontSize: "1rem",
-              color: "var(--text-secondary)",
-              maxWidth: "500px",
-              margin: "0 auto",
-            }}
-          >
+          <p className="text-lg text-text-secondary max-w-[500px] mx-auto leading-relaxed">
             Expert advice, tutorials, and strategies to help you ace your CBSE Class 12 Computer Science exam
           </p>
         </div>
 
         {/* Blog Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "24px",
-            marginBottom: "40px",
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
           {blogs.map((blog) => (
             <BlogCard key={blog._id} blog={blog} />
           ))}
         </div>
 
         {/* View All Button */}
-        <div style={{ textAlign: "center" }}>
+        <div className="text-center">
           <Link
             href="/blog"
-            className="btn btn-primary"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "14px 28px",
-              fontWeight: 600,
-              textDecoration: "none",
-            }}
+            className="btn-primary px-7 py-3.5 text-sm rounded-full font-bold inline-flex items-center gap-2 transition-all hover:scale-105 shadow-xl shadow-primary/20"
           >
             View All Articles
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </Link>

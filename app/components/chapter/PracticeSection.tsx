@@ -9,8 +9,8 @@ interface PracticeItemProps {
   q: string;
   type: string;
   difficulty: string;
-  hints: string[];
-  solution: {
+  hints?: string[];
+  solution?: {
     explanation?: string;
     example?: string;
     code?: string;
@@ -23,6 +23,7 @@ interface PracticeItemProps {
  */
 export function PracticeCard({ q, type, difficulty, solution }: PracticeItemProps) {
   const [showSolution, setShowSolution] = useState(false);
+  if (!solution) return null; // Or show something else
 
   // Dynamic status color mapping
   const difficultyColor = 

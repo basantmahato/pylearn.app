@@ -3,18 +3,30 @@ import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { BentoCard } from "@/components/home/BentoCard";
+import { CourseSelector } from "@/components/home/CourseSelector";
 import { Greeting } from "@/components/home/Greeting";
 import { ProgressHero } from "@/components/home/ProgressHero";
 import { Header } from "@/components/ui/Header";
 import { BENTO_CARDS } from "@/constants/home";
 import { useProgressStore } from "@/lib/progress-store";
+import { useCourseStore } from "@/lib/course-store";
+import { useApi } from "@/hooks/useApi";
+import { api } from "@/lib/api";
 
 function DynamicBentoCard({ card }: { card: typeof BENTO_CARDS[0] }) {
-  const overallProgress = useProgressStore((s) => s.getOverallProgress());
-  const averageQuizScore = useProgressStore((s) => s.getAverageQuizScore());
-  const totalQuizzesTaken = useProgressStore((s) => s.getTotalQuizzesTaken());
-  const samplePapersProgress = useProgressStore((s) => s.getSamplePapersProgress());
-  const overallAppProgress = useProgressStore((s) => s.getOverallAppProgress());
+  const { activeCategory } = useCourseStore();
+  // Fetch live counts for accurate percentages
+  const { data: chapters } = useApi(() => api.getChapters(activeCategory), [activeCategory]);
+  const { data: papers } = useApi(() => api.getSamplePapers(activeCategory), [activeCategory]);
+  
+  const totalCh = chapters?.length || 11;
+  const totalPap = papers?.length || 20;
+
+  const overallProgress = useProgressStore((s) => s.getOverallProgress(activeCategory, totalCh));
+  const averageQuizScore = useProgressStore((s) => s.getAverageQuizScore(activeCategory));
+  const totalQuizzesTaken = useProgressStore((s) => s.getTotalQuizzesTaken(activeCategory));
+  const samplePapersProgress = useProgressStore((s) => s.getSamplePapersProgress(activeCategory));
+  const overallAppProgress = useProgressStore((s) => s.getOverallAppProgress(activeCategory, totalCh, totalPap));
 
   let progress = card.progress;
   let tag = card.tag;
@@ -48,6 +60,9 @@ export default function HomeScreen() {
         contentContainerClassName="pb-32 px-6 pt-6"
         showsVerticalScrollIndicator={false}
       >
+        {/* Course Selection */}
+        <CourseSelector />
+
         {/* Greeting & Streak */}
         <Greeting />
 

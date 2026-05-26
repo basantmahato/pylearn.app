@@ -1,47 +1,46 @@
-/* eslint-disable react/no-inline-styles, react/forbid-component-props, @typescript-eslint/no-inline-styles */
 "use client";
 
 export default function Features() {
   const features = [
     {
       icon: "📚",
-      iconBg: "rgba(0,90,181,0.1)",
-      color: "#005ab5",
+      iconBg: "bg-primary/10",
+      color: "text-primary",
       badge: "Notes",
-      badgeClass: "badge-blue",
+      badgeClass: "bg-primary/10 text-primary",
       title: "Structured Chapter Notes",
       description:
-        "Every CBSE Class 12 Python topic — from fundamentals to file handling, OOP, and stacks — covered in beautifully organised, easy-to-read notes.",
-      bullets: ["18 chapters across 5 units", "Search & filter by topic", "Bookmark chapters for later", "Track reading progress"],
+        "Comprehensive Python and CS topics — from fundamentals and file handling to advanced data structures — covered in beautifully organised notes.",
+      bullets: ["Unit-wise curriculum", "Search & filter by topic", "Bookmark chapters for later", "Track reading progress"],
     },
     {
       icon: "🧠",
-      iconBg: "rgba(16,185,129,0.1)",
-      color: "#059669",
+      iconBg: "bg-accent/10",
+      color: "text-accent",
       badge: "Quiz",
-      badgeClass: "badge-green",
+      badgeClass: "bg-accent/10 text-accent",
       title: "Smart Adaptive Quizzes",
       description:
-        "10 difficulty-graded quiz sets per chapter, colour-coded from Easy to Expert. Test your knowledge and watch your score climb with every attempt.",
-      bullets: ["100+ quiz sets total", "10 sets per chapter", "Colour-coded difficulty", "Instant score & feedback"],
+        "Difficulty-graded quiz sets for every chapter, colour-coded from Easy to Expert. Test your knowledge and watch your score climb.",
+      bullets: ["Hundreds of quiz questions", "Adaptive difficulty sets", "Colour-coded challenges", "Instant score & feedback"],
     },
     {
       icon: "📄",
-      iconBg: "rgba(245,158,11,0.1)",
-      color: "#d97706",
+      iconBg: "bg-accent-warm/10",
+      color: "text-accent-warm",
       badge: "Sample Papers",
-      badgeClass: "badge-yellow",
-      title: "20 Sample Papers",
+      badgeClass: "bg-accent-warm/10 text-accent-warm",
+      title: "Extensive Sample Papers",
       description:
-        "Exam-pattern sample papers covering the full syllabus. Filter by difficulty, search by topic, and practice end-to-end like a real board exam.",
-      bullets: ["20 full-length papers", "Easy / Medium / Hard filter", "Searchable paper library", "Completion tracking"],
+        "Exam-pattern sample papers covering full syllabi for all categories. Filter by difficulty, search by topic, and practice like a pro.",
+      bullets: ["Full-length practice papers", "Easy / Medium / Hard filter", "Searchable paper library", "Completion tracking"],
     },
     {
       icon: "📊",
-      iconBg: "rgba(139,92,246,0.1)",
-      color: "#7c3aed",
+      iconBg: "bg-purple/10",
+      color: "text-purple",
       badge: "Profile",
-      badgeClass: "badge-purple",
+      badgeClass: "bg-purple/10 text-purple",
       title: "Progress & Streak Tracking",
       description:
         "Your personal learning dashboard — overall progress, quiz averages, daily streaks, bookmarks, and a full activity history all in one place.",
@@ -49,21 +48,21 @@ export default function Features() {
     },
     {
       icon: "🔍",
-      iconBg: "rgba(0,90,181,0.08)",
-      color: "#005ab5",
+      iconBg: "bg-primary/8",
+      color: "text-primary",
       badge: "Search",
-      badgeClass: "badge-blue",
+      badgeClass: "bg-primary/10 text-primary",
       title: "Instant Search & Discovery",
       description:
-        "Find any chapter, topic, or concept in milliseconds. Topic-pill shortcuts let you jump straight into OOP, File I/O, Stacks, and more.",
+        "Find any chapter, topic, or concept in milliseconds. Topic-pill shortcuts let you jump straight into what matters most for your course.",
       bullets: ["Full-text chapter search", "Topic-pill quick-filter", "Unit-level navigation", "Zero-latency results"],
     },
     {
       icon: "🏆",
-      iconBg: "rgba(245,158,11,0.08)",
-      color: "#d97706",
+      iconBg: "bg-accent-warm/8",
+      color: "text-accent-warm",
       badge: "Gamification",
-      badgeClass: "badge-yellow",
+      badgeClass: "bg-accent-warm/10 text-accent-warm",
       title: "Daily Challenges & Streaks",
       description:
         "Stay motivated with a daily challenge system. Maintain streaks, earn personal bests, and turn exam preparation into an engaging daily habit.",
@@ -72,51 +71,51 @@ export default function Features() {
   ];
 
   return (
-    <section className="section" id="features" style={{ background: "#fff" }}>
-      <div className="container">
+    <section className="py-24 md:py-28 bg-white" id="features">
+      <div className="container mx-auto px-6">
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "64px" }}>
-          <div className="section-label" style={{ justifyContent: "center" }}>
-             Everything You Need
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-2 text-xs font-bold tracking-[0.12em] uppercase text-primary mb-4">
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
+            Everything You Need
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
           </div>
-          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--text)", marginBottom: "16px" }}>
+          <h2 className="text-[clamp(2rem,4vw,3rem)] font-black text-text leading-tight mb-4 tracking-tight">
             One App. Complete Python Prep.
           </h2>
-          <p style={{ fontSize: "1.1rem", color: "var(--text-secondary)", maxWidth: "560px", margin: "0 auto", lineHeight: 1.75 }}>
-            PyLearn brings together everything a CBSE Class 12 student needs to master Python — beautifully designed, distraction-free.
+          <p className="text-lg text-text-secondary max-w-[560px] mx-auto leading-relaxed">
+            PyLearn brings together everything a student needs to master Python and Computer Science — beautifully designed and distraction-free.
           </p>
         </div>
 
         {/* Feature Grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "24px",
-        }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feat, i) => (
-            <div key={i} className="card" style={{ padding: "32px" }}>
+            <div key={i} className="card bg-white rounded-3xl border border-border p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg hover:border-primary/20">
               {/* Icon + Badge Row */}
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "20px" }}>
-                <div className="icon-box" style={{ background: feat.iconBg, fontSize: "1.6rem" }}>
+              <div className="flex items-start justify-between mb-5">
+                <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl ${feat.iconBg}`}>
                   {feat.icon}
                 </div>
-                <span className={`badge ${feat.badgeClass}`}>{feat.badge}</span>
+                <span className={`px-3.5 py-1.5 rounded-full text-[0.75rem] font-bold tracking-wider uppercase ${feat.badgeClass}`}>
+                  {feat.badge}
+                </span>
               </div>
 
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--text)", marginBottom: "12px", letterSpacing: "-0.02em" }}>
+              <h3 className="text-xl font-black text-text mb-3 tracking-tight">
                 {feat.title}
               </h3>
-              <p style={{ color: "var(--text-secondary)", fontSize: "0.925rem", lineHeight: 1.75, marginBottom: "20px" }}>
+              <p className="text-[0.925rem] text-text-secondary leading-relaxed mb-5">
                 {feat.description}
               </p>
 
               {/* Bullet List */}
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
+              <ul className="flex flex-col gap-2.5">
                 {feat.bullets.map((b, j) => (
-                  <li key={j} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "0.875rem", color: "var(--text-secondary)" }}>
-                    <span style={{ width: 20, height: 20, borderRadius: "50%", background: feat.iconBg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                      <svg width="11" height="11" viewBox="0 0 12 12" fill={feat.color}>
-                        <path d="M10 3L5 8.5 2 5.5" stroke={feat.color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                  <li key={j} className="flex items-center gap-2.5 text-[0.875rem] text-text-secondary">
+                    <span className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${feat.iconBg}`}>
+                      <svg width="11" height="11" viewBox="0 0 12 12" className={feat.color}>
+                        <path d="M10 3L5 8.5 2 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                       </svg>
                     </span>
                     {b}

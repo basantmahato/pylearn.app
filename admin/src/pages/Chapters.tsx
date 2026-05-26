@@ -10,8 +10,16 @@ interface Chapter {
     chapterId: string;
     title: string;
     order: number;
-    class: 11 | 12;
+    category: string;
 }
+
+const CATEGORIES = [
+    { key: 'class12', label: 'Class 12', color: 'bg-blue-100 text-blue-700' },
+    { key: 'class11', label: 'Class 11', color: 'bg-purple-100 text-purple-700' },
+    { key: 'bca',     label: 'BCA',     color: 'bg-green-100 text-green-700' },
+    { key: 'btech',   label: 'B.Tech',  color: 'bg-yellow-100 text-yellow-700' },
+    { key: 'aiml',    label: 'AI / ML & Data Sci', color: 'bg-red-100 text-red-700' },
+] as const;
 
 interface Note {
     _id: string;
@@ -31,18 +39,18 @@ const Chapters = () => {
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editForm, setEditForm] = useState<Partial<Chapter>>({});
     const [isAdding, setIsAdding] = useState(false);
-    const [selectedClass, setSelectedClass] = useState<11 | 12>(12);
+    const [selectedCategory, setSelectedCategory] = useState<string>('class12');
     const [expandedChapter, setExpandedChapter] = useState<string | null>(null);
     const [notes, setNotes] = useState<Record<string, Note[]>>({});
     const [editingNote, setEditingNote] = useState<{ chapterId: string, noteId: string | null, form: Partial<Note> } | null>(null);
 
     useEffect(() => {
         fetchChapters();
-    }, [selectedClass]);
+    }, [selectedCategory]);
 
     const fetchChapters = async () => {
         try {
-            const res = await api.get(`/chapters?class=${selectedClass}`);
+            const res = await api.get(`/chapters?category=${selectedCategory}`);
             setChapters(res.data);
         } catch (err) {
             console.error(err);
@@ -53,7 +61,7 @@ const Chapters = () => {
 
     const handleEdit = (chapter: Chapter) => {
         setEditingId(chapter._id);
-        setEditForm({ ...chapter, class: chapter.class || 12 });
+        setEditForm({ ...chapter, category: chapter.category || 'class12' });
         setIsAdding(false);
     };
 
@@ -85,7 +93,7 @@ const Chapters = () => {
 
     const fetchNotes = async (chapterId: string) => {
         try {
-            const res = await api.get(`/notes/${chapterId}`);
+            const res = await api.get(`/notes/${chapterId}?category=${selectedCategory}`);
             setNotes(prev => ({ ...prev, [chapterId]: res.data }));
         } catch (err) {
             console.error(err);
@@ -161,19 +169,24 @@ const Chapters = () => {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-bold tracking-tight">Chapters</h2>
-                <div className="flex gap-2">
-                    <select
-                        value={selectedClass}
-                        onChange={e => setSelectedClass(parseInt(e.target.value) as 11 | 12)}
-                        className="px-3 py-2 rounded-md border border-input bg-background"
-                    >
-                        <option value={12}>Class 12</option>
-                        <option value={11}>Class 11</option>
-                    </select>
-                    <Button onClick={() => { setIsAdding(true); setEditingId(null); setEditForm({ chapterId: '', title: '', order: chapters.length + 1, class: selectedClass }); }}>
-                        <Plus className="mr-2 h-4 w-4" /> Add Chapter
-                    </Button>
-                </div>
+                <div className="flex gap-2 flex-wrap">
+                        {CATEGORIES.map(cat => (
+                            <button
+                                key={cat.key}
+                                onClick={() => { setSelectedCategory(cat.key); setEditingId(null); setIsAdding(false); }}
+                                className={`px-3 py-2 rounded-md text-sm font-medium border transition-colors ${
+                                    selectedCategory === cat.key
+                                        ? 'bg-primary text-primary-foreground border-primary'
+                                        : 'bg-background border-input hover:bg-accent'
+                                }`}
+                            >
+                                {cat.label}
+                            </button>
+                        ))}
+                        <Button onClick={() => { setIsAdding(true); setEditingId(null); setEditForm({ chapterId: '', title: '', order: chapters.length + 1, category: selectedCategory }); }}>
+                            <Plus className="mr-2 h-4 w-4" /> Add Chapter
+                        </Button>
+                    </div>
             </div>
 
             {(isAdding || editingId) && (
@@ -181,38 +194,43 @@ const Chapters = () => {
                     <CardContent className="pt-6">
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div className="space-y-2">
-                                <label className="text-xs font-semibold uppercase text-muted-foreground">Chapter ID</label>
+                                <label htmlFor="chapter-id" className="text-xs font-semibold uppercase text-muted-foreground">Chapter ID</label>
                                 <Input 
+                                    id="chapter-id"
                                     placeholder="e.g. ch1" 
                                     value={editForm.chapterId} 
                                     onChange={e => setEditForm({...editForm, chapterId: e.target.value})} 
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-semibold uppercase text-muted-foreground">Title</label>
+                                <label htmlFor="chapter-title" className="text-xs font-semibold uppercase text-muted-foreground">Title</label>
                                 <Input 
+                                    id="chapter-title"
                                     placeholder="e.g. Intro to Python" 
                                     value={editForm.title} 
                                     onChange={e => setEditForm({...editForm, title: e.target.value})} 
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-semibold uppercase text-muted-foreground">Order</label>
+                                <label htmlFor="chapter-order" className="text-xs font-semibold uppercase text-muted-foreground">Order</label>
                                 <Input 
+                                    id="chapter-order"
                                     type="number" 
                                     value={editForm.order} 
                                     onChange={e => setEditForm({...editForm, order: parseInt(e.target.value)})} 
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-semibold uppercase text-muted-foreground">Class</label>
+                                <label htmlFor="chapter-class" className="text-xs font-semibold uppercase text-muted-foreground">Category</label>
                                 <select
-                                    value={editForm.class || selectedClass}
-                                    onChange={e => setEditForm({...editForm, class: parseInt(e.target.value) as 11 | 12})}
+                                    id="chapter-class"
+                                    value={editForm.category || selectedCategory}
+                                    onChange={e => setEditForm({...editForm, category: e.target.value})}
                                     className="w-full px-3 py-2 rounded-md border border-input bg-background"
                                 >
-                                    <option value={12}>Class 12</option>
-                                    <option value={11}>Class 11</option>
+                                    {CATEGORIES.map(cat => (
+                                        <option key={cat.key} value={cat.key}>{cat.label}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
@@ -230,7 +248,8 @@ const Chapters = () => {
 
             <div className="grid gap-4">
                 {chapters.map(chapter => (
-                    <Card key={chapter._id} className="hover:shadow-md transition-shadow">
+                    <div key={chapter._id} className="space-y-2">
+                        <Card className="hover:shadow-md transition-shadow">
                         <CardContent className="flex items-center justify-between p-4">
                             <div className="flex items-center gap-4">
                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted font-bold">
@@ -239,8 +258,8 @@ const Chapters = () => {
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <h3 className="font-semibold">{chapter.title}</h3>
-                                        <span className={`text-xs px-2 py-0.5 rounded ${chapter.class === 11 ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}`}>
-                                            Class {chapter.class || 12}
+                                        <span className={`text-xs px-2 py-0.5 rounded ${CATEGORIES.find(c => c.key === chapter.category)?.color ?? 'bg-gray-100 text-gray-700'}`}>
+                                            {CATEGORIES.find(c => c.key === chapter.category)?.label ?? chapter.category}
                                         </span>
                                     </div>
                                     <p className="text-sm text-muted-foreground">{chapter.chapterId}</p>
@@ -281,12 +300,14 @@ const Chapters = () => {
                                     <Card className="mb-4 border-primary/20 bg-background">
                                         <CardContent className="p-4 space-y-3">
                                             <Input
+                                                aria-label="Heading"
                                                 placeholder="Heading (optional)"
                                                 value={editingNote.form.heading || ''}
                                                 onChange={e => setEditingNote({ ...editingNote, form: { ...editingNote.form, heading: e.target.value } })}
                                             />
                                             {editingNote.form.type === 'paragraph' && (
                                                 <Input
+                                                    aria-label="Text content"
                                                     placeholder="Text content"
                                                     value={editingNote.form.text || ''}
                                                     onChange={e => setEditingNote({ ...editingNote, form: { ...editingNote.form, text: e.target.value } })}
@@ -297,6 +318,7 @@ const Chapters = () => {
                                                     {(editingNote.form.items || []).map((item, idx) => (
                                                         <Input
                                                             key={idx}
+                                                            aria-label={`Bullet ${idx + 1}`}
                                                             placeholder={`Bullet ${idx + 1}`}
                                                             value={item}
                                                             onChange={e => {
@@ -313,13 +335,15 @@ const Chapters = () => {
                                                 </div>
                                             )}
                                             {editingNote.form.type === 'code' && (
-                                                <div className="space-y-2">
+                                                 <div className="space-y-2">
                                                     <Input
+                                                        aria-label="Language"
                                                         placeholder="Language (e.g., python)"
                                                         value={editingNote.form.language || ''}
                                                         onChange={e => setEditingNote({ ...editingNote, form: { ...editingNote.form, language: e.target.value } })}
                                                     />
                                                     <textarea
+                                                        aria-label="Code"
                                                         className="w-full min-h-32 p-3 rounded-md border border-input bg-background"
                                                         placeholder="Code"
                                                         value={editingNote.form.code || ''}
@@ -368,7 +392,8 @@ const Chapters = () => {
                                 </div>
                             </CardContent>
                         </Card>
-                    )}
+                        )}
+                    </div>
                 ))}
             </div>
         </div>

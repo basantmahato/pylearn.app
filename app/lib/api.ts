@@ -15,8 +15,8 @@ import { Platform } from "react-native";
 // For Android emulator, localhost maps to 10.0.2.2
 const BASE_URL =
   Platform.OS === "android"
-    ? "http://10.0.2.2:5000/api"
-    : "http://localhost:5000/api";
+    ? "http://192.168.31.10:5000/api/v1"
+    : "http://localhost:5000/api/v1";
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,
@@ -106,39 +106,44 @@ export interface ApiSamplePaper {
 }
 
 // ── API functions ─────────────────────────────────────────────────────────────
+import { Category } from "../constants/courses";
 
 export const api = {
   /** Fetch all chapters (ordered by `order`) */
-  getChapters: () =>
-    apiClient.get<ApiChapter[]>("/chapters").then((r) => r.data),
+  getChapters: (category?: Category) =>
+    apiClient
+      .get<ApiChapter[]>("/chapters", { params: { category } })
+      .then((r) => r.data),
 
   /** Fetch all note blocks for a specific chapter */
-  getNotesByChapter: (chapterId: string) =>
+  getNotesByChapter: (chapterId: string, category?: Category) =>
     apiClient
-      .get<ApiNoteBlock[]>(`/notes/${chapterId}`)
+      .get<ApiNoteBlock[]>(`/notes/${chapterId}`, { params: { category } })
       .then((r) => r.data),
 
   /** Fetch all quiz sets for a specific chapter */
-  getQuizzesByChapter: (chapterId: string) =>
+  getQuizzesByChapter: (chapterId: string, category?: Category) =>
     apiClient
-      .get<ApiQuizSet[]>(`/quizzes/${chapterId}`)
+      .get<ApiQuizSet[]>(`/quizzes/${chapterId}`, { params: { category } })
       .then((r) => r.data),
 
   /** Fetch a specific quiz set by chapterId + setId */
-  getQuizSet: async (chapterId: string, setId: string) => {
+  getQuizSet: async (chapterId: string, setId: string, category?: Category) => {
     const sets = await apiClient
-      .get<ApiQuizSet[]>(`/quizzes/${chapterId}`)
+      .get<ApiQuizSet[]>(`/quizzes/${chapterId}`, { params: { category } })
       .then((r) => r.data);
     return sets.find((s) => s.setId === setId) ?? null;
   },
 
   /** Fetch all sample papers */
-  getSamplePapers: () =>
-    apiClient.get<ApiSamplePaper[]>("/sample-papers").then((r) => r.data),
+  getSamplePapers: (category?: Category) =>
+    apiClient
+      .get<ApiSamplePaper[]>("/sample-papers", { params: { category } })
+      .then((r) => r.data),
 
   /** Fetch a single sample paper by paperId */
-  getSamplePaperById: (paperId: string) =>
+  getSamplePaperById: (paperId: string, category?: Category) =>
     apiClient
-      .get<ApiSamplePaper>(`/sample-papers/${paperId}`)
+      .get<ApiSamplePaper>(`/sample-papers/${paperId}`, { params: { category } })
       .then((r) => r.data),
 };

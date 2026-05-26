@@ -13,5 +13,8 @@
   "eslint.rules.customizations": [
     { "rule": "react/no-inline-styles", "severity": "off" },
     { "rule": "react/forbid-component-props", "severity": "off" }
-  ]
+  ],
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "postcss.validate": false
 }

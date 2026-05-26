@@ -17,10 +17,11 @@ const seedSamplePapers = async () => {
         const filePath = path.join(SAMPLES_DIR, file);
         const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-        const filter = { paperId: data.paperId };
+        const filter = { paperId: data.paperId, category: 'class12' };
         const update = {
             paperId:    data.paperId,
             title:      data.title,
+            category:   'class12',
             subtitle:   data.subtitle   || '',
             duration:   data.duration   || '',
             totalMarks: data.totalMarks || 0,

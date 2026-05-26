@@ -31,9 +31,7 @@ export default function OnboardingAvatarScreen() {
 
     await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     setUserAvatar(selectedAvatar);
-    setOnboardingComplete();
-    router.dismissAll();
-    router.replace('/(tabs)');
+    router.push('/onboarding/course');
   };
 
   const renderAvatar = (avatar: AvatarOption) => {
@@ -70,10 +68,11 @@ export default function OnboardingAvatarScreen() {
       {/* Header */}
       <View className="px-6 pt-4">
         <View className="flex-row items-center justify-between">
-          <Text className="text-sm font-semibold text-primary">Step 2 of 2</Text>
+          <Text className="text-sm font-semibold text-primary">Step 2 of 3</Text>
           <View className="flex-row gap-1">
             <View className="h-2 w-8 rounded-full bg-primary" />
             <View className="h-2 w-8 rounded-full bg-primary" />
+            <View className="h-2 w-8 rounded-full bg-surface-container-high" />
           </View>
         </View>
       </View>
@@ -113,7 +112,7 @@ export default function OnboardingAvatarScreen() {
               selectedAvatar ? 'text-on-primary' : 'text-on-surface-variant'
             }`}
           >
-            Get Started
+            Continue
           </Text>
         </Pressable>
       </View>

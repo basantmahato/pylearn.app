@@ -1,69 +1,29 @@
-/* eslint-disable react/no-inline-styles, react/forbid-component-props, @typescript-eslint/no-inline-styles */
 "use client";
 
 export default function Footer() {
   return (
-    <footer style={{
-      background: "#0f1729",
-      color: "rgba(255,255,255,0.6)",
-      padding: "64px 0 32px",
-    }}>
-      <div className="container">
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr 1fr 1fr",
-          gap: "48px",
-          marginBottom: "48px",
-        }} className="footer-grid">
+    <footer className="bg-[#0f1729] text-white/60 pt-16 pb-8">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-              <div style={{
-                width: 40, height: 40, borderRadius: 12,
-                background: "linear-gradient(135deg, #005ab5, #4d96e0)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: "1rem", fontWeight: 900, color: "#fff",
-              }}>
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-sm font-black text-white">
                 Py
               </div>
-              <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "#fff", letterSpacing: "-0.03em" }}>
-                Learn<span style={{ color: "#4d96e0" }}>.app</span>
+              <span className="font-black text-xl text-white tracking-tight">
+                Learn<span className="text-[#4d96e0]">.app</span>
               </span>
             </div>
-            <p style={{ fontSize: "0.9rem", lineHeight: 1.75, maxWidth: "280px", marginBottom: "20px" }}>
-              The all-in-one Python learning app for CBSE Class 12 students. Notes, quizzes, and sample papers — beautifully designed.
+            <p className="text-sm leading-relaxed max-w-[280px]">
+              The all-in-one learning app for Python and Computer Science students. Notes, quizzes, and sample papers — beautifully designed.
             </p>
-            {/* <div style={{ display: "flex", gap: "8px" }}>
-              {[
-                { icon: "📱", label: "App Store" },
-                { icon: "▶", label: "Play Store" },
-              ].map(s => (
-                <a
-                  key={s.label}
-                  href="#download"
-                  aria-label={s.label}
-                  style={{
-                    width: 40, height: 40, borderRadius: "10px",
-                    background: "rgba(255,255,255,0.08)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "1rem", textDecoration: "none",
-                    border: "1px solid rgba(255,255,255,0.12)",
-                    transition: "var(--transition)",
-                    color: "white",
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.15)")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
-                >
-                  {s.icon}
-                </a>
-              ))}
-            </div> */}
           </div>
 
           {/* App Column */}
           <div>
-            <h4 style={{ color: "#fff", fontWeight: 700, marginBottom: "16px", fontSize: "0.9rem" }}>App</h4>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
+            <h4 className="text-white font-black mb-6 text-sm uppercase tracking-wider">App</h4>
+            <ul className="flex flex-col gap-3">
               {[
                 ["#features", "Features"],
                 ["#screens", "App Screens"],
@@ -71,12 +31,9 @@ export default function Footer() {
                 ["#download", "Download"],
               ].map(([href, label]) => (
                 <li key={href}>
-                  <a href={href} style={{
-                    color: "rgba(255,255,255,0.5)", textDecoration: "none",
-                    fontSize: "0.875rem", transition: "var(--transition)",
-                  }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
+                  <a 
+                    href={href} 
+                    className="text-white/50 hover:text-white transition-colors text-sm no-underline"
                   >
                     {label}
                   </a>
@@ -87,18 +44,18 @@ export default function Footer() {
 
           {/* Content Column */}
           <div>
-            <h4 style={{ color: "#fff", fontWeight: 700, marginBottom: "16px", fontSize: "0.9rem" }}>Content</h4>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
-              {["18 Python Chapters", "5 Curriculum Units", "100+ Quiz Sets", "20 Sample Papers", "Streak Tracking"].map(item => (
-                <li key={item} style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.875rem" }}>{item}</li>
+            <h4 className="text-white font-black mb-6 text-sm uppercase tracking-wider">Content</h4>
+            <ul className="flex flex-col gap-3">
+              {["50+ Structured Chapters", "5 Multi-level Courses", "500+ Quiz Questions", "30+ Sample Papers", "Streak Tracking"].map(item => (
+                <li key={item} className="text-white/40 text-sm">{item}</li>
               ))}
             </ul>
           </div>
 
           {/* Legal Column */}
           <div>
-            <h4 style={{ color: "#fff", fontWeight: 700, marginBottom: "16px", fontSize: "0.9rem" }}>Legal</h4>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
+            <h4 className="text-white font-black mb-6 text-sm uppercase tracking-wider">Legal</h4>
+            <ul className="flex flex-col gap-3">
               {[
                 ["#", "Privacy Policy"],
                 ["#", "Terms of Service"],
@@ -106,12 +63,9 @@ export default function Footer() {
                 ["#", "Contact Us"],
               ].map(([href, label]) => (
                 <li key={label}>
-                  <a href={href} style={{
-                    color: "rgba(255,255,255,0.5)", textDecoration: "none",
-                    fontSize: "0.875rem", transition: "var(--transition)",
-                  }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
+                  <a 
+                    href={href} 
+                    className="text-white/50 hover:text-white transition-colors text-sm no-underline"
                   >
                     {label}
                   </a>
@@ -122,32 +76,20 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div style={{ height: "1px", background: "rgba(255,255,255,0.08)", marginBottom: "24px" }} />
+        <div className="h-px bg-white/10 mb-8" />
 
         {/* Bottom Bar */}
-        <div style={{
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          gap: "16px", flexWrap: "wrap",
-        }}>
-          <div style={{ fontSize: "0.825rem" }}>
-            © {new Date().getFullYear()} PyLearn. All rights reserved. Made with ❤️ for CBSE Students.
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-[0.825rem]">
+          <div>
+            © {new Date().getFullYear()} PyLearn. All rights reserved. Made for Students.
           </div>
-          <div style={{ display: "flex", gap: "16px", fontSize: "0.825rem" }}>
-            <span>PyLearn v1.0.0</span>
-            <span>·</span>
-            <span>CBSE CS 2025-26</span>
+          <div className="flex items-center gap-4 text-white/30">
+            <span>PyLearn v1.1.0</span>
+            <span className="text-white/10">·</span>
+            <span>Python & CS Prep 2025-26</span>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
-        }
-        @media (max-width: 480px) {
-          .footer-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </footer>
   );
 }

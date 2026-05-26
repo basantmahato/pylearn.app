@@ -1,25 +1,27 @@
 import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
 import { useProgressStore } from "@/lib/progress-store";
+import { useCourseStore } from "@/lib/course-store";
 import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import { Circle, Svg } from "react-native-svg";
 
 export function ProgressHero() {
   const router = useRouter();
+  const { activeCategory } = useCourseStore();
   const { getOverallProgress, getTotalChaptersCompleted, getChapterProgress } = useProgressStore();
-  const completed = getTotalChaptersCompleted();
+  const completed = getTotalChaptersCompleted(activeCategory);
 
   // Fetch live chapter list from backend
-  const { data: chapters } = useApi(api.getChapters);
+  const { data: chapters } = useApi(() => api.getChapters(activeCategory), [activeCategory]);
   const totalChapters = chapters?.length ?? 11; // fallback while loading
 
   // Compute progress based on live total
-  const progress = totalChapters > 0 ? Math.round((completed / totalChapters) * 100) : getOverallProgress();
+  const progress = getOverallProgress(activeCategory, totalChapters);
 
   // Find first uncompleted chapter from live list
   const sortedChapters = (chapters ?? []).slice().sort((a, b) => a.order - b.order);
-  const firstUncompleted = sortedChapters.find((c) => getChapterProgress(c.chapterId) < 100);
+  const firstUncompleted = sortedChapters.find((c) => getChapterProgress(c.chapterId, activeCategory) < 100);
   const targetChapterId = firstUncompleted?.chapterId ?? "1";
   
   const radius = 70;

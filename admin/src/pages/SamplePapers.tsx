@@ -31,25 +31,33 @@ interface Paper {
     duration?: string;
     totalMarks?: number;
     difficulty?: string;
-    class?: 11 | 12;
+    category: string;
     sections?: Section[];
 }
+
+const CATEGORIES = [
+    { key: 'class12', label: 'Class 12' },
+    { key: 'class11', label: 'Class 11' },
+    { key: 'bca',     label: 'BCA' },
+    { key: 'btech',   label: 'B.Tech' },
+    { key: 'aiml',    label: 'AI / ML & Data Sci' },
+] as const;
 
 const DIFFICULTIES = ['Easy', 'Medium', 'Hard'];
 
 const SamplePapers = () => {
     const [papers, setPapers]           = useState<Paper[]>([]);
-    const [selectedClass, setSelectedClass] = useState<11 | 12>(12);
+    const [selectedCategory, setSelectedCategory] = useState<string>('class12');
     const [loading, setLoading]         = useState(true);
     const [editingId, setEditingId]     = useState<string | null>(null);
     const [editForm, setEditForm]       = useState<Partial<Paper>>({});
     const [viewSections, setViewSections] = useState<string | null>(null);
 
-    useEffect(() => { fetchPapers(); }, [selectedClass]);
+    useEffect(() => { fetchPapers(); }, [selectedCategory]);
 
     const fetchPapers = async () => {
         try {
-            const res = await api.get(`/sample-papers?class=${selectedClass}`);
+            const res = await api.get(`/sample-papers?category=${selectedCategory}`);
             setPapers(res.data);
         } catch (err) {
             console.error(err);
@@ -58,12 +66,11 @@ const SamplePapers = () => {
         }
     };
 
-    // ── Load full paper (with sections) when editing ──────────────────────────
     const handleEdit = async (paper: Paper) => {
         try {
             const res = await api.get(`/sample-papers/${paper._id}`);
             setEditingId(paper._id);
-            setEditForm({ ...res.data, class: res.data.class || 12 });
+            setEditForm({ ...res.data, category: res.data.category || selectedCategory });
         } catch (err) {
             console.error(err);
         }
@@ -76,10 +83,11 @@ const SamplePapers = () => {
 
     const handleSave = async () => {
         try {
+            const payload = { ...editForm, category: selectedCategory };
             if (editingId && editingId !== 'new') {
-                await api.put(`/sample-papers/${editingId}`, editForm);
+                await api.put(`/sample-papers/${editingId}`, payload);
             } else {
-                await api.post('/sample-papers', { ...editForm, class: selectedClass });
+                await api.post('/sample-papers', payload);
             }
             setEditingId(null);
             setEditForm({});
@@ -108,7 +116,7 @@ const SamplePapers = () => {
             duration:   '90 minutes',
             totalMarks: 100,
             difficulty: 'Medium',
-            class: selectedClass,
+            category: selectedCategory,
             sections:   []
         });
     };
@@ -135,6 +143,11 @@ const SamplePapers = () => {
         setEditForm({ ...editForm, sections });
     };
 
+    const handleCategoryChange = (cat: string) => {
+        setSelectedCategory(cat);
+        setPapers([]);
+    };
+
     const difficultyColor = (d?: string) => {
         if (d === 'Easy')   return 'text-emerald-500 bg-emerald-50';
         if (d === 'Hard')   return 'text-rose-500 bg-rose-50';
@@ -149,17 +162,18 @@ const SamplePapers = () => {
 
     return (
         <div className="space-y-6">
-            {/* ── Header ─────────────────────────────────────────────────── */}
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold tracking-tight">Sample Papers</h2>
                     <select
-                        value={selectedClass}
-                        onChange={e => setSelectedClass(parseInt(e.target.value) as 11 | 12)}
+                        title="Select Category"
+                        value={selectedCategory}
+                        onChange={e => handleCategoryChange(e.target.value)}
                         className="px-3 py-2 rounded-md border border-input bg-background"
                     >
-                        <option value={12}>Class 12</option>
-                        <option value={11}>Class 11</option>
+                        {CATEGORIES.map(cat => (
+                            <option key={cat.key} value={cat.key}>{cat.label}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -172,7 +186,6 @@ const SamplePapers = () => {
                 </div>
             </div>
 
-            {/* ── Edit / Create Form ─────────────────────────────────────── */}
             {editingId && (
                 <Card className="border-primary/20 bg-primary/5 max-h-[85vh] overflow-auto">
                     <CardContent className="pt-6 space-y-6">
@@ -180,12 +193,10 @@ const SamplePapers = () => {
                             {editingId === 'new' ? '✚ New Sample Paper' : '✏ Edit Sample Paper'}
                         </h3>
 
-                        {/* Metadata grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div className="space-y-1">
                                 <label className="text-xs font-semibold uppercase text-muted-foreground">Paper ID</label>
                                 <Input
-                                    id="edit-paperId"
                                     value={editForm.paperId || ''}
                                     onChange={e => setEditForm({ ...editForm, paperId: e.target.value })}
                                     placeholder="py-sample-22"
@@ -194,7 +205,6 @@ const SamplePapers = () => {
                             <div className="space-y-1 md:col-span-2">
                                 <label className="text-xs font-semibold uppercase text-muted-foreground">Title</label>
                                 <Input
-                                    id="edit-title"
                                     value={editForm.title || ''}
                                     onChange={e => setEditForm({ ...editForm, title: e.target.value })}
                                     placeholder="Python Mastery Sample Paper"
@@ -236,21 +246,8 @@ const SamplePapers = () => {
                                     {DIFFICULTIES.map(d => <option key={d}>{d}</option>)}
                                 </select>
                             </div>
-                            <div className="space-y-1">
-                                <label className="text-xs font-semibold uppercase text-muted-foreground">Class</label>
-                                <select
-                                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                                    value={editForm.class || selectedClass}
-                                    onChange={e => setEditForm({ ...editForm, class: parseInt(e.target.value) as 11 | 12 })}
-                                    aria-label="Class"
-                                >
-                                    <option value={12}>Class 12</option>
-                                    <option value={11}>Class 11</option>
-                                </select>
-                            </div>
                         </div>
 
-                        {/* Sections */}
                         <div className="space-y-4">
                             <div className="flex items-center justify-between border-b pb-2">
                                 <h4 className="font-bold">Sections ({editForm.sections?.length || 0})</h4>
@@ -293,19 +290,10 @@ const SamplePapers = () => {
                                             />
                                         </div>
                                     </div>
-                                    <p className="text-xs text-muted-foreground">
-                                        {sec.questions?.length || 0} question(s) — edit full questions via the JSON after save.
-                                    </p>
                                 </div>
                             ))}
-                            {(editForm.sections?.length === 0) && (
-                                <p className="text-sm text-muted-foreground text-center py-4">
-                                    No sections yet. Click "Add Section" above.
-                                </p>
-                            )}
                         </div>
 
-                        {/* Actions */}
                         <div className="flex justify-end gap-2 pt-4 sticky bottom-0 bg-primary/5 py-3 border-t">
                             <Button variant="ghost" onClick={() => { setEditingId(null); setEditForm({}); }}>
                                 Cancel
@@ -318,12 +306,10 @@ const SamplePapers = () => {
                 </Card>
             )}
 
-            {/* ── Paper Cards Grid ───────────────────────────────────────── */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {papers.map(paper => (
                     <Card key={paper._id} className="hover:shadow-md transition-shadow group">
                         <CardContent className="p-5 flex flex-col gap-3">
-                            {/* Top row */}
                             <div className="flex items-start justify-between gap-2">
                                 <div className="flex items-center gap-3">
                                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -332,8 +318,8 @@ const SamplePapers = () => {
                                     <div>
                                         <div className="flex items-center gap-2">
                                             <h3 className="font-semibold leading-tight line-clamp-2 text-sm">{paper.title}</h3>
-                                            <span className={`text-xs px-2 py-0.5 rounded ${paper.class === 11 ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}`}>
-                                                Class {paper.class || 12}
+                                            <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-muted border">
+                                                {paper.category}
                                             </span>
                                         </div>
                                         {paper.subtitle && (
@@ -342,27 +328,15 @@ const SamplePapers = () => {
                                     </div>
                                 </div>
                                 <div className="flex gap-1 shrink-0">
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        onClick={() => handleEdit(paper)}
-                                        aria-label="Edit paper"
-                                    >
+                                    <Button variant="ghost" size="icon" onClick={() => handleEdit(paper)}>
                                         <Pencil className="h-4 w-4" />
                                     </Button>
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        className="text-destructive"
-                                        onClick={() => handleDelete(paper._id)}
-                                        aria-label="Delete paper"
-                                    >
+                                    <Button variant="ghost" size="icon" className="text-destructive" onClick={() => handleDelete(paper._id)}>
                                         <Trash2 className="h-4 w-4" />
                                     </Button>
                                 </div>
                             </div>
 
-                            {/* Meta badges */}
                             <div className="flex flex-wrap gap-2 text-xs">
                                 {paper.difficulty && (
                                     <span className={`px-2 py-0.5 rounded-full font-medium ${difficultyColor(paper.difficulty)}`}>
@@ -383,7 +357,6 @@ const SamplePapers = () => {
                                 )}
                             </div>
 
-                            {/* Section toggle */}
                             <button
                                 className="text-xs text-primary underline-offset-2 hover:underline text-left"
                                 onClick={() => handleViewSections(paper._id)}
@@ -402,14 +375,13 @@ const SamplePapers = () => {
             {papers.length === 0 && !editingId && (
                 <div className="flex flex-col items-center justify-center h-64 text-muted-foreground gap-3">
                     <ScrollText className="h-12 w-12 opacity-30" />
-                    <p>No sample papers found. Click <strong>Add Sample Paper</strong> or run the seed.</p>
+                    <p>No sample papers found for this category.</p>
                 </div>
             )}
         </div>
     );
 };
 
-// Sub-component: loads sections on demand
 const SectionPreview = ({ paperId }: { paperId: string }) => {
     const [sections, setSections] = useState<Section[]>([]);
     const [loading, setLoading]   = useState(true);

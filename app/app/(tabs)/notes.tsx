@@ -11,32 +11,49 @@ import { Header } from "@/components/ui/Header";
 import { TOPICS } from "@/constants/chapters";
 import { useApi } from "@/hooks/useApi";
 import { api, type ApiChapter } from "@/lib/api";
+import { useCourseStore } from "@/lib/course-store";
+import { Category } from "@/constants/courses";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-/** Group backend chapters into display units matching the CBSE syllabus */
-function buildUnits(chapters: ApiChapter[]) {
+/** Group backend chapters into display units matching the syllabus */
+function buildUnits(chapters: ApiChapter[], category: Category) {
   const sorted = [...chapters].sort((a, b) => a.order - b.order);
 
-  const unitMap: Record<string, { id: string; title: string; chapterIds: string[]; columns: 2 | 3 }> = {
-    unit1: { id: "unit1", title: "Unit 1: Computational Thinking & Programming", chapterIds: ["1","2","3","4","5"], columns: 2 },
-    unit2: { id: "unit2", title: "Unit 2: Computer Networks", chapterIds: ["6","7"], columns: 2 },
-    unit3: { id: "unit3", title: "Unit 3: Database Management", chapterIds: ["8","9","10"], columns: 3 },
-    unit4: { id: "unit4", title: "Unit 4: Boolean Logic", chapterIds: ["11"], columns: 2 },
-  };
+  // If Class 12, use the detailed unit map
+  if (category === "class12") {
+    const unitMap: Record<string, { id: string; title: string; chapterIds: string[]; columns: 2 | 3 }> = {
+      unit1: { id: "unit1", title: "Unit 1: Programming with Python", chapterIds: ["1","2","3","4","5"], columns: 2 },
+      unit2: { id: "unit2", title: "Unit 2: Computer Networks", chapterIds: ["6","7"], columns: 2 },
+      unit3: { id: "unit3", title: "Unit 3: Database Management", chapterIds: ["8","9","10"], columns: 3 },
+      unit4: { id: "unit4", title: "Unit 4: Boolean Logic", chapterIds: ["11"], columns: 2 },
+    };
 
-  return Object.values(unitMap).map((unit) => ({
-    id: unit.id,
-    title: unit.title,
-    columns: unit.columns,
-    chapters: sorted
-      .filter((ch) => unit.chapterIds.includes(ch.chapterId))
-      .map((ch) => ({
-        id: ch.chapterId,
-        title: ch.title,
-        icon: "menu-book" as const,
-      })),
-  })).filter((u) => u.chapters.length > 0);
+    return Object.values(unitMap).map((unit) => ({
+      id: unit.id,
+      title: unit.title,
+      columns: unit.columns,
+      chapters: sorted
+        .filter((ch) => unit.chapterIds.includes(ch.chapterId))
+        .map((ch) => ({
+          id: ch.chapterId,
+          title: ch.title,
+          icon: "menu-book" as const,
+        })),
+    })).filter((u) => u.chapters.length > 0);
+  }
+
+  // For other categories, group into a single "Course Materials" unit for now
+  return [{
+    id: "main",
+    title: "Course Materials",
+    columns: 2 as const,
+    chapters: sorted.map((ch) => ({
+      id: ch.chapterId,
+      title: ch.title,
+      icon: "menu-book" as const,
+    })),
+  }].filter((u) => u.chapters.length > 0);
 }
 
 // ── Screen ────────────────────────────────────────────────────────────────────
@@ -44,10 +61,14 @@ function buildUnits(chapters: ApiChapter[]) {
 export default function NotesScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTopic, setActiveTopic] = useState<string | null>(null);
+  const { activeCategory } = useCourseStore();
 
-  const { data: chapters, loading, error, refetch } = useApi(api.getChapters);
+  const { data: chapters, loading, error, refetch } = useApi(
+    () => api.getChapters(activeCategory),
+    [activeCategory]
+  );
 
-  const units = useMemo(() => buildUnits(chapters ?? []), [chapters]);
+  const units = useMemo(() => buildUnits(chapters ?? [], activeCategory), [chapters, activeCategory]);
 
   const activeTopicKeywords = useMemo(() => {
     if (!activeTopic) return [];

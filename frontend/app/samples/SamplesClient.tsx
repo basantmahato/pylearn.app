@@ -1,79 +1,92 @@
-/* eslint-disable react/no-inline-styles, react/forbid-component-props, @typescript-eslint/no-inline-styles */
 "use client";
 
-import { useState } from "react";
-import type { SamplePaper } from "../../lib/api";
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import type { SamplePaper, Category } from "../../lib/api";
+import { CATEGORIES } from "../../lib/api";
 
 interface Props {
   papers: SamplePaper[];
   error: string;
 }
 
-const DIFF_COLOR: Record<string, string> = {
-  easy: "#10b981",
-  medium: "#f59e0b",
-  hard: "#ef4444",
-};
+
+
+import StateView from "../components/StateView";
 
 export default function SamplesClient({ papers, error }: Props) {
-  const [activePaper, setActivePaper] = useState<SamplePaper | null>(null);
+  const [activeCategory, setActiveCategory] = useState<Category>("class12");
   const [filter, setFilter] = useState<string>("all");
 
-  const difficulties = ["all", ...Array.from(new Set(papers.map((p) => (p.difficulty ?? "Medium").toLowerCase())))];
 
-  const filtered = papers.filter((p) => {
-    if (filter === "all") return true;
-    return (p.difficulty ?? "medium").toLowerCase() === filter;
-  });
+
+  const filtered = useMemo(() => {
+    return papers.filter((p) => {
+      const catMatch = p.category === activeCategory;
+      if (!catMatch) return false;
+      if (filter === "all") return true;
+      return (p.difficulty ?? "medium").toLowerCase() === filter;
+    });
+  }, [papers, activeCategory, filter]);
+
+  const difficulties = useMemo(() => {
+    const catPapers = papers.filter(p => p.category === activeCategory);
+    return ["all", ...Array.from(new Set(catPapers.map((p) => (p.difficulty ?? "Medium").toLowerCase())))];
+  }, [papers, activeCategory]);
 
   if (error) {
-    return (
-      <div className="container" style={{ padding: "60px 24px", textAlign: "center" }}>
-        <div style={{
-          display: "inline-flex", flexDirection: "column", alignItems: "center",
-          gap: 16, background: "rgba(186,26,26,0.06)", border: "1px solid rgba(186,26,26,0.2)",
-          borderRadius: 20, padding: "40px 48px",
-        }}>
-          <span style={{ fontSize: "2.5rem" }}>⚠️</span>
-          <p style={{ color: "#ba1a1a", fontWeight: 600 }}>{error}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (activePaper) {
-    return <PaperDetail paper={activePaper} onBack={() => setActivePaper(null)} />;
+    return <StateView message={`Failed to load sample papers: ${error}`} type="error" />;
   }
 
   return (
-    <section className="section">
-      <div className="container">
+    <section className="py-24 md:py-28">
+      <div className="container mx-auto px-6">
         {/* Header */}
-        <div style={{ marginBottom: 40, textAlign: "center" }}>
-          <span className="section-label"> Practice Papers</span>
-          <h1 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, letterSpacing: "-0.03em" }}>
+        <div className="mb-12 text-center">
+          <div className="flex items-center justify-center gap-2 text-xs font-bold tracking-[0.12em] uppercase text-primary mb-4">
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
+            Practice Papers
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
+          </div>
+          <h1 className="text-[clamp(1.8rem,4vw,2.8rem)] font-black text-text leading-tight tracking-tight">
             Sample Papers
           </h1>
-          <p style={{ color: "var(--text-secondary)", marginTop: 8, maxWidth: 540, margin: "8px auto 0" }}>
-            Full-length CBSE Class 12 Python sample papers with section-wise questions &amp; explanations.
+          <p className="text-text-secondary mt-2 max-w-[540px] mx-auto leading-relaxed">
+            Full-length section-wise questions &amp; explanations for all categories.
           </p>
         </div>
 
+        {/* Category Tabs */}
+        <div className="flex justify-center gap-2.5 mb-8 flex-wrap">
+          {CATEGORIES.map((cat) => {
+            const active = activeCategory === cat.key;
+            return (
+              <button
+                key={cat.key}
+                onClick={() => { setActiveCategory(cat.key); setFilter("all"); }}
+                className={`px-6 py-2.5 rounded-full font-bold text-[0.9rem] transition-all cursor-pointer ${
+                  active 
+                    ? 'bg-primary shadow-lg shadow-primary/20 text-white'
+                    : "bg-white text-text-secondary shadow-sm hover:shadow-md border border-border/50"
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Filters */}
-        <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 32 }}>
+        <div className="flex gap-2.5 justify-center flex-wrap mb-12">
           {difficulties.map((d) => (
             <button
               key={d}
-              id={`filter-${d}`}
               onClick={() => setFilter(d)}
-              style={{
-                padding: "8px 20px", borderRadius: 100, border: "1.5px solid",
-                borderColor: filter === d ? "var(--primary)" : "var(--border)",
-                background: filter === d ? "var(--primary)" : "var(--bg-card)",
-                color: filter === d ? "#fff" : "var(--text-secondary)",
-                fontWeight: 700, fontSize: "0.8rem", cursor: "pointer",
-                textTransform: "capitalize", transition: "var(--transition)",
-              }}
+              className={`px-5 py-2 rounded-full text-[0.8rem] font-bold capitalize transition-all border cursor-pointer ${
+                filter === d 
+                  ? "bg-primary text-white border-primary shadow-md shadow-primary/20" 
+                  : "bg-white text-text-secondary border-border hover:shadow-sm"
+              }`}
             >
               {d === "all" ? "All Papers" : d}
             </button>
@@ -82,161 +95,71 @@ export default function SamplesClient({ papers, error }: Props) {
 
         {/* Papers Grid */}
         {filtered.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "80px 24px", color: "var(--text-muted)" }}>
-            <span style={{ fontSize: "2.5rem" }}>📭</span>
-            <p style={{ marginTop: 12, fontWeight: 600 }}>No papers found.</p>
+          <div className="text-center py-20 px-6 text-text-muted">
+            <span className="text-4xl">📭</span>
+            <p className="mt-3 font-bold text-lg">No papers found.</p>
           </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 20 }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((paper, i) => {
               const diff = (paper.difficulty ?? "Medium").toLowerCase();
-              const dColor = DIFF_COLOR[diff] ?? "#005ab5";
+              const diffColors: Record<string, string> = {
+                easy: "text-accent bg-accent/10 border-accent/20",
+                medium: "text-accent-warm bg-accent-warm/10 border-accent-warm/20",
+                hard: "text-error bg-error/10 border-error/20",
+              };
+              const colorClass = diffColors[diff] || "text-primary bg-primary/10 border-primary/20";
               const totalQ = (paper.sections ?? []).reduce((acc, s) => acc + (s.questions ?? []).length, 0);
+
               return (
-                <button
+                <Link
                   key={paper._id}
-                  id={`paper-${paper.paperId}`}
-                  onClick={() => setActivePaper(paper)}
-                  className="card"
-                  style={{ padding: "28px", textAlign: "left", cursor: "pointer", border: "none", width: "100%", background: "var(--bg-card)" }}
+                  href={`/samples/${activeCategory}/${paper.paperId}`}
+                  className="group bg-white rounded-2xl border border-border p-6 shadow-sm transition-all hover:shadow-md hover:border-primary/30 flex flex-col h-full no-underline"
                 >
-                  {/* Top row */}
-                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 16 }}>
-                    <div style={{
-                      width: 52, height: 52, borderRadius: 16,
-                      background: `linear-gradient(135deg, ${dColor}20, ${dColor}35)`,
-                      display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.4rem",
-                    }}>
-                      📄
+                  {/* Header Row */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-bg-surface border border-border group-hover:border-primary/20">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={colorClass.split(' ')[0]}>
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                      </svg>
                     </div>
-                    <span style={{ background: `${dColor}18`, color: dColor, fontSize: "0.7rem", fontWeight: 800, padding: "4px 10px", borderRadius: 100, textTransform: "uppercase" }}>
+                    <span className={`px-2 py-0.5 rounded-full text-[0.65rem] font-black uppercase tracking-wider border ${colorClass}`}>
                       {paper.difficulty ?? "Medium"}
                     </span>
                   </div>
 
-                  <div style={{ marginBottom: 4, color: "var(--text-muted)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.06em" }}>
-                    PAPER {String(i + 1).padStart(2, "0")}
+                  <div className="flex-1">
+                    <div className="text-[0.65rem] font-bold text-text-muted uppercase tracking-widest mb-1">
+                      Paper {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <h3 className="text-base font-black text-text leading-tight mb-2 tracking-tight group-hover:text-primary transition-colors">
+                      {paper.title}
+                    </h3>
                   </div>
-                  <h3 style={{ fontWeight: 800, fontSize: "1rem", color: "var(--text)", lineHeight: 1.4, marginBottom: 6 }}>{paper.title}</h3>
-                  {paper.subtitle && <p style={{ color: "var(--text-muted)", fontSize: "0.82rem", marginBottom: 12 }}>{paper.subtitle}</p>}
 
-                  <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: "auto" }}>
+                  <div className="flex gap-4 flex-wrap mt-4 pt-4 border-t border-border/50">
                     {paper.totalMarks && (
-                      <span style={{ display: "flex", alignItems: "center", gap: 4, fontSize: "0.78rem", color: "var(--text-secondary)", fontWeight: 600 }}>
-                        ⭐ {paper.totalMarks} marks
+                      <span className="text-[0.65rem] text-text-muted font-bold uppercase tracking-wider">
+                        Marks: {paper.totalMarks}
                       </span>
                     )}
                     {paper.duration && (
-                      <span style={{ display: "flex", alignItems: "center", gap: 4, fontSize: "0.78rem", color: "var(--text-secondary)", fontWeight: 600 }}>
-                        ⏱ {paper.duration}
+                      <span className="text-[0.65rem] text-text-muted font-bold uppercase tracking-wider">
+                        Time: {paper.duration}
                       </span>
                     )}
-                    <span style={{ display: "flex", alignItems: "center", gap: 4, fontSize: "0.78rem", color: "var(--text-secondary)", fontWeight: 600 }}>
-                      ❓ {totalQ} questions
+                    <span className="text-[0.65rem] text-text-muted font-bold uppercase tracking-wider">
+                      Qs: {totalQ}
                     </span>
                   </div>
-
-                  <div style={{ marginTop: 18, display: "flex", alignItems: "center", gap: 6, color: "var(--primary)", fontWeight: 700, fontSize: "0.85rem" }}>
-                    View Paper
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </div>
-                </button>
+                </Link>
               );
             })}
           </div>
         )}
       </div>
     </section>
-  );
-}
-
-/* ── Paper Detail View ─────────────────────────────────────────────────── */
-
-function PaperDetail({ paper, onBack }: { paper: SamplePaper; onBack: () => void }) {
-  return (
-    <section className="section">
-      <div className="container" style={{ maxWidth: 800 }}>
-        <button
-          id="paper-back-btn"
-          onClick={onBack}
-          style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", cursor: "pointer", color: "var(--primary)", fontWeight: 700, marginBottom: 24, fontSize: "0.9rem" }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          Back to Papers
-        </button>
-
-        {/* Paper header */}
-        <div style={{ background: "linear-gradient(135deg, #0f1729, #1e2d50)", borderRadius: 24, padding: "32px", color: "#fff", marginBottom: 28 }}>
-          <p style={{ fontSize: "0.72rem", fontWeight: 700, opacity: 0.6, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 }}>
-            {paper.paperId}
-          </p>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 900, lineHeight: 1.3 }}>{paper.title}</h2>
-          {paper.subtitle && <p style={{ opacity: 0.7, marginTop: 6, fontSize: "0.9rem" }}>{paper.subtitle}</p>}
-          <div style={{ display: "flex", gap: 20, marginTop: 16, flexWrap: "wrap" }}>
-            {paper.duration && <Chip icon="⏱" label={paper.duration} />}
-            {paper.totalMarks && <Chip icon="⭐" label={`${paper.totalMarks} Marks`} />}
-            {paper.difficulty && <Chip icon="📊" label={paper.difficulty} />}
-          </div>
-        </div>
-
-        {/* Sections */}
-        {(paper.sections ?? []).map((section) => (
-          <div key={section.sectionId} style={{ marginBottom: 28 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-              <div style={{ background: "var(--primary)", color: "#fff", fontWeight: 800, fontSize: "0.8rem", padding: "6px 14px", borderRadius: 100 }}>
-                {section.sectionId}
-              </div>
-              <h3 style={{ fontWeight: 800, fontSize: "1rem", color: "var(--text)" }}>{section.title}</h3>
-              {section.marks && <span style={{ marginLeft: "auto", color: "var(--text-muted)", fontSize: "0.8rem", fontWeight: 600 }}>{section.marks} marks</span>}
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {(section.questions ?? []).map((q, qi) => (
-                <div key={q.id ?? qi} className="card" style={{ padding: "20px 24px" }}>
-                  <p style={{ fontWeight: 700, color: "var(--text)", marginBottom: q.options && q.options.length > 0 ? 12 : 0, lineHeight: 1.55 }}>
-                    <span style={{ color: "var(--primary)", marginRight: 8 }}>Q{qi + 1}.</span>
-                    {q.question}
-                    {q.marks && <span style={{ color: "var(--text-muted)", fontWeight: 500, marginLeft: 8, fontSize: "0.82rem" }}>[{q.marks} mark{q.marks > 1 ? "s" : ""}]</span>}
-                  </p>
-                  {q.options && q.options.length > 0 && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                      {q.options.map((opt, oi) => (
-                        <div key={oi} style={{
-                          display: "flex", gap: 10, padding: "10px 14px", borderRadius: 10,
-                          background: oi === q.answer ? "rgba(16,185,129,0.08)" : "var(--bg-surface)",
-                          border: `1.5px solid ${oi === q.answer ? "#10b981" : "transparent"}`,
-                        }}>
-                          <span style={{ color: "var(--primary)", fontWeight: 800, fontSize: "0.8rem", minWidth: 20 }}>
-                            {String.fromCharCode(65 + oi)}.
-                          </span>
-                          <span style={{ fontSize: "0.87rem", color: oi === q.answer ? "#059669" : "var(--text-secondary)", fontWeight: oi === q.answer ? 600 : 400 }}>
-                            {opt}
-                          </span>
-                          {oi === q.answer && <span style={{ marginLeft: "auto", fontSize: "0.8rem" }}>✅</span>}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  {q.explanation && (
-                    <div style={{ marginTop: 12, padding: "10px 14px", background: "rgba(0,90,181,0.05)", borderRadius: 10, borderLeft: "3px solid var(--primary)" }}>
-                      <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
-                        <strong style={{ color: "var(--primary)" }}>💡 </strong>{q.explanation}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Chip({ icon, label }: { icon: string; label: string }) {
-  return (
-    <span style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(255,255,255,0.12)", padding: "6px 14px", borderRadius: 100, fontSize: "0.8rem", fontWeight: 600 }}>
-      {icon} {label}
-    </span>
   );
 }

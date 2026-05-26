@@ -1,256 +1,209 @@
-/* eslint-disable react/no-inline-styles, react/forbid-component-props, @typescript-eslint/no-inline-styles */
 "use client";
 
 import { useState, useMemo } from "react";
-import type { Chapter, QuizSet, QuizQuestion } from "../../lib/api";
+import Link from "next/link";
+import type { Chapter, QuizSet, Category } from "../../lib/api";
+import { CATEGORIES } from "../../lib/api";
 
 interface Props {
-  chapters: Chapter[];
-  quizSets: QuizSet[];
+  chaptersByCategory: Record<string, Chapter[]>;
+  quizSetsByCategory: Record<string, QuizSet[]>;
   error: string;
 }
 
-const DIFF_COLOR: Record<string, string> = {
-  easy: "#10b981",
-  medium: "#f59e0b",
-  hard: "#ef4444",
-};
 
-export default function QuizClient({ chapters, quizSets, error }: Props) {
-  const sorted = [...chapters].sort((a, b) => a.order - b.order);
-  const [activeChapter, setActiveChapter] = useState<string>(sorted[0]?.chapterId ?? "");
-  const [activeSet, setActiveSet] = useState<QuizSet | null>(null);
-  const [selected, setSelected] = useState<Record<number, number>>({});
-  const [submitted, setSubmitted] = useState(false);
+
+import StateView from "../components/StateView";
+
+export default function QuizClient({ chaptersByCategory, quizSetsByCategory, error }: Props) {
+  const [activeCategory, setActiveCategory] = useState<Category>("class12");
+  const activeCatMeta = CATEGORIES.find((c) => c.key === activeCategory)!;
+
+  const chapters = useMemo(() => 
+    (chaptersByCategory[activeCategory] ?? []).sort((a, b) => a.order - b.order),
+    [chaptersByCategory, activeCategory]
+  );
+  
+  const quizSets = useMemo(() => 
+    quizSetsByCategory[activeCategory] ?? [],
+    [quizSetsByCategory, activeCategory]
+  );
+
+  const [activeChapter, setActiveChapter] = useState<string>(
+    () => (chaptersByCategory["class12"] ?? [])[0]?.chapterId ?? ""
+  );
+
+  const handleCategoryChange = (cat: Category) => {
+    setActiveCategory(cat);
+    const sorted = (chaptersByCategory[cat] ?? []).sort((a, b) => a.order - b.order);
+    setActiveChapter(sorted[0]?.chapterId ?? "");
+  };
 
   const chapterSets = useMemo(
     () => quizSets.filter((s) => s.chapterId === activeChapter),
-    [quizSets, activeChapter]
+    [quizSets, activeChapter, activeCategory]
   );
 
-  function openSet(set: QuizSet) {
-    setActiveSet(set);
-    setSelected({});
-    setSubmitted(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function pick(qi: number, opt: number) {
-    if (submitted) return;
-    setSelected((prev) => ({ ...prev, [qi]: opt }));
-  }
-
-  function handleSubmit() {
-    if (Object.keys(selected).length < (activeSet?.questions.length ?? 0)) {
-      alert("Please answer all questions before submitting.");
-      return;
-    }
-    setSubmitted(true);
-  }
-
-  const score = useMemo(() => {
-    if (!activeSet || !submitted) return 0;
-    return activeSet.questions.reduce((acc, q, i) => acc + (selected[i] === q.answer ? 1 : 0), 0);
-  }, [activeSet, submitted, selected]);
-
   if (error) {
-    return (
-      <div className="container" style={{ padding: "60px 24px", textAlign: "center" }}>
-        <div style={{
-          display: "inline-flex", flexDirection: "column", alignItems: "center",
-          gap: 16, background: "rgba(186,26,26,0.06)", border: "1px solid rgba(186,26,26,0.2)",
-          borderRadius: 20, padding: "40px 48px",
-        }}>
-          <span style={{ fontSize: "2.5rem" }}>⚠️</span>
-          <p style={{ color: "#ba1a1a", fontWeight: 600 }}>{error}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (activeSet) {
-    return <QuizRunner
-      set={activeSet}
-      selected={selected}
-      submitted={submitted}
-      score={score}
-      onPick={pick}
-      onSubmit={handleSubmit}
-      onBack={() => setActiveSet(null)}
-    />;
+    return <StateView message={`Failed to load quiz bank: ${error}`} type="error" />;
   }
 
   return (
-    <section className="section">
-      <div className="container">
-        <div style={{ marginBottom: 40, textAlign: "center" }}>
-          <span className="section-label"> Practice</span>
-          <h1 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, letterSpacing: "-0.03em" }}>
+    <section className="py-24 md:py-28">
+      <div className="container mx-auto px-6">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <div className="flex items-center justify-center gap-2 text-xs font-bold tracking-[0.12em] uppercase text-primary mb-4">
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
+            Practice
+            <div className="flex-1 h-px bg-primary/25 min-w-[20px]" />
+          </div>
+          <h1 className="text-[clamp(1.8rem,4vw,2.8rem)] font-black text-text leading-tight tracking-tight">
             Quiz Bank
           </h1>
-          <p style={{ color: "var(--text-secondary)", marginTop: 8, maxWidth: 540, margin: "8px auto 0" }}>
+          <p className="text-text-secondary mt-2 max-w-[540px] mx-auto leading-relaxed">
             100+ chapter-wise MCQs with instant feedback &amp; explanations.
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: 24, alignItems: "start" }}>
-          {/* Chapter Sidebar */}
-          <aside style={{
-            background: "var(--bg-card)", borderRadius: 24, border: "1px solid var(--border)",
-            boxShadow: "var(--shadow-sm)", overflow: "hidden", position: "sticky", top: 100,
-          }}>
-            <div style={{ padding: "14px 18px", borderBottom: "1px solid var(--border)", background: "var(--bg-surface)" }}>
-              <p style={{ fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--primary)" }}>
-                Chapters
-              </p>
-            </div>
-            <nav style={{ padding: 8 }}>
-              {sorted.map((ch) => {
-                const active = ch.chapterId === activeChapter;
-                const count = quizSets.filter((s) => s.chapterId === ch.chapterId).length;
-                return (
-                  <button
-                    key={ch.chapterId}
-                    id={`quiz-ch-${ch.chapterId}`}
-                    onClick={() => setActiveChapter(ch.chapterId)}
-                    style={{
-                      width: "100%", textAlign: "left", padding: "10px 14px",
-                      borderRadius: 12, border: "none", cursor: "pointer",
-                      background: active ? "rgba(0,90,181,0.1)" : "transparent",
-                      color: active ? "var(--primary)" : "var(--text-secondary)",
-                      fontWeight: active ? 700 : 500, fontSize: "0.875rem",
-                      transition: "var(--transition)", display: "flex", alignItems: "center", justifyContent: "space-between",
-                    }}
-                  >
-                    <span>{ch.title}</span>
-                    {count > 0 && (
-                      <span style={{ background: active ? "var(--primary)" : "var(--bg-surface)", color: active ? "#fff" : "var(--text-muted)", fontSize: "0.7rem", fontWeight: 700, padding: "2px 7px", borderRadius: 100 }}>
-                        {count}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </nav>
-          </aside>
+        {/* Category Tabs */}
+        <div className="flex justify-center gap-2.5 mb-8 flex-wrap">
+          {CATEGORIES.map((cat) => {
+            const active = activeCategory === cat.key;
+            return (
+              <button
+                key={cat.key}
+                onClick={() => handleCategoryChange(cat.key)}
+                className={`px-6 py-2.5 rounded-full font-bold text-[0.9rem] transition-all cursor-pointer ${
+                  active 
+                    ? 'bg-primary shadow-lg shadow-primary/20 text-white'
+                    : "bg-white text-text-secondary shadow-sm hover:shadow-md border border-border/50"
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
 
-          {/* Quiz Sets Grid */}
-          <div>
-            {chapterSets.length === 0 ? (
-              <div style={{ textAlign: "center", padding: "80px 24px", color: "var(--text-muted)" }}>
-                <span style={{ fontSize: "2.5rem" }}>📭</span>
-                <p style={{ marginTop: 12, fontWeight: 600 }}>No quizzes yet for this chapter.</p>
+        {chapters.length === 0 ? (
+          <div className="text-center py-20 px-6 text-text-muted">
+            <p className="mt-3 font-bold text-lg">No quizzes yet for {activeCatMeta.label}.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 items-start">
+            {/* Chapter Sidebar */}
+            <aside className="bg-white rounded-3xl border border-border shadow-sm overflow-hidden lg:sticky lg:top-[100px]">
+              <div className="px-5 py-4 border-b border-border bg-bg-surface">
+                <p 
+                  className={`font-bold text-[0.78rem] tracking-wider uppercase ${
+                    activeCategory === 'class11' ? 'text-purple' :
+                    activeCategory === 'class12' ? 'text-primary' :
+                    activeCategory === 'bca' ? 'text-accent' :
+                    activeCategory === 'btech' ? 'text-accent-warm' : 'text-red-500'
+                  }`}
+                >
+                  {activeCatMeta.label}
+                </p>
               </div>
-            ) : (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
-                {chapterSets.map((set) => {
-                  const diff = set.difficulty?.toLowerCase() ?? "medium";
-                  const color = DIFF_COLOR[diff] ?? "#005ab5";
+              <nav className="p-2 space-y-1">
+                {chapters.map((ch) => {
+                  const active = ch.chapterId === activeChapter;
+                  const count = quizSets.filter((s) => s.chapterId === ch.chapterId).length;
+                  const activeBgClass = 
+                    activeCategory === 'class11' ? 'bg-purple/10' :
+                    activeCategory === 'class12' ? 'bg-primary/10' :
+                    activeCategory === 'bca' ? 'bg-accent/10' :
+                    activeCategory === 'btech' ? 'bg-accent-warm/10' : 'bg-red-500/10';
+                  
+                  const activeTextClass = 
+                    activeCategory === 'class11' ? 'text-purple' :
+                    activeCategory === 'class12' ? 'text-primary' :
+                    activeCategory === 'bca' ? 'text-accent' :
+                    activeCategory === 'btech' ? 'text-accent-warm' : 'text-red-500';
+
+                  const badgeBgClass = 
+                    activeCategory === 'class11' ? 'bg-purple' :
+                    activeCategory === 'class12' ? 'bg-primary' :
+                    activeCategory === 'bca' ? 'bg-accent' :
+                    activeCategory === 'btech' ? 'bg-accent-warm' : 'bg-red-500';
+
                   return (
                     <button
-                      key={set._id}
-                      id={`quiz-set-${set.setId}`}
-                      onClick={() => openSet(set)}
-                      className="card"
-                      style={{
-                        padding: "24px", textAlign: "left", cursor: "pointer",
-                        border: "none", width: "100%", background: "var(--bg-card)",
-                      }}
+                      key={ch.chapterId}
+                      onClick={() => setActiveChapter(ch.chapterId)}
+                      className={`flex items-center justify-between w-full text-left px-4 py-2.5 rounded-xl no-underline text-[0.875rem] transition-all ${
+                        active 
+                          ? `font-bold ${activeTextClass} ${activeBgClass}` 
+                          : "text-text-secondary font-medium hover:bg-gray-50"
+                      }`}
                     >
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-                        <span style={{ fontSize: "1.8rem" }}>🧩</span>
-                        <span style={{ background: `${color}18`, color, fontSize: "0.7rem", fontWeight: 800, padding: "4px 10px", borderRadius: 100, textTransform: "uppercase" }}>
-                          {set.difficulty ?? "Medium"}
+                      <span className="truncate mr-2">{ch.title}</span>
+                      {count > 0 && (
+                        <span className={`px-2 py-0.5 rounded-full text-[0.7rem] font-bold ${
+                          active ? `text-white ${badgeBgClass}` : "bg-bg-surface text-text-muted"
+                        }`}>
+                          {count}
                         </span>
-                      </div>
-                      <h3 style={{ fontWeight: 800, fontSize: "1rem", color: "var(--text)", marginBottom: 6 }}>{set.setName}</h3>
-                      <p style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{set.questions.length} questions</p>
-                      <div style={{ marginTop: 16, display: "flex", alignItems: "center", gap: 6, color: "var(--primary)", fontWeight: 700, fontSize: "0.85rem" }}>
-                        Start Quiz
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                      </div>
+                      )}
                     </button>
                   );
                 })}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+              </nav>
+            </aside>
 
-/* ── Quiz Runner ──────────────────────────────────────────────────────── */
+            {/* Quiz Sets Grid */}
+            <div className="flex flex-col gap-4">
+              {chapterSets.length === 0 ? (
+                <div className="text-center py-20 px-6 text-text-muted">
+                  <p className="mt-3 font-bold">No quizzes yet for this chapter.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {chapterSets.map((set) => {
+                    const diff = set.difficulty?.toLowerCase() ?? "medium";
+                    const diffColors: Record<string, string> = {
+                      easy: "text-accent bg-accent/10 border-accent/20",
+                      medium: "text-accent-warm bg-accent-warm/10 border-accent-warm/20",
+                      hard: "text-error bg-error/10 border-error/20",
+                    };
+                    const colorClass = diffColors[diff] || "text-primary bg-primary/10 border-primary/20";
 
-interface RunnerProps {
-  set: QuizSet;
-  selected: Record<number, number>;
-  submitted: boolean;
-  score: number;
-  onPick: (qi: number, opt: number) => void;
-  onSubmit: () => void;
-  onBack: () => void;
-}
-
-function QuizRunner({ set, selected, submitted, score, onPick, onSubmit, onBack }: RunnerProps) {
-  const total = set.questions.length;
-
-  return (
-    <section className="section">
-      <div className="container" style={{ maxWidth: 760 }}>
-        {/* Back button */}
-        <button
-          id="quiz-back-btn"
-          onClick={onBack}
-          style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", cursor: "pointer", color: "var(--primary)", fontWeight: 700, marginBottom: 24, fontSize: "0.9rem" }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          Back to Quizzes
-        </button>
-
-        {/* Header */}
-        <div style={{ background: "linear-gradient(135deg, var(--primary), var(--primary-light))", borderRadius: 24, padding: "28px 32px", color: "#fff", marginBottom: 24 }}>
-          <p style={{ fontSize: "0.75rem", fontWeight: 700, opacity: 0.7, letterSpacing: "0.1em", textTransform: "uppercase" }}>Quiz</p>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 900, marginTop: 4 }}>{set.setName}</h2>
-          <div style={{ display: "flex", gap: 16, marginTop: 12, fontSize: "0.85rem", opacity: 0.85 }}>
-            <span>🧩 {total} questions</span>
-            {set.difficulty && <span>📊 {set.difficulty}</span>}
-          </div>
-        </div>
-
-        {/* Score result */}
-        {submitted && (
-          <div style={{
-            background: score / total >= 0.5 ? "rgba(16,185,129,0.08)" : "rgba(239,68,68,0.08)",
-            border: `1.5px solid ${score / total >= 0.5 ? "#10b981" : "#ef4444"}`,
-            borderRadius: 20, padding: "24px 32px", marginBottom: 24, textAlign: "center",
-          }}>
-            <p style={{ fontSize: "2.5rem", fontWeight: 900, color: score / total >= 0.5 ? "#10b981" : "#ef4444" }}>
-              {score} / {total}
-            </p>
-            <p style={{ color: "var(--text-secondary)", marginTop: 4, fontWeight: 600 }}>
-              {score / total >= 0.8 ? "🎉 Excellent!" : score / total >= 0.5 ? "👍 Good job!" : "📖 Keep practicing!"}
-            </p>
-          </div>
-        )}
-
-        {/* Questions */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          {set.questions.map((q, qi) => (
-            <QuestionCard key={q.id ?? qi} q={q} qi={qi} selected={selected[qi]} submitted={submitted} onPick={onPick} />
-          ))}
-        </div>
-
-        {!submitted && (
-          <div style={{ textAlign: "center", marginTop: 32 }}>
-            <button
-              id="quiz-submit-btn"
-              onClick={onSubmit}
-              className="btn btn-primary btn-lg"
-            >
-              Submit Quiz
-            </button>
+                    return (
+                      <Link
+                        key={set._id}
+                        href={`/quiz/${activeCategory}/${activeChapter}/${set.setId}`}
+                        className="group bg-white rounded-2xl border border-border p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg hover:border-primary/20 no-underline"
+                      >
+                        <div className="flex items-center justify-between mb-4">
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-bg-surface border border-border group-hover:border-primary/20 ${colorClass.split(' ')[0]}`}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                              <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                          </div>
+                          <span className={`px-2 py-0.5 rounded-full text-[0.65rem] font-black uppercase tracking-wider border ${colorClass}`}>
+                            {set.difficulty ?? "Medium"}
+                          </span>
+                        </div>
+                        <h3 className="text-base font-black text-text mb-1.5 leading-tight tracking-tight group-hover:text-primary transition-colors">
+                          {set.setName}
+                        </h3>
+                        <p className="text-[0.82rem] text-text-secondary">
+                          {set.questions.length} questions
+                        </p>
+                        <div className="mt-4 flex items-center gap-1.5 text-primary font-bold text-[0.85rem]">
+                          Start Quiz
+                          <svg className="transition-transform group-hover:translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                          </svg>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -258,56 +211,4 @@ function QuizRunner({ set, selected, submitted, score, onPick, onSubmit, onBack 
   );
 }
 
-function QuestionCard({ q, qi, selected, submitted, onPick }: {
-  q: QuizQuestion; qi: number; selected: number | undefined; submitted: boolean;
-  onPick: (qi: number, opt: number) => void;
-}) {
-  return (
-    <div className="card" style={{ padding: "24px 28px" }}>
-      <p style={{ fontWeight: 700, color: "var(--text)", marginBottom: 16, lineHeight: 1.5 }}>
-        <span style={{ color: "var(--primary)", marginRight: 8 }}>Q{qi + 1}.</span>
-        {q.question}
-      </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {q.options.map((opt, oi) => {
-          const isSelected = selected === oi;
-          const isCorrect = oi === q.answer;
-          let bg = "var(--bg-surface)";
-          let borderColor = "transparent";
-          let color = "var(--text-secondary)";
-          if (submitted) {
-            if (isCorrect) { bg = "rgba(16,185,129,0.12)"; borderColor = "#10b981"; color = "#059669"; }
-            else if (isSelected && !isCorrect) { bg = "rgba(239,68,68,0.1)"; borderColor = "#ef4444"; color = "#ef4444"; }
-          } else if (isSelected) {
-            bg = "rgba(0,90,181,0.1)"; borderColor = "var(--primary)"; color = "var(--primary)";
-          }
-          return (
-            <button
-              key={oi}
-              id={`q${qi}-opt${oi}`}
-              onClick={() => onPick(qi, oi)}
-              style={{
-                display: "flex", alignItems: "center", gap: 12, padding: "12px 16px",
-                borderRadius: 12, border: `1.5px solid ${borderColor || "var(--border)"}`,
-                background: bg, color, fontWeight: 500, fontSize: "0.9rem",
-                cursor: submitted ? "default" : "pointer", textAlign: "left", transition: "var(--transition)",
-              }}
-            >
-              <span style={{ minWidth: 26, height: 26, borderRadius: "50%", background: borderColor === "transparent" ? "rgba(0,90,181,0.08)" : borderColor, color: isSelected || isCorrect ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", fontWeight: 800, flexShrink: 0 }}>
-                {String.fromCharCode(65 + oi)}
-              </span>
-              {opt}
-            </button>
-          );
-        })}
-      </div>
-      {submitted && q.explanation && (
-        <div style={{ marginTop: 14, padding: "12px 16px", background: "rgba(0,90,181,0.05)", borderRadius: 12, borderLeft: "3px solid var(--primary)" }}>
-          <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
-            <strong style={{ color: "var(--primary)" }}>💡 Explanation: </strong>{q.explanation}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-}
+

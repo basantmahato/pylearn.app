@@ -90,6 +90,7 @@ export default function RootLayout() {
           <Stack.Screen name="search" />
           <Stack.Screen name="onboarding/name" />
           <Stack.Screen name="onboarding/avatar" />
+          <Stack.Screen name="onboarding/course" />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

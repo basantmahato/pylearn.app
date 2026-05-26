@@ -18,13 +18,14 @@ import { PracticeSection } from "@/components/chapter/PracticeSection";
 import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
 import { useProgressStore } from "@/lib/progress-store";
+import { useCourseStore } from "@/lib/course-store";
 
 export default function ChapterDetailScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const scrollViewRef = useRef<ScrollView>(null);
-  const [scrollY, setScrollY] = useState(0);
+
 
   const chapterId = id as string;
   const {
@@ -35,15 +36,19 @@ export default function ChapterDetailScreen() {
     toggleBookmark,
     isBookmarked,
   } = useProgressStore();
-  const progress = getChapterProgress(chapterId);
-  const bookmarked = isBookmarked(chapterId);
+  const { activeCategory } = useCourseStore();
+  const progress = getChapterProgress(chapterId, activeCategory);
+  const bookmarked = isBookmarked(chapterId, activeCategory);
 
   // ── Fetch chapter meta + notes in parallel ────────────────────────────────
 
-  const { data: chapters, loading: loadingCh } = useApi(api.getChapters);
+  const { data: chapters, loading: loadingCh } = useApi(
+    () => api.getChapters(activeCategory),
+    [activeCategory]
+  );
   const { data: noteBlocks, loading: loadingNotes, error } = useApi(
-    () => api.getNotesByChapter(chapterId),
-    [chapterId]
+    () => api.getNotesByChapter(chapterId, activeCategory),
+    [chapterId, activeCategory]
   );
 
   const chapterMeta = useMemo(
@@ -66,16 +71,15 @@ export default function ChapterDetailScreen() {
       const y = event.nativeEvent.contentOffset.y;
       const height = event.nativeEvent.contentSize.height;
       const layoutHeight = event.nativeEvent.layoutMeasurement.height;
-      setScrollY(y);
       if (height > 0) {
         const scrollProgress = Math.min(
           100,
           Math.round((y / (height - layoutHeight)) * 100)
         );
         const newProgress = Math.max(progress, scrollProgress);
-        if (newProgress > progress) updateChapterProgress(chapterId, newProgress);
+        if (newProgress > progress) updateChapterProgress(chapterId, newProgress, activeCategory);
         if (scrollProgress >= 90) {
-          markChapterComplete(chapterId);
+          markChapterComplete(chapterId, activeCategory);
           checkIn();
         }
       }
@@ -150,7 +154,7 @@ export default function ChapterDetailScreen() {
         </View>
         <View className="flex-row items-center gap-2">
           <Pressable
-            onPress={() => toggleBookmark(chapterId)}
+            onPress={() => toggleBookmark(chapterId, activeCategory)}
             className="w-10 h-10 rounded-full bg-surface-container items-center justify-center active:scale-90"
           >
             <MaterialCommunityIcons
@@ -208,7 +212,7 @@ export default function ChapterDetailScreen() {
                     <ParagraphBlock
                       key={block._id}
                       heading={block.heading}
-                      text={block.text}
+                      text={block.text ?? ""}
                     />
                   );
                 case "bullet_list":
@@ -224,8 +228,8 @@ export default function ChapterDetailScreen() {
                     <CodeBlock
                       key={block._id}
                       heading={block.heading}
-                      code={block.code}
-                      language={block.language}
+                      code={block.code ?? ""}
+                      language={block.language ?? "python"}
                     />
                   );
                 default:

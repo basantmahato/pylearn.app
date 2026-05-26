@@ -16,6 +16,7 @@ import { PaperList } from "@/components/samples/PaperList";
 import { Header } from "@/components/ui/Header";
 import { useApi } from "@/hooks/useApi";
 import { api, type ApiSamplePaper } from "@/lib/api";
+import { useCourseStore } from "@/lib/course-store";
 
 const DIFFICULTY_FILTERS = ["All", "Easy", "Medium", "Hard"] as const;
 type DiffFilter = (typeof DIFFICULTY_FILTERS)[number];
@@ -23,7 +24,7 @@ type DiffFilter = (typeof DIFFICULTY_FILTERS)[number];
 // Adapter: shape ApiSamplePaper into what PaperList expects
 function adaptPaper(p: ApiSamplePaper) {
   return {
-    id: p.paperId,
+    paperId: p.paperId,
     title: p.title,
     subtitle: p.subtitle ?? "",
     difficulty: (p.difficulty ?? "Medium") as "Easy" | "Medium" | "Hard",
@@ -41,8 +42,12 @@ function adaptPaper(p: ApiSamplePaper) {
 export default function SampleScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState<DiffFilter>("All");
+  const { activeCategory } = useCourseStore();
 
-  const { data: papers, loading, error, refetch } = useApi(api.getSamplePapers);
+  const { data: papers, loading, error, refetch } = useApi(
+    () => api.getSamplePapers(activeCategory),
+    [activeCategory]
+  );
 
   const adapted = useMemo(() => (papers ?? []).map(adaptPaper), [papers]);
 
