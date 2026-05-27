@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="bg-[#0f1729] text-white/60 pt-16 pb-8">
@@ -57,18 +59,18 @@ export default function Footer() {
             <h4 className="text-white font-black mb-6 text-sm uppercase tracking-wider">Legal</h4>
             <ul className="flex flex-col gap-3">
               {[
-                ["#", "Privacy Policy"],
-                ["#", "Terms of Service"],
-                ["#", "CBSE Guidelines"],
-                ["#", "Contact Us"],
+                ["/privacy-policy", "Privacy Policy"],
+                ["/terms-of-service", "Terms of Service"],
+                ["/cbse-guidelines", "CBSE Guidelines"],
+                ["/contact", "Contact Us"],
               ].map(([href, label]) => (
                 <li key={label}>
-                  <a 
+                  <Link 
                     href={href} 
                     className="text-white/50 hover:text-white transition-colors text-sm no-underline"
                   >
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

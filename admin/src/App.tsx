@@ -11,6 +11,7 @@ import Blogs from './pages/Blogs';
 import ManageAds from './pages/ManageAds';
 import Courses from './pages/Courses';
 import Notifications from './pages/Notifications';
+import Contacts from './pages/Contacts';
 
 
 // Auth Guard
@@ -43,6 +44,7 @@ const App = () => {
                     <Route path="ads" element={<ManageAds />} />
                     <Route path="courses" element={<Courses />} />
                     <Route path="notifications" element={<Notifications />} />
+                    <Route path="contacts" element={<Contacts />} />
                 </Route>
             </Routes>
         </BrowserRouter>

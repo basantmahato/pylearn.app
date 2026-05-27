@@ -10,7 +10,8 @@ import {
     LayoutGrid,
     Megaphone,
     GraduationCap,
-    Bell
+    Bell,
+    MessageSquare
 } from 'lucide-react';
 
 const SidebarLink = ({ to, icon: Icon, label, active }: { to: string, icon: any, label: string, active: boolean }) => (
@@ -57,6 +58,7 @@ const DashboardLayout = () => {
                             <SidebarLink to="/ads" icon={Megaphone} label="Manage Ads" active={location.pathname.startsWith('/ads')} />
                             <SidebarLink to="/courses" icon={GraduationCap} label="Manage Courses" active={location.pathname.startsWith('/courses')} />
                             <SidebarLink to="/notifications" icon={Bell} label="Push Notifications" active={location.pathname.startsWith('/notifications')} />
+                            <SidebarLink to="/contacts" icon={MessageSquare} label="Contact Inquiries" active={location.pathname.startsWith('/contacts')} />
                         </nav>
                     </div>
                     <div className="mt-auto p-4 border-t">
@@ -86,6 +88,7 @@ const DashboardLayout = () => {
                             {location.pathname.startsWith('/ads') && 'Manage Ads Settings'}
                             {location.pathname.startsWith('/courses') && 'Manage Courses'}
                             {location.pathname.startsWith('/notifications') && 'Android Push Alerts'}
+                            {location.pathname.startsWith('/contacts') && 'Contact Inquiries'}
                         </h1>
                     </div>
                 </header>

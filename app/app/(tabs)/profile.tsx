@@ -469,7 +469,7 @@ export default function ProfileScreen() {
           </Pressable>
 
           <Pressable
-            onPress={() => Linking.openURL("https://instagram.com")}
+            onPress={() => Linking.openURL("https://instagram.com/pylearn.app")}
             className="bg-surface-container-low rounded-xl p-4 mb-3 flex-row items-center border border-outline-variant/10 active:scale-[0.98]"
           >
             <View className="w-10 h-10 rounded-full bg-pink-500/10 items-center justify-center mr-3">
@@ -485,7 +485,7 @@ export default function ProfileScreen() {
           </Pressable>
 
           <Pressable
-            onPress={() => Linking.openURL("https://t.me")}
+            onPress={() => Linking.openURL("https://t.me/pylearnapp")}
             className="bg-surface-container-low rounded-xl p-4 mb-3 flex-row items-center border border-outline-variant/10 active:scale-[0.98]"
           >
             <View className="w-10 h-10 rounded-full items-center justify-center mr-3" style={{ backgroundColor: '#0088cc15' }}>
@@ -500,7 +500,7 @@ export default function ProfileScreen() {
             <MaterialCommunityIcons name="open-in-new" size={18} color="#717785" />
           </Pressable>
 
-          <Pressable
+          {/* <Pressable
             onPress={() => Linking.openURL("https://twitter.com")}
             className="bg-surface-container-low rounded-xl p-4 mb-3 flex-row items-center border border-outline-variant/10 active:scale-[0.98]"
           >
@@ -514,7 +514,7 @@ export default function ProfileScreen() {
               </Text>
             </View>
             <MaterialCommunityIcons name="open-in-new" size={18} color="#717785" />
-          </Pressable>
+          </Pressable> */}
 
           <Pressable
             onPress={() => Linking.openURL("https://pylearn.app")}
@@ -539,7 +539,7 @@ export default function ProfileScreen() {
             PyLearn v1.0.0
           </Text>
           <Text className="text-xs text-on-surface-variant/40 mt-1">
-            Made with love for CBSE Students
+            Made with love for Students
           </Text>
         </View>
       </ScrollView>

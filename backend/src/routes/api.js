@@ -8,6 +8,7 @@ const courseController = require('../controllers/courseController');
 const validate = require('../middleware/validate');
 const { chapterSchema, noteSchema, quizSchema } = require('../validations/schemas');
 const notificationController = require('../controllers/notificationController');
+const contactController = require('../controllers/contactController');
 
 // ── Admin Auth ───────────────────────────────────────────────────────────────
 router.post('/admin/login', adminController.login);
@@ -111,5 +112,10 @@ router.post('/devices/register', notificationController.registerDeviceToken);
 router.post('/admin/notifications/send', auth, notificationController.sendPushNotification);
 router.get('/admin/notifications/config', auth, notificationController.getNotificationConfig);
 router.post('/admin/notifications/config', auth, notificationController.updateNotificationConfig);
+
+// ── Contact Inquiries ────────────────────────────────────────────────────────
+router.post('/contacts', contactController.createContact);
+router.get('/admin/contacts', auth, contactController.getContacts);
+router.delete('/admin/contacts/:id', auth, contactController.deleteContact);
 
 module.exports = router;

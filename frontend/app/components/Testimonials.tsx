@@ -120,7 +120,7 @@ export default function Testimonials() {
               </p>
 
               {/* Author */}
-              <div className="flex items-center justify-between gap-4 mt-auto pt-6 border-t border-border/50">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-auto pt-6 border-t border-border/50">
                 <div className="flex items-center gap-3">
                   <div className={`w-11 h-11 rounded-full flex items-center justify-center text-xl shrink-0 ${r.avatarBg}`}>
                     {r.avatar === "FOX" ? "🦊" : r.avatar}
@@ -132,7 +132,7 @@ export default function Testimonials() {
                 </div>
 
                 <span 
-                  className={`px-2.5 py-1 rounded-full text-[0.65rem] font-black uppercase tracking-wider whitespace-nowrap shrink-0 ${r.tagColor.replace('text-', 'bg-')}/10 ${r.tagColor}`}
+                  className={`px-2.5 py-1 rounded-full text-[0.65rem] font-black uppercase tracking-wider whitespace-nowrap shrink-0 self-start sm:self-auto ${r.tagColor.replace('text-', 'bg-')}/10 ${r.tagColor}`}
                 >
                   {r.tag}
                 </span>
