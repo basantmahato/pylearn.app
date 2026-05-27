@@ -101,7 +101,7 @@ export default function QuizScreen() {
               onPress={refetchCh}
               className="mt-6 bg-primary px-8 py-3 rounded-2xl active:opacity-80"
             >
-              <Text className="text-white font-bold">Retry</Text>
+              <Text className="text-white font-bold" style={{ color: '#ffffff' }}>Retry</Text>
             </Pressable>
           </View>
         )}

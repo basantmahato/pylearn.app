@@ -1,13 +1,13 @@
 import { useProgressStore } from "@/lib/progress-store";
-import { getUserName } from "@/lib/storage";
+import { useUserStore } from "@/lib/storage";
 import { useCourseStore } from "@/lib/course-store";
 import { CATEGORIES } from "@/constants/courses";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Text, View } from "react-native";
 
 export function Greeting() {
-  const [userName, setUserName] = useState<string>("Learner");
+  const userName = useUserStore((state) => state.userName) || "Learner";
   const { activeCategory } = useCourseStore();
   const { getStreak, checkIn } = useProgressStore();
   const streak = getStreak();
@@ -15,10 +15,6 @@ export function Greeting() {
   const activeCourse = CATEGORIES.find(c => c.key === activeCategory);
 
   useEffect(() => {
-    const storedName = getUserName();
-    if (storedName) {
-      setUserName(storedName);
-    }
     // Check in for streak when greeting loads
     checkIn();
   }, [checkIn]);

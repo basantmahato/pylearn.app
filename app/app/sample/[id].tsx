@@ -19,6 +19,7 @@ import { ShortAnswerQuestion } from "@/components/samples/ShortAnswerQuestion";
 import { useApi } from "@/hooks/useApi";
 import { api, apiClient, type ApiSampleSection } from "@/lib/api";
 import { useCourseStore } from "@/lib/course-store";
+import { useProgressStore } from "@/lib/progress-store";
 import { AdBanner } from "@/components/home/AdBanner";
 import { getActiveAdUnitId, RemoteAdConfig } from "@/lib/ads-config";
 
@@ -45,6 +46,25 @@ export default function PaperDetailScreen() {
   const insets = useSafeAreaInsets();
   const paperId = id as string;
   const { activeCategory } = useCourseStore();
+  const { getSamplePaperProgress, updateSamplePaperProgress, toggleSamplePaperBookmark, isSamplePaperBookmarked } = useProgressStore();
+  const isCompleted = getSamplePaperProgress(paperId, activeCategory) >= 100;
+  const isBookmarked = isSamplePaperBookmarked(paperId, activeCategory);
+
+  const handleToggleBookmark = async () => {
+    try {
+      const Haptics = require("expo-haptics");
+      await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    } catch {}
+    toggleSamplePaperBookmark(paperId, activeCategory);
+  };
+
+  const handleMarkComplete = async () => {
+    try {
+      const Haptics = require("expo-haptics");
+      await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    } catch {}
+    updateSamplePaperProgress(paperId, 100, activeCategory);
+  };
 
   const { data: paper, loading, error } = useApi(
     () => api.getSamplePaperById(paperId, activeCategory),
@@ -291,6 +311,16 @@ export default function PaperDetailScreen() {
             {paper.title}
           </Text>
         </View>
+        <Pressable
+          onPress={handleToggleBookmark}
+          className="w-11 h-11 items-center justify-center rounded-full bg-surface-container active:scale-90"
+        >
+          <MaterialCommunityIcons 
+            name={isBookmarked ? "bookmark" : "bookmark-outline"} 
+            size={22} 
+            color={isBookmarked ? "#005ab5" : "#717785"} 
+          />
+        </Pressable>
       </View>
 
       <ScrollView contentContainerClassName="pb-32" showsVerticalScrollIndicator={false}>
@@ -390,9 +420,24 @@ export default function PaperDetailScreen() {
         >
           <MaterialCommunityIcons name="school-outline" size={32} color="#005ab5" />
           <Text className="text-xl font-bold text-on-surface mt-4">Practice Makes Perfect</Text>
-          <Text className="text-on-surface-variant text-center mt-2">
+          <Text className="text-on-surface-variant text-center mt-2 mb-6">
             Review all sections and practice writing code by hand to prepare for your exam.
           </Text>
+
+          {isCompleted ? (
+            <View className="bg-emerald-500/10 border border-emerald-500/25 px-8 py-3.5 rounded-2xl flex-row items-center gap-2 w-full justify-center">
+              <MaterialCommunityIcons name="check-circle" size={20} color="#10b981" />
+              <Text className="text-emerald-700 font-bold text-base">Completed Practice</Text>
+            </View>
+          ) : (
+            <Pressable
+              onPress={handleMarkComplete}
+              className="bg-primary px-8 py-3.5 rounded-2xl flex-row items-center gap-2 active:scale-[0.98] w-full justify-center shadow-lg shadow-primary/20"
+            >
+              <MaterialCommunityIcons name="check" size={20} color="#ffffff" />
+              <Text className="text-white font-bold text-base" style={{ color: '#ffffff' }}>Complete Practice</Text>
+            </Pressable>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

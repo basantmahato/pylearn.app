@@ -14,7 +14,7 @@ export function SearchHero({ searchQuery, setSearchQuery }: SearchHeroProps) {
         Chapter Notes
       </Text>
       <View className="relative max-w-2xl">
-        <View className="absolute left-4 top-0 bottom-0 justify-center z-10">
+        <View className="absolute left-4 top-0 bottom-0 justify-center z-10" pointerEvents="none">
           <MaterialCommunityIcons name={"magnify" as any} size={24} color="#717785" />
         </View>
         <TextInput

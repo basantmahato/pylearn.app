@@ -9,7 +9,7 @@ export function SearchHeader() {
       </Text>
       
       <View className="relative">
-        <View className="absolute left-4 top-0 bottom-0 flex justify-center z-10 p-4">
+        <View className="absolute left-4 top-0 bottom-0 flex justify-center z-10 p-4" pointerEvents="none">
           <MaterialCommunityIcons name="magnify" size={24} color="#717785" />
         </View>
         <TextInput 

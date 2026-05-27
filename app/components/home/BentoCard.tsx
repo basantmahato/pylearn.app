@@ -18,19 +18,23 @@ export function BentoCard({ title, subtitle, progress, icon, color, tag, route }
 
   return (
     <Link href={route as any} asChild>
-      <Pressable className="bg-surface-container-low rounded-3xl p-5 w-[47%] hover:bg-surface-container active:scale-95">
-        <View className="flex-row justify-between items-start mb-4">
-          <View className="w-12 h-12 rounded-2xl bg-surface-container-high items-center justify-center">
-            <MaterialCommunityIcons name={icon as any} size={24} color={iconColor} />
+      <Pressable className="bg-surface-container-low rounded-3xl p-5 w-[47%] hover:bg-surface-container active:scale-95 flex-col justify-between">
+        <View className="flex-1">
+          <View className="flex-row justify-between items-center mb-4 gap-2 flex-wrap">
+            <View className="w-12 h-12 rounded-2xl bg-surface-container-high items-center justify-center">
+              <MaterialCommunityIcons name={icon as any} size={24} color={iconColor} />
+            </View>
+            <View className={`${bgColor} px-2 py-1 rounded-lg`}>
+              <Text className="text-[10px] font-bold uppercase tracking-widest text-on-surface" allowFontScaling={false}>{tag}</Text>
+            </View>
           </View>
-          <View className={`${bgColor} px-2 py-1 rounded-lg`}>
-            <Text className="text-[10px] font-bold uppercase tracking-widest text-on-surface">{tag}</Text>
-          </View>
+          <Text className="font-bold text-lg mb-1 text-on-surface" numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>{title}</Text>
+          <Text className="text-xs text-on-surface-variant leading-relaxed" numberOfLines={2}>{subtitle}</Text>
         </View>
-        <Text className="font-bold text-lg mb-1">{title}</Text>
-        <Text className="text-xs text-on-surface-variant" numberOfLines={1}>{subtitle}</Text>
-        <View className="mt-4 h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
-          <View className="h-full bg-primary rounded-full" style={{ width: `${progress}%`, backgroundColor: iconColor }} />
+        <View className="mt-auto pt-4">
+          <View className="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+            <View className="h-full bg-primary rounded-full" style={{ width: `${progress}%`, backgroundColor: iconColor }} />
+          </View>
         </View>
       </Pressable>
     </Link>

@@ -21,6 +21,8 @@ export function SectionAccordion({
   onToggle,
   children,
 }: SectionAccordionProps) {
+  const displayId = sectionId.replace(/^(sec-)?/i, "").toUpperCase();
+
   return (
     <View className="mb-4">
       <Pressable
@@ -30,7 +32,7 @@ export function SectionAccordion({
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center gap-3">
             <View className="bg-primary/10 w-12 h-12 items-center justify-center rounded-xl">
-              <Text className="text-primary font-black text-xl">{sectionId}</Text>
+              <Text className="text-primary font-black text-xl text-center" numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6}>{displayId}</Text>
             </View>
             <View>
               <Text className="text-lg font-bold text-on-surface">{title}</Text>

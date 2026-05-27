@@ -21,8 +21,8 @@ const CATEGORY_ICONS: Record<Category, string> = {
 };
 
 export default function OnboardingCourseScreen() {
-  const { activeCategory, setCategory } = useCourseStore();
-  const [selected, setSelected] = useState(activeCategory);
+  const { setCategory } = useCourseStore();
+  const [selected, setSelected] = useState<string | null>(null);
   const insets = useSafeAreaInsets();
 
   const { data: dynamicCoursesRes } = useApi(() => api.getCourses().catch(() => null), []);
@@ -31,12 +31,13 @@ export default function OnboardingCourseScreen() {
 
   const handleSelect = async (id: string) => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    setSelected(id as any);
+    setSelected(id);
   };
 
   const handleFinish = async () => {
+    if (!selected) return;
     await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    setCategory(selected);
+    setCategory(selected as Category);
     setOnboardingComplete();
     router.dismissAll();
     router.replace('/(tabs)');
@@ -83,7 +84,7 @@ export default function OnboardingCourseScreen() {
                 onPress={() => handleSelect(cat.key)}
                 className={`flex-row items-center p-5 rounded-[28px] border-2 ${
                   isSelected 
-                    ? 'border-primary bg-primary/5' 
+                    ? 'border-primary bg-surface-container' 
                     : 'border-outline-variant/10 bg-surface-container-low'
                 }`}
                 style={
@@ -128,11 +129,13 @@ export default function OnboardingCourseScreen() {
         </View>
       </ScrollView>
 
-      {/* Footer */}
       <View className="px-6 pt-4 border-t border-outline-variant/5 bg-background" style={{ paddingBottom: Math.max(insets.bottom, 16) }}>
         <Pressable
           onPress={handleFinish}
-          className="rounded-2xl py-4 bg-primary shadow-lg active:scale-[0.98]"
+          disabled={selected === null}
+          className={`rounded-2xl py-4 shadow-lg active:scale-[0.98] ${
+            selected === null ? 'bg-primary/50 opacity-60' : 'bg-primary'
+          }`}
         >
           <Text className="text-center text-lg font-bold text-white" style={{ color: '#ffffff' }}>
             Get Started

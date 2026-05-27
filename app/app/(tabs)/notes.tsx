@@ -1,12 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
 
 import { SearchHero } from "@/components/notes/SearchHero";
-import { TopicDiscovery } from "@/components/notes/TopicDiscovery";
 import { UnitSection } from "@/components/notes/UnitSection";
-import { TOPICS } from "@/constants/chapters";
 import { useApi } from "@/hooks/useApi";
 import { api, type ApiChapter } from "@/lib/api";
 import { useCourseStore } from "@/lib/course-store";
@@ -61,7 +59,6 @@ function buildUnits(chapters: ApiChapter[], category: Category) {
 
 export default function NotesScreen() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTopic, setActiveTopic] = useState<string | null>(null);
   const { activeCategory } = useCourseStore();
 
   const { data: chapters, loading, error, refetch } = useApi(
@@ -71,17 +68,11 @@ export default function NotesScreen() {
 
   const units = useMemo(() => buildUnits(chapters ?? [], activeCategory), [chapters, activeCategory]);
 
-  const activeTopicKeywords = useMemo(() => {
-    if (!activeTopic) return [];
-    return TOPICS.find((t) => t.label === activeTopic)?.keywords || [];
-  }, [activeTopic]);
-
   const filteredUnits = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
     const hasSearch = query.length > 0;
-    const hasTopic = activeTopicKeywords.length > 0;
 
-    if (!hasSearch && !hasTopic) return units;
+    if (!hasSearch) return units;
 
     return units
       .map((unit) => {
@@ -89,37 +80,21 @@ export default function NotesScreen() {
 
         const matchingChapters = unit.chapters.filter((ch) => {
           const t = ch.title.toLowerCase();
-          const matchesSearch = !hasSearch || t.includes(query);
-          const matchesTopic =
-            !hasTopic || activeTopicKeywords.some((kw) => t.includes(kw.toLowerCase()));
-          return matchesSearch && matchesTopic;
+          const cleanId = ch.id.replace(/[^0-9]/g, "");
+          const matchesSearch =
+            t.includes(query) ||
+            ch.id.toLowerCase().includes(query) ||
+            `chapter ${cleanId}`.includes(query) ||
+            `ch ${cleanId}`.includes(query);
+          return matchesSearch;
         });
 
-        const chaptersToShow =
-          unitMatchesSearch && !hasTopic ? unit.chapters : matchingChapters;
+        const chaptersToShow = unitMatchesSearch ? unit.chapters : matchingChapters;
 
         return { ...unit, chapters: chaptersToShow };
       })
       .filter((u) => u.chapters.length > 0);
-  }, [units, searchQuery, activeTopicKeywords]);
-
-  const handleTopicPress = useCallback(
-    (label: string) => {
-      if (activeTopic === label) {
-        setActiveTopic(null);
-        setSearchQuery("");
-      } else {
-        setActiveTopic(label);
-        setSearchQuery(label);
-      }
-    },
-    [activeTopic]
-  );
-
-  const clearFilters = () => {
-    setActiveTopic(null);
-    setSearchQuery("");
-  };
+  }, [units, searchQuery]);
 
   return (
     <View className="flex-1 bg-background">
@@ -150,7 +125,7 @@ export default function NotesScreen() {
                 onPress={refetch}
                 className="mt-6 bg-primary px-8 py-3 rounded-2xl active:opacity-80"
               >
-                <Text className="text-white font-bold">Retry</Text>
+                <Text className="text-white font-bold" style={{ color: '#ffffff' }}>Retry</Text>
               </Pressable>
             </View>
           )}
@@ -180,19 +155,14 @@ export default function NotesScreen() {
                 )}
               </View>
 
-              <TopicDiscovery onTopicPress={handleTopicPress} activeTopic={activeTopic} />
-
-              {activeTopic && (
-                <View className="flex-row items-center gap-2 mb-4">
-                  <Text className="text-sm text-on-surface-variant">
-                    Filtering by:{" "}
-                    <Text className="font-bold text-primary">{activeTopic}</Text>
-                  </Text>
-                  <Pressable onPress={clearFilters} className="p-1">
-                    <MaterialCommunityIcons name="close-circle" size={18} color="#717785" />
-                  </Pressable>
-                </View>
-              )}
+              {/* Educational Quote Card */}
+              <View className="bg-primary/5 p-8 rounded-[40px] border border-primary/10 items-center mt-16">
+                <MaterialCommunityIcons name="lightbulb-on-outline" size={32} color="#005ab5" />
+                <Text className="text-xl font-bold text-on-surface mt-4">Read, Learn & Grow</Text>
+                <Text className="text-on-surface-variant text-center mt-2 leading-relaxed">
+                  "The beautiful thing about learning is that no one can take it away from you." Read the notes thoroughly to build a strong foundation and ace your CBSE exams!
+                </Text>
+              </View>
             </>
           )}
         </View>

@@ -13,7 +13,7 @@ export function Header({ showSearch = false, onSearchPress }: HeaderProps) {
       <View className="max-w-5xl self-center w-full px-6 h-16 flex-row items-center justify-between">
         <View className="flex-row items-center gap-3">
           <MaterialCommunityIcons name="code-braces" size={24} color="#005ab5" />
-          <Text className="text-xl font-extrabold text-on-surface tracking-tight">PyLearn 12</Text>
+          <Text className="text-xl font-extrabold text-on-surface tracking-tight">PyLearn</Text>
         </View>
         <View className="flex-row items-center gap-4">
           {showSearch && (

@@ -14,6 +14,12 @@ export type QuizResult = {
   category?: string;
 };
 
+export type PaperHistoryItem = {
+  paperId: string;
+  date: string; // ISO date
+  category?: string;
+};
+
 type StreakData = {
   current: number;
   longest: number;
@@ -32,6 +38,7 @@ type ProgressStore = {
   // Sample paper completion (paperId -> completion percentage)
   samplePaperProgress: Record<string, number>;
   completedSamplePapers: string[];
+  samplePaperHistory?: PaperHistoryItem[];
 
   // Streak tracking
   streak: StreakData;
@@ -39,6 +46,7 @@ type ProgressStore = {
 
   // Bookmarks
   bookmarkedChapters: string[];
+  bookmarkedSamplePapers?: string[];
 
   // Actions
   updateChapterProgress: (chapterId: string, progress: number, category?: string) => void;
@@ -55,7 +63,8 @@ type ProgressStore = {
   markSamplePaperComplete: (paperId: string, category?: string) => void;
   getSamplePaperProgress: (paperId: string, category?: string) => number;
   getCompletedSamplePapersCount: (category?: string) => number;
-  getSamplePapersProgress: (category?: string) => number;
+  getSamplePapersProgress: (category?: string, totalCount?: number) => number;
+  getSamplePaperHistory: (category?: string) => PaperHistoryItem[];
 
   checkIn: () => void;
   getStreak: () => number;
@@ -65,6 +74,10 @@ type ProgressStore = {
   toggleBookmark: (chapterId: string, category?: string) => void;
   isBookmarked: (chapterId: string, category?: string) => boolean;
   getBookmarkedChapters: (category?: string) => string[];
+
+  toggleSamplePaperBookmark: (paperId: string, category?: string) => void;
+  isSamplePaperBookmarked: (paperId: string, category?: string) => boolean;
+  getBookmarkedSamplePapers: (category?: string) => string[];
 
   getOverallProgress: (category?: string, totalCount?: number) => number;
   getTotalChaptersCompleted: (category?: string) => number;
@@ -144,6 +157,8 @@ export const useProgressStore = create<ProgressStore>()(
         },
         dailyActivity: {},
         bookmarkedChapters: [] as string[],
+        bookmarkedSamplePapers: [] as string[],
+        samplePaperHistory: [] as PaperHistoryItem[],
 
         // Chapter progress actions
         updateChapterProgress: (chapterId: string, progress: number, category?: string) => {
@@ -235,16 +250,24 @@ export const useProgressStore = create<ProgressStore>()(
 
         markSamplePaperComplete: (paperId: string, category?: string) => {
           const key = getPrefixedKey(paperId, category);
+          const cat = category || "class12";
           set((state) => {
             if (state.completedSamplePapers.includes(key)) {
               return state;
             }
+            const newHistoryItem = {
+              paperId,
+              date: new Date().toISOString(),
+              category: cat,
+            };
+            const currentHistory = state.samplePaperHistory || [];
             return {
               completedSamplePapers: [...state.completedSamplePapers, key],
               samplePaperProgress: {
                 ...state.samplePaperProgress,
                 [key]: 100,
               },
+              samplePaperHistory: [...currentHistory, newHistoryItem],
             };
           });
         },
@@ -259,12 +282,18 @@ export const useProgressStore = create<ProgressStore>()(
           return get().completedSamplePapers.filter((id) => id.startsWith(`${cat}_`)).length;
         },
 
-        getSamplePapersProgress: (category?: string) => {
+         getSamplePapersProgress: (category?: string, totalCount?: number) => {
           const cat = category || "class12";
-          // Use 20 as the expected total if dynamic not provided
-          const totalPapers = 20; 
+          // Use expected total if dynamic not provided
+          const totalPapers = totalCount || 20; 
           const completed = get().getCompletedSamplePapersCount(cat);
+          if (totalPapers === 0) return 0;
           return Math.round((completed / totalPapers) * 100);
+        },
+
+        getSamplePaperHistory: (category?: string) => {
+          const cat = category || "class12";
+          return (get().samplePaperHistory || []).filter((r) => r.category === cat);
         },
 
         // Streak (global)
@@ -322,6 +351,33 @@ export const useProgressStore = create<ProgressStore>()(
             .map((id) => id.replace(`${cat}_`, ""));
         },
 
+        // Sample Paper Bookmarks
+        toggleSamplePaperBookmark: (paperId: string, category?: string) => {
+          const key = getPrefixedKey(paperId, category);
+          set((state) => {
+            const list = state.bookmarkedSamplePapers || [];
+            const isBookmarked = list.includes(key);
+            if (isBookmarked) {
+              return {
+                bookmarkedSamplePapers: list.filter((id) => id !== key),
+              };
+            }
+            return { bookmarkedSamplePapers: [...list, key] };
+          });
+        },
+
+        isSamplePaperBookmarked: (paperId: string, category?: string) => {
+          const key = getPrefixedKey(paperId, category);
+          return (get().bookmarkedSamplePapers || []).includes(key);
+        },
+
+        getBookmarkedSamplePapers: (category?: string) => {
+          const cat = category || "class12";
+          return (get().bookmarkedSamplePapers || [])
+            .filter((id) => id.startsWith(`${cat}_`))
+            .map((id) => id.replace(`${cat}_`, ""));
+        },
+
         // Stats
         getOverallProgress: (category?: string, totalCount?: number) => {
           const cat = category || "class12";
@@ -347,14 +403,14 @@ export const useProgressStore = create<ProgressStore>()(
           return Math.round(sum / history.length);
         },
 
-        getOverallAppProgress: (category?: string, totalCh?: number, totalPapers?: number) => {
+         getOverallAppProgress: (category?: string, totalCh?: number, totalPapers?: number) => {
           const notesWeight = 0.4;
           const quizWeight = 0.3;
           const papersWeight = 0.3;
 
           const notesProgress = get().getOverallProgress(category, totalCh);
           const quizProgress = get().getAverageQuizScore(category);
-          const papersProgress = get().getSamplePapersProgress(category);
+          const papersProgress = get().getSamplePapersProgress(category, totalPapers);
 
           return Math.round(
             notesProgress * notesWeight +
@@ -374,6 +430,8 @@ export const useProgressStore = create<ProgressStore>()(
             streak: { current: 0, longest: 0, lastActiveDate: null },
             dailyActivity: {},
             bookmarkedChapters: [],
+            bookmarkedSamplePapers: [],
+            samplePaperHistory: [],
           });
         },
       };
@@ -418,8 +476,8 @@ export function getOverallProgress(category?: string, totalCount?: number): numb
   return useProgressStore.getState().getOverallProgress(category, totalCount);
 }
 
-export function getSamplePapersProgress(category?: string): number {
-  return useProgressStore.getState().getSamplePapersProgress(category);
+export function getSamplePapersProgress(category?: string, totalCount?: number): number {
+  return useProgressStore.getState().getSamplePapersProgress(category, totalCount);
 }
 
 export function getOverallAppProgress(category?: string, totalCh?: number, totalPapers?: number): number {

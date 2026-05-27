@@ -30,11 +30,11 @@ export function ProgressHero() {
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
-    <View className="bg-primary-container rounded-3xl p-8 relative overflow-hidden shadow-xl shadow-primary/20 mb-8">
-      <View className="h-40 justify-between">
-        <View>
+    <View className="bg-primary-container rounded-3xl p-6 shadow-xl shadow-primary/20 mb-8 flex-row items-center justify-between gap-4">
+      <View className="flex-1 justify-between min-h-[140px] py-1">
+        <View className="mb-4">
           <Text className="text-2xl font-bold text-on-primary-container mb-2">Overall Progress</Text>
-          <Text className="text-on-primary-container/80 text-sm max-w-[180px]">
+          <Text className="text-on-primary-container/80 text-sm">
             You have completed {completed} of {totalChapters} chapters.
           </Text>
         </View>
@@ -47,8 +47,8 @@ export function ProgressHero() {
       </View>
 
       {/* Circular Progress SVG */}
-      <View className="absolute right-[-10px] top-1/2 -translate-y-1/2">
-        <Svg width="160" height="160" viewBox="0 0 192 192">
+      <View className="items-center justify-center">
+        <Svg width="140" height="140" viewBox="0 0 192 192">
           <Circle
             cx="96"
             cy="96"
@@ -72,7 +72,7 @@ export function ProgressHero() {
           />
         </Svg>
         <View className="absolute inset-0 items-center justify-center">
-          <Text className="text-3xl font-black text-white" style={{ color: '#ffffff' }}>{progress}%</Text>
+          <Text className="text-2xl font-black text-white" allowFontScaling={false} style={{ color: '#ffffff' }}>{progress}%</Text>
         </View>
       </View>
     </View>

@@ -1,5 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, View } from "react-native";
+import { Alert, BackHandler, ScrollView, View } from "react-native";
+import React, { useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
 
 import { BentoCard } from "@/components/home/BentoCard";
 import { CourseSelector } from "@/components/home/CourseSelector";
@@ -48,6 +50,31 @@ function DynamicBentoCard({ card }: { card: typeof BENTO_CARDS[0] }) {
 }
 
 export default function HomeScreen() {
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (!isFocused) return;
+
+    const backAction = () => {
+      Alert.alert("Exit App", "Are you sure you want to exit PyLearn?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "Yes", onPress: () => BackHandler.exitApp() }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, [isFocused]);
+
   return (
     <View className="flex-1 bg-background">
       <StatusBar style="dark" />
