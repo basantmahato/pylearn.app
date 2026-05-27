@@ -35,25 +35,48 @@ interface Paper {
     sections?: Section[];
 }
 
-const CATEGORIES = [
-    { key: 'class12', label: 'Class 12' },
-    { key: 'class11', label: 'Class 11' },
-    { key: 'bca',     label: 'BCA' },
-    { key: 'btech',   label: 'B.Tech' },
-    { key: 'aiml',    label: 'AI / ML & Data Sci' },
-] as const;
+interface Category {
+    key: string;
+    label: string;
+}
 
 const DIFFICULTIES = ['Easy', 'Medium', 'Hard'];
 
 const SamplePapers = () => {
+    const [categories, setCategories] = useState<Category[]>([]);
     const [papers, setPapers]           = useState<Paper[]>([]);
-    const [selectedCategory, setSelectedCategory] = useState<string>('class12');
+    const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [loading, setLoading]         = useState(true);
     const [editingId, setEditingId]     = useState<string | null>(null);
     const [editForm, setEditForm]       = useState<Partial<Paper>>({});
     const [viewSections, setViewSections] = useState<string | null>(null);
 
-    useEffect(() => { fetchPapers(); }, [selectedCategory]);
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await api.get('/courses');
+                if (res.data && res.data.success) {
+                    const dbCats = res.data.data.map((c: any) => ({
+                        key: c.key,
+                        label: c.label
+                    }));
+                    setCategories(dbCats);
+                    if (dbCats.length > 0) {
+                        setSelectedCategory(dbCats[0].key);
+                    }
+                }
+            } catch (err) {
+                console.error('Error fetching courses:', err);
+            }
+        };
+        fetchCategories();
+    }, []);
+
+    useEffect(() => {
+        if (selectedCategory) {
+            fetchPapers();
+        }
+    }, [selectedCategory]);
 
     const fetchPapers = async () => {
         try {
@@ -171,7 +194,7 @@ const SamplePapers = () => {
                         onChange={e => handleCategoryChange(e.target.value)}
                         className="px-3 py-2 rounded-md border border-input bg-background"
                     >
-                        {CATEGORIES.map(cat => (
+                        {categories.map(cat => (
                             <option key={cat.key} value={cat.key}>{cat.label}</option>
                         ))}
                     </select>

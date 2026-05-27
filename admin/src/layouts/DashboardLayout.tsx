@@ -6,7 +6,11 @@ import {
     LogOut, 
     HelpCircle,
     ScrollText,
-    Newspaper
+    Newspaper,
+    LayoutGrid,
+    Megaphone,
+    GraduationCap,
+    Bell
 } from 'lucide-react';
 
 const SidebarLink = ({ to, icon: Icon, label, active }: { to: string, icon: any, label: string, active: boolean }) => (
@@ -44,12 +48,15 @@ const DashboardLayout = () => {
                     </div>
                     <div className="flex-1 overflow-auto py-2">
                         <nav className="grid items-start px-2 text-sm font-medium lg:px-4 space-y-1">
-
+                            <SidebarLink to="/dashboard" icon={LayoutGrid} label="Overview" active={location.pathname.startsWith('/dashboard')} />
                             <SidebarLink to="/chapters" icon={BookOpen} label="Chapters" active={location.pathname.startsWith('/chapters')} />
                             <SidebarLink to="/notes" icon={FileText} label="Notes & Content" active={location.pathname.startsWith('/notes')} />
                             <SidebarLink to="/quizzes" icon={HelpCircle} label="Quizzes" active={location.pathname.startsWith('/quizzes')} />
                             <SidebarLink to="/sample-papers" icon={ScrollText} label="Sample Papers" active={location.pathname.startsWith('/sample-papers')} />
                             <SidebarLink to="/blogs" icon={Newspaper} label="Blogs" active={location.pathname.startsWith('/blogs')} />
+                            <SidebarLink to="/ads" icon={Megaphone} label="Manage Ads" active={location.pathname.startsWith('/ads')} />
+                            <SidebarLink to="/courses" icon={GraduationCap} label="Manage Courses" active={location.pathname.startsWith('/courses')} />
+                            <SidebarLink to="/notifications" icon={Bell} label="Push Notifications" active={location.pathname.startsWith('/notifications')} />
                         </nav>
                     </div>
                     <div className="mt-auto p-4 border-t">
@@ -70,11 +77,15 @@ const DashboardLayout = () => {
                     <div className="w-full flex-1">
                         <h1 className="text-lg font-semibold">
 
+                            {location.pathname.startsWith('/dashboard') && 'System Overview'}
                             {location.pathname.startsWith('/chapters') && 'Manage Chapters'}
                             {location.pathname.startsWith('/notes') && 'Manage Notes'}
                             {location.pathname.startsWith('/quizzes') && 'Manage Quizzes'}
                             {location.pathname.startsWith('/sample-papers') && 'Manage Sample Papers'}
                             {location.pathname.startsWith('/blogs') && 'Manage Blogs'}
+                            {location.pathname.startsWith('/ads') && 'Manage Ads Settings'}
+                            {location.pathname.startsWith('/courses') && 'Manage Courses'}
+                            {location.pathname.startsWith('/notifications') && 'Android Push Alerts'}
                         </h1>
                     </div>
                 </header>

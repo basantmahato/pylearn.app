@@ -8,40 +8,45 @@ import {
   Text,
   TextInput,
   View,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Header } from "@/components/ui/Header";
-import { UNITS } from "@/constants/chapters";
+import { useApi } from "@/hooks/useApi";
+import { api } from "@/lib/api";
+import { useCourseStore } from "@/lib/course-store";
 
-// Build searchable index from chapters
-const buildSearchIndex = () => {
-  const chapters: Array<{
-    id: string;
-    title: string;
-    unitTitle: string;
-    type: "chapter";
-  }> = [];
-
-  UNITS.forEach((unit) => {
-    unit.chapters.forEach((chapter) => {
-      chapters.push({
-        id: chapter.id,
-        title: chapter.title,
-        unitTitle: unit.title,
-        type: "chapter",
-      });
-    });
-  });
-
-  return chapters;
-};
-
-const searchIndex = buildSearchIndex();
+function getUnitTitle(chapterId: string, category: string): string {
+  if (category === "class12") {
+    const normId = chapterId.replace(/^([a-z0-9]+-)?ch/, "");
+    const id = parseInt(normId, 10);
+    if (id >= 1 && id <= 5) return "Unit 1: Computational Thinking & Programming";
+    if (id >= 6 && id <= 7) return "Unit 2: Computer Networks";
+    if (id >= 8 && id <= 10) return "Unit 3: Database Management";
+    if (id === 11) return "Unit 4: Boolean Logic";
+  }
+  return "Course Materials";
+}
 
 export default function SearchScreen() {
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState("");
+  const { activeCategory } = useCourseStore();
+  const { data: chapters, loading } = useApi(
+    () => api.getChapters(activeCategory),
+    [activeCategory]
+  );
+
+  const searchIndex = useMemo(() => {
+    if (!chapters) return [];
+    return chapters.map((ch) => ({
+      id: ch.chapterId,
+      title: ch.title,
+      unitTitle: getUnitTitle(ch.chapterId, activeCategory),
+      type: "chapter" as const,
+    }));
+  }, [chapters, activeCategory]);
 
   const results = useMemo(() => {
     if (!query.trim()) return [];
@@ -94,7 +99,12 @@ export default function SearchScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Results or Empty State */}
-        {query.trim() === "" ? (
+        {loading ? (
+          <View className="items-center py-20">
+            <ActivityIndicator size="large" color="#005ab5" />
+            <Text className="mt-4 text-on-surface-variant text-sm">Building search index…</Text>
+          </View>
+        ) : query.trim() === "" ? (
           <View className="items-center py-20">
             <MaterialCommunityIcons
               name="text-search"

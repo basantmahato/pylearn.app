@@ -4,11 +4,20 @@ const auth = require('../middleware/auth');
 const adminController   = require('../controllers/adminController');
 const contentController = require('../controllers/contentController');
 const blogController = require('../controllers/blogController');
+const courseController = require('../controllers/courseController');
 const validate = require('../middleware/validate');
 const { chapterSchema, noteSchema, quizSchema } = require('../validations/schemas');
+const notificationController = require('../controllers/notificationController');
 
 // ── Admin Auth ───────────────────────────────────────────────────────────────
 router.post('/admin/login', adminController.login);
+router.get('/admin/dashboard-stats', auth, adminController.getDashboardStats);
+
+// ── Dynamic Courses & Categories ─────────────────────────────────────────────
+router.get   ('/courses',            courseController.getCourses);
+router.post  ('/admin/courses',      auth, courseController.createCourse);
+router.put   ('/admin/courses/:id',  auth, courseController.updateCourse);
+router.delete('/admin/courses/:id',  auth, courseController.deleteCourse);
 
 // ── Chapters ─────────────────────────────────────────────────────────────────
 router.get   ('/chapters',     contentController.getChapters);
@@ -50,5 +59,55 @@ router.get   ('/admin/blogs',          auth, blogController.getAllBlogsAdmin);
 router.post  ('/blogs',                auth, blogController.createBlog);
 router.put   ('/blogs/:id',            auth, blogController.updateBlog);
 router.delete('/blogs/:id',            auth, blogController.deleteBlog);
+// ── Ads Configuration ────────────────────────────────────────────────────────
+const AdConfig = require('../models/AdConfig');
+
+// Public route to get current Ads config (for mobile app client)
+router.get('/ads/config', async (req, res) => {
+    try {
+        let config = await AdConfig.findOne();
+        if (!config) {
+            config = new AdConfig();
+            await config.save();
+        }
+        res.json(config);
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
+});
+
+// Admin route to get current Ads config (for admin editor)
+router.get('/admin/ads/config', auth, async (req, res) => {
+    try {
+        let config = await AdConfig.findOne();
+        if (!config) {
+            config = new AdConfig();
+            await config.save();
+        }
+        res.json(config);
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
+});
+
+// Admin route to update/create Ads config
+router.post('/admin/ads/config', auth, async (req, res) => {
+    try {
+        let config = await AdConfig.findOne();
+        if (!config) {
+            config = new AdConfig(req.body);
+        } else {
+            Object.assign(config, req.body);
+        }
+        await config.save();
+        res.json({ success: true, config });
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
+});
+
+// ── Push Notifications ────────────────────────────────────────────────────────
+router.post('/devices/register', notificationController.registerDeviceToken);
+router.post('/admin/notifications/send', auth, notificationController.sendPushNotification);
 
 module.exports = router;

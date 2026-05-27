@@ -10,6 +10,11 @@ const Note = require('../models/Note');
 const NOTES_BASE = path.resolve(__dirname, '../../../APP/data/notes');
 
 const seedChapters = async () => {
+    // Clear existing class12 chapters and notes to avoid duplicates/orphans from old ID formats
+    console.log('  🧹 Clearing existing Class 12 chapters and notes...');
+    await Chapter.deleteMany({ category: 'class12' });
+    await Note.deleteMany({ category: 'class12' });
+
     // Discover all chapter folders
     const chapterDirs = fs.readdirSync(NOTES_BASE).filter(d =>
         fs.statSync(path.join(NOTES_BASE, d)).isDirectory()
@@ -27,11 +32,14 @@ const seedChapters = async () => {
         const raw = fs.readFileSync(filePath, 'utf-8');
         const data = JSON.parse(raw);
 
+        // Prepend class12- to chapterId if not already present
+        const dbChapterId = data.id.startsWith('class12-') ? data.id : `class12-${data.id}`;
+
         // --- 1. Upsert Chapter (metadata + summary + practice) ---
         const result = await Chapter.findOneAndUpdate(
-            { chapterId: data.id, category: 'class12' },
+            { chapterId: dbChapterId, category: 'class12' },
             {
-                chapterId: data.id,
+                chapterId: dbChapterId,
                 title:     data.title,
                 order:     data.order || 0,
                 summary:   data.summary || {},
@@ -48,10 +56,10 @@ const seedChapters = async () => {
         }
 
         // --- 2. Replace Note docs for this chapter (specific to class12) ---
-        await Note.deleteMany({ chapterId: data.id, category: 'class12' });
+        await Note.deleteMany({ chapterId: dbChapterId, category: 'class12' });
 
         const noteDocs = (data.content || []).map((block, i) => ({
-            chapterId: data.id,
+            chapterId: dbChapterId,
             category:  'class12',
             type:      block.type      || 'paragraph',
             heading:   block.heading   || '',

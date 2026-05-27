@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   NativeScrollEvent,
@@ -12,6 +12,20 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { getActiveAdUnitId, RemoteAdConfig } from "@/lib/ads-config";
+import { apiClient } from "@/lib/api";
+
+// Only import if native module is available
+let InterstitialAd: any;
+let AdEventType: any;
+
+try {
+  const ads = require("react-native-google-mobile-ads");
+  InterstitialAd = ads.InterstitialAd;
+  AdEventType = ads.AdEventType;
+} catch {
+  // Not available in non-native environments
+}
 
 import { CodeBlock, ListBlock, ParagraphBlock } from "@/components/chapter/ContentBlocks";
 import { PracticeSection } from "@/components/chapter/PracticeSection";
@@ -19,6 +33,7 @@ import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
 import { useProgressStore } from "@/lib/progress-store";
 import { useCourseStore } from "@/lib/course-store";
+import { AdBanner } from "@/components/home/AdBanner";
 
 export default function ChapterDetailScreen() {
   const { id } = useLocalSearchParams();
@@ -26,8 +41,77 @@ export default function ChapterDetailScreen() {
   const insets = useSafeAreaInsets();
   const scrollViewRef = useRef<ScrollView>(null);
 
+  const [adShown, setAdShown] = useState(false);
+  const [adLoadingState, setAdLoadingState] = useState(false);
+
+  // Fetch the configuration
+  const { data: adsConfig } = useApi<RemoteAdConfig | null>(
+    () => apiClient.get("/ads/config").then((res) => res.data).catch(() => null),
+    []
+  );
 
   const chapterId = id as string;
+
+  useEffect(() => {
+    // If config loaded and ads are enabled, and we have the native class, load it
+    if (adsConfig && adsConfig.adsEnabled && !adShown && InterstitialAd) {
+      setAdLoadingState(true);
+      const adUnitId = getActiveAdUnitId("interstitialId", adsConfig, !__DEV__);
+
+      try {
+        const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+          requestNonPersonalizedAdsOnly: true,
+        });
+
+        const unsubscribeLoaded = interstitial.addAdEventListener(
+          AdEventType.LOADED,
+          () => {
+            setAdLoadingState(false);
+            interstitial.show().catch((e: any) => {
+              console.warn("Failed to trigger interstitial.show():", e);
+              setAdShown(true);
+            });
+          }
+        );
+
+        const unsubscribeClosed = interstitial.addAdEventListener(
+          AdEventType.CLOSED,
+          () => {
+            setAdShown(true);
+            unsubscribeLoaded();
+            unsubscribeClosed();
+          }
+        );
+
+        const unsubscribeError = interstitial.addAdEventListener(
+          AdEventType.ERROR,
+          (error: any) => {
+            console.warn("Interstitial Ad error:", error);
+            setAdLoadingState(false);
+            setAdShown(true);
+            unsubscribeLoaded();
+            unsubscribeClosed();
+            unsubscribeError();
+          }
+        );
+
+        interstitial.load();
+
+        return () => {
+          unsubscribeLoaded();
+          unsubscribeClosed();
+          unsubscribeError();
+        };
+      } catch (err) {
+        console.warn("Failed to setup interstitial ad:", err);
+        setAdLoadingState(false);
+        setAdShown(true);
+      }
+    } else if (adsConfig) {
+      // If config is loaded but ads are disabled, instantly show content
+      setAdShown(true);
+    }
+  }, [adsConfig]);
   const {
     updateChapterProgress,
     markChapterComplete,
@@ -87,9 +171,30 @@ export default function ChapterDetailScreen() {
     [chapterId, progress, updateChapterProgress, markChapterComplete, checkIn]
   );
 
+  // ── Pre-Study Loading Screen while Interstitial Ad is Loading ───────────────
+  if (adLoadingState) {
+    return (
+      <SafeAreaView className="flex-1 bg-background items-center justify-center p-6">
+        <StatusBar style="dark" />
+        <View className="items-center gap-6">
+          <View className="p-4 bg-primary/10 rounded-full animate-bounce">
+            <MaterialCommunityIcons name="book-open-page-variant" size={48} color="#005ab5" />
+          </View>
+          <View className="items-center gap-2">
+            <Text className="text-2xl font-black text-on-surface tracking-tight">Preparing Study Notes</Text>
+            <Text className="text-on-surface-variant text-center max-w-xs text-sm">
+              Please wait a moment while we load your learning modules...
+            </Text>
+          </View>
+          <ActivityIndicator size="large" color="#005ab5" className="mt-4" />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   // ── Loading ───────────────────────────────────────────────────────────────
 
-  if (loading) {
+  if (loading || !adShown) {
     return (
       <SafeAreaView className="flex-1 bg-background items-center justify-center">
         <ActivityIndicator size="large" color="#005ab5" />
@@ -238,6 +343,9 @@ export default function ChapterDetailScreen() {
             })
           )}
         </View>
+
+        {/* Dynamic banner ad placed between notes reading content and practice tests */}
+        <AdBanner />
 
         {/* Practice Section */}
         {chapterMeta.practice && chapterMeta.practice.length > 0 && (

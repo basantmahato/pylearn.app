@@ -6,14 +6,28 @@ import { useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { CATEGORIES } from '@/constants/courses';
+import { CATEGORIES, Category } from '@/constants/courses';
 import { useCourseStore } from '@/lib/course-store';
 import { setOnboardingComplete } from '@/lib/storage';
+import { useApi } from '@/hooks/useApi';
+import { api } from '@/lib/api';
+
+const CATEGORY_ICONS: Record<Category, string> = {
+  class11: "school-outline",
+  class12: "school",
+  bca: "database",
+  btech: "laptop",
+  aiml: "brain",
+};
 
 export default function OnboardingCourseScreen() {
   const { activeCategory, setCategory } = useCourseStore();
   const [selected, setSelected] = useState(activeCategory);
   const insets = useSafeAreaInsets();
+
+  const { data: dynamicCoursesRes } = useApi(() => api.getCourses().catch(() => null), []);
+  const dynamicCourses = dynamicCoursesRes?.success ? dynamicCoursesRes.data : null;
+  const courseList = dynamicCourses || CATEGORIES;
 
   const handleSelect = async (id: string) => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -60,23 +74,35 @@ export default function OnboardingCourseScreen() {
 
         {/* Category List */}
         <View className="gap-4">
-          {CATEGORIES.map((cat) => {
-            const isSelected = selected === cat.id;
+          {courseList.map((cat) => {
+            const isSelected = selected === cat.key;
+            const iconName = CATEGORY_ICONS[cat.key as Category] || "school";
             return (
               <Pressable
-                key={cat.id}
-                onPress={() => handleSelect(cat.id)}
-                className={`flex-row items-center p-5 rounded-[28px] border-2 transition-all ${
+                key={cat.key}
+                onPress={() => handleSelect(cat.key)}
+                className={`flex-row items-center p-5 rounded-[28px] border-2 ${
                   isSelected 
-                    ? 'border-primary bg-primary/5 shadow-sm' 
+                    ? 'border-primary bg-primary/5' 
                     : 'border-outline-variant/10 bg-surface-container-low'
                 }`}
+                style={
+                  isSelected
+                    ? {
+                        shadowColor: "#000000",
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowOpacity: 0.1,
+                        shadowRadius: 2,
+                        elevation: 1,
+                      }
+                    : undefined
+                }
               >
                 <View className={`h-12 w-12 items-center justify-center rounded-2xl ${
                   isSelected ? 'bg-primary' : 'bg-surface-container-high'
                 }`}>
                   <MaterialCommunityIcons 
-                    name={cat.icon as any} 
+                    name={iconName as any} 
                     size={24} 
                     color={isSelected ? 'white' : '#717785'} 
                   />
@@ -85,10 +111,10 @@ export default function OnboardingCourseScreen() {
                   <Text className={`text-lg font-bold ${
                     isSelected ? 'text-primary' : 'text-on-surface'
                   }`}>
-                    {cat.title}
+                    {cat.label}
                   </Text>
                   <Text className="text-sm text-on-surface-variant opacity-70">
-                    {cat.subtitle}
+                    {cat.description}
                   </Text>
                 </View>
                 {isSelected && (

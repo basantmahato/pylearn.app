@@ -136,12 +136,10 @@ export default async function QuizSetPage({
   return (
     <>
       <Navbar />
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <main className="pt-32 min-h-screen bg-bg">
         <section className="pb-20">
           <div className="container mx-auto px-6 max-w-[820px]">

@@ -1,11 +1,9 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState } from "react";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 
-import { Header } from "@/components/ui/Header";
 import { useProgressStore } from "@/lib/progress-store";
 import { AVATAR_OPTIONS, useUserStore } from "@/lib/storage";
 import { useCourseStore } from "@/lib/course-store";
@@ -13,11 +11,11 @@ import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
 
 const AVATAR_ICONS: Record<string, string> = {
-  fox: "paw",
+  fox: "firefox",
   cat: "cat",
   dog: "dog",
-  panda: "bear",
-  penguin: "duck",
+  panda: "panda",
+  penguin: "penguin",
   rabbit: "rabbit",
 };
 
@@ -50,8 +48,17 @@ export default function ProfileScreen() {
   const router = useRouter();
   const name = useUserStore((state) => state.userName);
   const avatar = useUserStore((state) => state.userAvatar);
-  const avatarOption = AVATAR_OPTIONS.find((a) => a.id === avatar);
+  const setUserName = useUserStore((state) => state.setUserName);
+  const setUserAvatar = useUserStore((state) => state.setUserAvatar);
   const { activeCategory } = useCourseStore();
+
+  // Profile Edit State
+  const [isEditing, setIsEditing] = useState(false);
+  const [editName, setEditName] = useState("");
+  const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
+
+  const previewAvatar = isEditing ? selectedAvatar : avatar;
+  const avatarOption = AVATAR_OPTIONS.find((a) => a.id === previewAvatar);
 
   const {
     getOverallProgress,
@@ -84,10 +91,28 @@ export default function ProfileScreen() {
     .map((id) => chapters?.find((c) => c.chapterId === id))
     .filter(Boolean);
 
+  const handleStartEditing = () => {
+    setEditName(name || "");
+    setSelectedAvatar(avatar);
+    setIsEditing(true);
+  };
+
+  const handleSave = async () => {
+    if (editName.trim() === "") return;
+    try {
+      const Haptics = require("expo-haptics");
+      await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    } catch {}
+    setUserName(editName.trim());
+    if (selectedAvatar) {
+      setUserAvatar(selectedAvatar);
+    }
+    setIsEditing(false);
+  };
+
   return (
-    <SafeAreaView className="flex-1 bg-background" edges={["top"]}>
+    <View className="flex-1 bg-background">
       <StatusBar style="dark" />
-      <Header />
 
       <ScrollView
         contentContainerClassName="pb-32 px-6 pt-8"
@@ -102,13 +127,102 @@ export default function ProfileScreen() {
             }}
           >
             <MaterialCommunityIcons
-              name={(avatar ? (AVATAR_ICONS[avatar] as any) : "account")}
+              name={((previewAvatar && AVATAR_ICONS[previewAvatar]) ? (AVATAR_ICONS[previewAvatar] as any) : "account")}
               size={48}
               color={avatarOption?.color || "#8b5cf6"}
             />
           </View>
-          <Text className="text-2xl font-black text-on-surface">{name || "Learner"}</Text>
+
+          {isEditing && (
+            <View className="mb-6 w-full items-center animate-in fade-in duration-200">
+              <Text className="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-3">
+                Choose Avatar
+              </Text>
+              <ScrollView 
+                horizontal 
+                showsHorizontalScrollIndicator={false} 
+                contentContainerClassName="gap-3 px-4 py-1"
+              >
+                {AVATAR_OPTIONS.map((option) => {
+                  const isSelected = selectedAvatar === option.id;
+                  const iconName = AVATAR_ICONS[option.id] || "account";
+                  return (
+                    <Pressable
+                      key={option.id}
+                      onPress={async () => {
+                        try {
+                          const Haptics = require("expo-haptics");
+                          await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                        } catch {}
+                        setSelectedAvatar(option.id);
+                      }}
+                      className={`w-14 h-14 rounded-full items-center justify-center border-2 ${
+                        isSelected ? "border-primary" : "border-transparent"
+                      }`}
+                      style={{ backgroundColor: option.backgroundColor }}
+                    >
+                      <MaterialCommunityIcons
+                        name={iconName as any}
+                        size={26}
+                        color={option.color}
+                      />
+                      {isSelected && (
+                        <View className="absolute -right-0.5 -bottom-0.5 h-5 w-5 items-center justify-center rounded-full bg-primary">
+                          <MaterialCommunityIcons name="check" size={12} color="white" />
+                        </View>
+                      )}
+                    </Pressable>
+                  );
+                })}
+              </ScrollView>
+            </View>
+          )}
+
+          {isEditing ? (
+            <View className="w-full max-w-xs items-center gap-2 mb-2 animate-in fade-in duration-200">
+              <TextInput
+                className="w-full bg-surface-container-low px-4 py-3 rounded-2xl border border-outline-variant/30 text-center font-bold text-xl text-on-surface focus:border-primary focus:ring-1 focus:ring-primary"
+                value={editName}
+                onChangeText={setEditName}
+                placeholder="Your Name"
+                maxLength={20}
+                autoFocus
+              />
+            </View>
+          ) : (
+            <Text className="text-2xl font-black text-on-surface">{name || "Learner"}</Text>
+          )}
+
           <Text className="text-on-surface-variant mt-1">Python Student</Text>
+
+          {isEditing ? (
+            <View className="flex-row gap-3 mt-5">
+              <Pressable
+                onPress={() => setIsEditing(false)}
+                className="px-5 py-2.5 bg-surface-container-high rounded-full active:scale-95"
+              >
+                <Text className="text-sm font-bold text-on-surface-variant">Cancel</Text>
+              </Pressable>
+              <Pressable
+                onPress={handleSave}
+                disabled={editName.trim() === ""}
+                className={`flex-row items-center gap-1.5 px-6 py-2.5 rounded-full active:scale-95 shadow-sm ${
+                  editName.trim() === "" ? "bg-primary/50" : "bg-primary"
+                }`}
+              >
+                <MaterialCommunityIcons name="check" size={14} color="white" />
+                <Text className="text-sm font-bold text-white" style={{ color: '#ffffff' }}>Save</Text>
+              </Pressable>
+            </View>
+          ) : (
+            <Pressable
+              onPress={handleStartEditing}
+              className="flex-row items-center gap-1.5 mt-4 px-4 py-2 bg-surface-container-low border border-outline-variant/20 rounded-full active:scale-95"
+            >
+              <MaterialCommunityIcons name="pencil" size={14} color="#005ab5" />
+              <Text className="text-sm font-bold text-primary">Edit Profile</Text>
+            </Pressable>
+          )}
         </View>
 
         {/* Stats Grid */}
@@ -215,6 +329,7 @@ export default function ProfileScreen() {
             ))
           )}
         </View>
+
         {/* Bookmarked Chapters */}
         <View className="mb-6">
           <Text className="text-lg font-bold text-on-surface mb-4">
@@ -282,6 +397,6 @@ export default function ProfileScreen() {
           </Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

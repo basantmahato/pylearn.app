@@ -15,7 +15,7 @@ import { Platform } from "react-native";
 // For Android emulator, localhost maps to 10.0.2.2
 const BASE_URL =
   Platform.OS === "android"
-    ? "http://192.168.31.10:5000/api/v1"
+    ? "http://192.168.31.60:5000/api/v1"
     : "http://localhost:5000/api/v1";
 
 export const apiClient = axios.create({
@@ -145,5 +145,17 @@ export const api = {
   getSamplePaperById: (paperId: string, category?: Category) =>
     apiClient
       .get<ApiSamplePaper>(`/sample-papers/${paperId}`, { params: { category } })
+      .then((r) => r.data),
+
+  /** Fetch all dynamic courses/categories */
+  getCourses: () =>
+    apiClient
+      .get<{ success: boolean; data: any[] }>("/courses")
+      .then((r) => r.data),
+
+  /** Register push notification device token (Android-only) */
+  registerDeviceToken: (token: string) =>
+    apiClient
+      .post("/devices/register", { token, platform: "android" })
       .then((r) => r.data),
 };

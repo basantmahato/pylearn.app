@@ -10,10 +10,8 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { PaperList } from "@/components/samples/PaperList";
-import { Header } from "@/components/ui/Header";
 import { useApi } from "@/hooks/useApi";
 import { api, type ApiSamplePaper } from "@/lib/api";
 import { useCourseStore } from "@/lib/course-store";
@@ -56,9 +54,8 @@ export default function SampleScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-background" edges={["top"]}>
+    <View className="flex-1 bg-background">
       <StatusBar style="dark" />
-      <Header showSearch={false} />
 
       <ScrollView contentContainerClassName="pb-32" showsVerticalScrollIndicator={false}>
         <View className="max-w-5xl self-center w-full px-4 md:px-6 pt-8 md:pt-12">
@@ -190,6 +187,6 @@ export default function SampleScreen() {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

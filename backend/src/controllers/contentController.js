@@ -2,6 +2,7 @@ const Chapter     = require('../models/Chapter');
 const Note        = require('../models/Note');
 const Quiz        = require('../models/Quiz');
 const SamplePaper = require('../models/SamplePaper');
+const mongoose    = require('mongoose');
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CHAPTERS
@@ -203,7 +204,13 @@ exports.getSamplePapers = async (req, res) => {
 
 exports.getSamplePaperById = async (req, res) => {
     try {
-        const paper = await SamplePaper.findById(req.params.id);
+        let paper;
+        if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+            paper = await SamplePaper.findById(req.params.id);
+        }
+        if (!paper) {
+            paper = await SamplePaper.findOne({ paperId: req.params.id });
+        }
         if (!paper) return res.status(404).json({ msg: 'Sample paper not found' });
         res.json(paper);
     } catch (err) {

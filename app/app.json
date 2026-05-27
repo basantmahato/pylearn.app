@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "pylearn",
     "userInterfaceStyle": "automatic",
-    // "newArchEnabled": true,
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -15,9 +14,9 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      // "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.pylearn12.app"
+      "package": "com.pylearn.app",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "output": "static",

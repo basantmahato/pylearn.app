@@ -8,6 +8,10 @@ const Quiz = require('../models/Quiz');
 const QUIZ_DIR = path.resolve(__dirname, '../../../APP/data/quiz');
 
 const seedQuizzes = async () => {
+    // Clear existing class12 quizzes to avoid duplicates/orphans from old ID formats
+    console.log('  🧹 Clearing existing Class 12 quizzes...');
+    await Quiz.deleteMany({ category: 'class12' });
+
     const files = fs.readdirSync(QUIZ_DIR).filter(f => f.endsWith('.json'));
 
     let inserted = 0, updated = 0;
@@ -16,12 +20,13 @@ const seedQuizzes = async () => {
         const filePath = path.join(QUIZ_DIR, file);
         const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-        const chapterId = data.chapterId;
+        // Prepend class12- to chapterId if not already present
+        const dbChapterId = data.chapterId.startsWith('class12-') ? data.chapterId : `class12-${data.chapterId}`;
 
         for (const set of (data.sets || [])) {
-            const filter = { chapterId, setId: set.setId, category: 'class12' };
+            const filter = { chapterId: dbChapterId, setId: set.setId, category: 'class12' };
             const update = {
-                chapterId,
+                chapterId:  dbChapterId,
                 setId:      set.setId,
                 setName:    set.setName,
                 category:   'class12',

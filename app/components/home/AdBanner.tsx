@@ -1,5 +1,8 @@
-import { ADS_ENABLED, getAdUnitId } from "@/lib/ads-config";
+import React from "react";
 import { Text, View } from "react-native";
+import { useApi } from "@/hooks/useApi";
+import { apiClient } from "@/lib/api";
+import { getActiveAdUnitId, RemoteAdConfig } from "@/lib/ads-config";
 
 // Only import if native module is available (requires custom dev build)
 let BannerAd: any;
@@ -14,13 +17,18 @@ try {
 }
 
 export function AdBanner() {
-  // Ads disabled via feature flag
-  if (!ADS_ENABLED) {
+  const { data: config, loading } = useApi<RemoteAdConfig | null>(
+    () => apiClient.get("/ads/config").then((res) => res.data).catch(() => null),
+    []
+  );
+
+  // If loading or server configs have disabled ads, gracefully render nothing
+  if (loading || !config || !config.adsEnabled) {
     return null;
   }
 
-  // Automatically use test ads in development, production ads in release
-  const adUnitId = getAdUnitId("banner", !__DEV__);
+  // Automatically use safe test ads in development, production ads in release
+  const adUnitId = getActiveAdUnitId("bannerId", config, !__DEV__);
 
   if (!BannerAd) {
     return (

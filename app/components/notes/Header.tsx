@@ -1,7 +1,5 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Image } from 'expo-image';
+import { View, Text, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { HOME_STATS } from '@/constants/home';
 
 export function Header() {
   return (
@@ -12,15 +10,11 @@ export function Header() {
       </View>
       
       <View className="flex-row items-center gap-4">
-        <TouchableOpacity className="p-2 rounded-full hover:bg-blue-50/50">
+        <Pressable className="p-2 rounded-full active:bg-blue-50/50">
           <MaterialCommunityIcons name="magnify" size={24} color="#64748b" />
-        </TouchableOpacity>
+        </Pressable>
         <View className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden border border-slate-200">
-          <Image 
-            source={HOME_STATS.user.profilePhoto} 
-            className="w-full h-full"
-            contentFit="cover"
-          />
+          <MaterialCommunityIcons name="account" size={22} color="#64748b" />
         </View>
       </View>
     </View>

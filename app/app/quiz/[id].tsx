@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
@@ -10,6 +10,20 @@ import { useApi } from "@/hooks/useApi";
 import { api, type ApiQuizSet } from "@/lib/api";
 import { QuizResult, useProgressStore } from "@/lib/progress-store";
 import { useCourseStore } from "@/lib/course-store";
+import { getActiveAdUnitId, RemoteAdConfig } from "@/lib/ads-config";
+import { apiClient } from "@/lib/api";
+
+// Only import if native module is available
+let InterstitialAd: any;
+let AdEventType: any;
+
+try {
+  const ads = require("react-native-google-mobile-ads");
+  InterstitialAd = ads.InterstitialAd;
+  AdEventType = ads.AdEventType;
+} catch {
+  // Not available in non-native environments
+}
 
 export default function QuizPlayerScreen() {
   const { id } = useLocalSearchParams();
@@ -36,6 +50,79 @@ export default function QuizPlayerScreen() {
   const [score, setScore] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [finalResult, setFinalResult] = useState<QuizResult | null>(null);
+
+  // ── Ads Integration state & triggers ──────────────────────────────────────
+  const [adLoaded, setAdLoaded] = useState(false);
+  const interstitialRef = useRef<any>(null);
+
+  const { data: adsConfig } = useApi<RemoteAdConfig | null>(
+    () => apiClient.get("/ads/config").then((res) => res.data).catch(() => null),
+    []
+  );
+
+  useEffect(() => {
+    if (adsConfig && adsConfig.adsEnabled && InterstitialAd) {
+      const adUnitId = getActiveAdUnitId("interstitialId", adsConfig, !__DEV__);
+      try {
+        const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+          requestNonPersonalizedAdsOnly: true,
+        });
+
+        const unsubscribeLoaded = interstitial.addAdEventListener(
+          AdEventType.LOADED,
+          () => {
+            setAdLoaded(true);
+          }
+        );
+
+        const unsubscribeError = interstitial.addAdEventListener(
+          AdEventType.ERROR,
+          (err: any) => {
+            console.warn("Quiz Interstitial Ad failed to load:", err);
+            setAdLoaded(false);
+          }
+        );
+
+        interstitial.load();
+        interstitialRef.current = interstitial;
+
+        return () => {
+          unsubscribeLoaded();
+          unsubscribeError();
+        };
+      } catch (err) {
+        console.warn("Failed to create interstitial ad for quiz:", err);
+      }
+    }
+  }, [adsConfig]);
+
+  const showAdAndResults = (result: QuizResult) => {
+    saveQuizResult(result, activeCategory);
+    setFinalResult(result);
+
+    const interstitial = interstitialRef.current;
+    if (adsConfig?.adsEnabled && adLoaded && interstitial) {
+      try {
+        const unsubscribeClosed = interstitial.addAdEventListener(
+          AdEventType.CLOSED,
+          () => {
+            setShowResults(true);
+            unsubscribeClosed();
+          }
+        );
+
+        interstitial.show().catch((e: any) => {
+          console.warn("Failed to show interstitial on quiz submission:", e);
+          setShowResults(true);
+        });
+      } catch (err) {
+        console.warn("Failed during quiz interstitial show:", err);
+        setShowResults(true);
+      }
+    } else {
+      setShowResults(true);
+    }
+  };
 
   // ── Loading ───────────────────────────────────────────────────────────────
   if (loading) {
@@ -107,9 +194,7 @@ export default function QuizPlayerScreen() {
         date: new Date().toISOString(),
         passed,
       };
-      saveQuizResult(result, activeCategory);
-      setFinalResult(result);
-      setShowResults(true);
+      showAdAndResults(result);
     }
   };
 
@@ -120,6 +205,16 @@ export default function QuizPlayerScreen() {
     setScore(0);
     setShowResults(false);
     setFinalResult(null);
+
+    // Reload ad for next attempt
+    setAdLoaded(false);
+    if (interstitialRef.current) {
+      try {
+        interstitialRef.current.load();
+      } catch (err) {
+        console.warn("Failed to reload interstitial ad:", err);
+      }
+    }
   };
 
   // ── Results Screen ────────────────────────────────────────────────────────

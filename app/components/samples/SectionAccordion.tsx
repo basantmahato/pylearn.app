@@ -25,7 +25,7 @@ export function SectionAccordion({
     <View className="mb-4">
       <Pressable
         onPress={onToggle}
-        className="bg-surface-container-low p-5 rounded-[24px] border border-outline-variant/10 shadow-sm active:scale-[0.98] transition-all"
+        className="bg-surface-container-low p-5 rounded-[24px] border border-outline-variant/10 shadow-sm active:scale-[0.98]"
       >
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center gap-3">

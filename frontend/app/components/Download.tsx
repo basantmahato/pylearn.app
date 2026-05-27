@@ -21,9 +21,9 @@ export default function Download() {
               Py
             </div>
 
-            <div className="bg-blue-500/20 text-[#7bb8f0] px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-6 inline-flex border border-blue-500/30">
+            {/* <div className="bg-blue-500/20 text-[#7bb8f0] px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-6 inline-flex border border-blue-500/30">
                100% Free — No Subscription Required
-            </div>
+            </div> */}
 
             <h2 className="text-[clamp(2.25rem,5vw,3.5rem)] font-black text-white leading-[1.1] mb-6 tracking-tighter">
               Ready to Ace Python?
@@ -34,7 +34,7 @@ export default function Download() {
 
             {/* Download Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <a
+              {/* <a
                 href="#"
                 id="app-store-btn"
                 className="flex items-center gap-4 bg-white text-[#0f1729] px-8 py-4 rounded-2xl font-black transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-white/20 min-w-[220px]"
@@ -46,7 +46,7 @@ export default function Download() {
                   <div className="text-[0.65rem] font-bold text-gray-500 uppercase tracking-widest leading-none mb-1">Download on the</div>
                   <div className="text-lg font-black leading-none">App Store</div>
                 </div>
-              </a>
+              </a> */}
 
               <a
                 href="#"
@@ -64,7 +64,7 @@ export default function Download() {
             </div>
 
             {/* Trust Signals */}
-            <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+            {/* <div className="flex flex-wrap justify-center gap-8 md:gap-12">
               {[
                 { icon: "🔒", label: "No Account Needed" },
                 { icon: "📱", label: "iOS & Android" },
@@ -76,7 +76,7 @@ export default function Download() {
                   {t.label}
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

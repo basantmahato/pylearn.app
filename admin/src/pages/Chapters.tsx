@@ -13,13 +13,11 @@ interface Chapter {
     category: string;
 }
 
-const CATEGORIES = [
-    { key: 'class12', label: 'Class 12', color: 'bg-blue-100 text-blue-700' },
-    { key: 'class11', label: 'Class 11', color: 'bg-purple-100 text-purple-700' },
-    { key: 'bca',     label: 'BCA',     color: 'bg-green-100 text-green-700' },
-    { key: 'btech',   label: 'B.Tech',  color: 'bg-yellow-100 text-yellow-700' },
-    { key: 'aiml',    label: 'AI / ML & Data Sci', color: 'bg-red-100 text-red-700' },
-] as const;
+interface Category {
+    key: string;
+    label: string;
+    color: string;
+}
 
 interface Note {
     _id: string;
@@ -34,18 +32,48 @@ interface Note {
 }
 
 const Chapters = () => {
+    const [categories, setCategories] = useState<Category[]>([]);
     const [chapters, setChapters] = useState<Chapter[]>([]);
     const [loading, setLoading] = useState(true);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editForm, setEditForm] = useState<Partial<Chapter>>({});
     const [isAdding, setIsAdding] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState<string>('class12');
+    const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [expandedChapter, setExpandedChapter] = useState<string | null>(null);
     const [notes, setNotes] = useState<Record<string, Note[]>>({});
     const [editingNote, setEditingNote] = useState<{ chapterId: string, noteId: string | null, form: Partial<Note> } | null>(null);
 
     useEffect(() => {
-        fetchChapters();
+        const fetchCategories = async () => {
+            try {
+                const res = await api.get('/courses');
+                if (res.data && res.data.success) {
+                    const dbCats = res.data.data.map((c: any) => ({
+                        key: c.key,
+                        label: c.label,
+                        color: c.key === 'class12' ? 'bg-blue-100 text-blue-700' :
+                               c.key === 'class11' ? 'bg-purple-100 text-purple-700' :
+                               c.key === 'bca' ? 'bg-green-100 text-green-700' :
+                               c.key === 'btech' ? 'bg-yellow-100 text-yellow-700' :
+                               c.key === 'aiml' ? 'bg-red-100 text-red-700' :
+                               'bg-teal-100 text-teal-700'
+                    }));
+                    setCategories(dbCats);
+                    if (dbCats.length > 0) {
+                        setSelectedCategory(dbCats[0].key);
+                    }
+                }
+            } catch (err) {
+                console.error('Error fetching courses:', err);
+            }
+        };
+        fetchCategories();
+    }, []);
+
+    useEffect(() => {
+        if (selectedCategory) {
+            fetchChapters();
+        }
     }, [selectedCategory]);
 
     const fetchChapters = async () => {
@@ -169,24 +197,27 @@ const Chapters = () => {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-bold tracking-tight">Chapters</h2>
-                <div className="flex gap-2 flex-wrap">
-                        {CATEGORIES.map(cat => (
-                            <button
-                                key={cat.key}
-                                onClick={() => { setSelectedCategory(cat.key); setEditingId(null); setIsAdding(false); }}
-                                className={`px-3 py-2 rounded-md text-sm font-medium border transition-colors ${
-                                    selectedCategory === cat.key
-                                        ? 'bg-primary text-primary-foreground border-primary'
-                                        : 'bg-background border-input hover:bg-accent'
-                                }`}
-                            >
+                <div className="flex gap-2 items-center flex-wrap">
+                    <select
+                        title="Select Category"
+                        value={selectedCategory}
+                        onChange={(e) => {
+                            setSelectedCategory(e.target.value);
+                            setEditingId(null);
+                            setIsAdding(false);
+                        }}
+                        className="px-3 py-2 rounded-md border border-input bg-background hover:bg-accent cursor-pointer outline-none text-sm font-medium"
+                    >
+                        {categories.map((cat) => (
+                            <option key={cat.key} value={cat.key}>
                                 {cat.label}
-                            </button>
+                            </option>
                         ))}
-                        <Button onClick={() => { setIsAdding(true); setEditingId(null); setEditForm({ chapterId: '', title: '', order: chapters.length + 1, category: selectedCategory }); }}>
-                            <Plus className="mr-2 h-4 w-4" /> Add Chapter
-                        </Button>
-                    </div>
+                    </select>
+                    <Button onClick={() => { setIsAdding(true); setEditingId(null); setEditForm({ chapterId: '', title: '', order: chapters.length + 1, category: selectedCategory }); }}>
+                        <Plus className="mr-2 h-4 w-4" /> Add Chapter
+                    </Button>
+                </div>
             </div>
 
             {(isAdding || editingId) && (
@@ -197,7 +228,7 @@ const Chapters = () => {
                                 <label htmlFor="chapter-id" className="text-xs font-semibold uppercase text-muted-foreground">Chapter ID</label>
                                 <Input 
                                     id="chapter-id"
-                                    placeholder="e.g. ch1" 
+                                    placeholder={`e.g. ${selectedCategory}-ch1`} 
                                     value={editForm.chapterId} 
                                     onChange={e => setEditForm({...editForm, chapterId: e.target.value})} 
                                 />
@@ -228,7 +259,7 @@ const Chapters = () => {
                                     onChange={e => setEditForm({...editForm, category: e.target.value})}
                                     className="w-full px-3 py-2 rounded-md border border-input bg-background"
                                 >
-                                    {CATEGORIES.map(cat => (
+                                    {categories.map(cat => (
                                         <option key={cat.key} value={cat.key}>{cat.label}</option>
                                     ))}
                                 </select>
@@ -258,8 +289,8 @@ const Chapters = () => {
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <h3 className="font-semibold">{chapter.title}</h3>
-                                        <span className={`text-xs px-2 py-0.5 rounded ${CATEGORIES.find(c => c.key === chapter.category)?.color ?? 'bg-gray-100 text-gray-700'}`}>
-                                            {CATEGORIES.find(c => c.key === chapter.category)?.label ?? chapter.category}
+                                        <span className={`text-xs px-2 py-0.5 rounded ${categories.find(c => c.key === chapter.category)?.color ?? 'bg-gray-100 text-gray-700'}`}>
+                                            {categories.find(c => c.key === chapter.category)?.label ?? chapter.category}
                                         </span>
                                     </div>
                                     <p className="text-sm text-muted-foreground">{chapter.chapterId}</p>

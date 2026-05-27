@@ -25,7 +25,7 @@ export function ChapterCard({ chapter, unitColumns }: ChapterCardProps) {
       <Pressable
         className={`${widthClasses} ${
           useSolidButton ? "bg-primary" : "bg-surface-container-lowest"
-        } rounded-[32px] p-6 md:p-8 shadow-sm active:scale-[0.97] transition-all border border-outline-variant/10`}
+        } rounded-[32px] p-6 md:p-8 shadow-sm active:scale-[0.97] border border-outline-variant/10`}
       >
         <View className="flex-row items-center justify-between">
           <Text

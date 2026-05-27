@@ -2,12 +2,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import React, { useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { SearchHero } from "@/components/notes/SearchHero";
 import { TopicDiscovery } from "@/components/notes/TopicDiscovery";
 import { UnitSection } from "@/components/notes/UnitSection";
-import { Header } from "@/components/ui/Header";
 import { TOPICS } from "@/constants/chapters";
 import { useApi } from "@/hooks/useApi";
 import { api, type ApiChapter } from "@/lib/api";
@@ -34,7 +32,10 @@ function buildUnits(chapters: ApiChapter[], category: Category) {
       title: unit.title,
       columns: unit.columns,
       chapters: sorted
-        .filter((ch) => unit.chapterIds.includes(ch.chapterId))
+        .filter((ch) => {
+          const normId = ch.chapterId.replace(/^([a-z0-9]+-)?ch/, "");
+          return unit.chapterIds.includes(normId);
+        })
         .map((ch) => ({
           id: ch.chapterId,
           title: ch.title,
@@ -121,9 +122,8 @@ export default function NotesScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-background" edges={["top"]}>
+    <View className="flex-1 bg-background">
       <StatusBar style="dark" />
-      <Header showSearch={false} />
 
       <ScrollView contentContainerClassName="pb-32" showsVerticalScrollIndicator={false}>
         <View className="max-w-5xl self-center w-full px-4 md:px-6 pt-8 md:pt-12">
@@ -197,6 +197,6 @@ export default function NotesScreen() {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

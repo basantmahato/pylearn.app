@@ -33,7 +33,7 @@ export function PaperCard({
   return (
     <Pressable
       onPress={onPress}
-      className="bg-surface-container-low p-5 rounded-[24px] border border-outline-variant/10 shadow-sm active:scale-[0.98] transition-all"
+      className="bg-surface-container-low p-5 rounded-[24px] border border-outline-variant/10 shadow-sm active:scale-[0.98]"
     >
       <View className="flex-row items-start justify-between mb-3">
         <View

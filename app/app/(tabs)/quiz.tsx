@@ -3,9 +3,7 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useMemo, useState } from "react";
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Header } from "@/components/ui/Header";
 import { useApi } from "@/hooks/useApi";
 import { api, type ApiChapter, type ApiQuizSet } from "@/lib/api";
 import { useCourseStore } from "@/lib/course-store";
@@ -52,7 +50,8 @@ export default function QuizScreen() {
 
     if (activeCategory === "class12") {
       sorted.forEach((ch) => {
-        const label = UNIT_MAP[ch.chapterId] ?? "Other";
+        const normId = ch.chapterId.replace(/^([a-z0-9]+-)?ch/, "");
+        const label = UNIT_MAP[normId] ?? "Other";
         if (!unitGroups[label]) unitGroups[label] = { label, chapters: [] };
         unitGroups[label].chapters.push(ch);
       });
@@ -67,9 +66,8 @@ export default function QuizScreen() {
   const isError = !loadingCh && errorCh;
 
   return (
-    <SafeAreaView className="flex-1 bg-background" edges={["top"]}>
+    <View className="flex-1 bg-background">
       <StatusBar style="dark" />
-      <Header />
 
       <ScrollView
         contentContainerClassName="pb-32 px-4 md:px-6 pt-8"
@@ -211,6 +209,6 @@ export default function QuizScreen() {
           </>
         )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

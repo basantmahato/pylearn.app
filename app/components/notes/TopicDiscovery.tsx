@@ -24,7 +24,7 @@ export function TopicDiscovery({ onTopicPress, activeTopic }: TopicDiscoveryProp
             <Pressable
               key={index}
               onPress={() => onTopicPress(topic.label, topic.keywords)}
-              className={`px-6 md:px-8 py-3 rounded-full active:scale-95 transition-all ${
+              className={`px-6 md:px-8 py-3 rounded-full active:scale-95 ${
                 isActive 
                   ? "bg-primary" 
                   : "bg-surface-container-high active:bg-primary-container"

@@ -89,7 +89,7 @@ export function PracticeCard({ q, type, difficulty, solution }: PracticeItemProp
       ) : (
         <Pressable 
           onPress={() => setShowSolution(true)}
-          className="bg-primary py-5 rounded-2xl items-center justify-center shadow-lg active:scale-[0.98] transition-all"
+          className="bg-primary py-5 rounded-2xl items-center justify-center shadow-lg active:scale-[0.98]"
         >
           <Text className="text-white font-bold text-lg">Reveal Solution</Text>
         </Pressable>

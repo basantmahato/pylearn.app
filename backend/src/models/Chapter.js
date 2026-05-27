@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
 
-const CATEGORIES = ['class11', 'class12', 'bca', 'btech', 'aiml'];
-
 const ChapterSchema = new mongoose.Schema({
     chapterId: { type: String, required: true },
     title: { type: String, required: true },
     order: { type: Number, required: true },
-    category: { type: String, enum: CATEGORIES, default: 'class12' },
+    category: { type: String, default: 'class12' },
     summary: {
         short_summary: String,
         detailed_summary: String,

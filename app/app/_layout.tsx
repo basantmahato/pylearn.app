@@ -13,6 +13,8 @@ import "../global.css";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useUserStore } from "@/lib/storage";
+import * as Notifications from "expo-notifications";
+import { registerForPushNotificationsAsync } from "@/lib/notifications";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -75,6 +77,26 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [isReady]);
+
+  // Setup Android Push Notifications
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+
+    // Listener for foreground notifications
+    const foregroundSubscription = Notifications.addNotificationReceivedListener((notification) => {
+      console.log("Foreground notification received:", notification);
+    });
+
+    // Listener for notification taps (when user opens notification)
+    const responseSubscription = Notifications.addNotificationResponseReceivedListener((response) => {
+      console.log("Notification tapped/opened:", response);
+    });
+
+    return () => {
+      foregroundSubscription.remove();
+      responseSubscription.remove();
+    };
+  }, []);
 
   return (
     <ErrorBoundary>

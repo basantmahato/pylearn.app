@@ -12,7 +12,19 @@ const chapterSchema = Joi.object({
         detailed_summary: Joi.string().allow(''),
         exam_focus: Joi.array().items(Joi.string()),
         revision_notes: Joi.array().items(Joi.string())
-    })
+    }),
+    practice: Joi.array().items(Joi.object({
+        id: Joi.string().required(),
+        q: Joi.string().required(),
+        type: Joi.string().valid('theory', 'coding').required(),
+        difficulty: Joi.string().valid('easy', 'medium', 'hard').required(),
+        hints: Joi.array().items(Joi.string()),
+        solution: Joi.object({
+            explanation: Joi.string().allow(''),
+            code: Joi.string().allow(''),
+            example: Joi.string().allow('')
+        })
+    }))
 });
 
 const noteSchema = Joi.object({

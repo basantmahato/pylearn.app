@@ -1,21 +1,29 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import React from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { View } from "react-native";
 
 import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Header } from "@/components/ui/Header";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
+  const router = useRouter();
 
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "#005ab5",
         tabBarInactiveTintColor: "#717785",
-        headerShown: false,
+        headerShown: true,
+        header: () => (
+          <View style={{ paddingTop: insets.top, backgroundColor: "#f9f9ff" }}>
+            <Header showSearch={true} onSearchPress={() => router.push("/search")} />
+          </View>
+        ),
         tabBarButton: HapticTab,
         tabBarStyle: {
           borderTopWidth: 0,

@@ -12,7 +12,7 @@ export function Greeting() {
   const { getStreak, checkIn } = useProgressStore();
   const streak = getStreak();
 
-  const activeCourse = CATEGORIES.find(c => c.id === activeCategory);
+  const activeCourse = CATEGORIES.find(c => c.key === activeCategory);
 
   useEffect(() => {
     const storedName = getUserName();
@@ -26,9 +26,6 @@ export function Greeting() {
   return (
     <View className="mb-10 flex-row justify-between items-end">
       <View className="space-y-1">
-        <Text className="text-on-surface-variant font-medium opacity-70">
-          {activeCourse?.title || "Python"} Student
-        </Text>
         <Text className="text-4xl font-extrabold tracking-tight text-on-surface">Hey, {userName}</Text>
       </View>
       <View className="bg-surface-container-lowest shadow-sm rounded-2xl px-4 py-2 flex-row items-center gap-2 border border-surface-container-high">
