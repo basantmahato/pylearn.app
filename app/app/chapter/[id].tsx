@@ -16,15 +16,22 @@ import { getActiveAdUnitId, RemoteAdConfig } from "@/lib/ads-config";
 import { apiClient } from "@/lib/api";
 
 // Only import if native module is available
-let InterstitialAd: any;
-let AdEventType: any;
+import { Platform } from "react-native";
+let InterstitialAd: any = null;
+let AdEventType: any = null;
 
-try {
-  const ads = require("react-native-google-mobile-ads");
-  InterstitialAd = ads.InterstitialAd;
-  AdEventType = ads.AdEventType;
-} catch {
-  // Not available in non-native environments
+if (Platform.OS !== "web") {
+  try {
+    const ads = require("react-native-google-mobile-ads");
+    InterstitialAd = ads.InterstitialAd;
+    AdEventType = ads.AdEventType;
+  } catch {
+    // Native module unavailable
+  }
+} else {
+  // Fallback stubs for web
+  InterstitialAd = null;
+  AdEventType = null;
 }
 
 import { CodeBlock, ListBlock, ParagraphBlock } from "@/components/chapter/ContentBlocks";

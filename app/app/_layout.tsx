@@ -89,7 +89,25 @@ export default function RootLayout() {
 
     // Listener for notification taps (when user opens notification)
     const responseSubscription = Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log("Notification tapped/opened:", response);
+      const data = response.notification.request.content.data;
+      if (!data?.screen) return;
+
+      // Small delay to ensure navigation is ready
+      setTimeout(() => {
+        switch (data.screen) {
+          case "chapter":
+            if (data.chapterId) router.push(`/chapter/${data.chapterId}`);
+            break;
+          case "quiz":
+            if (data.quizId) router.push(`/quiz/${data.quizId}`);
+            break;
+          case "sample":
+            if (data.paperId) router.push(`/sample/${data.paperId}`);
+            break;
+          default:
+            break;
+        }
+      }, 300);
     });
 
     return () => {

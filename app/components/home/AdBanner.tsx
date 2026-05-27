@@ -5,15 +5,22 @@ import { apiClient } from "@/lib/api";
 import { getActiveAdUnitId, RemoteAdConfig } from "@/lib/ads-config";
 
 // Only import if native module is available (requires custom dev build)
-let BannerAd: any;
-let BannerAdSize: any;
+import { Platform } from "react-native";
+let BannerAd: any = null;
+let BannerAdSize: any = null;
 
-try {
-  const ads = require("react-native-google-mobile-ads");
-  BannerAd = ads.BannerAd;
-  BannerAdSize = ads.BannerAdSize;
-} catch {
-  // Module not available in Expo Go
+if (Platform.OS !== "web") {
+  try {
+    const ads = require("react-native-google-mobile-ads");
+    BannerAd = ads.BannerAd;
+    BannerAdSize = ads.BannerAdSize;
+  } catch {
+    // Native module unavailable
+  }
+} else {
+  // Provide fallback stubs for web
+  BannerAd = () => null;
+  BannerAdSize = { ANCHORED_ADAPTIVE_BANNER: undefined };
 }
 
 export function AdBanner() {

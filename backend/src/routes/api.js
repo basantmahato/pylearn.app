@@ -109,5 +109,7 @@ router.post('/admin/ads/config', auth, async (req, res) => {
 // ── Push Notifications ────────────────────────────────────────────────────────
 router.post('/devices/register', notificationController.registerDeviceToken);
 router.post('/admin/notifications/send', auth, notificationController.sendPushNotification);
+router.get('/admin/notifications/config', auth, notificationController.getNotificationConfig);
+router.post('/admin/notifications/config', auth, notificationController.updateNotificationConfig);
 
 module.exports = router;

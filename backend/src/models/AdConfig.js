@@ -5,10 +5,7 @@ const AdConfigSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    androidAppId: {
-        type: String,
-        default: "ca-app-pub-3940256099942544~3347511713" // test id by default
-    },
+
     bannerId: {
         type: String,
         default: "ca-app-pub-3940256099942544/6300978111" // test id by default

@@ -37,10 +37,15 @@ app.get('/', (req, res) => {
     res.send('PyLearn API is running...');
 });
 
+const { initScheduler } = require('./services/notificationScheduler');
+
 // Error Handler (must be after routes)
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    
+    // Start automated push notification scheduler
+    initScheduler();
 });

@@ -168,18 +168,7 @@ const ManageAds = () => {
                     </CardHeader>
                     <CardContent className="p-6 space-y-6">
                         <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
-                            {/* App ID */}
-                            <div className="space-y-2 md:col-span-2">
-                                <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">AdMob App ID</label>
-                                <Input 
-                                    value={config.androidAppId}
-                                    onChange={(e) => handleInputChange('androidAppId', e.target.value)}
-                                    placeholder="ca-app-pub-xxxxxxxxxxxxxxxx~xxxxxxxxxx"
-                                    className="font-mono text-xs focus:ring-primary"
-                                    required
-                                />
-                                <p className="text-[11px] text-muted-foreground">The master identification number for your app registered on Google AdMob Console.</p>
-                            </div>
+                            {/* Removed App ID input as it must be hardcoded in app.json */}
 
                             {/* Banner ID */}
                             <div className="space-y-2">
