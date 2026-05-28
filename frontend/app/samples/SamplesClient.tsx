@@ -2,10 +2,10 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import type { SamplePaper, Category } from "../../lib/api";
-import { CATEGORIES } from "../../lib/api";
+import type { SamplePaper, Category, ApiCourse } from "../../lib/api";
 
 interface Props {
+  categories: ApiCourse[];
   papers: SamplePaper[];
   error: string;
 }
@@ -14,8 +14,8 @@ interface Props {
 
 import StateView from "../components/StateView";
 
-export default function SamplesClient({ papers, error }: Props) {
-  const [activeCategory, setActiveCategory] = useState<Category>("class12");
+export default function SamplesClient({ categories, papers, error }: Props) {
+  const [activeCategory, setActiveCategory] = useState<Category>(() => categories[0]?.key ?? "class12");
   const [filter, setFilter] = useState<string>("all");
 
 
@@ -58,7 +58,7 @@ export default function SamplesClient({ papers, error }: Props) {
 
         {/* Category Tabs */}
         <div className="flex justify-center gap-2.5 mb-8 flex-wrap">
-          {CATEGORIES.map((cat) => {
+          {categories.map((cat) => {
             const active = activeCategory === cat.key;
             return (
               <button

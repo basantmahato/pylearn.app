@@ -1,0 +1,138 @@
+{
+  "id": "ch9",
+  "title": "Tuples",
+  "order": 9,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Tuples are the third major sequence data type in Python. If a List is like a dynamic, editable document, a Tuple is like a read-only PDF. Tuples store an ordered collection of heterogeneous items, exactly like lists. The critical difference is that Tuples are Immutable. They are used to store data that should never, ever change throughout the execution of a program (like the days of the week, or the RGB color code for Red)."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.1 Creating Tuples"
+    },
+    {
+      "type": "paragraph",
+      "text": "Tuples are typically created by placing elements inside parentheses `()`, separated by commas. However, the parentheses are actually optional; it is the COMMAS that define a tuple."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Creating a standard tuple\ncolors = (\"Red\", \"Green\", \"Blue\")\n\n# Creating a tuple without parentheses (Tuple Packing)\ncoordinates = 10.5, 20.8, -5.0\n\n# CRITICAL: Creating a tuple with a SINGLE element requires a trailing comma\nsingle_tuple = (50,)  # This is a tuple\nnot_a_tuple = (50)    # Python treats this as just the integer 50 inside math parentheses"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.2 Accessing Elements"
+    },
+    {
+      "type": "paragraph",
+      "text": "Because Tuples are ordered sequences, accessing their elements uses the exact same indexing and slicing mechanics as Strings and Lists."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "my_tuple = (10, 20, 30, 40, 50)\n\nprint(my_tuple[0])     # Output: 10\nprint(my_tuple[-1])    # Output: 50\nprint(my_tuple[1:4])   # Output: (20, 30, 40)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.3 Tuple Immutability"
+    },
+    {
+      "type": "paragraph",
+      "text": "Tuples cannot be changed once created. You cannot assign a new value to an existing index, nor can you use methods like `append()`, `insert()`, or `remove()`. If you try, Python throws a TypeError."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "colors = (\"Red\", \"Green\", \"Blue\")\n\n# colors[0] = \"Yellow\"  <-- THIS WILL CRASH THE PROGRAM!\n\n# If you absolutely MUST change a tuple, the workaround is converting it to a list first:\ntemp_list = list(colors)\ntemp_list[0] = \"Yellow\"\ncolors = tuple(temp_list)  # Re-pack it into a new tuple object"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.4 Tuple Unpacking"
+    },
+    {
+      "type": "paragraph",
+      "text": "Tuple Unpacking is an incredibly powerful Python feature that allows you to extract elements from a tuple and assign them directly to multiple variables in a single, clean line of code."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "student_data = (\"Basant\", 17, \"BCA\")\n\n# Unpacking the tuple into three separate variables\nname, age, course = student_data\n\nprint(\"Name:\", name)   # Output: Basant\nprint(\"Course:\", course) # Output: BCA"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.5 Why use Tuples instead of Lists?"
+    },
+    {
+      "type": "paragraph",
+      "text": "If Tuples are just 'locked' lists, why use them?"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Safety: Prevents accidental modification of data that shouldn't change.",
+        "Performance: Because they are immutable, Python optimizes tuples in memory. Iterating through a tuple is slightly faster than iterating through a list.",
+        "Dictionary Keys: Only immutable objects (like Strings and Tuples) can be used as keys in a Dictionary. Lists cannot."
+      ]
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 9 introduces Tuples, an immutable sequence data type used to safely store collections of data that must remain constant throughout the program's execution.",
+    "detailed_summary": "Tuples are the immutable counterpart to Lists. While they look similar and support heterogeneous data, they use parentheses `()` instead of square brackets, though the presence of commas is what technically defines them. Notably, a single-element tuple must include a trailing comma (e.g., `(5,)`). Once a Tuple is created, its elements cannot be altered, added, or removed, providing strict data safety. Because they are ordered sequences, accessing elements via indexing and slicing works identically to Strings and Lists. A powerful feature of Tuples is 'Unpacking', allowing multiple variables to be assigned simultaneously from a single tuple. Developers choose Tuples over Lists when data must be write-protected, when a slight iteration performance boost is needed, or when requiring a sequence to serve as a Dictionary key.",
+    "exam_focus": [
+      "Explain the exact syntax required to create a single-element tuple.",
+      "Understand the memory and safety differences between Lists and Tuples.",
+      "Demonstrate Tuple Unpacking.",
+      "Explain why Tuples can be used as Dictionary keys but Lists cannot."
+    ],
+    "revision_notes": [
+      "Tuples use `()`, but the comma `,` is what matters.",
+      "Single element tuple: `t = (5,)`.",
+      "Tuples are IMMUTABLE.",
+      "Unpacking: `a, b = (1, 2)`.",
+      "Tuples are slightly faster and consume less memory than Lists."
+    ]
+  },
+  "practice": [
+    {
+      "q": "How do you create a tuple with exactly one element? Why is `t = (10)` incorrect?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Trailing comma"],
+      "solution": "To create a single-element tuple, you MUST include a trailing comma: `t = (10,)`. If you just write `t = (10)`, Python interprets the parentheses as standard mathematical grouping operators, and sets `t` to the simple integer `10`."
+    },
+    {
+      "q": "What is the key advantage of using a Tuple over a List?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Immutability", "Performance"],
+      "solution": "The primary advantage is Data Safety. Because Tuples are immutable, you can guarantee that the data cannot be accidentally modified elsewhere in the program. Additionally, due to memory optimization, iterating through Tuples is slightly faster than Lists, and Tuples can be used as Dictionary keys."
+    },
+    {
+      "q": "Given the tuple `data = ('Python', 3.10, 2024)`, write the code to unpack this tuple into variables named `lang`, `version`, and `year`.",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["Unpacking syntax"],
+      "solution": "```python\nlang, version, year = data\n```"
+    },
+    {
+      "q": "If Tuples are immutable, is it possible to concatenate two tuples together? What is the result of `(1, 2) + (3, 4)`?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Creating a new object"],
+      "solution": "Yes, you can use the `+` operator to concatenate tuples. This does not violate immutability because concatenation does not alter the original tuples; instead, it generates and returns an entirely NEW tuple in memory. The result of `(1, 2) + (3, 4)` is the new tuple `(1, 2, 3, 4)`."
+    },
+    {
+      "q": "Write a script that attempts to change the first element of a tuple `t = (5, 10)` to 99 by converting it to a list first.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["list()", "tuple()"],
+      "solution": "```python\nt = (5, 10)\ntemp_list = list(t)\ntemp_list[0] = 99\nt = tuple(temp_list)\nprint(t)  # Output: (99, 10)\n```"
+    }
+  ]
+}

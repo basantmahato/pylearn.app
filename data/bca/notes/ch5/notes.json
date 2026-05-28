@@ -1,0 +1,168 @@
+{
+  "id": "bca-ch5",
+  "title": "Strings",
+  "order": 5,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Strings are one of the most widely used data types in Python. A string is simply a sequence of characters. From processing user input and parsing web pages to handling file paths and displaying formatted output, strings are everywhere. This chapter explores how to create strings, slice them, manipulate them using built-in methods, and format them beautifully."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.1 String Creation and Basics"
+    },
+    {
+      "type": "paragraph",
+      "text": "In Python, strings can be created by enclosing characters inside single quotes `''`, double quotes `\"\"`, or triple quotes `\"\"\"\"\"\"` or `''''''`. Triple quotes are specifically used for multi-line strings or docstrings."
+    },
+    {
+      "type": "paragraph",
+      "text": "A crucial concept to remember: Strings in Python are IMMUTABLE. This means that once a string is created, you cannot change its individual characters in place. Any operation that modifies a string actually creates a brand new string."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "s1 = 'Hello'         # Single quotes\ns2 = \"World\"         # Double quotes\ns3 = \"\"\"This is a\nmulti-line string.\"\"\"\n\n# Immutability Example\ntext = \"Cat\"\n# text[0] = 'B'      # This will raise a TypeError!\n# You must create a new string instead:\ntext = \"B\" + text[1:]\nprint(text)          # Output: Bat"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.2 String Indexing and Slicing"
+    },
+    {
+      "type": "paragraph",
+      "text": "Because a string is a sequence, every character has a specific numerical position called an index. Python uses zero-based indexing (the first character is at index 0). Furthermore, Python supports negative indexing, where `-1` represents the very last character."
+    },
+    {
+      "type": "paragraph",
+      "text": "Slicing allows you to extract a substring. The syntax is `string[start:stop:step]`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "word = \"Programming\"\n\n# Indexing\nprint(word[0])       # Output: P (First character)\nprint(word[-1])      # Output: g (Last character)\n\n# Slicing: [start:stop]\n# Grabs from 'start' up to, but not including, 'stop'\nprint(word[0:4])     # Output: Prog\nprint(word[3:])      # Output: gramming (From index 3 to the end)\nprint(word[:7])      # Output: Program (From start up to index 7)\n\n# Slicing with Step: [start:stop:step]\nprint(word[::2])     # Output: Pormig (Every 2nd character)\nprint(word[::-1])    # Output: gnimmargorP (Reverses the string!)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.3 Built-in String Methods"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python strings come packed with highly optimized built-in methods. Since strings are immutable, these methods always return a new string, leaving the original unchanged."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Case Conversion: upper(), lower(), capitalize(), title(), swapcase()",
+        "Searching: find(), index(), count(), startswith(), endswith()",
+        "Modification: strip(), replace(), split(), join()",
+        "Validation: isalpha(), isdigit(), isalnum(), isspace()"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "s = \"  hello Python world  \"\n\n# Cleaning and Modification\nprint(s.strip())             # \"hello Python world\" (Removes leading/trailing whitespace)\nprint(s.replace(\"hello\", \"Hi\"))# \"  Hi Python world  \"\n\n# Case Conversion\nclean_s = s.strip()\nprint(clean_s.upper())       # \"HELLO PYTHON WORLD\"\nprint(clean_s.title())       # \"Hello Python World\"\n\n# Splitting and Joining\nwords = clean_s.split(\" \")   # Splits string into a list: ['hello', 'Python', 'world']\njoined = \"-\".join(words)     # Joins list into a string: \"hello-Python-world\"\n\n# Searching\nprint(clean_s.find(\"Python\"))# Returns 6 (the starting index of 'Python')\nprint(clean_s.count(\"o\"))    # Returns 3 (number of 'o's)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.4 String Operations and Formatting"
+    },
+    {
+      "type": "paragraph",
+      "text": "Basic operators work on strings. `+` concatenates them, and `*` repeats them. However, when you want to build complex strings involving variables, concatenation gets messy. Python provides multiple ways to format strings, with 'f-strings' being the most modern and preferred method."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Concatenation and Repetition\nprint(\"Ha\" * 3)              # Output: HaHaHa\nprint(\"Py\" + \"thon\")         # Output: Python\n\nname = \"Alice\"\nage = 20\n\n# 1. The old % formatting (C-style)\nprint(\"My name is %s and I am %d\" % (name, age))\n\n# 2. The .format() method (Python 3.0+)\nprint(\"My name is {} and I am {}\".format(name, age))\n\n# 3. f-strings (Python 3.6+ - The BEST way)\n# Prefix the string with 'f' and put variables directly in {}\nprint(f\"My name is {name} and next year I will be {age + 1}\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.5 Escape Characters and Raw Strings"
+    },
+    {
+      "type": "paragraph",
+      "text": "To insert characters that are illegal in a string (like a quote inside a quote, or a newline), you use an escape character: a backslash `\\`."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "\\n : Newline",
+        "\\t : Horizontal Tab",
+        "\\\\ : Backslash",
+        "\\' : Single Quote",
+        "\\\" : Double Quote"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "If you are dealing with paths (especially on Windows), backslashes can cause problems. You can prefix the string with `r` to make it a 'raw string', telling Python to ignore escape sequences."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Escape characters\nprint(\"First Line\\nSecond Line\")\nprint(\"He said, \\\"Python is awesome!\\\"\")\n\n# Raw string (useful for file paths and regular expressions)\npath = r\"C:\\Users\\basant\\Desktop\"\nprint(path) # Prints exactly as written, no escape sequence issues"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 5 covers the string data type in Python, focusing on immutability, index-based slicing, a wide array of built-in manipulation methods, and modern f-string formatting.",
+    "detailed_summary": "Strings are sequences of characters used universally for text processing. A fundamental property of Python strings is immutability; they cannot be changed in place. Attempting to modify an index (e.g., s[0] = 'a') results in a TypeError. Instead, manipulation relies on creating new strings. Because they are sequences, strings support powerful zero-based indexing and slicing [start:stop:step], making operations like string reversal (s[::-1]) trivial. Python provides highly optimized methods for validation (isalpha, isdigit), transformation (upper, lower, replace), and structure modification (strip, split, join). For dynamic text generation, f-strings offer the cleanest, most performant way to inject variables and expressions directly into string literals. Understanding escape sequences (\\n, \\t) and raw strings (r'...') is also critical for handling special characters and file paths.",
+    "exam_focus": [
+      "Explain the concept of String Immutability and why it matters.",
+      "Calculate the output of complex slicing operations like `text[1:8:2]` or `text[::-1]`.",
+      "Understand the difference between `split()` and `join()`.",
+      "Understand the difference between `find()` and `index()` (find returns -1 on failure, index throws ValueError).",
+      "Write correctly formatted f-strings."
+    ],
+    "revision_notes": [
+      "Strings are Immutable.",
+      "Zero-indexed; negative indexing starts from -1 at the end.",
+      "Slicing: [start : stop : step].",
+      "`split()` turns a string into a list; `join()` turns a list into a string.",
+      "f-strings: `f'Variable is {var}'`.",
+      "`r'C:\\path'` is a raw string (ignores escapes)."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What does it mean that strings are 'immutable' in Python?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Can you change s[0]?", "Memory allocation"],
+      "solution": "Immutability means that once a string object is created in memory, its contents cannot be altered. If you attempt to reassign a character (like `s[0] = 'a'`), Python will raise a TypeError. Any method that 'modifies' a string (like `.replace()` or `.upper()`) actually creates and returns a brand new string object, leaving the original intact."
+    },
+    {
+      "q": "Given the string `s = 'BCA Programming'`, write a slicing expression to extract the word 'Programming', and another to reverse the entire string.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Find the starting index of 'P'", "Use a step of -1 for reversing"],
+      "solution": "```python\ns = 'BCA Programming'\n\n# Extract 'Programming'\n# 'P' is at index 4, and we want to go to the end\nword = s[4:]\nprint(word)  # Output: Programming\n\n# Reverse the string\nreversed_s = s[::-1]\nprint(reversed_s)  # Output: gnimmargorP ACB\n```"
+    },
+    {
+      "q": "Write a Python script that takes a sentence from the user, counts the total number of words, and replaces all spaces with hyphens (-).",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Use split() to count words", "Use replace() or join() for hyphens"],
+      "solution": "```python\nsentence = input('Enter a sentence: ')\n\n# Count words by splitting the string into a list and getting its length\nwords_list = sentence.split(' ')\nword_count = len(words_list)\n\n# Replace spaces with hyphens\nhyphenated = sentence.replace(' ', '-')\n\nprint(f'Total words: {word_count}')\nprint(f'Modified sentence: {hyphenated}')\n```"
+    },
+    {
+      "q": "What is the difference between the `find()` method and the `index()` method when searching for a substring?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["What happens if the substring is not there?", "Errors vs Return values"],
+      "solution": "Both methods search for a substring and return the starting index of the first occurrence. The difference lies in their failure behavior. If the substring is NOT found, `find()` gracefully returns `-1`. In contrast, `index()` raises a fatal `ValueError`, which will crash the program if not caught within a try-except block."
+    },
+    {
+      "q": "Explain what an f-string is and provide an example showing how it can execute an expression inside the string.",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Formatted string literal", "Prefix 'f'", "Braces {}"],
+      "solution": "An f-string (formatted string literal) is prefixed with the letter 'f' or 'F'. It allows developers to embed Python expressions directly inside string constants using curly braces `{}`. It is faster and more readable than older formatting methods.\nExample:\n```python\nprice = 50\ntax = 0.10\n# F-strings can execute math directly inside the braces\nprint(f'The total cost with tax is ${price + (price * tax)}')\n# Output: The total cost with tax is $55.0\n```"
+    }
+  ]
+}

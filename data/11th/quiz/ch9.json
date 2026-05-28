@@ -1,0 +1,52 @@
+{
+  "chapterId": "ch9",
+  "title": "Tuples",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Tuple Basics & Creation",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "What is a tuple in Python?", "options": ["A mutable sequence of elements", "An immutable sequence of elements", "A mapping of key-value pairs", "A set of unique elements"], "answer": 1, "explanation": "A tuple is an ordered, immutable collection of elements in Python." },
+        { "id": "q2", "question": "Which symbols are used to define a tuple?", "options": ["[]", "{}", "()", "<>"], "answer": 2, "explanation": "Tuples are defined using parentheses ()." },
+        { "id": "q3", "question": "How do you create a tuple with a single element?", "options": ["(1)", "tuple(1)", "(1,)", "[1]"], "answer": 2, "explanation": "A trailing comma is required to create a single-element tuple, otherwise it is evaluated as a normal expression in parentheses." },
+        { "id": "q4", "question": "Are tuples mutable or immutable?", "options": ["Mutable", "Immutable", "Depends on the elements", "Only if it contains strings"], "answer": 1, "explanation": "Tuples are immutable, meaning their contents cannot be changed after creation." },
+        { "id": "q5", "question": "What is the primary difference between a list and a tuple?", "options": ["Lists are ordered, tuples are not", "Tuples are mutable, lists are immutable", "Lists are mutable, tuples are immutable", "Tuples can only store numbers"], "answer": 2, "explanation": "Lists can be modified (mutable), whereas tuples cannot be changed once created (immutable)." },
+        { "id": "q6", "question": "Can a tuple contain elements of different data types?", "options": ["Yes", "No", "Only numeric types", "Only strings and integers"], "answer": 0, "explanation": "Like lists, tuples can hold heterogeneous data types, including other tuples." },
+        { "id": "q7", "question": "What happens if you try to modify an element in a tuple, e.g., t[0] = 5?", "options": ["The element is updated", "SyntaxError", "TypeError", "ValueError"], "answer": 2, "explanation": "Python raises a TypeError because 'tuple' object does not support item assignment." },
+        { "id": "q8", "question": "How do you create an empty tuple?", "options": ["t = []", "t = {}", "t = ()", "t = tuple[]"], "answer": 2, "explanation": "An empty tuple is created using empty parentheses ()." },
+        { "id": "q9", "question": "What is the data type of the variable x if x = (5)?", "options": ["tuple", "int", "list", "set"], "answer": 1, "explanation": "Without the trailing comma, the parentheses simply group the expression, making x an integer." },
+        { "id": "q10", "question": "Which built-in function converts a list into a tuple?", "options": ["list()", "set()", "tuple()", "dict()"], "answer": 2, "explanation": "The tuple() function is used to convert an iterable (like a list) into a tuple." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Operations & Methods",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "Which function is used to find the number of elements in a tuple?", "options": ["size()", "count()", "length()", "len()"], "answer": 3, "explanation": "The built-in len() function returns the number of items in a tuple." },
+        { "id": "q12", "question": "How do you access the first element of a tuple named 't'?", "options": ["t(0)", "t[1]", "t[0]", "t.first()"], "answer": 2, "explanation": "Elements are accessed using square brackets and 0-based indexing." },
+        { "id": "q13", "question": "How do you access the last element of a tuple named 't' using negative indexing?", "options": ["t[-0]", "t[last]", "t[-1]", "t[-2]"], "answer": 2, "explanation": "The index -1 refers to the last element in the tuple." },
+        { "id": "q14", "question": "Does a tuple have an append() method?", "options": ["Yes", "No", "Only if it is empty", "Only for integer elements"], "answer": 1, "explanation": "Since tuples are immutable, they do not have methods like append() or remove() that modify the tuple." },
+        { "id": "q15", "question": "Which of the following are the only two built-in methods of a tuple?", "options": ["append() and pop()", "insert() and remove()", "count() and index()", "sort() and reverse()"], "answer": 2, "explanation": "Tuples only have count() and index() because these methods do not modify the tuple." },
+        { "id": "q16", "question": "What does the count() method do for a tuple?", "options": ["Returns the total number of elements", "Returns the index of a specific element", "Counts the number of occurrences of a specific element", "Sorts the tuple elements"], "answer": 2, "explanation": "t.count(x) returns how many times the element x appears in the tuple." },
+        { "id": "q17", "question": "What does the index() method do?", "options": ["Returns the value at a given index", "Returns the first index of a specified value", "Reverses the tuple", "Adds an index to each element"], "answer": 1, "explanation": "t.index(x) returns the lowest index where the element x is found." },
+        { "id": "q18", "question": "What is the result of tuple concatenation: (1, 2) + (3, 4)?", "options": ["(4, 6)", "(1, 2, 3, 4)", "Error", "((1, 2), (3, 4))"], "answer": 1, "explanation": "The + operator concatenates two tuples into a new tuple." },
+        { "id": "q19", "question": "What is the result of tuple repetition: (1,) * 3?", "options": ["(3,)", "(1, 1, 1)", "(1, 3)", "Error"], "answer": 1, "explanation": "The * operator repeats the elements of the tuple a specified number of times." },
+        { "id": "q20", "question": "How can you delete an entire tuple named 't'?", "options": ["t.clear()", "t.delete()", "del t", "remove(t)"], "answer": 2, "explanation": "The 'del' statement is used to delete the entire tuple variable from memory." }
+      ]
+    },
+    {
+      "setId": "s3",
+      "setName": "Packing, Unpacking & Advanced",
+      "difficulty": "Hard",
+      "questions": [
+        { "id": "q21", "question": "What is tuple packing?", "options": ["Converting a tuple to a list", "Assigning multiple comma-separated values to a single variable", "Compressing a tuple to save memory", "Zipping two tuples together"], "answer": 1, "explanation": "Assigning multiple values to a variable without parentheses creates a tuple, known as tuple packing." },
+        { "id": "q22", "question": "What is tuple unpacking?", "options": ["Removing elements from a tuple", "Converting a list to a tuple", "Assigning elements of a tuple to multiple variables", "Deleting a tuple"], "answer": 2, "explanation": "Extracting the values from a tuple into individual variables is called unpacking." },
+        { "id": "q23", "question": "In the statement 'a, b = (10, 20)', what is the value of 'a'?", "options": ["(10, 20)", "10", "20", "Error"], "answer": 1, "explanation": "Through tuple unpacking, 'a' gets the first value (10) and 'b' gets the second (20)." },
+        { "id": "q24", "question": "What happens if the number of variables in unpacking does not match the tuple length?", "options": ["Extra values are ignored", "Missing values get None", "ValueError is raised", "SyntaxError is raised"], "answer": 2, "explanation": "Python raises a ValueError (too many values to unpack, or not enough values to unpack) if the counts don't match." },
+        { "id": "q25", "question": "Can a tuple be used as a dictionary key?", "options": ["Yes, because it is immutable", "No, tuples cannot be keys", "Yes, but only if it contains strings", "No, because it is ordered"], "answer": 0, "explanation": "Tuples are hashable since they are immutable, so they can be used as dictionary keys, unlike lists." }
+      ]
+    }
+  ]
+}

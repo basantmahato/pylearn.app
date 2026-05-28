@@ -1,0 +1,40 @@
+{
+  "chapterId": "ch10",
+  "title": "Modules and Packages - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Modules & Standard Library",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q1", "question": "What is a Python module?", "options": ["A directory containing code", "A C++ library", "Any file ending in .py containing Python code", "A function inside a class"], "answer": 2, "explanation": "A module is simply a .py file that can be imported." },
+        { "id": "q2", "question": "Which keyword is used to bring a module into your script?", "options": ["include", "require", "using", "import"], "answer": 3, "explanation": "The 'import' keyword is used to include modules." },
+        { "id": "q3", "question": "What is the purpose of a __init__.py file?", "options": ["To initialize variables", "To indicate that a directory is a Python package", "To start the program", "To install third-party tools"], "answer": 1, "explanation": "Python treats directories containing __init__.py as packages." },
+        { "id": "q4", "question": "How do you import only the `sqrt` function from the `math` module?", "options": ["import math.sqrt", "from math import sqrt", "import sqrt from math", "include sqrt from math"], "answer": 1, "explanation": "The 'from ... import ...' syntax allows selective importing." },
+        { "id": "q5", "question": "What does the `as` keyword do during an import (e.g., `import pandas as pd`)?", "options": ["Checks for errors", "Creates an alias (nickname) for the module", "Compiles the module", "Exports the module"], "answer": 1, "explanation": "Aliases make referencing the module faster and shorter." },
+        { "id": "q6", "question": "Which built-in module is used to generate random numbers?", "options": ["math", "random", "numbers", "calc"], "answer": 1, "explanation": "The `random` module contains functions for pseudo-random number generation." },
+        { "id": "q7", "question": "What does `math.ceil(4.2)` return?", "options": ["4", "5", "4.2", "4.5"], "answer": 1, "explanation": "ceil() rounds up to the nearest whole integer." },
+        { "id": "q8", "question": "What does `math.floor(4.8)` return?", "options": ["4", "5", "4.8", "4.5"], "answer": 0, "explanation": "floor() rounds down to the nearest whole integer." },
+        { "id": "q9", "question": "What is `sys.argv`?", "options": ["A function to exit the program", "A list of command-line arguments passed to a Python script", "System architecture info", "None of the above"], "answer": 1, "explanation": "It allows scripts to read arguments supplied from the terminal." },
+        { "id": "q10", "question": "Which module allows you to interact with the operating system (e.g., creating folders)?", "options": ["sys", "os", "platform", "system"], "answer": 1, "explanation": "The `os` module provides OS-dependent functionality." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Packages and External Libraries",
+      "difficulty": "Hard",
+      "questions": [
+        { "id": "q11", "question": "What is pip?", "options": ["Python's package installer", "A built-in module", "A data type", "A syntax error"], "answer": 0, "explanation": "pip is used to install third-party packages from PyPI." },
+        { "id": "q12", "question": "How do you list all installed Python packages via the terminal?", "options": ["pip list", "pip show", "python packages", "pip install -l"], "answer": 0, "explanation": "`pip list` outputs all globally/environment installed packages." },
+        { "id": "q13", "question": "What does `import *` do?", "options": ["Imports the star character", "Imports everything from a module into the current namespace", "Causes a syntax error", "Imports only classes"], "answer": 1, "explanation": "Generally discouraged as it clutters the namespace." },
+        { "id": "q14", "question": "What is the `__name__` variable?", "options": ["A built-in string method", "A special variable that evaluates to '__main__' if the script is run directly", "The name of the OS", "None"], "answer": 1, "explanation": "Used in `if __name__ == '__main__':` to prevent code execution on import." },
+        { "id": "q15", "question": "Which module provides classes for manipulating dates and times?", "options": ["time", "calendar", "datetime", "date"], "answer": 2, "explanation": "The `datetime` module is standard for date manipulation." },
+        { "id": "q16", "question": "What is a 'virtual environment' (venv) used for?", "options": ["Running games", "Isolating package dependencies for different projects", "Speeding up Python", "Creating a virtual machine"], "answer": 1, "explanation": "Prevents dependency conflicts between different projects." },
+        { "id": "q17", "question": "What does the `dir()` function do?", "options": ["Deletes a directory", "Changes the directory", "Returns a list of valid attributes and methods of an object/module", "None"], "answer": 2, "explanation": "Very useful for finding out what a module contains." },
+        { "id": "q18", "question": "Which module allows you to serialize Python objects to a byte stream?", "options": ["json", "pickle", "csv", "xml"], "answer": 1, "explanation": "pickle is used for Python-specific serialization." },
+        { "id": "q19", "question": "If module A imports module B, and module B imports module A, what happens?", "options": ["Circular import error", "They merge", "Infinite loop", "Nothing, it's fine"], "answer": 0, "explanation": "Circular dependencies usually cause an ImportError." },
+        { "id": "q20", "question": "Where does Python look for modules to import?", "options": ["Only in the current folder", "Anywhere on the hard drive", "In paths defined in sys.path", "Only in the Python installation folder"], "answer": 2, "explanation": "sys.path contains a list of directories the interpreter searches." }
+      ]
+    }
+  ]
+}

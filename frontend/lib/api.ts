@@ -1,14 +1,14 @@
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:5000/api/v1";
 
-export type Category = 'class11' | 'class12' | 'bca' | 'btech' | 'aiml';
+export type Category = string;
 
-export const CATEGORIES: { key: Category; label: string; color: string }[] = [
-  { key: 'class11', label: 'Class 11',          color: '#8b5cf6' },
-  { key: 'class12', label: 'Class 12',          color: '#005ab5' },
-  { key: 'bca',     label: 'BCA',               color: '#10b981' },
-  { key: 'btech',   label: 'B.Tech',            color: '#f59e0b' },
-  { key: 'aiml',    label: 'AI / ML & Data Sci', color: '#ef4444' },
-];
+export interface ApiCourse {
+  key: string;
+  label: string;
+  description: string;
+  color: string;
+  lightColor: string;
+}
 
 export async function apiFetch<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`, { cache: "no-store" });
@@ -116,3 +116,4 @@ export const fetchSamplePapers      = (category?: Category) => apiFetch<SamplePa
 export const fetchBlogs             = ()  => apiFetch<{ blogs: Blog[], total: number }>("/blogs");
 export const fetchBlogBySlug        = (slug: string) => apiFetch<Blog>(`/blogs/${slug}`);
 export const fetchFeaturedBlogs     = () => apiFetch<Blog[]>("/blogs/featured");
+export const fetchCourses           = () => apiFetch<{ success: boolean, data: ApiCourse[] }>("/courses").then(r => r.data);

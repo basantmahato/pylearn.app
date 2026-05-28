@@ -1,0 +1,40 @@
+{
+  "chapterId": "ch9",
+  "title": "Object-Oriented Programming - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Classes and Objects",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "What is an object in Python?", "options": ["A blueprint for creating instances", "An instance of a class", "A function inside a class", "A variable"], "answer": 1, "explanation": "An object is a concrete instance created from a class." },
+        { "id": "q2", "question": "Which method serves as a constructor in Python?", "options": ["__init__", "constructor()", "self()", "start()"], "answer": 0, "explanation": "The __init__ method is automatically called when a new object is instantiated." },
+        { "id": "q3", "question": "What does the 'self' keyword represent?", "options": ["The parent class", "A global variable", "The current instance of the class", "A built-in Python function"], "answer": 2, "explanation": "The 'self' parameter refers to the specific object being manipulated." },
+        { "id": "q4", "question": "How do you define a class in Python?", "options": ["create ClassName:", "class ClassName:", "def ClassName:", "object ClassName:"], "answer": 1, "explanation": "The 'class' keyword is used to define a new class." },
+        { "id": "q5", "question": "What is an attribute?", "options": ["A function inside a class", "A variable bound to an instance or class", "A built-in module", "An error type"], "answer": 1, "explanation": "Attributes are the data properties attached to objects." },
+        { "id": "q6", "question": "What is a method?", "options": ["A variable in a class", "A function defined inside a class", "A global function", "A constructor"], "answer": 1, "explanation": "Methods are functions that belong to objects." },
+        { "id": "q7", "question": "How do you instantiate an object from a class named `Car`?", "options": ["new Car()", "Car.create()", "Car()", "create_object(Car)"], "answer": 2, "explanation": "Python does not use the 'new' keyword; you just call the class name." },
+        { "id": "q8", "question": "Does Python force you to name the first parameter of a method 'self'?", "options": ["Yes, it will throw a syntax error otherwise", "No, it's just a strong convention", "Only in the __init__ method", "Yes, it is a reserved keyword"], "answer": 1, "explanation": "You can name it anything, but 'self' is universally expected by Python developers." },
+        { "id": "q9", "question": "What is the relationship between a class and an object?", "options": ["They are the same", "Class is the blueprint, Object is the house", "Object is the blueprint, Class is the house", "None"], "answer": 1, "explanation": "The class defines structure; the object is the actual manifestation." },
+        { "id": "q10", "question": "What does the `pass` keyword do when defining an empty class?", "options": ["It raises an error", "It creates a default constructor", "It acts as a placeholder to prevent syntax errors", "It deletes the class"], "answer": 2, "explanation": "Used when you want to define the class structure later." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "OOP Principles",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "Which principle allows a child class to inherit attributes from a parent class?", "options": ["Polymorphism", "Encapsulation", "Inheritance", "Abstraction"], "answer": 2, "explanation": "Inheritance allows code reusability by inheriting from parent classes." },
+        { "id": "q12", "question": "What is Encapsulation?", "options": ["Hiding complex logic", "Bundling data and methods into a single unit and restricting access", "Creating multiple forms of a method", "Inheriting from multiple parents"], "answer": 1, "explanation": "Encapsulation restricts direct access to some of an object's components." },
+        { "id": "q13", "question": "How do you indicate that an attribute is 'private' in Python?", "options": ["Prefix with a single underscore (_)", "Prefix with double underscore (__)", "Suffix with 'private'", "Use the 'private' keyword"], "answer": 1, "explanation": "Double underscores (__) invoke name mangling, making the attribute harder to access." },
+        { "id": "q14", "question": "What is Polymorphism?", "options": ["Hiding data", "Inheriting from multiple classes", "The ability to present the same interface for differing underlying forms", "Connecting to a database"], "answer": 2, "explanation": "E.g., different classes can have methods with the exact same name." },
+        { "id": "q15", "question": "How do you implement inheritance in Python?", "options": ["class Child inherits Parent:", "class Child(Parent):", "class Child extends Parent:", "class Child -> Parent:"], "answer": 1, "explanation": "The parent class is passed as an argument in the class definition." },
+        { "id": "q16", "question": "What function is used inside a child class to call a method from the parent class?", "options": ["parent()", "base()", "super()", "call()"], "answer": 2, "explanation": "super() returns a temporary object of the superclass." },
+        { "id": "q17", "question": "What is Method Overriding?", "options": ["Writing multiple methods with the same name in the same class", "A child class redefining a method from its parent class", "Deleting a method", "Using super()"], "answer": 1, "explanation": "The child provides its own specific implementation of a parent's method." },
+        { "id": "q18", "question": "Does Python support Multiple Inheritance (inheriting from more than one class)?", "options": ["Yes", "No", "Only in Python 2", "Only for abstract classes"], "answer": 0, "explanation": "Python supports multiple inheritance: `class Child(Parent1, Parent2):`." },
+        { "id": "q19", "question": "What is a 'Class Attribute'?", "options": ["An attribute owned by a specific object", "An attribute shared by all instances of the class", "A private attribute", "A method parameter"], "answer": 1, "explanation": "Defined outside __init__, they are shared across all objects of that class." },
+        { "id": "q20", "question": "What is name mangling in Python?", "options": ["Breaking variables", "Translating double underscore variables to include the class name", "Encrypting passwords", "Sorting variable names"], "answer": 1, "explanation": "`__var` becomes `_ClassName__var` to prevent accidental access." }
+      ]
+    }
+  ]
+}

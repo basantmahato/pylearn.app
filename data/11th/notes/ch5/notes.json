@@ -1,0 +1,159 @@
+{
+  "id": "ch5",
+  "title": "Data Handling (Operators and Expressions)",
+  "order": 5,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Programs are not just about storing data; they are about manipulating it. Python provides a rich set of Operators—special symbols that carry out arithmetic or logical computations. The values that an operator acts upon are called Operands. When you combine operators and operands, you create an Expression, which Python evaluates down to a single value."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.1 Arithmetic Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Arithmetic operators are used to perform mathematical operations like addition and subtraction."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Addition (+): Adds two operands. e.g., `5 + 3` results in 8.",
+        "Subtraction (-): Subtracts right operand from left. e.g., `5 - 3` results in 2.",
+        "Multiplication (*): Multiplies two operands. e.g., `5 * 3` results in 15.",
+        "Float Division (/): Divides and ALWAYS returns a floating-point number. e.g., `10 / 2` results in 5.0.",
+        "Floor Division (//): Divides and chops off the decimal part, returning a whole integer. e.g., `10 // 3` results in 3.",
+        "Modulus (%): Returns the remainder of a division. Highly useful for checking even/odd numbers. e.g., `10 % 3` results in 1.",
+        "Exponentiation (**): Raises the left operand to the power of the right operand. e.g., `2 ** 3` results in 8 (which is 2³)."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "a = 15\nb = 4\n\nprint(\"Float Division:\", a / b)   # 3.75\nprint(\"Floor Division:\", a // b)  # 3\nprint(\"Modulus:\", a % b)         # 3 (Because 15 = 4*3 + remainder 3)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.2 Relational (Comparison) Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Relational operators compare two values. They ALWAYS return a Boolean value (`True` or `False`). These are heavily used in `if` statements."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Equal to (==): Returns True if both values are exactly equal. Warning: Do not confuse `==` (comparison) with `=` (assignment).",
+        "Not Equal to (!=): Returns True if the values are different.",
+        "Greater Than (>): Returns True if left is greater than right.",
+        "Less Than (<): Returns True if left is less than right.",
+        "Greater Than or Equal To (>=): Returns True if left is greater or equal.",
+        "Less Than or Equal To (<=): Returns True if left is less or equal."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.3 Logical Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Logical operators are used to combine multiple conditional statements. They also return Booleans."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "and: Returns True ONLY IF BOTH conditions are True. (e.g., `True and False` -> False)",
+        "or: Returns True if AT LEAST ONE condition is True. (e.g., `True or False` -> True)",
+        "not: Reverses the logical state. (e.g., `not True` -> False)"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "age = 20\nhas_license = True\n\n# Using logical operators to combine conditions\ncan_drive = (age >= 18) and has_license\nprint(\"Can they drive?\", can_drive)  # Output: True"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.4 Assignment Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "The basic assignment operator is `=`. However, Python provides shorthand augmented assignment operators to update variables quickly."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "+= : Adds and assigns. `x += 5` is exactly the same as `x = x + 5`.",
+        "-= : Subtracts and assigns. `x -= 2` is exactly the same as `x = x - 2`.",
+        "*=, /=, //=, %= : Work similarly for their respective operations."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5.5 Operator Precedence (BODMAS for Python)"
+    },
+    {
+      "type": "paragraph",
+      "text": "When an expression has multiple operators (e.g., `5 + 3 * 2`), Python does not just read left to right. It follows strict rules of Precedence. Exponentiation `**` is evaluated first, followed by Multiplication/Division `* / // %`, and finally Addition/Subtraction `+ -`. You can force precedence using Parentheses `()`."
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 5 explains how to manipulate data using Arithmetic, Relational, Logical, and Assignment operators, and how Python evaluates complex expressions using Operator Precedence.",
+    "detailed_summary": "Data manipulation in Python is achieved through Operators acting upon Operands. Arithmetic operators perform math, with notable distinctions between Float Division (`/`), Floor Division (`//`), Modulus (`%`), and Exponentiation (`**`). Relational operators (`==`, `!=`, `>`, `<`) compare values and strictly return Boolean results (`True` or `False`). Crucially, a double equals `==` tests for equality, whereas a single equals `=` is used for variable assignment. Logical operators (`and`, `or`, `not`) allow developers to chain multiple relational conditions together. To write concise code, Augmented Assignment operators like `+=` combine arithmetic and assignment into a single step. When evaluating complex expressions, Python strictly adheres to Operator Precedence (similar to BODMAS), evaluating Parentheses first, then Exponents, then Multiplication/Division, and finally Addition/Subtraction.",
+    "exam_focus": [
+      "Explain the exact difference between `/` (Float Div) and `//` (Floor Div).",
+      "Calculate the result of a Modulus `%` operation.",
+      "Understand the stark difference between `=` (assignment) and `==` (comparison).",
+      "Evaluate boolean expressions using `and`, `or`, and `not`."
+    ],
+    "revision_notes": [
+      "`/` always returns a float (e.g., `5/2 = 2.5`).",
+      "`//` drops the decimal (e.g., `5//2 = 2`).",
+      "`%` returns the remainder (e.g., `5%2 = 1`).",
+      "`==` asks 'Are they equal?'. `=` says 'Make this equal to'.",
+      "Operator precedence: `()` then `**` then `* / // %` then `+ -`."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is the difference between `/` and `//` in Python?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Float vs Floor"],
+      "solution": "The `/` operator performs 'True Division' and ALWAYS returns a floating-point number, even if it divides evenly (e.g., `10 / 2` gives `5.0`). The `//` operator performs 'Floor Division'; it performs the division but chops off (truncates) the decimal part, returning an integer (e.g., `10 // 3` gives `3`)."
+    },
+    {
+      "q": "Evaluate the following expression step-by-step based on operator precedence: `4 + 3 * 2 ** 2`",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Exponents first", "Then multiply", "Then add"],
+      "solution": "1) Evaluate Exponent: `2 ** 2` = 4. The expression becomes `4 + 3 * 4`.\n2) Evaluate Multiplication: `3 * 4` = 12. The expression becomes `4 + 12`.\n3) Evaluate Addition: `4 + 12` = 16.\nFinal Answer: 16."
+    },
+    {
+      "q": "What will be the output of the following logical expression? \n`True or (False and True)`",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Parentheses first"],
+      "solution": "First, evaluate the parentheses: `(False and True)` results in `False` (because 'and' requires both to be True). \nThe expression becomes: `True or False`.\nSince 'or' requires only one condition to be True, the final output is `True`."
+    },
+    {
+      "q": "Write a script that asks for a number and prints `True` if the number is even, and `False` if it is odd.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Use Modulus %", "Compare to 0 using =="],
+      "solution": "```python\nnum = int(input('Enter a number: '))\nis_even = (num % 2 == 0)\nprint('Is the number even?', is_even)\n```"
+    },
+    {
+      "q": "Explain what the `+=` operator does, and rewrite the following code without using it: `score += 10`",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Augmented assignment"],
+      "solution": "The `+=` operator is an augmented assignment operator. It adds the value on the right side to the variable on the left side, and assigns the new total back to the variable. \nWithout it, the code is written as: `score = score + 10`."
+    }
+  ]
+}

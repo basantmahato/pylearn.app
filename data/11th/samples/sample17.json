@@ -1,0 +1,384 @@
+{
+  "paperId": "11th-sample-17",
+  "title": "Class 11 Python Sample Paper 17",
+  "subtitle": "Class 11 Computer Science Assessment",
+  "duration": "90 minutes",
+  "totalMarks": 100,
+  "difficulty": "Hard",
+  "sections": [
+    {
+      "sectionId": "A",
+      "title": "Multiple Choice Questions",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "Which of the following is NOT a core data type in Python?",
+          "options": [
+            "List",
+            "Dictionary",
+            "Class",
+            "Tuple"
+          ],
+          "answer": 2,
+          "id": "A1"
+        },
+        {
+          "question": "Which loop is used when the number of iterations is known?",
+          "options": [
+            "while",
+            "for",
+            "do-while",
+            "until"
+          ],
+          "answer": 1,
+          "id": "A2"
+        },
+        {
+          "question": "What is the output of 'Python'[1:3]?",
+          "options": [
+            "Pyt",
+            "yt",
+            "yth",
+            "th"
+          ],
+          "answer": 1,
+          "id": "A3"
+        },
+        {
+          "question": "What is the output of bool('False')?",
+          "options": [
+            "True",
+            "False",
+            "Error",
+            "None"
+          ],
+          "answer": 0,
+          "id": "A4"
+        },
+        {
+          "question": "Tuples are ____ in nature.",
+          "options": [
+            "mutable",
+            "immutable",
+            "dynamic",
+            "expandable"
+          ],
+          "answer": 1,
+          "id": "A5"
+        },
+        {
+          "question": "Which method is used to add an element at the end of a list?",
+          "options": [
+            "add()",
+            "append()",
+            "insert()",
+            "extend()"
+          ],
+          "answer": 1,
+          "id": "A6"
+        },
+        {
+          "question": "Which of these is used to define a block of code in Python?",
+          "options": [
+            "Indentation",
+            "Curly braces",
+            "Parentheses",
+            "Square brackets"
+          ],
+          "answer": 0,
+          "id": "A7"
+        },
+        {
+          "question": "Which method is used to add an element at the end of a list?",
+          "options": [
+            "add()",
+            "append()",
+            "insert()",
+            "extend()"
+          ],
+          "answer": 1,
+          "id": "A8"
+        },
+        {
+          "question": "Which of the following is an input device?",
+          "options": [
+            "Monitor",
+            "Printer",
+            "Keyboard",
+            "Speaker"
+          ],
+          "answer": 2,
+          "id": "A9"
+        },
+        {
+          "question": "Tuples are ____ in nature.",
+          "options": [
+            "mutable",
+            "immutable",
+            "dynamic",
+            "expandable"
+          ],
+          "answer": 1,
+          "id": "A10"
+        }
+      ]
+    },
+    {
+      "sectionId": "B",
+      "title": "Short Answer Questions",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "What is the difference between a list and a tuple?",
+          "marks": 3,
+          "keywords": [
+            "mutable",
+            "immutable",
+            "brackets",
+            "parentheses",
+            "modification"
+          ],
+          "id": "B1"
+        },
+        {
+          "question": "What is the role of an Operating System?",
+          "marks": 3,
+          "keywords": [
+            "interface",
+            "resource management",
+            "hardware",
+            "software",
+            "bridge"
+          ],
+          "id": "B2"
+        },
+        {
+          "question": "Differentiate between compiler and interpreter.",
+          "marks": 3,
+          "keywords": [
+            "entire program",
+            "line by line",
+            "fast",
+            "slow",
+            "translation"
+          ],
+          "id": "B3"
+        },
+        {
+          "question": "What is cyberbullying? How can it be prevented?",
+          "marks": 3,
+          "keywords": [
+            "harassment",
+            "online",
+            "reporting",
+            "blocking",
+            "safety"
+          ],
+          "id": "B4"
+        },
+        {
+          "question": "Differentiate between compiler and interpreter.",
+          "marks": 3,
+          "keywords": [
+            "entire program",
+            "line by line",
+            "fast",
+            "slow",
+            "translation"
+          ],
+          "id": "B5"
+        },
+        {
+          "question": "What is the difference between a list and a tuple?",
+          "marks": 3,
+          "keywords": [
+            "mutable",
+            "immutable",
+            "brackets",
+            "parentheses",
+            "modification"
+          ],
+          "id": "B6"
+        },
+        {
+          "question": "What is the difference between a list and a tuple?",
+          "marks": 3,
+          "keywords": [
+            "mutable",
+            "immutable",
+            "brackets",
+            "parentheses",
+            "modification"
+          ],
+          "id": "B7"
+        },
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B8"
+        },
+        {
+          "question": "What is the difference between a list and a tuple?",
+          "marks": 3,
+          "keywords": [
+            "mutable",
+            "immutable",
+            "brackets",
+            "parentheses",
+            "modification"
+          ],
+          "id": "B9"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B10"
+        }
+      ]
+    },
+    {
+      "sectionId": "C",
+      "title": "Code Writing",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "Write a Python script to print the Fibonacci series up to n terms.",
+          "marks": 5,
+          "hints": [
+            "Initialize a=0, b=1",
+            "Use a loop",
+            "Update a and b"
+          ],
+          "id": "C1"
+        },
+        {
+          "question": "Write a program to count vowels in a given string.",
+          "marks": 5,
+          "hints": [
+            "Define a string of vowels",
+            "Iterate through characters",
+            "Keep a count"
+          ],
+          "id": "C2"
+        },
+        {
+          "question": "Create a dictionary of 3 students with their marks and write code to find the highest marks.",
+          "marks": 5,
+          "hints": [
+            "Use max() with dict.values()",
+            "Iterate over dictionary",
+            "Track max marks"
+          ],
+          "id": "C3"
+        },
+        {
+          "question": "Write a Python script to print the Fibonacci series up to n terms.",
+          "marks": 5,
+          "hints": [
+            "Initialize a=0, b=1",
+            "Use a loop",
+            "Update a and b"
+          ],
+          "id": "C4"
+        },
+        {
+          "question": "Write a program to find the largest number in a list without using the max() function.",
+          "marks": 5,
+          "hints": [
+            "Assume first element is largest",
+            "Iterate and compare",
+            "Update largest"
+          ],
+          "id": "C5"
+        },
+        {
+          "question": "Write a program to check if a number is prime.",
+          "marks": 5,
+          "hints": [
+            "Use a loop",
+            "Check divisibility",
+            "Range from 2 to n-1"
+          ],
+          "id": "C6"
+        }
+      ]
+    },
+    {
+      "sectionId": "D",
+      "title": "Error Finding & Output Prediction",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "Predict the output:\nlst = [1, 2, 3]\nlst.append([4, 5])\nprint(len(lst))",
+          "marks": 3,
+          "answer": "4",
+          "explanation": "The list [4, 5] is appended as a single element, so the list becomes [1, 2, 3, [4, 5]].",
+          "id": "D1"
+        },
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 3,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D2"
+        },
+        {
+          "question": "Predict the output:\ns = 'Python'\nprint(s[::-1])",
+          "marks": 3,
+          "answer": "nohtyP",
+          "explanation": "The slice [::-1] reverses the string.",
+          "id": "D3"
+        },
+        {
+          "question": "Find the error:\nx = 10\nif x = 10:\n    print('Yes')",
+          "marks": 3,
+          "answer": "SyntaxError: invalid syntax",
+          "explanation": "Assignment operator '=' is used instead of comparison operator '=='.",
+          "id": "D4"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 2,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D5"
+        },
+        {
+          "question": "Predict the output:\ns = 'Python'\nprint(s[::-1])",
+          "marks": 2,
+          "answer": "nohtyP",
+          "explanation": "The slice [::-1] reverses the string.",
+          "id": "D6"
+        },
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 2,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D7"
+        },
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 2,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D8"
+        }
+      ]
+    }
+  ]
+}

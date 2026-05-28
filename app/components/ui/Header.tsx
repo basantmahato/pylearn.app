@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 
 interface HeaderProps {
   showSearch?: boolean;
@@ -12,7 +12,11 @@ export function Header({ showSearch = false, onSearchPress }: HeaderProps) {
     <View className="w-full bg-surface/80 border-b border-on-background/5 z-50">
       <View className="max-w-5xl self-center w-full px-6 h-16 flex-row items-center justify-between">
         <View className="flex-row items-center gap-3">
-          <MaterialCommunityIcons name="code-braces" size={24} color="#005ab5" />
+          <Image
+            source={require("@/assets/images/icon.png")}
+            style={{ width: 28, height: 28, borderRadius: 6 }}
+            resizeMode="contain"
+          />
           <Text className="text-xl font-extrabold text-on-surface tracking-tight">PyLearn</Text>
         </View>
         <View className="flex-row items-center gap-4">

@@ -1,0 +1,52 @@
+{
+  "chapterId": "ch11",
+  "title": "Cyber Safety",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Cyber Safety Basics",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "What is a digital footprint?", "options": ["A physical footprint scanned into a computer", "The trail of data left behind by users on the Internet", "A step-by-step guide to internet safety", "A mark left by digital devices on a surface"], "answer": 1, "explanation": "A digital footprint is the data trail you leave online through activities like social media usage and web browsing." },
+        { "id": "q2", "question": "Which of the following is NOT a type of malware?", "options": ["Virus", "Trojan Horse", "Cookies", "Worm"], "answer": 2, "explanation": "Cookies are small text files used to save browsing information, whereas malware refers to malicious software." },
+        { "id": "q3", "question": "What is phishing?", "options": ["An attempt to acquire sensitive information by masquerading as a trustworthy entity", "A technique to increase network speed", "A type of antivirus software", "Fishing for physical documents"], "answer": 0, "explanation": "Phishing is a cyber attack that uses deceptive emails or websites to steal personal information." },
+        { "id": "q4", "question": "Cyberbullying involves:", "options": ["Sending pleasant messages", "Harassing or targeting someone using digital platforms", "Hacking a computer network", "Downloading illegal software"], "answer": 1, "explanation": "Cyberbullying is bullying that takes place over digital devices like cell phones, computers, and tablets." },
+        { "id": "q5", "question": "What does IPR stand for?", "options": ["Internet Protocol Rights", "Intellectual Property Rights", "Information Processing Rules", "Internal Property Regulations"], "answer": 1, "explanation": "IPR stands for Intellectual Property Rights, which refer to creations of the mind." },
+        { "id": "q6", "question": "Using someone else's work without giving them credit is called:", "options": ["Copyright", "Trademark", "Plagiarism", "Patent"], "answer": 2, "explanation": "Plagiarism is the act of presenting someone else's work or ideas as your own." },
+        { "id": "q7", "question": "Software that is available free of cost and allows users to modify the source code is called:", "options": ["Proprietary Software", "Freeware", "Shareware", "Open Source Software"], "answer": 3, "explanation": "Open Source Software (OSS) provides users the freedom to view, modify, and distribute the source code." },
+        { "id": "q8", "question": "Which law in India primarily deals with cybercrimes and electronic commerce?", "options": ["IT Act 2000", "Cyber Law 2005", "Internet Act 1998", "Digital India Act 2010"], "answer": 0, "explanation": "The Information Technology (IT) Act, 2000 is the primary law in India dealing with cybercrime and electronic commerce." },
+        { "id": "q9", "question": "Small pieces of data sent from a website and stored on the user's computer are called:", "options": ["Malware", "Spam", "Cookies", "Trojans"], "answer": 2, "explanation": "Cookies are used by websites to remember user preferences and session details." },
+        { "id": "q10", "question": "Which of the following protects a creator's original work such as literature or music?", "options": ["Patent", "Copyright", "Trademark", "Trade Secret"], "answer": 1, "explanation": "Copyright protects original works of authorship like books, music, and art." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Threats and Protection",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "The right given to an inventor to exclude others from making, using, or selling their invention is:", "options": ["Copyright", "Trademark", "Plagiarism", "Patent"], "answer": 3, "explanation": "A patent is an exclusive right granted for an invention." },
+        { "id": "q12", "question": "A unique symbol or word used to represent a business or its products is known as:", "options": ["Patent", "Copyright", "Trademark", "License"], "answer": 2, "explanation": "A trademark is a recognizable sign, design, or expression identifying products or services." },
+        { "id": "q13", "question": "What does FOSS stand for?", "options": ["Free and Open Source Software", "Fast Operating System Software", "File Object Storage System", "Free Only Secure Software"], "answer": 0, "explanation": "FOSS is software that is both free (no cost) and open-source (source code is available)." },
+        { "id": "q14", "question": "Unsolicited bulk emails are also known as:", "options": ["Viruses", "Spam", "Worms", "Trojans"], "answer": 1, "explanation": "Spam refers to irrelevant or unsolicited messages sent over the internet, typically to a large number of users." },
+        { "id": "q15", "question": "A program designed to secretly monitor a user's activities on a computer is called:", "options": ["Adware", "Spyware", "Antivirus", "Ransomware"], "answer": 1, "explanation": "Spyware secretly records user actions, like keystrokes or browsing history." },
+        { "id": "q16", "question": "Which of the following represents a strong password?", "options": ["password123", "qwerty", "admin", "P@ssw0rd!2024"], "answer": 3, "explanation": "A strong password contains a mix of uppercase and lowercase letters, numbers, and special characters." },
+        { "id": "q17", "question": "The process of encoding messages or information in such a way that only authorized parties can read it is:", "options": ["Decryption", "Encryption", "Hacking", "Phishing"], "answer": 1, "explanation": "Encryption scrambles data into unreadable formats to protect confidentiality." },
+        { "id": "q18", "question": "What does 'HTTPS' stand for?", "options": ["Hypertext Transfer Protocol Secure", "Hypertext Transfer Protocol Standard", "Hypertext Transmission Protocol System", "Hyper Transfer Text Protocol Secure"], "answer": 0, "explanation": "HTTPS is the secure version of HTTP, where communications are encrypted." },
+        { "id": "q19", "question": "Software that asks for payment to unlock data encrypted by the software is called:", "options": ["Adware", "Ransomware", "Spyware", "Freeware"], "answer": 1, "explanation": "Ransomware locks or encrypts data and demands a ransom for its release." },
+        { "id": "q20", "question": "Netiquette refers to:", "options": ["Internet speed", "Acceptable and appropriate behavior on the Internet", "A network of computers", "A type of web browser"], "answer": 1, "explanation": "Netiquette is a set of rules for acceptable online behavior." }
+      ]
+    },
+    {
+      "setId": "s3",
+      "setName": "Digital Awareness",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q21", "question": "Which of the following is considered safe browsing behavior?", "options": ["Clicking on random pop-ups", "Sharing passwords with friends", "Keeping the browser and OS updated", "Downloading files from untrusted sources"], "answer": 2, "explanation": "Keeping software updated patches security vulnerabilities." },
+        { "id": "q22", "question": "A hacker who finds vulnerabilities in systems for malicious purposes is called a:", "options": ["White Hat Hacker", "Grey Hat Hacker", "Black Hat Hacker", "Ethical Hacker"], "answer": 2, "explanation": "Black hat hackers breach security for personal gain or malicious intent." },
+        { "id": "q23", "question": "A firewall is primarily used to:", "options": ["Cool down the computer", "Monitor and control incoming and outgoing network traffic", "Delete viruses", "Encrypt files"], "answer": 1, "explanation": "A firewall acts as a barrier between a trusted network and an untrusted network." },
+        { "id": "q24", "question": "What is identity theft?", "options": ["Forgetting your password", "Stealing someone's personal information to commit fraud", "Creating a fake social media account", "Losing your ID card"], "answer": 1, "explanation": "Identity theft involves fraudulently acquiring and using another person's personal data." },
+        { "id": "q25", "question": "What does E-waste refer to?", "options": ["Emails deleted from the trash", "Discarded electronic appliances", "Viruses in the computer", "Digital files that are corrupted"], "answer": 1, "explanation": "E-waste (Electronic waste) describes discarded electrical or electronic devices." }
+      ]
+    }
+  ]
+}

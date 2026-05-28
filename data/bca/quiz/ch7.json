@@ -1,0 +1,40 @@
+{
+  "chapterId": "ch7",
+  "title": "File Handling - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "File Modes & Operations",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "Which mode is used to read a file?", "options": ["'w'", "'r'", "'x'", "'a'"], "answer": 1, "explanation": "'r' stands for read mode, the default mode." },
+        { "id": "q2", "question": "What happens if you open an existing file in 'w' (write) mode?", "options": ["Data is appended", "An error is thrown", "The existing file is completely overwritten", "Nothing happens"], "answer": 2, "explanation": "'w' mode clears the file before writing new data." },
+        { "id": "q3", "question": "Which mode allows adding data to the end of an existing file?", "options": ["'w'", "'a'", "'r+'", "'x'"], "answer": 1, "explanation": "'a' stands for append mode." },
+        { "id": "q4", "question": "Which mode opens a file for exclusive creation?", "options": ["'x'", "'c'", "'w'", "'e'"], "answer": 0, "explanation": "'x' creates a new file and fails if the file already exists." },
+        { "id": "q5", "question": "How do you specify that a file should be opened in binary mode?", "options": ["'b'", "Append 'b' to the mode (e.g., 'rb')", "Use open_binary()", "It is default"], "answer": 1, "explanation": "'b' is appended to 'r', 'w', or 'a' to handle non-text files like images." },
+        { "id": "q6", "question": "What does the `close()` method do?", "options": ["Deletes the file", "Saves changes and frees up system resources", "Hides the file", "Zips the file"], "answer": 1, "explanation": "Always close files to prevent memory leaks and ensure data is written." },
+        { "id": "q7", "question": "Which mode is used for both reading and writing?", "options": ["'rw'", "'r+'", "'b'", "'a'"], "answer": 1, "explanation": "'r+' opens the file for both reading and updating." },
+        { "id": "q8", "question": "What happens if you try to open a non-existent file in 'r' mode?", "options": ["Creates a new file", "Returns None", "Raises a FileNotFoundError", "Raises a SyntaxError"], "answer": 2, "explanation": "Read mode expects the file to already exist." },
+        { "id": "q9", "question": "What happens if you try to open a non-existent file in 'w' mode?", "options": ["Raises an error", "Returns None", "Creates a new file automatically", "Freezes the program"], "answer": 2, "explanation": "Write mode creates the file if it's missing." },
+        { "id": "q10", "question": "Which built-in function is used to open files in Python?", "options": ["file()", "open()", "read()", "load()"], "answer": 1, "explanation": "The `open(filename, mode)` function." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Context Managers and Methods",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "Which statement is recommended for opening files because it automatically closes them?", "options": ["open_safe", "try", "with", "catch"], "answer": 2, "explanation": "The 'with' statement acts as a context manager and guarantees the file is closed." },
+        { "id": "q12", "question": "What does the `readlines()` method return?", "options": ["A single string", "A list of strings", "A tuple", "An integer"], "answer": 1, "explanation": "readlines() returns a list where each element is a line from the file." },
+        { "id": "q13", "question": "What does `read()` without arguments do?", "options": ["Reads the first line", "Reads the entire file into a single string", "Reads the file line by line", "Errors out"], "answer": 1, "explanation": "It reads from the current cursor position to the EOF." },
+        { "id": "q14", "question": "What does `readline()` do?", "options": ["Reads one line at a time", "Reads the entire file", "Reads words", "Returns a list of lines"], "answer": 0, "explanation": "Useful for reading large files without loading them entirely into memory." },
+        { "id": "q15", "question": "Which method writes a list of strings to a file?", "options": ["write()", "writelist()", "writelines()", "append()"], "answer": 2, "explanation": "writelines() takes an iterable (like a list) and writes it to the file." },
+        { "id": "q16", "question": "Does `writelines()` automatically add newline characters?", "options": ["Yes", "No", "Only for lists", "Only in text mode"], "answer": 1, "explanation": "You must explicitly add '\\n' to the end of your strings in the list." },
+        { "id": "q17", "question": "What does `file.seek(0)` do?", "options": ["Deletes the file", "Moves the file cursor to the beginning", "Searches for the number 0", "Checks if file is empty"], "answer": 1, "explanation": "seek() moves the internal file pointer to a specific byte offset." },
+        { "id": "q18", "question": "What does `file.tell()` return?", "options": ["The name of the file", "The size of the file", "The current position of the file cursor", "The mode the file was opened in"], "answer": 2, "explanation": "tell() gives you the current byte position of the cursor." },
+        { "id": "q19", "question": "Which of these is the correct syntax for a context manager?", "options": ["with file = open('x.txt'):", "with open('x.txt') as file:", "open('x.txt') with file:", "using file=open('x.txt'):"], "answer": 1, "explanation": "`with open(...) as variable_name:` is the standard syntax." },
+        { "id": "q20", "question": "What module can be used to check if a file exists before opening it?", "options": ["sys", "os.path", "math", "random"], "answer": 1, "explanation": "os.path.exists('filename') is commonly used." }
+      ]
+    }
+  ]
+}

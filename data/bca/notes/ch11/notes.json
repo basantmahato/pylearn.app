@@ -1,0 +1,136 @@
+{
+  "id": "bca-ch11",
+  "title": "Database Connectivity",
+  "order": 11,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "While text files are great for simple data persistence, they fail miserably when dealing with massive datasets, complex relationships, concurrent user access, or advanced querying. Relational Databases solve this problem. They organize data into tables (rows and columns) and use Structured Query Language (SQL) for manipulation. This chapter covers how to connect your Python applications to a database to perform CRUD operations: Create, Read, Update, and Delete."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.1 The sqlite3 Module"
+    },
+    {
+      "type": "paragraph",
+      "text": "While large-scale applications use dedicated database servers like MySQL, PostgreSQL, or Oracle, Python includes a built-in module called `sqlite3`. SQLite is a C-language library that implements a small, fast, self-contained, high-reliability SQL database engine. It doesn't require a separate server process to run. The entire database is stored in a single file on your disk, making it perfect for learning and small applications."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import sqlite3\n\n# 1. Connect to the database (creates the file if it doesn't exist)\n# You can also use ':memory:' to create a temporary RAM database\nconnection = sqlite3.connect('college.db')\n\n# 2. Create a Cursor object\n# The cursor is the object that actually executes SQL commands\ncursor = connection.cursor()\n\nprint(\"Database opened successfully!\")\n\n# 3. Always close the connection when done\nconnection.close()"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.2 Creating Tables and Inserting Data"
+    },
+    {
+      "type": "paragraph",
+      "text": "To create a table, we use the `CREATE TABLE` SQL statement. To add data, we use the `INSERT INTO` statement. A critical concept in database programming is the Transaction. When you insert data, it is not permanently saved to the hard drive immediately. You MUST call `connection.commit()` to finalize the transaction."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import sqlite3\nconn = sqlite3.connect('college.db')\ncursor = conn.cursor()\n\n# Execute a single SQL command\ncursor.execute('''\n    CREATE TABLE IF NOT EXISTS Students (\n        id INTEGER PRIMARY KEY,\n        name TEXT NOT NULL,\n        course TEXT,\n        marks REAL\n    )\n''')\n\n# Inserting a single record\ncursor.execute(\"INSERT INTO Students (name, course, marks) VALUES ('Basant', 'BCA', 95.5)\")\n\n# Commit the transaction to permanently save the changes\nconn.commit()\nconn.close()"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.3 Preventing SQL Injection (Parameterization)"
+    },
+    {
+      "type": "paragraph",
+      "text": "If you need to insert data provided by a user, NEVER use standard string concatenation or f-strings to build the SQL query. Malicious users can input raw SQL commands (like `DROP TABLE`) which will destroy your database—this is called SQL Injection. Instead, always use parameterized queries with `?` placeholders. The database engine will automatically sanitize the inputs."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import sqlite3\nconn = sqlite3.connect('college.db')\ncursor = conn.cursor()\n\n# The Safe Way: Use ? as placeholders, and pass a Tuple of values\nstudent_name = \"Ravi\"\nstudent_course = \"MCA\"\nstudent_marks = 88.0\n\n# Notice the second argument is a tuple\ncursor.execute(\"INSERT INTO Students (name, course, marks) VALUES (?, ?, ?)\", \n               (student_name, student_course, student_marks))\n\n# Inserting multiple records efficiently using executemany()\ncohort = [\n    ('Amit', 'BCA', 75.0),\n    ('Neha', 'BCA', 91.0),\n    ('Pooja', 'MCA', 85.5)\n]\ncursor.executemany(\"INSERT INTO Students (name, course, marks) VALUES (?, ?, ?)\", cohort)\n\nconn.commit()\nconn.close()"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.4 Reading Data (SELECT)"
+    },
+    {
+      "type": "paragraph",
+      "text": "To retrieve data, we execute a `SELECT` statement. Once executed, the results are held by the cursor. We can retrieve the data using `fetchone()` (returns a single tuple), `fetchmany(size)` (returns a list of tuples), or `fetchall()` (returns a list containing all remaining tuples)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import sqlite3\nconn = sqlite3.connect('college.db')\ncursor = conn.cursor()\n\n# Execute a SELECT query\ncursor.execute(\"SELECT id, name, marks FROM Students WHERE course = 'BCA'\")\n\n# Fetch all matching rows\nresults = cursor.fetchall()\n\nprint(\"BCA Students:\")\nfor row in results:\n    # row is a Tuple: (id, name, marks)\n    print(f\"ID: {row[0]}, Name: {row[1]}, Marks: {row[2]}\")\n\nconn.close()"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.5 Updating and Deleting Records"
+    },
+    {
+      "type": "paragraph",
+      "text": "The `UPDATE` statement modifies existing records, while the `DELETE` statement removes them. Both statements should almost always include a `WHERE` clause; failing to do so will update or delete every single record in the table!"
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "import sqlite3\nconn = sqlite3.connect('college.db')\ncursor = conn.cursor()\n\n# Updating records\ncursor.execute(\"UPDATE Students SET marks = ? WHERE name = ?\", (98.0, 'Basant'))\nprint(f\"{cursor.rowcount} row(s) updated.\")\n\n# Deleting records\ncursor.execute(\"DELETE FROM Students WHERE marks < ?\", (80.0,))\nprint(f\"{cursor.rowcount} row(s) deleted.\")\n\nconn.commit()\nconn.close()"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 11 teaches how to connect Python to relational databases using sqlite3, covering table creation, parameterized CRUD operations (Create, Read, Update, Delete), and SQL injection prevention.",
+    "detailed_summary": "Databases are essential for handling complex, structured, and persistent data. Python interfaces with relational databases using SQL (Structured Query Language). The built-in `sqlite3` module provides a serverless, file-based database ideal for learning. Connecting to a database returns a Connection object, from which a Cursor object is generated to execute SQL commands. Data modification commands (INSERT, UPDATE, DELETE) require a call to `connection.commit()` to permanently save the transaction to disk. Reading data via SELECT commands populates the cursor, which can then be emptied using `fetchone()` or `fetchall()`. A critical security practice is the prevention of SQL Injection; developers must NEVER concatenate user input into SQL strings. Instead, parameterized queries (using `?` placeholders) ensure the database engine safely sanitizes inputs. The `executemany()` function leverages parameterization to bulk-insert data highly efficiently.",
+    "exam_focus": [
+      "Understand the difference between the Connection object and the Cursor object.",
+      "Recognize the absolute necessity of `connection.commit()`.",
+      "Explain what SQL Injection is and how parameterization (`?`) prevents it.",
+      "Know the difference between `fetchone()` and `fetchall()`.",
+      "Understand why UPDATE and DELETE statements require a WHERE clause."
+    ],
+    "revision_notes": [
+      "`sqlite3.connect('db.sqlite')` opens or creates the database.",
+      "`cursor.execute(sql_string)` runs the command.",
+      "NEVER use f-strings for SQL variables. Use `?` placeholders.",
+      "`conn.commit()` saves changes.",
+      "`cursor.fetchall()` returns a list of tuples containing the result set."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is the purpose of the `commit()` method, and when must it be called?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Transactions", "Saving to disk"],
+      "solution": "The `commit()` method finalizes a database transaction. When you execute commands that modify the database (like INSERT, UPDATE, or DELETE), the changes are initially held in memory. Calling `connection.commit()` permanently writes those changes to the actual database file on the hard drive. It is not needed for SELECT queries because they do not modify data."
+    },
+    {
+      "q": "What is SQL Injection, and how do you prevent it in Python?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Malicious code", "Concatenation", "Placeholders"],
+      "solution": "SQL Injection is a severe security vulnerability where a user inputs malicious SQL commands instead of standard data, tricking the database into executing them (e.g., inputting `'; DROP TABLE users;--`). It happens when developers use string concatenation or f-strings to build queries. To prevent it, you must use parameterized queries with placeholders (e.g., `?` in sqlite3). The database driver then automatically sanitizes the inputs, treating them strictly as data, not executable code."
+    },
+    {
+      "q": "Write a Python script that creates a SQLite database 'inventory.db', creates a table 'Products' (id, name, price), and inserts one product using a parameterized query.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["import sqlite3", "CREATE TABLE", "INSERT INTO", "commit()"],
+      "solution": "```python\nimport sqlite3\n\nconn = sqlite3.connect('inventory.db')\ncursor = conn.cursor()\n\n# Create table\ncursor.execute('''\n    CREATE TABLE IF NOT EXISTS Products (\n        id INTEGER PRIMARY KEY,\n        name TEXT,\n        price REAL\n    )\n''')\n\n# Insert using parameterization\nproduct_name = 'Laptop'\nproduct_price = 1200.50\ncursor.execute('INSERT INTO Products (name, price) VALUES (?, ?)', (product_name, product_price))\n\nconn.commit()\nconn.close()\n```"
+    },
+    {
+      "q": "Assume the 'Products' table exists and contains data. Write a script to fetch and print all products that cost more than $500.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["SELECT", "WHERE price > ?", "fetchall()"],
+      "solution": "```python\nimport sqlite3\nconn = sqlite3.connect('inventory.db')\ncursor = conn.cursor()\n\ncursor.execute('SELECT * FROM Products WHERE price > ?', (500.0,))\nrows = cursor.fetchall()\n\nfor row in rows:\n    print(f'ID: {row[0]}, Name: {row[1]}, Price: {row[2]}')\n\nconn.close()\n```"
+    },
+    {
+      "q": "What does the `cursor.rowcount` attribute return after executing an UPDATE statement?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Affected rows"],
+      "solution": "The `cursor.rowcount` attribute returns an integer representing the number of rows that were modified, inserted, or deleted by the last executed SQL statement. If an UPDATE statement's WHERE clause didn't match any records, it returns 0."
+    }
+  ]
+}

@@ -7,16 +7,18 @@ import QuizRunner from "./QuizRunner";
 import {
   fetchChapters,
   fetchQuizzesByChapter,
-  CATEGORIES,
+  fetchCourses,
   type Chapter,
   type QuizSet,
   type Category,
+  type ApiCourse,
 } from "../../../../../lib/api";
 
 // ── Static params ─────────────────────────────────────────────────────────────
 export async function generateStaticParams() {
   try {
     const params: { category: string; chapterId: string; setId: string }[] = [];
+    const CATEGORIES = await fetchCourses();
     for (const cat of CATEGORIES) {
       const chapters = await fetchChapters(cat.key);
       for (const ch of chapters) {
@@ -45,6 +47,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category, chapterId, setId } = await params;
   try {
+    const CATEGORIES = await fetchCourses();
     const [chapters, sets] = await Promise.all([
       fetchChapters(category as Category),
       fetchQuizzesByChapter(chapterId, category as Category),
@@ -74,6 +77,11 @@ export default async function QuizSetPage({
   params: Promise<{ category: string; chapterId: string; setId: string }>;
 }) {
   const { category, chapterId, setId } = await params;
+
+  let CATEGORIES: ApiCourse[] = [];
+  try {
+    CATEGORIES = await fetchCourses();
+  } catch {}
 
   const catMeta = CATEGORIES.find((c) => c.key === category);
   if (!catMeta) notFound();

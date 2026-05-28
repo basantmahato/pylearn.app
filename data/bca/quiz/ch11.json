@@ -1,0 +1,40 @@
+{
+  "chapterId": "ch11",
+  "title": "Database Connectivity - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "SQL Basics & Connections",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q1", "question": "Which Python module provides built-in database support without needing a server?", "options": ["mysql-connector", "sqlite3", "psycopg2", "SQLAlchemy"], "answer": 1, "explanation": "sqlite3 is included in the Python standard library for local databases." },
+        { "id": "q2", "question": "What object executes the actual SQL queries in Python?", "options": ["Connection", "Cursor", "Database", "Query"], "answer": 1, "explanation": "A Cursor object is used to execute statements and fetch results." },
+        { "id": "q3", "question": "Why must you call connection.commit() after an INSERT statement?", "options": ["To close the database", "To execute the query", "To permanently save the changes to the disk", "To fetch the results"], "answer": 2, "explanation": "Changes are not written to disk until the transaction is committed." },
+        { "id": "q4", "question": "Which SQL statement is used to extract data from a database?", "options": ["EXTRACT", "SELECT", "GET", "OPEN"], "answer": 1, "explanation": "SELECT is the standard query to retrieve data." },
+        { "id": "q5", "question": "How do you close a database connection?", "options": ["connection.close()", "cursor.close()", "Both connection and cursor should be closed", "It closes automatically"], "answer": 2, "explanation": "It's best practice to close both the cursor and the connection to free resources." },
+        { "id": "q6", "question": "What is SQL Injection?", "options": ["A database feature", "A malicious attack where raw SQL is inserted into a query", "Injecting fast data", "A Python module"], "answer": 1, "explanation": "It occurs when user input is concatenated directly into an SQL string." },
+        { "id": "q7", "question": "How do you prevent SQL Injection in Python?", "options": ["Using parameterized queries (placeholders like ?)", "Using string concatenation", "Encrypting the database", "You can't"], "answer": 0, "explanation": "Placeholders ensure the database treats input as data, not executable code." },
+        { "id": "q8", "question": "Which method executes multiple SQL commands at once using a list of tuples?", "options": ["execute()", "executemany()", "run_all()", "execute_list()"], "answer": 1, "explanation": "executemany() is highly efficient for bulk inserts." },
+        { "id": "q9", "question": "What does `fetchall()` return?", "options": ["A single tuple", "A list of tuples", "A dictionary", "A string"], "answer": 1, "explanation": "It returns all remaining rows from the query result as a list of tuples." },
+        { "id": "q10", "question": "What does `fetchone()` return if there are no more rows?", "options": ["[]", "{}", "None", "False"], "answer": 2, "explanation": "It returns None when the result set is exhausted." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Advanced Database Ops",
+      "difficulty": "Hard",
+      "questions": [
+        { "id": "q11", "question": "If you connect to an SQLite file that does not exist, what happens?", "options": ["Raises an error", "Creates a new database file", "Connects to memory", "Crashes"], "answer": 1, "explanation": "sqlite3 automatically creates the file if it doesn't exist." },
+        { "id": "q12", "question": "How do you create an in-memory SQLite database?", "options": ["sqlite3.connect('memory')", "sqlite3.connect(':memory:')", "sqlite3.memory()", "You can't"], "answer": 1, "explanation": "':memory:' creates a temporary RAM-based database." },
+        { "id": "q13", "question": "Which statement updates existing records in a table?", "options": ["MODIFY", "CHANGE", "UPDATE", "ALTER"], "answer": 2, "explanation": "UPDATE is the standard SQL command for modifying records." },
+        { "id": "q14", "question": "Which SQL clause is used to filter records in a SELECT query?", "options": ["FILTER", "WHERE", "ORDER", "HAVING"], "answer": 1, "explanation": "The WHERE clause restricts the result set based on conditions." },
+        { "id": "q15", "question": "What happens if you execute an UPDATE without a WHERE clause?", "options": ["Error", "Nothing", "All records in the table are updated", "Only the first record is updated"], "answer": 2, "explanation": "Without a WHERE clause, the UPDATE applies to every row." },
+        { "id": "q16", "question": "Which method is used to rollback an uncommitted transaction?", "options": ["connection.rollback()", "connection.undo()", "cursor.rollback()", "connection.reverse()"], "answer": 0, "explanation": "Rollback cancels all changes made since the last commit." },
+        { "id": "q17", "question": "What is the primary key in a database table?", "options": ["A password", "A unique identifier for each record", "The first column", "A foreign key"], "answer": 1, "explanation": "Primary keys must be unique and cannot be NULL." },
+        { "id": "q18", "question": "How do you get the number of rows affected by an UPDATE or DELETE statement?", "options": ["cursor.count()", "cursor.rowcount", "connection.rows", "len(cursor)"], "answer": 1, "explanation": "The `rowcount` attribute tells you how many rows were modified." },
+        { "id": "q19", "question": "Can you use Python variables directly in a SQLite table name using placeholders (?) ?", "options": ["Yes", "No", "Only for integers", "Only in MySQL"], "answer": 1, "explanation": "Placeholders (?) are strictly for VALUES, not for table or column names." },
+        { "id": "q20", "question": "Which library is used to connect Python to a MySQL database?", "options": ["sqlite3", "mysql-connector-python", "psycopg2", "cx_Oracle"], "answer": 1, "explanation": "`mysql-connector-python` or `PyMySQL` are commonly used for MySQL." }
+      ]
+    }
+  ]
+}

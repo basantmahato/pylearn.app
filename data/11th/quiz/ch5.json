@@ -1,0 +1,195 @@
+{
+  "chapterId": "ch5",
+  "title": "Data Handling",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Data Types and Mutability",
+      "difficulty": "Easy",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which of the following is a mutable data type in Python?",
+          "options": ["int", "string", "list", "tuple"],
+          "answer": 2,
+          "explanation": "Lists can be modified after creation, making them mutable."
+        },
+        {
+          "id": "q2",
+          "question": "Which of the following is an immutable data type?",
+          "options": ["list", "dictionary", "set", "tuple"],
+          "answer": 3,
+          "explanation": "Tuples cannot be changed once created, making them immutable."
+        },
+        {
+          "id": "q3",
+          "question": "What is the output of type(None)?",
+          "options": ["<class 'None'>", "<class 'NoneType'>", "<class 'null'>", "<class 'void'>"],
+          "answer": 1,
+          "explanation": "None is an instance of the NoneType class in Python."
+        },
+        {
+          "id": "q4",
+          "question": "Which operator is used for exponentiation in Python?",
+          "options": ["^", "**", "//", "%"],
+          "answer": 1,
+          "explanation": "The ** operator is used to raise a number to the power of another."
+        },
+        {
+          "id": "q5",
+          "question": "What is the result of 10 // 3?",
+          "options": ["3.33", "3", "4", "1"],
+          "answer": 1,
+          "explanation": "The // operator performs floor division, returning the integer part of the quotient."
+        },
+        {
+          "id": "q6",
+          "question": "Which of the following operators has the highest precedence?",
+          "options": ["+", "**", "*", "()"],
+          "answer": 3,
+          "explanation": "Parentheses '()' have the highest precedence in Python expressions."
+        },
+        {
+          "id": "q7",
+          "question": "What will be the output of bool(0)?",
+          "options": ["True", "False", "None", "Error"],
+          "answer": 1,
+          "explanation": "In Python, 0 is evaluated as False in boolean context."
+        },
+        {
+          "id": "q8",
+          "question": "Which operator is a logical operator?",
+          "options": ["&", "and", "==", "+"],
+          "answer": 1,
+          "explanation": "'and' is a logical operator, whereas '&' is a bitwise operator."
+        },
+        {
+          "id": "q9",
+          "question": "What does the '%' operator do?",
+          "options": ["Percentage", "Division", "Modulus", "Floor Division"],
+          "answer": 2,
+          "explanation": "The '%' operator returns the remainder of a division (modulus)."
+        },
+        {
+          "id": "q10",
+          "question": "Which of the following is NOT a sequence data type?",
+          "options": ["string", "list", "tuple", "dictionary"],
+          "answer": 3,
+          "explanation": "Dictionary is a mapping data type, not a sequence."
+        },
+        {
+          "id": "q11",
+          "question": "What is the output of 'Hello' * 2?",
+          "options": ["HelloHello", "Hello2", "Error", "Hello Hello"],
+          "answer": 0,
+          "explanation": "The '*' operator repeats the string the specified number of times."
+        },
+        {
+          "id": "q12",
+          "question": "Which function is used to find the memory address of an object?",
+          "options": ["address()", "loc()", "id()", "mem()"],
+          "answer": 2,
+          "explanation": "The id() function returns the unique identity (memory address in CPython) of an object."
+        },
+        {
+          "id": "q13",
+          "question": "What will be the output of: 5 == 5.0?",
+          "options": ["True", "False", "Error", "None"],
+          "answer": 0,
+          "explanation": "The '==' operator checks for value equality, and 5 and 5.0 have the same numeric value."
+        },
+        {
+          "id": "q14",
+          "question": "Which of the following represents implicit type conversion?",
+          "options": ["int(5.5)", "float('10')", "3 + 4.5", "str(100)"],
+          "answer": 2,
+          "explanation": "Python automatically converts the integer 3 to a float before adding it to 4.5."
+        },
+        {
+          "id": "q15",
+          "question": "Which operator is used to check if two variables refer to the same object?",
+          "options": ["==", "=", "is", "in"],
+          "answer": 2,
+          "explanation": "The 'is' operator checks for object identity."
+        }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Expressions and Operations",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q16",
+          "question": "What is the output of the expression: 2 ** 3 ** 2?",
+          "options": ["64", "512", "12", "None of these"],
+          "answer": 1,
+          "explanation": "Exponentiation has right-to-left associativity, so it evaluates as 2 ** (3 ** 2) = 2 ** 9 = 512."
+        },
+        {
+          "id": "q17",
+          "question": "Which of the following is an augmented assignment operator?",
+          "options": ["==", "=", "+=", "+"],
+          "answer": 2,
+          "explanation": "'+=' is an augmented assignment operator (equivalent to x = x + y)."
+        },
+        {
+          "id": "q18",
+          "question": "What is the output of: 'a' in 'banana'?",
+          "options": ["True", "False", "1", "3"],
+          "answer": 0,
+          "explanation": "The 'in' operator checks for membership, and 'a' is a substring of 'banana'."
+        },
+        {
+          "id": "q19",
+          "question": "What is the result of 17 % 5?",
+          "options": ["3", "2", "3.4", "1"],
+          "answer": 1,
+          "explanation": "17 divided by 5 leaves a remainder of 2."
+        },
+        {
+          "id": "q20",
+          "question": "What will bool('False') return?",
+          "options": ["True", "False", "Error", "None"],
+          "answer": 0,
+          "explanation": "Any non-empty string in Python evaluates to True in a boolean context."
+        },
+        {
+          "id": "q21",
+          "question": "What is the correct way to write 1.5 x 10^3 in Python?",
+          "options": ["1.5*10**3", "1.5E3", "Both A and B", "Neither A nor B"],
+          "answer": 2,
+          "explanation": "Both expressions are valid ways to represent scientific notation in Python."
+        },
+        {
+          "id": "q22",
+          "question": "If x = 10, what does x >>= 1 do?",
+          "options": ["Multiplies x by 1", "Divides x by 1", "Right shifts the bits of x by 1", "Assigns 1 to x if x > 1"],
+          "answer": 2,
+          "explanation": ">>= is the bitwise right shift and assign operator."
+        },
+        {
+          "id": "q23",
+          "question": "Which of the following expressions will result in an error?",
+          "options": ["'Hello' + 'World'", "'Hello' * 3", "'Hello' + 3", "3 * 3"],
+          "answer": 2,
+          "explanation": "You cannot concatenate a string with an integer using the '+' operator."
+        },
+        {
+          "id": "q24",
+          "question": "What is the output of: not True and False?",
+          "options": ["True", "False", "Error", "None"],
+          "answer": 1,
+          "explanation": "'not' has higher precedence than 'and'. So, (not True) and False -> False and False -> False."
+        },
+        {
+          "id": "q25",
+          "question": "Which function allows you to get input from the user as a string?",
+          "options": ["raw_input()", "input()", "get()", "scan()"],
+          "answer": 1,
+          "explanation": "In Python 3, input() is used to read user input as a string."
+        }
+      ]
+    }
+  ]
+}

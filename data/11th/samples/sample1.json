@@ -1,0 +1,385 @@
+{
+  "paperId": "11th-sample-1",
+  "title": "Class 11 Python Sample Paper 1",
+  "subtitle": "Class 11 Computer Science Assessment",
+  "duration": "90 minutes",
+  "totalMarks": 100,
+  "difficulty": "Medium",
+  "sections": [
+    {
+      "sectionId": "A",
+      "title": "Multiple Choice Questions",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "What is cyber safety?",
+          "options": [
+            "Protecting hardware",
+            "Safe Internet usage",
+            "Encrypting files",
+            "Antivirus software"
+          ],
+          "answer": 1,
+          "id": "A1"
+        },
+        {
+          "question": "Which loop is used when the number of iterations is known?",
+          "options": [
+            "while",
+            "for",
+            "do-while",
+            "until"
+          ],
+          "answer": 1,
+          "id": "A2"
+        },
+        {
+          "question": "Which of the following is an input device?",
+          "options": [
+            "Monitor",
+            "Printer",
+            "Keyboard",
+            "Speaker"
+          ],
+          "answer": 2,
+          "id": "A3"
+        },
+        {
+          "question": "What is the output of bool('False')?",
+          "options": [
+            "True",
+            "False",
+            "Error",
+            "None"
+          ],
+          "answer": 0,
+          "id": "A4"
+        },
+        {
+          "question": "What is the output of bool('False')?",
+          "options": [
+            "True",
+            "False",
+            "Error",
+            "None"
+          ],
+          "answer": 0,
+          "id": "A5"
+        },
+        {
+          "question": "What is the result of 5 // 2?",
+          "options": [
+            "2.5",
+            "2",
+            "3",
+            "Error"
+          ],
+          "answer": 1,
+          "id": "A6"
+        },
+        {
+          "question": "What does a CPU do?",
+          "options": [
+            "Storage",
+            "Processing",
+            "Networking",
+            "Printing"
+          ],
+          "answer": 1,
+          "id": "A7"
+        },
+        {
+          "question": "Which of the following is an input device?",
+          "options": [
+            "Monitor",
+            "Printer",
+            "Keyboard",
+            "Speaker"
+          ],
+          "answer": 2,
+          "id": "A8"
+        },
+        {
+          "question": "Which operator is used for string concatenation?",
+          "options": [
+            "+",
+            "*",
+            "-",
+            "&"
+          ],
+          "answer": 0,
+          "id": "A9"
+        },
+        {
+          "question": "Tuples are ____ in nature.",
+          "options": [
+            "mutable",
+            "immutable",
+            "dynamic",
+            "expandable"
+          ],
+          "answer": 1,
+          "id": "A10"
+        }
+      ]
+    },
+    {
+      "sectionId": "B",
+      "title": "Short Answer Questions",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B1"
+        },
+        {
+          "question": "What is cyberbullying? How can it be prevented?",
+          "marks": 3,
+          "keywords": [
+            "harassment",
+            "online",
+            "reporting",
+            "blocking",
+            "safety"
+          ],
+          "id": "B2"
+        },
+        {
+          "question": "What is the role of an Operating System?",
+          "marks": 3,
+          "keywords": [
+            "interface",
+            "resource management",
+            "hardware",
+            "software",
+            "bridge"
+          ],
+          "id": "B3"
+        },
+        {
+          "question": "What is cyberbullying? How can it be prevented?",
+          "marks": 3,
+          "keywords": [
+            "harassment",
+            "online",
+            "reporting",
+            "blocking",
+            "safety"
+          ],
+          "id": "B4"
+        },
+        {
+          "question": "What are keywords in Python? Give 2 examples.",
+          "marks": 3,
+          "keywords": [
+            "reserved words",
+            "special meaning",
+            "if",
+            "else",
+            "for",
+            "while"
+          ],
+          "id": "B5"
+        },
+        {
+          "question": "What are keywords in Python? Give 2 examples.",
+          "marks": 3,
+          "keywords": [
+            "reserved words",
+            "special meaning",
+            "if",
+            "else",
+            "for",
+            "while"
+          ],
+          "id": "B6"
+        },
+        {
+          "question": "What is cyberbullying? How can it be prevented?",
+          "marks": 3,
+          "keywords": [
+            "harassment",
+            "online",
+            "reporting",
+            "blocking",
+            "safety"
+          ],
+          "id": "B7"
+        },
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B8"
+        },
+        {
+          "question": "What is the role of an Operating System?",
+          "marks": 3,
+          "keywords": [
+            "interface",
+            "resource management",
+            "hardware",
+            "software",
+            "bridge"
+          ],
+          "id": "B9"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B10"
+        }
+      ]
+    },
+    {
+      "sectionId": "C",
+      "title": "Code Writing",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "Create a dictionary of 3 students with their marks and write code to find the highest marks.",
+          "marks": 5,
+          "hints": [
+            "Use max() with dict.values()",
+            "Iterate over dictionary",
+            "Track max marks"
+          ],
+          "id": "C1"
+        },
+        {
+          "question": "Write a program to find the largest number in a list without using the max() function.",
+          "marks": 5,
+          "hints": [
+            "Assume first element is largest",
+            "Iterate and compare",
+            "Update largest"
+          ],
+          "id": "C2"
+        },
+        {
+          "question": "Write a program to find the largest number in a list without using the max() function.",
+          "marks": 5,
+          "hints": [
+            "Assume first element is largest",
+            "Iterate and compare",
+            "Update largest"
+          ],
+          "id": "C3"
+        },
+        {
+          "question": "Write a program to find the largest number in a list without using the max() function.",
+          "marks": 5,
+          "hints": [
+            "Assume first element is largest",
+            "Iterate and compare",
+            "Update largest"
+          ],
+          "id": "C4"
+        },
+        {
+          "question": "Write a Python script to print the Fibonacci series up to n terms.",
+          "marks": 5,
+          "hints": [
+            "Initialize a=0, b=1",
+            "Use a loop",
+            "Update a and b"
+          ],
+          "id": "C5"
+        },
+        {
+          "question": "Write a program to check if a number is prime.",
+          "marks": 5,
+          "hints": [
+            "Use a loop",
+            "Check divisibility",
+            "Range from 2 to n-1"
+          ],
+          "id": "C6"
+        }
+      ]
+    },
+    {
+      "sectionId": "D",
+      "title": "Error Finding & Output Prediction",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 3,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D1"
+        },
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 3,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D2"
+        },
+        {
+          "question": "Find the error:\nx = 10\nif x = 10:\n    print('Yes')",
+          "marks": 3,
+          "answer": "SyntaxError: invalid syntax",
+          "explanation": "Assignment operator '=' is used instead of comparison operator '=='.",
+          "id": "D3"
+        },
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 3,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D4"
+        },
+        {
+          "question": "Find the error:\nx = 10\nif x = 10:\n    print('Yes')",
+          "marks": 2,
+          "answer": "SyntaxError: invalid syntax",
+          "explanation": "Assignment operator '=' is used instead of comparison operator '=='.",
+          "id": "D5"
+        },
+        {
+          "question": "Predict the output:\nlst = [1, 2, 3]\nlst.append([4, 5])\nprint(len(lst))",
+          "marks": 2,
+          "answer": "4",
+          "explanation": "The list [4, 5] is appended as a single element, so the list becomes [1, 2, 3, [4, 5]].",
+          "id": "D6"
+        },
+        {
+          "question": "Find the error:\nx = 10\nif x = 10:\n    print('Yes')",
+          "marks": 2,
+          "answer": "SyntaxError: invalid syntax",
+          "explanation": "Assignment operator '=' is used instead of comparison operator '=='.",
+          "id": "D7"
+        },
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 2,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D8"
+        }
+      ]
+    }
+  ]
+}

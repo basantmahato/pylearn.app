@@ -2,32 +2,30 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import type { Chapter, NoteBlock, Category } from "../../lib/api";
-import { CATEGORIES } from "../../lib/api";
+import type { Chapter, NoteBlock, Category, ApiCourse } from "../../lib/api";
 import { slugify } from "../../lib/slugify";
 import StateView from "../components/StateView";
 
 interface Props {
+  categories: ApiCourse[];
   chaptersByCategory: Record<string, Chapter[]>;
   notes: NoteBlock[];
   error: string;
 }
 
-
-
-export default function NotesClient({ chaptersByCategory, notes, error }: Props) {
-  const [activeCategory, setActiveCategory] = useState<Category>("class12");
+export default function NotesClient({ categories, chaptersByCategory, notes, error }: Props) {
+  const [activeCategory, setActiveCategory] = useState<Category>(() => categories[0]?.key ?? "class12");
   const chapters = useMemo(() => 
     (chaptersByCategory[activeCategory] ?? []).sort((a, b) => a.order - b.order),
     [chaptersByCategory, activeCategory]
   );
   
   const [activeChapter, setActiveChapter] = useState<string>(() => 
-    (chaptersByCategory["class12"] ?? [])[0]?.chapterId ?? ""
+    (chaptersByCategory[activeCategory] ?? [])[0]?.chapterId ?? ""
   );
   const [search, setSearch] = useState("");
 
-  const activeCatMeta = CATEGORIES.find((c) => c.key === activeCategory)!;
+  const activeCatMeta = categories.find((c) => c.key === activeCategory) ?? categories[0];
 
   const handleCategoryChange = (cat: Category) => {
     setActiveCategory(cat);
@@ -81,7 +79,7 @@ export default function NotesClient({ chaptersByCategory, notes, error }: Props)
 
         {/* Category Selector Tabs */}
         <div className="flex justify-center gap-2.5 mb-8 flex-wrap">
-          {CATEGORIES.map((cat) => {
+          {categories.map((cat) => {
             const active = activeCategory === cat.key;
             return (
               <button

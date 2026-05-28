@@ -1,0 +1,45 @@
+{
+  "chapterId": "ch2",
+  "title": "Operators and Expressions - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Arithmetic & Relational Operators",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q1", "question": "What is the result of 15 // 2?", "options": ["7.5", "7", "8", "1"], "answer": 1, "explanation": "// performs floor division, rounding down to the nearest whole integer." },
+        { "id": "q2", "question": "Which operator returns the remainder of division?", "options": ["/", "//", "%", "**"], "answer": 2, "explanation": "The modulus operator (%) returns the remainder." },
+        { "id": "q3", "question": "What is the output of 2 ** 3 ** 2?", "options": ["64", "512", "12", "256"], "answer": 1, "explanation": "Exponentiation (**) is right-associative. So it evaluates as 2 ** (3 ** 2) = 2 ** 9 = 512." },
+        { "id": "q4", "question": "Which of the following evaluates to True?", "options": ["10 != 10", "5 >= 6", "10 == '10'", "5 < 10"], "answer": 3, "explanation": "5 is less than 10. Note that 10 == '10' is False because they are different types (int vs str)." },
+        { "id": "q5", "question": "What is the result of 5 + 3.0?", "options": ["8", "8.0", "Error", "53.0"], "answer": 1, "explanation": "Adding an integer and a float results in a float." },
+        { "id": "q6", "question": "Which operator is used to check if two values are equal?", "options": ["=", "==", "===", "!="], "answer": 1, "explanation": "The double equals (==) is the equality comparison operator." },
+        { "id": "q7", "question": "What is the output of `print(10 % 3)`?", "options": ["3.33", "3", "1", "0"], "answer": 2, "explanation": "10 divided by 3 leaves a remainder of 1." },
+        { "id": "q8", "question": "Is the expression `5 < 10 < 15` valid in Python?", "options": ["No, syntax error", "Yes, evaluates to False", "Yes, evaluates to True", "Evaluates to 15"], "answer": 2, "explanation": "Python supports chained comparisons. It is equivalent to (5 < 10) and (10 < 15)." },
+        { "id": "q9", "question": "What does the != operator do?", "options": ["Assigns a value", "Checks for equality", "Checks for inequality", "Performs factorial"], "answer": 2, "explanation": "!= means 'not equal to'." },
+        { "id": "q10", "question": "What is the result of `10 / 2` in Python 3?", "options": ["5", "5.0", "Error", "None"], "answer": 1, "explanation": "Normal division (/) always returns a float in Python 3." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Logical, Assignment & Bitwise",
+      "difficulty": "Hard",
+      "questions": [
+        { "id": "q11", "question": "What is the output of: print(False and True or not False)?", "options": ["True", "False", "None", "Error"], "answer": 0, "explanation": "Order of precedence: 'not' -> 'and' -> 'or'. Evaluates to: (False and True) or True => False or True => True." },
+        { "id": "q12", "question": "What does the Bitwise Left Shift (<<) operator effectively do?", "options": ["Divides a number by 2", "Multiplies a number by 2", "Finds the square root", "Inverts all bits"], "answer": 1, "explanation": "Shifting binary bits one place to the left is equivalent to multiplying the integer by 2." },
+        { "id": "q13", "question": "Which operator is the Bitwise XOR?", "options": ["&", "|", "^", "~"], "answer": 2, "explanation": "The caret (^) symbol represents Bitwise XOR in Python." },
+        { "id": "q14", "question": "What is the result of 'x += 5' if x is initially 10?", "options": ["5", "10", "15", "Error"], "answer": 2, "explanation": "'+=' is a compound assignment operator. It is equivalent to x = x + 5." },
+        { "id": "q15", "question": "Which of these operators has the highest precedence?", "options": ["Addition (+)", "Multiplication (*)", "Exponentiation (**)", "Parentheses ()"], "answer": 3, "explanation": "Expressions inside parentheses are always evaluated first." },
+        { "id": "q16", "question": "What is the result of `True and False`?", "options": ["True", "False", "Error", "None"], "answer": 1, "explanation": "The 'and' operator requires both operands to be True." },
+        { "id": "q17", "question": "What is the result of `True or False`?", "options": ["True", "False", "Error", "None"], "answer": 0, "explanation": "The 'or' operator requires only one operand to be True." },
+        { "id": "q18", "question": "What does `not True` evaluate to?", "options": ["True", "False", "None", "Error"], "answer": 1, "explanation": "The 'not' operator reverses the boolean value." },
+        { "id": "q19", "question": "Which operator performs bitwise AND?", "options": ["and", "&", "&&", "+"], "answer": 1, "explanation": "The ampersand (&) performs bit-level AND operations." },
+        { "id": "q20", "question": "What is the result of `5 | 3` (Bitwise OR)?", "options": ["8", "7", "2", "15"], "answer": 1, "explanation": "5 is 101, 3 is 011. ORing them gives 111, which is 7." },
+        { "id": "q21", "question": "What does `x *= 2` do?", "options": ["Squares x", "Multiplies x by 2 and assigns back to x", "Adds 2 to x", "Syntax Error"], "answer": 1, "explanation": "It is equivalent to x = x * 2." },
+        { "id": "q22", "question": "What is the identity operator in Python?", "options": ["==", "=", "is", "in"], "answer": 2, "explanation": "The 'is' operator checks if two variables point to the same object in memory." },
+        { "id": "q23", "question": "What is the membership operator?", "options": ["has", "contains", "in", "with"], "answer": 2, "explanation": "The 'in' operator checks if a value exists in a sequence." },
+        { "id": "q24", "question": "What is the output of `5 is 5`?", "options": ["True", "False", "Error", "None"], "answer": 0, "explanation": "For small integers, Python caches them, so they point to the same memory location." },
+        { "id": "q25", "question": "What happens in 'short-circuit' evaluation for `A or B`?", "options": ["Both are evaluated", "If A is True, B is not evaluated", "If A is False, B is not evaluated", "Throws an error"], "answer": 1, "explanation": "If the first condition in an 'or' is True, the result is True regardless of B, so B is skipped." }
+      ]
+    }
+  ]
+}

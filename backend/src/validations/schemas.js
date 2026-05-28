@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const categorySchema = Joi.string().valid('class11', 'class12', 'bca', 'btech', 'aiml');
+const categorySchema = Joi.string();
 
 const chapterSchema = Joi.object({
     chapterId: Joi.string().required(),
@@ -12,20 +12,21 @@ const chapterSchema = Joi.object({
         detailed_summary: Joi.string().allow(''),
         exam_focus: Joi.array().items(Joi.string()),
         revision_notes: Joi.array().items(Joi.string())
-    }),
+    }).unknown(true),
     practice: Joi.array().items(Joi.object({
-        id: Joi.string().required(),
+        id: Joi.string().optional(),
+        _id: Joi.string().optional(),
         q: Joi.string().required(),
-        type: Joi.string().valid('theory', 'coding').required(),
-        difficulty: Joi.string().valid('easy', 'medium', 'hard').required(),
+        type: Joi.string().valid('theory', 'coding', 'Theory', 'Coding').required(),
+        difficulty: Joi.string().valid('easy', 'medium', 'hard', 'Easy', 'Medium', 'Hard').required(),
         hints: Joi.array().items(Joi.string()),
         solution: Joi.object({
             explanation: Joi.string().allow(''),
             code: Joi.string().allow(''),
             example: Joi.string().allow('')
-        })
-    }))
-});
+        }).unknown(true)
+    }).unknown(true))
+}).unknown(true);
 
 const noteSchema = Joi.object({
     chapterId: Joi.string().required(),
@@ -37,22 +38,23 @@ const noteSchema = Joi.object({
     code: Joi.string().allow(''),
     language: Joi.string().allow(''),
     order: Joi.number()
-});
+}).unknown(true);
 
 const quizSchema = Joi.object({
     chapterId: Joi.string().required(),
     setId: Joi.string().required(),
     setName: Joi.string().required(),
-    difficulty: Joi.string().valid('Easy', 'Medium', 'Hard'),
+    difficulty: Joi.string().valid('easy', 'medium', 'hard', 'Easy', 'Medium', 'Hard'),
     category: categorySchema.required(),
     questions: Joi.array().items(Joi.object({
-        id: Joi.string(),
+        id: Joi.string().optional(),
+        _id: Joi.string().optional(),
         question: Joi.string().required(),
         options: Joi.array().items(Joi.string()).length(4).required(),
         answer: Joi.number().min(0).max(3).required(),
         explanation: Joi.string().allow('')
-    }))
-});
+    }).unknown(true))
+}).unknown(true);
 
 module.exports = {
     chapterSchema,

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SamplesClient from "./SamplesClient";
-import { fetchSamplePapers, type SamplePaper } from "../../lib/api";
+import { fetchSamplePapers, type SamplePaper, fetchCourses, type ApiCourse } from "../../lib/api";
 
 export const metadata: Metadata = {
   title: "Sample Papers — PyLearn | CBSE Class 12 Python",
@@ -11,6 +11,13 @@ export const metadata: Metadata = {
 };
 
 export default async function SamplesPage() {
+  let CATEGORIES: ApiCourse[] = [];
+  try {
+    CATEGORIES = await fetchCourses();
+  } catch {
+    CATEGORIES = [];
+  }
+
   let papers: SamplePaper[] = [];
   let error = "";
 
@@ -24,7 +31,7 @@ export default async function SamplesPage() {
     <>
       <Navbar />
       <main className="pt-32 min-h-screen bg-bg">
-        <SamplesClient papers={papers} error={error} />
+        <SamplesClient categories={CATEGORIES} papers={papers} error={error} />
       </main>
       <Footer />
     </>

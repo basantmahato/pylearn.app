@@ -1,0 +1,45 @@
+{
+  "chapterId": "ch5",
+  "title": "Strings - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "String Operations",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "Are strings mutable in Python?", "options": ["Yes, always", "No, they are immutable", "Yes, but only using list methods", "Depends on the string length"], "answer": 1, "explanation": "Strings are immutable; once created, their characters cannot be changed in place." },
+        { "id": "q2", "question": "What is the output of 'Python' * 2?", "options": ["Python2", "PythonPython", "Python Python", "Error"], "answer": 1, "explanation": "The * operator performs string repetition." },
+        { "id": "q3", "question": "How do you concatenate string 'A' and string 'B'?", "options": ["'A' & 'B'", "'A' + 'B'", "'A' . 'B'", "'A' , 'B'"], "answer": 1, "explanation": "The + operator is used for string concatenation." },
+        { "id": "q4", "question": "Which function returns the length of a string?", "options": ["length()", "size()", "len()", "count()"], "answer": 2, "explanation": "len() returns the number of characters in a string." },
+        { "id": "q5", "question": "What is the index of the first character in a string?", "options": ["1", "0", "-1", "Depends"], "answer": 1, "explanation": "Python strings use zero-based indexing." },
+        { "id": "q6", "question": "How do you access the last character of a string `s`?", "options": ["s[0]", "s[len(s)]", "s[-1]", "s.last()"], "answer": 2, "explanation": "Negative indexing starts from the end; -1 is the last character." },
+        { "id": "q7", "question": "What does the `in` operator do when used with strings?", "options": ["Concatenates", "Checks for a substring", "Iterates", "Slices"], "answer": 1, "explanation": "Returns True if the substring exists in the target string." },
+        { "id": "q8", "question": "What is an escape character?", "options": ["A character that exits a loop", "A backslash '\\' followed by a character to represent special characters", "A space", "A string method"], "answer": 1, "explanation": "Example: '\\n' for newline." },
+        { "id": "q9", "question": "Which of these is a valid multiline string?", "options": ["'This is \\n multiline'", "\"\"\"This is multiline\"\"\"", "# This is multiline", "All of the above"], "answer": 1, "explanation": "Triple quotes allow literal multiline strings." },
+        { "id": "q10", "question": "What does `s.upper()` do?", "options": ["Raises an error", "Returns string in all uppercase", "Capitalizes first letter", "Checks if string is uppercase"], "answer": 1, "explanation": "Converts all alphabetic characters to uppercase." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Slicing and Methods",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "What will `text = 'Programming'; print(text[1:4])` output?", "options": ["Pro", "rog", "rogr", "ogr"], "answer": 1, "explanation": "Slicing [1:4] starts at index 1 ('r') and goes up to index 3 ('g')." },
+        { "id": "q12", "question": "Which method removes leading and trailing whitespace from a string?", "options": ["clean()", "remove()", "strip()", "trim()"], "answer": 2, "explanation": "The strip() method removes whitespace from both ends." },
+        { "id": "q13", "question": "What does the `split()` method return?", "options": ["A string", "A tuple", "A list", "A dictionary"], "answer": 2, "explanation": "split() breaks a string into a list of substrings based on a delimiter." },
+        { "id": "q14", "question": "How do you reverse a string `s` using slicing?", "options": ["s[0:-1]", "s.reverse()", "s[::-1]", "s.invert()"], "answer": 2, "explanation": "A step of -1 iterates backwards through the whole string." },
+        { "id": "q15", "question": "What does `s.replace('a', 'b')` do?", "options": ["Replaces the first 'a' with 'b'", "Replaces all 'a's with 'b's", "Replaces 'b' with 'a'", "Errors"], "answer": 1, "explanation": "By default, replace() substitutes all occurrences." },
+        { "id": "q16", "question": "Which method joins a list of strings into a single string?", "options": ["concat()", "join()", "merge()", "combine()"], "answer": 1, "explanation": "Used like this: `'-'.join(['A', 'B'])` -> 'A-B'." },
+        { "id": "q17", "question": "What does `s.find('xyz')` return if 'xyz' is not in the string?", "options": ["0", "False", "None", "-1"], "answer": 3, "explanation": "find() returns -1 if the substring is not found." },
+        { "id": "q18", "question": "How is `index()` different from `find()`?", "options": ["No difference", "`index()` raises a ValueError if not found, `find()` returns -1", "`find()` is faster", "`index()` searches backwards"], "answer": 1, "explanation": "index() will crash the program if not handled, find() just returns -1." },
+        { "id": "q19", "question": "What does `s.isdigit()` return?", "options": ["True if string contains any digits", "True if all characters in the string are digits", "Number of digits", "True if string is a float"], "answer": 1, "explanation": "It checks if the string exclusively consists of numeric characters." },
+        { "id": "q20", "question": "What is string interpolation (f-strings)?", "options": ["A way to inject variables directly into a string", "Converting float to string", "A security flaw", "None"], "answer": 0, "explanation": "E.g. `f\"Hello {name}\"` injects the variable." },
+        { "id": "q21", "question": "What does `s.capitalize()` do?", "options": ["Capitalizes all letters", "Capitalizes the first letter of the string", "Capitalizes every word", "Errors"], "answer": 1, "explanation": "Only the very first character is capitalized." },
+        { "id": "q22", "question": "What method capitalizes the first letter of every word?", "options": ["capitalize()", "title()", "upper()", "proper()"], "answer": 1, "explanation": "title() converts 'hello world' to 'Hello World'." },
+        { "id": "q23", "question": "What will `print('abc' > 'ABC')` output?", "options": ["True", "False", "Error", "None"], "answer": 0, "explanation": "Lowercase letters have higher ASCII values than uppercase letters." },
+        { "id": "q24", "question": "What does `chr(65)` return?", "options": ["'A'", "'a'", "65", "Error"], "answer": 0, "explanation": "chr() returns the string representing a character whose Unicode code point is the integer." },
+        { "id": "q25", "question": "What does `ord('A')` return?", "options": ["'A'", "65", "97", "Error"], "answer": 1, "explanation": "ord() returns an integer representing the Unicode code point of the character." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,386 @@
+{
+  "paperId": "11th-sample-4",
+  "title": "Class 11 Python Sample Paper 4",
+  "subtitle": "Class 11 Computer Science Assessment",
+  "duration": "90 minutes",
+  "totalMarks": 100,
+  "difficulty": "Easy",
+  "sections": [
+    {
+      "sectionId": "A",
+      "title": "Multiple Choice Questions",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "Which of the following is a valid dictionary declaration?",
+          "options": [
+            "d = {1: 'A', 2: 'B'}",
+            "d = [1: 'A', 2: 'B']",
+            "d = (1: 'A', 2: 'B')",
+            "d = <1: 'A', 2: 'B'>"
+          ],
+          "answer": 0,
+          "id": "A1"
+        },
+        {
+          "question": "In Python, what is the data type of the result of 'input()' function?",
+          "options": [
+            "int",
+            "float",
+            "string",
+            "boolean"
+          ],
+          "answer": 2,
+          "id": "A2"
+        },
+        {
+          "question": "What is the output of bool('False')?",
+          "options": [
+            "True",
+            "False",
+            "Error",
+            "None"
+          ],
+          "answer": 0,
+          "id": "A3"
+        },
+        {
+          "question": "Which of these is used to define a block of code in Python?",
+          "options": [
+            "Indentation",
+            "Curly braces",
+            "Parentheses",
+            "Square brackets"
+          ],
+          "answer": 0,
+          "id": "A4"
+        },
+        {
+          "question": "Which of the following functions is used to find the length of a string?",
+          "options": [
+            "length()",
+            "len()",
+            "size()",
+            "count()"
+          ],
+          "answer": 1,
+          "id": "A5"
+        },
+        {
+          "question": "Which loop is used when the number of iterations is known?",
+          "options": [
+            "while",
+            "for",
+            "do-while",
+            "until"
+          ],
+          "answer": 1,
+          "id": "A6"
+        },
+        {
+          "question": "Which of the following functions is used to find the length of a string?",
+          "options": [
+            "length()",
+            "len()",
+            "size()",
+            "count()"
+          ],
+          "answer": 1,
+          "id": "A7"
+        },
+        {
+          "question": "Which of the following is an input device?",
+          "options": [
+            "Monitor",
+            "Printer",
+            "Keyboard",
+            "Speaker"
+          ],
+          "answer": 2,
+          "id": "A8"
+        },
+        {
+          "question": "What does a CPU do?",
+          "options": [
+            "Storage",
+            "Processing",
+            "Networking",
+            "Printing"
+          ],
+          "answer": 1,
+          "id": "A9"
+        },
+        {
+          "question": "What is the output of bool('False')?",
+          "options": [
+            "True",
+            "False",
+            "Error",
+            "None"
+          ],
+          "answer": 0,
+          "id": "A10"
+        }
+      ]
+    },
+    {
+      "sectionId": "B",
+      "title": "Short Answer Questions",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "What is cyberbullying? How can it be prevented?",
+          "marks": 3,
+          "keywords": [
+            "harassment",
+            "online",
+            "reporting",
+            "blocking",
+            "safety"
+          ],
+          "id": "B1"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B2"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B3"
+        },
+        {
+          "question": "Explain the concept of key-value pairs in a dictionary.",
+          "marks": 3,
+          "keywords": [
+            "unique",
+            "mapping",
+            "index",
+            "curly braces",
+            "hash"
+          ],
+          "id": "B4"
+        },
+        {
+          "question": "What are keywords in Python? Give 2 examples.",
+          "marks": 3,
+          "keywords": [
+            "reserved words",
+            "special meaning",
+            "if",
+            "else",
+            "for",
+            "while"
+          ],
+          "id": "B5"
+        },
+        {
+          "question": "What is the role of an Operating System?",
+          "marks": 3,
+          "keywords": [
+            "interface",
+            "resource management",
+            "hardware",
+            "software",
+            "bridge"
+          ],
+          "id": "B6"
+        },
+        {
+          "question": "Differentiate between compiler and interpreter.",
+          "marks": 3,
+          "keywords": [
+            "entire program",
+            "line by line",
+            "fast",
+            "slow",
+            "translation"
+          ],
+          "id": "B7"
+        },
+        {
+          "question": "What is the role of an Operating System?",
+          "marks": 3,
+          "keywords": [
+            "interface",
+            "resource management",
+            "hardware",
+            "software",
+            "bridge"
+          ],
+          "id": "B8"
+        },
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B9"
+        },
+        {
+          "question": "What is the difference between a list and a tuple?",
+          "marks": 3,
+          "keywords": [
+            "mutable",
+            "immutable",
+            "brackets",
+            "parentheses",
+            "modification"
+          ],
+          "id": "B10"
+        }
+      ]
+    },
+    {
+      "sectionId": "C",
+      "title": "Code Writing",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "Write a script that takes a list of numbers and returns a new list with only even numbers.",
+          "marks": 5,
+          "hints": [
+            "Use a list comprehension or for loop",
+            "Condition x % 2 == 0",
+            "Append to result list"
+          ],
+          "id": "C1"
+        },
+        {
+          "question": "Write a program to count vowels in a given string.",
+          "marks": 5,
+          "hints": [
+            "Define a string of vowels",
+            "Iterate through characters",
+            "Keep a count"
+          ],
+          "id": "C2"
+        },
+        {
+          "question": "Write a program to count vowels in a given string.",
+          "marks": 5,
+          "hints": [
+            "Define a string of vowels",
+            "Iterate through characters",
+            "Keep a count"
+          ],
+          "id": "C3"
+        },
+        {
+          "question": "Create a dictionary of 3 students with their marks and write code to find the highest marks.",
+          "marks": 5,
+          "hints": [
+            "Use max() with dict.values()",
+            "Iterate over dictionary",
+            "Track max marks"
+          ],
+          "id": "C4"
+        },
+        {
+          "question": "Write a program to count vowels in a given string.",
+          "marks": 5,
+          "hints": [
+            "Define a string of vowels",
+            "Iterate through characters",
+            "Keep a count"
+          ],
+          "id": "C5"
+        },
+        {
+          "question": "Write a program to count vowels in a given string.",
+          "marks": 5,
+          "hints": [
+            "Define a string of vowels",
+            "Iterate through characters",
+            "Keep a count"
+          ],
+          "id": "C6"
+        }
+      ]
+    },
+    {
+      "sectionId": "D",
+      "title": "Error Finding & Output Prediction",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 3,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D1"
+        },
+        {
+          "question": "Predict the output:\ns = 'Python'\nprint(s[::-1])",
+          "marks": 3,
+          "answer": "nohtyP",
+          "explanation": "The slice [::-1] reverses the string.",
+          "id": "D2"
+        },
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 3,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D3"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 3,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D4"
+        },
+        {
+          "question": "Find the error:\nx = 10\nif x = 10:\n    print('Yes')",
+          "marks": 2,
+          "answer": "SyntaxError: invalid syntax",
+          "explanation": "Assignment operator '=' is used instead of comparison operator '=='.",
+          "id": "D5"
+        },
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 2,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D6"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 2,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D7"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 2,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D8"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "id": "ch7",
+  "title": "String Manipulation",
+  "order": 7,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "In Python, a String is a sequence of characters enclosed in quotes. Strings are one of the most frequently used data types because almost all human-readable data (names, addresses, passwords) is processed as text. Python provides incredibly powerful, built-in tools to slice, search, and modify strings with minimal effort."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.1 String Creation and Immutability"
+    },
+    {
+      "type": "paragraph",
+      "text": "You can create strings using single quotes (`'...'`), double quotes (`\"...\"`), or triple quotes (`'''...'''` or `\"\"\"...\"\"\"`). Triple quotes are unique because they allow strings to span multiple lines. CRITICAL RULE: Strings in Python are Immutable. Once a string is created in memory, it cannot be changed. If you try to modify a string, Python destroys the old one and creates a brand new string in memory."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "name = \"Basant\"\n# name[0] = \"P\"  <-- THIS WILL CRASH! Strings are immutable.\n\n# To 'modify', we must create a new string\nname = \"P\" + name[1:]  # This is valid\n\nparagraph = \"\"\"\nThis is a \nmulti-line \nstring.\n\"\"\""
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.2 String Indexing"
+    },
+    {
+      "type": "paragraph",
+      "text": "Every character in a string is assigned an integer index indicating its position. Python supports both Forward Indexing (starting at 0) and Backward Indexing (starting at -1 from the very end)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "text = \"PYTHON\"\n# Forward: P=0, Y=1, T=2, H=3, O=4, N=5\n# Backward: P=-6, Y=-5, T=-4, H=-3, O=-2, N=-1\n\nprint(text[0])   # Output: P\nprint(text[-1])  # Output: N (The fastest way to get the last character)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.3 String Slicing"
+    },
+    {
+      "type": "paragraph",
+      "text": "Slicing allows you to extract a specific substring from a larger string. The syntax is `string[start : stop : step]`."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "start: The index where the slice begins (inclusive). Defaults to 0.",
+        "stop: The index where the slice ends (EXCLUSIVE). Defaults to the end of the string.",
+        "step: The jump between characters. Defaults to 1."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "word = \"PROGRAMMING\"\n\nprint(word[0:7])    # 'PROGRAM' (Extracts indices 0 to 6)\nprint(word[3:])     # 'GRAMMING' (From index 3 to the end)\nprint(word[:3])     # 'PRO' (From beginning to index 2)\nprint(word[::2])    # 'PORMIG' (Every 2nd character)\nprint(word[::-1])   # 'GNIMMARGORP' (The easiest way to reverse a string!)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.4 String Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python overloads mathematical operators to work with strings."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Concatenation (+): Joins two strings end-to-end. (e.g., `'Ice' + 'cream'` -> `'Icecream'`)",
+        "Replication (*): Repeats a string multiple times. (e.g., `'Hi' * 3` -> `'HiHiHi'`)",
+        "Membership (in / not in): Checks if a substring exists inside a string, returning a Boolean."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.5 Built-in String Methods"
+    },
+    {
+      "type": "paragraph",
+      "text": "Methods are functions that belong to the string object. Because strings are immutable, methods NEVER modify the original string; they always return a brand new string."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "len(str): Returns the total number of characters. (Technically a built-in function, not a method).",
+        "str.upper() / str.lower(): Converts entirely to upper or lowercase.",
+        "str.capitalize(): Capitalizes only the very first letter.",
+        "str.count(sub): Returns how many times a substring appears.",
+        "str.find(sub): Returns the lowest index where the substring is found. Returns -1 if not found.",
+        "str.replace(old, new): Replaces occurrences of 'old' with 'new'.",
+        "str.isalnum() / str.isalpha() / str.isdigit(): Checks if the string consists solely of alphanumeric characters, letters, or numbers."
+      ]
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 7 explores String Manipulation, emphasizing string immutability, index-based access, slicing techniques, and powerful built-in string methods.",
+    "detailed_summary": "Strings are sequences of characters and are fundamentally Immutable—they cannot be altered in memory once created. Accessing individual characters is done via Indexing; Python uniquely supports positive indexing (0 to length-1) and negative indexing (-1 to -length). To extract sub-strings, Python provides a powerful Slicing syntax `[start:stop:step]`, where `stop` is exclusively bounded. A famous Python trick is using `[::-1]` to instantly reverse a string. String operations include Concatenation (`+`) and Replication (`*`), alongside Membership operators (`in`, `not in`) for rapid searching. Python equips strings with dozens of built-in methods like `upper()`, `find()`, `replace()`, and `isalpha()`. Crucially, because of immutability, none of these methods alter the original string; they merely return a modified copy.",
+    "exam_focus": [
+      "Define String Immutability.",
+      "Calculate the exact output of complex string slicing expressions (e.g., `word[1:5:2]`).",
+      "Use negative indexing to access characters from the end.",
+      "Identify the output of standard string methods like `find()`, `count()`, and `replace()`."
+    ],
+    "revision_notes": [
+      "Strings are Immutable (cannot be changed).",
+      "Indexing: Left-to-right starts at 0. Right-to-left starts at -1.",
+      "Slicing: `[start:stop:step]`. Stop is EXCLUSIVE.",
+      "`'A' + 'B'` = Concatenation (`'AB'`).",
+      "`'A' * 3` = Replication (`'AAA'`).",
+      "`'x' in 'box'` = Membership (`True`)."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What does it mean when we say Strings are 'Immutable' in Python?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Memory", "Modification"],
+      "solution": "Immutability means that once a string object is created in the computer's memory, its internal state cannot be modified. You cannot change a single character (e.g., `name[0] = 'X'` will cause an error). Any operation that appears to modify a string (like `.upper()`) actually creates and returns an entirely new string object."
+    },
+    {
+      "q": "Given the string `S = 'COMPUTER'`, what will be the output of `print(S[-3])`?",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["Backward indexing"],
+      "solution": "The output will be `T`. \nNegative indexing starts from the end: R is -1, E is -2, T is -3."
+    },
+    {
+      "q": "Given the string `msg = 'HELLO WORLD'`, what is the output of `msg[1:8:2]`?",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Start at 1", "Stop before 8", "Step by 2"],
+      "solution": "The output will be `EL O`. \nIndices: 0=H, 1=E, 2=L, 3=L, 4=O, 5=(space), 6=W, 7=O, 8=R. \nStart at index 1 (E). Step by 2: index 3 (L), index 5 (space), index 7 (O). We stop before index 8."
+    },
+    {
+      "q": "How can you instantly reverse a string in Python using slicing?",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Step value"],
+      "solution": "You use slicing with a step of -1, while leaving start and stop blank to cover the whole string. \nExample: `reversed_string = my_string[::-1]`"
+    },
+    {
+      "q": "What is the difference between the `find()` method and the `in` operator?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Return values"],
+      "solution": "The `in` operator is a membership operator that returns a Boolean (`True` or `False`) simply indicating whether the substring exists. The `find()` method returns an Integer representing the lowest starting index where the substring is located, and returns `-1` if it is not found."
+    }
+  ]
+}

@@ -17,7 +17,6 @@ const CATEGORY_ICONS: Record<Category, string> = {
   class12: "school",
   bca: "database",
   btech: "laptop",
-  aiml: "brain",
 };
 
 export default function OnboardingCourseScreen() {

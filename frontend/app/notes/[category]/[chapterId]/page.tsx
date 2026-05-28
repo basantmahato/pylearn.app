@@ -6,10 +6,11 @@ import Footer from "../../../components/Footer";
 import {
   fetchChapters,
   fetchNotesByChapter,
-  CATEGORIES,
+  fetchCourses,
   type Chapter,
   type NoteBlock,
   type Category,
+  type ApiCourse,
 } from "../../../../lib/api";
 import { slugify } from "../../../../lib/slugify";
 
@@ -17,6 +18,7 @@ import { slugify } from "../../../../lib/slugify";
 export async function generateStaticParams() {
   try {
     const params: { category: string; chapterId: string }[] = [];
+    const CATEGORIES = await fetchCourses();
     for (const cat of CATEGORIES) {
       const chapters = await fetchChapters(cat.key);
       chapters.forEach((ch) => {
@@ -38,6 +40,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category, chapterId: slug } = await params;
   try {
+    const CATEGORIES = await fetchCourses();
     const chapters = await fetchChapters(category as Category);
     const chapter = chapters.find((c) => slugify(c.title) === slug);
     if (!chapter) return {};
@@ -67,6 +70,11 @@ export default async function ChapterNotesPage({
   params: Promise<{ category: string; chapterId: string }>;
 }) {
   const { category, chapterId: slug } = await params;
+
+  let CATEGORIES: ApiCourse[] = [];
+  try {
+    CATEGORIES = await fetchCourses();
+  } catch {}
 
   const catMeta = CATEGORIES.find((c) => c.key === category);
   if (!catMeta) notFound();

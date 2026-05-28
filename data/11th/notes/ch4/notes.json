@@ -1,0 +1,157 @@
+{
+  "id": "ch4",
+  "title": "Python Fundamentals",
+  "order": 4,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Every Python program is built using a few core structural components. Understanding how to create variables, identify data types, capture user input, and display output is the foundation of actually writing functional Python scripts. This chapter covers the absolute necessities to get your code talking to the user."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.1 Variables and Dynamic Typing"
+    },
+    {
+      "type": "paragraph",
+      "text": "A variable is a named memory location used to store data. In Python, you do not need to explicitly declare a variable's type before using it (like you do in C++ or Java). Python is Dynamically Typed, meaning it automatically figures out the data type based on the value you assign to it during runtime."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Creating variables using the assignment operator (=)\nplayer_name = \"Basant\"   # Python knows this is a String\nscore = 1500           # Python knows this is an Integer\n\n# Dynamic typing in action: We can change the type of a variable at any time\nscore = \"High Score!\"  # 'score' is now a String. This is totally valid in Python."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.2 Core Data Types"
+    },
+    {
+      "type": "paragraph",
+      "text": "Although Python infers data types automatically, you must know the fundamental types because different types behave differently (e.g., you can multiply integers, but multiplying strings does something else)."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Integer (int): Whole numbers, positive or negative, without decimals (e.g., `42`, `-10`).",
+        "Floating-Point (float): Real numbers with a decimal point (e.g., `3.14`, `-0.001`).",
+        "String (str): A sequence of text characters enclosed in single, double, or triple quotes (e.g., `'Hello'`, `\"World\"`).",
+        "Boolean (bool): Represents logical truth values. It can strictly only be `True` or `False` (Note the capital T and F)."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.3 The type() Function"
+    },
+    {
+      "type": "paragraph",
+      "text": "Because Python hides the data type, you might sometimes forget what type of data a variable is holding. Python provides the built-in `type()` function to reveal the exact data type of any variable or literal."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "gravity = 9.8\nis_active = True\n\nprint(type(gravity))     # Output: <class 'float'>\nprint(type(is_active))   # Output: <class 'bool'>\nprint(type(\"123\"))       # Output: <class 'str'> (Because of the quotes!)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.4 Output: The print() Function"
+    },
+    {
+      "type": "paragraph",
+      "text": "The `print()` function is used to display output to the screen. It can take multiple arguments separated by commas, automatically inserting a space between them."
+    },
+    {
+      "type": "paragraph",
+      "text": "The `print()` function also has optional parameters like `sep` (separator) and `end` (what to print at the very end, which defaults to a newline)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "name = \"Alice\"\nage = 16\n\n# Standard printing\nprint(\"Student:\", name, \"Age:\", age)\n\n# Using 'sep' to change the default space separator to a dash\nprint(10, 20, 30, sep=\"-\")  # Output: 10-20-30\n\n# Using 'end' to prevent the print function from moving to a new line\nprint(\"Hello\", end=\"***\")\nprint(\"World\")              # Output: Hello***World"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.5 Input: The input() Function"
+    },
+    {
+      "type": "paragraph",
+      "text": "To make a program interactive, we use the `input()` function to pause execution and wait for the user to type something on the keyboard. CRITICAL RULE: The `input()` function ALWAYS returns the user's data as a String (str), even if they type a number."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "user_name = input(\"Enter your name: \")\n\n# Even if the user types 18, it is stored as the string \"18\"\nuser_age = input(\"Enter your age: \")\n\nprint(\"Welcome\", user_name)\nprint(type(user_age))  # Output: <class 'str'>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.6 Type Conversion (Type Casting)"
+    },
+    {
+      "type": "paragraph",
+      "text": "Because `input()` always returns a string, we cannot do math with it immediately. We must convert it using Type Casting functions: `int()`, `float()`, or `str()`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# We wrap the input() function inside int() to convert the string immediately to an integer\nbirth_year = int(input(\"Enter birth year: \"))\n\n# Now we can safely perform math\nage = 2024 - birth_year\nprint(\"You are\", age, \"years old.\")"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 4 covers the fundamental building blocks of Python scripts: variables, data types, dynamic typing, and handling basic input/output operations.",
+    "detailed_summary": "Variables in Python act as named storage locations. Python employs Dynamic Typing, meaning variable types are inferred at runtime and can change freely, unlike statically typed languages. The core data types include `int` (whole numbers), `float` (decimals), `str` (text), and `bool` (True/False). The `type()` function is a crucial diagnostic tool to verify a variable's data type. Output is handled by the `print()` function, which can be customized using the `sep` and `end` parameters. User input is gathered via the `input()` function, which ALWAYS returns data as a string type. To perform mathematical operations on user input, developers must utilize Type Casting (e.g., `int()`, `float()`) to forcefully convert the string data into a numerical format.",
+    "exam_focus": [
+      "Explain the concept of Dynamic Typing.",
+      "Understand that `input()` exclusively returns a string (`str`).",
+      "Demonstrate how to cast a string to an integer or float.",
+      "Use `sep` and `end` arguments in the `print()` statement."
+    ],
+    "revision_notes": [
+      "Dynamic Typing: Python auto-detects types; no need to declare `int x = 5`.",
+      "Types: `int`, `float`, `str`, `bool`.",
+      "`input()` ALWAYS returns a `str`.",
+      "Use `int(input())` to get a whole number from the user.",
+      "`print(\"A\", end=\"\")` stops the printer from going to a new line."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What does it mean that Python is a 'Dynamically Typed' language?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Variable declaration", "Changing types"],
+      "solution": "It means you do not have to declare the data type of a variable before using it. The Python interpreter automatically determines the data type at runtime based on the value assigned. Furthermore, a variable can change its data type at any point in the program (e.g., `x = 5` followed by `x = 'Hello'`)."
+    },
+    {
+      "q": "If a user enters `50` into the following prompt: `weight = input('Enter weight: ')`, what is the data type of the `weight` variable?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["What does input() return?"],
+      "solution": "The data type is a String (`str`). The `input()` function always captures user input as text, regardless of whether they typed letters or numbers. It is stored as `'50'`."
+    },
+    {
+      "q": "Write a script that asks the user for the length and width of a rectangle, and prints the area. Ensure you handle type casting properly.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Use float(input())", "Area = L * W"],
+      "solution": "```python\nlength = float(input('Enter length: '))\nwidth = float(input('Enter width: '))\narea = length * width\nprint('The area is:', area)\n```"
+    },
+    {
+      "q": "What will be the exact output of the following code? \n`print('A', 'B', 'C', sep='*')`",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["Separator"],
+      "solution": "The output will be: `A*B*C`"
+    },
+    {
+      "q": "What is the difference between `50` and `'50'` in Python? How would the `+` operator react differently to both?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["int vs str", "Addition vs Concatenation"],
+      "solution": "`50` is an Integer literal, while `'50'` is a String literal. \nUsing the `+` operator on integers performs mathematical addition: `50 + 50` results in `100`.\nUsing the `+` operator on strings performs concatenation (joining text): `'50' + '50'` results in the string `'5050'`."
+    }
+  ]
+}

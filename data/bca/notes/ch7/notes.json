@@ -1,0 +1,148 @@
+{
+  "id": "bca-ch7",
+  "title": "File Handling",
+  "order": 7,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Programs naturally lose their data when they terminate because variables are stored in Random Access Memory (RAM), which is volatile. To persist data permanently, it must be saved to a non-volatile storage medium, typically a hard drive, in the form of a file. File Handling in Python allows your scripts to create, read, update, and delete files. This is essential for logging, saving game states, reading configuration files, and processing large datasets."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.1 Opening and Closing Files"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python uses the built-in `open()` function to interact with files. It requires two primary arguments: the file path and the mode. It returns a file object. It is critically important to close the file using `.close()` when you are done to free up system resources and ensure all data is written to the disk."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Syntax: file_object = open('filename.txt', 'mode')\n\ntry:\n    # Opening a file for writing\n    file = open('data.txt', 'w')\n    file.write(\"Hello, File!\")\nfinally:\n    # Always close the file, even if an error occurs above\n    file.close()"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.2 File Modes"
+    },
+    {
+      "type": "paragraph",
+      "text": "The mode dictates what you are allowed to do with the file and how the file is prepared when opened."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "'r' (Read): Default mode. Opens a file for reading. Raises an error if the file does not exist.",
+        "'w' (Write): Opens a file for writing. If the file exists, it OVERWRITES it completely. If it doesn't exist, it creates a new file.",
+        "'a' (Append): Opens a file for appending data to the end. Creates a new file if it doesn't exist.",
+        "'x' (Exclusive Creation): Creates a new file. Fails if the file already exists.",
+        "'r+' (Read and Write): Opens a file for both reading and writing. The file pointer is placed at the beginning.",
+        "'b' (Binary): Appended to modes (like 'rb' or 'wb') to handle non-text files like images, audio, or compiled data."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.3 The 'with' Statement (Context Managers)"
+    },
+    {
+      "type": "paragraph",
+      "text": "Manually closing files using `.close()` is error-prone. If your program crashes before it reaches the close statement, the file remains open. Python provides the `with` statement, which automatically closes the file the moment the block of code exits, even if an exception is raised. This is the universally recommended way to handle files."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Writing using 'with'. The file is automatically closed afterwards.\nwith open('log.txt', 'w') as file:\n    file.write(\"System started.\\n\")\n    file.write(\"Loading modules...\\n\")\n\n# Appending to the same file\nwith open('log.txt', 'a') as file:\n    file.write(\"System successfully booted.\\n\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.4 Reading Files"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python offers multiple ways to read data from a file, depending on how large the file is and how you want to process it."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "read(): Reads the entire file into a single massive string. Use with caution on large files to avoid running out of RAM.",
+        "readline(): Reads the file line-by-line, moving the cursor forward after each call.",
+        "readlines(): Reads all lines and returns them as a List of strings."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "with open('log.txt', 'r') as file:\n    # Reading the whole file\n    content = file.read()\n    print(\"--- Full Content ---\")\n    print(content)\n\nwith open('log.txt', 'r') as file:\n    print(\"--- Reading Line by Line ---\")\n    # Iterating over the file object directly is highly memory efficient\n    for line in file:\n        # using end='' because the line already contains a \\n character\n        print(line, end='')"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7.5 File Cursor Manipulation: seek() and tell()"
+    },
+    {
+      "type": "paragraph",
+      "text": "When you read or write to a file, an internal 'cursor' (or file pointer) moves forward. `tell()` returns the current byte position of the cursor, and `seek(offset)` moves the cursor to a specific byte."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "with open('log.txt', 'r') as file:\n    print(\"Cursor at:\", file.tell()) # Output: 0\n    first_line = file.readline()\n    print(\"Cursor now at:\", file.tell())\n    \n    # Move cursor back to the absolute beginning\n    file.seek(0)\n    # Now reading again will start from the top\n    data = file.read(5) # Read exactly 5 bytes/characters\n    print(data)"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 7 explores file I/O operations in Python, covering the different file modes, robust handling using the 'with' statement, reading/writing techniques, and cursor manipulation.",
+    "detailed_summary": "File handling is essential for data persistence. Python interacts with the OS file system using the built-in `open()` function. The mode parameter dictates access rights: 'r' for reading, 'w' for overwriting, 'a' for appending, and 'b' for binary data. Because failing to close a file can lead to data corruption or resource leaks, Python introduces the `with` statement (a context manager) that guarantees the file is safely closed when the indented block finishes execution. Data can be written using `write()` or `writelines()`, and read using `read()`, `readline()`, or by iterating directly over the file object (the most memory-efficient approach for massive files). Finally, advanced manipulation is possible using `seek()` to move the internal file cursor and `tell()` to pinpoint its exact byte location.",
+    "exam_focus": [
+      "Understand the destructive nature of the 'w' mode compared to 'a'.",
+      "Explain why the `with` statement is vastly superior to `file = open(...)`.",
+      "Identify the differences between `read()`, `readline()`, and `readlines()`.",
+      "Understand how to use `seek()` to reset a file pointer."
+    ],
+    "revision_notes": [
+      "'w' overwrites, 'a' appends.",
+      "`with open('file.txt', 'r') as f:` automatically handles closing.",
+      "`readlines()` returns a list of strings.",
+      "`f.tell()` gives cursor position; `f.seek(0)` rewinds the file."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What happens if you open a file in 'w' mode that already contains 100 lines of data?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Overwrite vs Append"],
+      "solution": "Opening an existing file in 'w' (write) mode immediately truncates the file to zero length. All 100 lines of existing data are permanently deleted before you even write a single new byte. To preserve data, you must use 'a' (append) or 'r+' (read/update) mode."
+    },
+    {
+      "q": "Write a script that creates a file named 'numbers.txt' and writes the numbers 1 to 5 on separate lines. Use the `with` statement.",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["Use mode 'w'", "Iterate 1 to 5", "Remember to add '\\n'"],
+      "solution": "```python\nwith open('numbers.txt', 'w') as file:\n    for i in range(1, 6):\n        file.write(f'{i}\\n')\n```"
+    },
+    {
+      "q": "Assuming 'numbers.txt' exists, write a script that reads the file line by line and prints the sum of all the numbers.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Use mode 'r'", "Convert lines to int() before adding"],
+      "solution": "```python\ntotal = 0\nwith open('numbers.txt', 'r') as file:\n    for line in file:\n        # line contains '\\n', but int() safely strips it\n        total += int(line)\nprint(f'The sum is: {total}')\n```"
+    },
+    {
+      "q": "What is the purpose of `seek()` and `tell()`? Explain with an example scenario.",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["File pointer", "Byte offset"],
+      "solution": "`tell()` returns the current byte position of the file pointer, while `seek(offset)` moves the file pointer to a specific byte position. \nScenario: If you read an entire file using `file.read()`, the pointer is at the very end of the file. If you try to `file.read()` again immediately, you get an empty string. To read the file a second time, you must first call `file.seek(0)` to rewind the pointer back to the beginning."
+    },
+    {
+      "q": "Write a script that copies the contents of 'source.txt' into 'destination.txt'.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Open two files simultaneously using the 'with' statement"],
+      "solution": "```python\n# You can open multiple files in a single 'with' statement\nwith open('source.txt', 'r') as src, open('destination.txt', 'w') as dest:\n    content = src.read()\n    dest.write(content)\nprint('File copied successfully.')\n```"
+    }
+  ]
+}

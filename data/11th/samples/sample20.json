@@ -1,0 +1,384 @@
+{
+  "paperId": "11th-sample-20",
+  "title": "Class 11 Python Sample Paper 20",
+  "subtitle": "Class 11 Computer Science Assessment",
+  "duration": "90 minutes",
+  "totalMarks": 100,
+  "difficulty": "Hard",
+  "sections": [
+    {
+      "sectionId": "A",
+      "title": "Multiple Choice Questions",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "Which of the following functions is used to find the length of a string?",
+          "options": [
+            "length()",
+            "len()",
+            "size()",
+            "count()"
+          ],
+          "answer": 1,
+          "id": "A1"
+        },
+        {
+          "question": "Which of the following is an input device?",
+          "options": [
+            "Monitor",
+            "Printer",
+            "Keyboard",
+            "Speaker"
+          ],
+          "answer": 2,
+          "id": "A2"
+        },
+        {
+          "question": "Tuples are ____ in nature.",
+          "options": [
+            "mutable",
+            "immutable",
+            "dynamic",
+            "expandable"
+          ],
+          "answer": 1,
+          "id": "A3"
+        },
+        {
+          "question": "What is the output of 'Python'[1:3]?",
+          "options": [
+            "Pyt",
+            "yt",
+            "yth",
+            "th"
+          ],
+          "answer": 1,
+          "id": "A4"
+        },
+        {
+          "question": "Which operator is used for string concatenation?",
+          "options": [
+            "+",
+            "*",
+            "-",
+            "&"
+          ],
+          "answer": 0,
+          "id": "A5"
+        },
+        {
+          "question": "Which of the following functions is used to find the length of a string?",
+          "options": [
+            "length()",
+            "len()",
+            "size()",
+            "count()"
+          ],
+          "answer": 1,
+          "id": "A6"
+        },
+        {
+          "question": "What is cyber safety?",
+          "options": [
+            "Protecting hardware",
+            "Safe Internet usage",
+            "Encrypting files",
+            "Antivirus software"
+          ],
+          "answer": 1,
+          "id": "A7"
+        },
+        {
+          "question": "What is the result of 5 // 2?",
+          "options": [
+            "2.5",
+            "2",
+            "3",
+            "Error"
+          ],
+          "answer": 1,
+          "id": "A8"
+        },
+        {
+          "question": "Which of the following is a valid dictionary declaration?",
+          "options": [
+            "d = {1: 'A', 2: 'B'}",
+            "d = [1: 'A', 2: 'B']",
+            "d = (1: 'A', 2: 'B')",
+            "d = <1: 'A', 2: 'B'>"
+          ],
+          "answer": 0,
+          "id": "A9"
+        },
+        {
+          "question": "What is the output of 'Python'[1:3]?",
+          "options": [
+            "Pyt",
+            "yt",
+            "yth",
+            "th"
+          ],
+          "answer": 1,
+          "id": "A10"
+        }
+      ]
+    },
+    {
+      "sectionId": "B",
+      "title": "Short Answer Questions",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "What is cyberbullying? How can it be prevented?",
+          "marks": 3,
+          "keywords": [
+            "harassment",
+            "online",
+            "reporting",
+            "blocking",
+            "safety"
+          ],
+          "id": "B1"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B2"
+        },
+        {
+          "question": "Explain the concept of key-value pairs in a dictionary.",
+          "marks": 3,
+          "keywords": [
+            "unique",
+            "mapping",
+            "index",
+            "curly braces",
+            "hash"
+          ],
+          "id": "B3"
+        },
+        {
+          "question": "What are keywords in Python? Give 2 examples.",
+          "marks": 3,
+          "keywords": [
+            "reserved words",
+            "special meaning",
+            "if",
+            "else",
+            "for",
+            "while"
+          ],
+          "id": "B4"
+        },
+        {
+          "question": "Explain the concept of key-value pairs in a dictionary.",
+          "marks": 3,
+          "keywords": [
+            "unique",
+            "mapping",
+            "index",
+            "curly braces",
+            "hash"
+          ],
+          "id": "B5"
+        },
+        {
+          "question": "What is cyberbullying? How can it be prevented?",
+          "marks": 3,
+          "keywords": [
+            "harassment",
+            "online",
+            "reporting",
+            "blocking",
+            "safety"
+          ],
+          "id": "B6"
+        },
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B7"
+        },
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B8"
+        },
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B9"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B10"
+        }
+      ]
+    },
+    {
+      "sectionId": "C",
+      "title": "Code Writing",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "Write a script that takes a list of numbers and returns a new list with only even numbers.",
+          "marks": 5,
+          "hints": [
+            "Use a list comprehension or for loop",
+            "Condition x % 2 == 0",
+            "Append to result list"
+          ],
+          "id": "C1"
+        },
+        {
+          "question": "Write a Python script to print the Fibonacci series up to n terms.",
+          "marks": 5,
+          "hints": [
+            "Initialize a=0, b=1",
+            "Use a loop",
+            "Update a and b"
+          ],
+          "id": "C2"
+        },
+        {
+          "question": "Write a script that takes a list of numbers and returns a new list with only even numbers.",
+          "marks": 5,
+          "hints": [
+            "Use a list comprehension or for loop",
+            "Condition x % 2 == 0",
+            "Append to result list"
+          ],
+          "id": "C3"
+        },
+        {
+          "question": "Create a dictionary of 3 students with their marks and write code to find the highest marks.",
+          "marks": 5,
+          "hints": [
+            "Use max() with dict.values()",
+            "Iterate over dictionary",
+            "Track max marks"
+          ],
+          "id": "C4"
+        },
+        {
+          "question": "Write a program to count vowels in a given string.",
+          "marks": 5,
+          "hints": [
+            "Define a string of vowels",
+            "Iterate through characters",
+            "Keep a count"
+          ],
+          "id": "C5"
+        },
+        {
+          "question": "Write a Python script to print the Fibonacci series up to n terms.",
+          "marks": 5,
+          "hints": [
+            "Initialize a=0, b=1",
+            "Use a loop",
+            "Update a and b"
+          ],
+          "id": "C6"
+        }
+      ]
+    },
+    {
+      "sectionId": "D",
+      "title": "Error Finding & Output Prediction",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 3,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D1"
+        },
+        {
+          "question": "Predict the output:\ns = 'Python'\nprint(s[::-1])",
+          "marks": 3,
+          "answer": "nohtyP",
+          "explanation": "The slice [::-1] reverses the string.",
+          "id": "D2"
+        },
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 3,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D3"
+        },
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 3,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D4"
+        },
+        {
+          "question": "Find the error:\nx = 10\nif x = 10:\n    print('Yes')",
+          "marks": 2,
+          "answer": "SyntaxError: invalid syntax",
+          "explanation": "Assignment operator '=' is used instead of comparison operator '=='.",
+          "id": "D5"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 2,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D6"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 2,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D7"
+        },
+        {
+          "question": "Predict the output:\ns = 'Python'\nprint(s[::-1])",
+          "marks": 2,
+          "answer": "nohtyP",
+          "explanation": "The slice [::-1] reverses the string.",
+          "id": "D8"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "chapterId": "ch7",
+  "title": "String Manipulation",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "String Basics & Slicing",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "Which of the following creates a string in Python?", "options": ["'Hello'", "\"Hello\"", "'''Hello'''", "All of the above"], "answer": 3, "explanation": "Python supports single, double, and triple quotes for defining strings." },
+        { "id": "q2", "question": "Are strings mutable or immutable in Python?", "options": ["Mutable", "Immutable", "Depends on the string", "Both"], "answer": 1, "explanation": "Strings in Python are immutable, meaning they cannot be changed after they are created." },
+        { "id": "q3", "question": "What is the output of len('Python ')?", "options": ["6", "7", "8", "Error"], "answer": 1, "explanation": "The len() function counts all characters, including the trailing space." },
+        { "id": "q4", "question": "What is the index of 'y' in the string 'Python'?", "options": ["0", "1", "2", "3"], "answer": 1, "explanation": "Python uses zero-based indexing, so 'P' is 0 and 'y' is 1." },
+        { "id": "q5", "question": "Which operator is used to concatenate two strings?", "options": ["*", "+", "&", "-"], "answer": 1, "explanation": "The + operator adds or concatenates two strings together." },
+        { "id": "q6", "question": "What is the output of 'Hi' * 3?", "options": ["Hi3", "HiHiHi", "Error", "3Hi"], "answer": 1, "explanation": "The * operator repeats the string the specified number of times." },
+        { "id": "q7", "question": "What does 'Python'[-1] return?", "options": ["P", "y", "n", "Error"], "answer": 2, "explanation": "Negative indexing starts from the end, so -1 refers to the last character." },
+        { "id": "q8", "question": "What does the expression 'Hello'[1:4] return?", "options": ["Hel", "ell", "ello", "llo"], "answer": 1, "explanation": "Slicing [1:4] starts at index 1 and stops before index 4, returning 'ell'." },
+        { "id": "q9", "question": "What is the output of 'abc' + 'def'?", "options": ["abcdef", "abc def", "Error", "None"], "answer": 0, "explanation": "Concatenation joins strings together without adding any spaces." },
+        { "id": "q10", "question": "What does the 'in' operator do when used with strings?", "options": ["Checks for string length", "Concatenates strings", "Checks if a substring exists within a string", "Deletes a substring"], "answer": 2, "explanation": "The 'in' operator performs a membership test, returning True or False." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "String Methods & Formatting",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "What is the output of 'A' in 'Apple'?", "options": ["True", "False", "Error", "None"], "answer": 0, "explanation": "The character 'A' is present in 'Apple'." },
+        { "id": "q12", "question": "Which method converts all characters in a string to uppercase?", "options": ["uppercase()", "upper()", "toUpper()", "capitalize()"], "answer": 1, "explanation": "The upper() method returns a string with all uppercase characters." },
+        { "id": "q13", "question": "What is the result of 'HELLO'.lower()?", "options": ["hello", "Hello", "HELLO", "Error"], "answer": 0, "explanation": "The lower() method converts all characters to lowercase." },
+        { "id": "q14", "question": "Which method is used to remove leading and trailing whitespaces from a string?", "options": ["strip()", "trim()", "remove()", "clean()"], "answer": 0, "explanation": "The strip() method removes spaces at the beginning and end of the string." },
+        { "id": "q15", "question": "What does the capitalize() method do?", "options": ["Capitalizes all letters", "Capitalizes the first letter of the string", "Capitalizes the first letter of every word", "Removes capital letters"], "answer": 1, "explanation": "capitalize() only makes the very first character of the string uppercase." },
+        { "id": "q16", "question": "What does 'python'.find('th') return?", "options": ["1", "2", "3", "-1"], "answer": 1, "explanation": "The find() method returns the lowest index where the substring is found, which is 2 for 'th' in 'python'." },
+        { "id": "q17", "question": "What is the output of 'a,b,c'.split(',')?", "options": ["['a,b,c']", "['a', 'b', 'c']", "'abc'", "Error"], "answer": 1, "explanation": "split(',') divides the string into a list using the comma as a separator." },
+        { "id": "q18", "question": "Which method replaces occurrences of a substring with another string?", "options": ["swap()", "change()", "replace()", "sub()"], "answer": 2, "explanation": "The replace(old, new) method substitutes substrings." },
+        { "id": "q19", "question": "What is the result of '-'.join(['a', 'b', 'c'])?", "options": ["a-b-c", "abc", "['a-', 'b-', 'c-']", "Error"], "answer": 0, "explanation": "The join() method links the elements of the iterable using the string as a separator." },
+        { "id": "q20", "question": "What does '123'.isdigit() return?", "options": ["True", "False", "Error", "None"], "answer": 0, "explanation": "isdigit() returns True if all characters in the string are digits." },
+        { "id": "q21", "question": "What does 'abc1'.isalpha() return?", "options": ["True", "False", "Error", "None"], "answer": 1, "explanation": "isalpha() returns False because '1' is not an alphabetic character." },
+        { "id": "q22", "question": "What will 'hello'.startswith('he') return?", "options": ["True", "False", "Error", "None"], "answer": 0, "explanation": "startswith() checks if the string begins with the given prefix." },
+        { "id": "q23", "question": "What does 'hello'.endswith('lo') return?", "options": ["True", "False", "Error", "None"], "answer": 0, "explanation": "endswith() checks if the string ends with the specified suffix." },
+        { "id": "q24", "question": "How do you correctly format a string using f-strings in Python 3.6+?", "options": ["f'Name: {name}'", "'Name: f{name}'", "f('Name: {name}')", "format('Name: {name}')"], "answer": 0, "explanation": "An f-string is prefixed with 'f' or 'F' and expressions are placed inside curly braces {}." },
+        { "id": "q25", "question": "What does 'hello'.count('l') return?", "options": ["1", "2", "3", "Error"], "answer": 1, "explanation": "count() returns the number of non-overlapping occurrences of a substring." }
+      ]
+    }
+  ]
+}

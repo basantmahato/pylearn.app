@@ -1,0 +1,40 @@
+{
+  "chapterId": "ch8",
+  "title": "Exception Handling - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Try, Except, Finally",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q1", "question": "Where do you place code that might cause a runtime error?", "options": ["In the except block", "In the else block", "In the try block", "In the finally block"], "answer": 2, "explanation": "Risky code is tested inside the try block." },
+        { "id": "q2", "question": "When does the 'finally' block execute?", "options": ["Only if an error occurs", "Always, regardless of errors", "Only if no errors occur", "When you call it explicitly"], "answer": 1, "explanation": "The finally block always runs and is used for cleanup (like closing files)." },
+        { "id": "q3", "question": "Which keyword is used to manually trigger an exception?", "options": ["throw", "catch", "raise", "trigger"], "answer": 2, "explanation": "Python uses 'raise' to manually throw exceptions." },
+        { "id": "q4", "question": "What is an Exception in Python?", "options": ["A syntax error", "An object representing an error occurring during execution", "A special loop", "A type of module"], "answer": 1, "explanation": "Exceptions are runtime errors (like division by zero)." },
+        { "id": "q5", "question": "Which block executes if the try block completes successfully with NO errors?", "options": ["except", "else", "finally", "catch"], "answer": 1, "explanation": "The 'else' block runs only if no exception is raised." },
+        { "id": "q6", "question": "Can you have multiple `except` blocks for one `try` block?", "options": ["Yes", "No, only one is allowed", "Only in classes", "Yes, but they must catch the same error"], "answer": 0, "explanation": "You can catch different specific errors separately." },
+        { "id": "q7", "question": "What error is raised when you try to access an index out of bounds in a list?", "options": ["ValueError", "KeyError", "IndexError", "TypeError"], "answer": 2, "explanation": "IndexError occurs when indexing a list out of range." },
+        { "id": "q8", "question": "What error is raised when a dictionary key is not found?", "options": ["ValueError", "KeyError", "IndexError", "TypeError"], "answer": 1, "explanation": "KeyError occurs when asking for a key that doesn't exist." },
+        { "id": "q9", "question": "What error is raised when you divide a number by zero?", "options": ["MathError", "ZeroDivisionError", "ValueError", "CalculationError"], "answer": 1, "explanation": "ZeroDivisionError is the standard exception." },
+        { "id": "q10", "question": "How do you catch all exceptions regardless of type (though generally discouraged)?", "options": ["except Exception:", "except All:", "catch *:", "except Error:"], "answer": 0, "explanation": "Catching the base 'Exception' class catches almost everything." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Advanced Exceptions",
+      "difficulty": "Hard",
+      "questions": [
+        { "id": "q11", "question": "What error occurs if you try to add a string and an integer?", "options": ["ValueError", "TypeError", "SyntaxError", "ConcatError"], "answer": 1, "explanation": "TypeError occurs when an operation is applied to an inappropriate type." },
+        { "id": "q12", "question": "What happens if an exception is raised but not caught by any except block?", "options": ["Program ignores it", "Program prints a warning", "Program crashes and prints a traceback", "Program enters an infinite loop"], "answer": 2, "explanation": "Unhandled exceptions immediately terminate the program." },
+        { "id": "q13", "question": "How can you capture the exception object to print its details?", "options": ["except Error as e:", "except Exception as e:", "catch e:", "try e:"], "answer": 1, "explanation": "The `as` keyword assigns the error object to a variable." },
+        { "id": "q14", "question": "What is a 'SyntaxError'?", "options": ["A runtime error", "A problem with the grammar/structure of the code", "An OS error", "A missing file"], "answer": 1, "explanation": "Syntax errors are caught before the code even runs." },
+        { "id": "q15", "question": "Can you define your own custom exceptions?", "options": ["Yes, by inheriting from the Exception class", "No, only built-in errors exist", "Yes, using the 'error' keyword", "Only in C++"], "answer": 0, "explanation": "Custom exceptions are normal classes that inherit from Exception." },
+        { "id": "q16", "question": "What does `ValueError` typically indicate?", "options": ["Wrong data type", "Right data type, but inappropriate value (e.g., int('a'))", "Variable doesn't exist", "Out of memory"], "answer": 1, "explanation": "E.g., int() expects a string that looks like a number." },
+        { "id": "q17", "question": "If you have a `try-finally` block without an `except` block, what happens if an error occurs?", "options": ["Error is ignored", "Finally block executes, then the program crashes", "Program crashes immediately, skipping finally", "Syntax error"], "answer": 1, "explanation": "Finally ALWAYS executes, even if the error goes unhandled and crashes the script afterward." },
+        { "id": "q18", "question": "Which of these is NOT a standard Python exception?", "options": ["ImportError", "MemoryError", "LogicError", "NameError"], "answer": 2, "explanation": "Logic errors are bugs in your thinking, not predefined Python exceptions." },
+        { "id": "q19", "question": "What raises a `NameError`?", "options": ["Using a variable before it is defined", "Naming a file incorrectly", "Using a reserved keyword", "Typing the wrong class name"], "answer": 0, "explanation": "NameError means the interpreter can't find that variable name in scope." },
+        { "id": "q20", "question": "Is it good practice to use empty `except:` blocks?", "options": ["Yes, it keeps the program running", "No, it hides bugs and makes debugging impossible", "Yes, in production only", "No, it causes memory leaks"], "answer": 1, "explanation": "Empty excepts (or bare excepts) hide critical errors like keyboard interrupts (Ctrl+C)." }
+      ]
+    }
+  ]
+}

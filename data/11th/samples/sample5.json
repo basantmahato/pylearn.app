@@ -1,0 +1,387 @@
+{
+  "paperId": "11th-sample-5",
+  "title": "Class 11 Python Sample Paper 5",
+  "subtitle": "Class 11 Computer Science Assessment",
+  "duration": "90 minutes",
+  "totalMarks": 100,
+  "difficulty": "Medium",
+  "sections": [
+    {
+      "sectionId": "A",
+      "title": "Multiple Choice Questions",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "What is cyber safety?",
+          "options": [
+            "Protecting hardware",
+            "Safe Internet usage",
+            "Encrypting files",
+            "Antivirus software"
+          ],
+          "answer": 1,
+          "id": "A1"
+        },
+        {
+          "question": "Tuples are ____ in nature.",
+          "options": [
+            "mutable",
+            "immutable",
+            "dynamic",
+            "expandable"
+          ],
+          "answer": 1,
+          "id": "A2"
+        },
+        {
+          "question": "Which method is used to add an element at the end of a list?",
+          "options": [
+            "add()",
+            "append()",
+            "insert()",
+            "extend()"
+          ],
+          "answer": 1,
+          "id": "A3"
+        },
+        {
+          "question": "What is cyber safety?",
+          "options": [
+            "Protecting hardware",
+            "Safe Internet usage",
+            "Encrypting files",
+            "Antivirus software"
+          ],
+          "answer": 1,
+          "id": "A4"
+        },
+        {
+          "question": "What does a CPU do?",
+          "options": [
+            "Storage",
+            "Processing",
+            "Networking",
+            "Printing"
+          ],
+          "answer": 1,
+          "id": "A5"
+        },
+        {
+          "question": "Which method is used to add an element at the end of a list?",
+          "options": [
+            "add()",
+            "append()",
+            "insert()",
+            "extend()"
+          ],
+          "answer": 1,
+          "id": "A6"
+        },
+        {
+          "question": "What is the output of 'Python'[1:3]?",
+          "options": [
+            "Pyt",
+            "yt",
+            "yth",
+            "th"
+          ],
+          "answer": 1,
+          "id": "A7"
+        },
+        {
+          "question": "What does a CPU do?",
+          "options": [
+            "Storage",
+            "Processing",
+            "Networking",
+            "Printing"
+          ],
+          "answer": 1,
+          "id": "A8"
+        },
+        {
+          "question": "Which of the following is NOT a core data type in Python?",
+          "options": [
+            "List",
+            "Dictionary",
+            "Class",
+            "Tuple"
+          ],
+          "answer": 2,
+          "id": "A9"
+        },
+        {
+          "question": "Which of the following is an input device?",
+          "options": [
+            "Monitor",
+            "Printer",
+            "Keyboard",
+            "Speaker"
+          ],
+          "answer": 2,
+          "id": "A10"
+        }
+      ]
+    },
+    {
+      "sectionId": "B",
+      "title": "Short Answer Questions",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B1"
+        },
+        {
+          "question": "Explain the concept of key-value pairs in a dictionary.",
+          "marks": 3,
+          "keywords": [
+            "unique",
+            "mapping",
+            "index",
+            "curly braces",
+            "hash"
+          ],
+          "id": "B2"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B3"
+        },
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B4"
+        },
+        {
+          "question": "What are keywords in Python? Give 2 examples.",
+          "marks": 3,
+          "keywords": [
+            "reserved words",
+            "special meaning",
+            "if",
+            "else",
+            "for",
+            "while"
+          ],
+          "id": "B5"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B6"
+        },
+        {
+          "question": "What is the role of an Operating System?",
+          "marks": 3,
+          "keywords": [
+            "interface",
+            "resource management",
+            "hardware",
+            "software",
+            "bridge"
+          ],
+          "id": "B7"
+        },
+        {
+          "question": "What are keywords in Python? Give 2 examples.",
+          "marks": 3,
+          "keywords": [
+            "reserved words",
+            "special meaning",
+            "if",
+            "else",
+            "for",
+            "while"
+          ],
+          "id": "B8"
+        },
+        {
+          "question": "Explain the concept of key-value pairs in a dictionary.",
+          "marks": 3,
+          "keywords": [
+            "unique",
+            "mapping",
+            "index",
+            "curly braces",
+            "hash"
+          ],
+          "id": "B9"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B10"
+        }
+      ]
+    },
+    {
+      "sectionId": "C",
+      "title": "Code Writing",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "Create a dictionary of 3 students with their marks and write code to find the highest marks.",
+          "marks": 5,
+          "hints": [
+            "Use max() with dict.values()",
+            "Iterate over dictionary",
+            "Track max marks"
+          ],
+          "id": "C1"
+        },
+        {
+          "question": "Write a Python script to print the Fibonacci series up to n terms.",
+          "marks": 5,
+          "hints": [
+            "Initialize a=0, b=1",
+            "Use a loop",
+            "Update a and b"
+          ],
+          "id": "C2"
+        },
+        {
+          "question": "Write a script that takes a list of numbers and returns a new list with only even numbers.",
+          "marks": 5,
+          "hints": [
+            "Use a list comprehension or for loop",
+            "Condition x % 2 == 0",
+            "Append to result list"
+          ],
+          "id": "C3"
+        },
+        {
+          "question": "Write a program to find the largest number in a list without using the max() function.",
+          "marks": 5,
+          "hints": [
+            "Assume first element is largest",
+            "Iterate and compare",
+            "Update largest"
+          ],
+          "id": "C4"
+        },
+        {
+          "question": "Write a program to find the largest number in a list without using the max() function.",
+          "marks": 5,
+          "hints": [
+            "Assume first element is largest",
+            "Iterate and compare",
+            "Update largest"
+          ],
+          "id": "C5"
+        },
+        {
+          "question": "Write a program to count vowels in a given string.",
+          "marks": 5,
+          "hints": [
+            "Define a string of vowels",
+            "Iterate through characters",
+            "Keep a count"
+          ],
+          "id": "C6"
+        }
+      ]
+    },
+    {
+      "sectionId": "D",
+      "title": "Error Finding & Output Prediction",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 3,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D1"
+        },
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 3,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D2"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 3,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D3"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 3,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D4"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 2,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D5"
+        },
+        {
+          "question": "Find the error:\nx = 10\nif x = 10:\n    print('Yes')",
+          "marks": 2,
+          "answer": "SyntaxError: invalid syntax",
+          "explanation": "Assignment operator '=' is used instead of comparison operator '=='.",
+          "id": "D6"
+        },
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 2,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D7"
+        },
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 2,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D8"
+        }
+      ]
+    }
+  ]
+}

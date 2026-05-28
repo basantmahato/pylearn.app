@@ -1,0 +1,52 @@
+{
+  "chapterId": "ch6",
+  "title": "Chapter 6: Flow of Control",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Conditional Statements",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "Which keyword is used for decision making in Python?", "options": ["if", "for", "while", "def"], "answer": 0, "explanation": "The 'if' keyword is used to test conditions and make decisions." },
+        { "id": "q2", "question": "What is the correct syntax for an if statement?", "options": ["if condition {", "if condition:", "if (condition) then:", "if condition;"], "answer": 1, "explanation": "In Python, an if statement condition is followed by a colon (:)." },
+        { "id": "q3", "question": "Which keyword is used as 'else if' in Python?", "options": ["elseif", "else if", "elif", "elsif"], "answer": 2, "explanation": "'elif' is short for 'else if' and is used to check multiple conditions." },
+        { "id": "q4", "question": "What is the role of indentation in Python flow control?", "options": ["For readability only", "To define the scope of a block", "To comment out code", "It is completely ignored"], "answer": 1, "explanation": "Python uses indentation to determine the grouping of statements in blocks." },
+        { "id": "q5", "question": "Can an 'if' statement be used without an 'else' block?", "options": ["Yes", "No", "Only inside loops", "Only in functions"], "answer": 0, "explanation": "An 'if' block can exist independently without 'elif' or 'else'." },
+        { "id": "q6", "question": "What happens if a condition in an 'if' statement is False and there is no 'else'?", "options": ["Syntax error", "Program crashes", "The block is skipped and execution continues", "Returns None"], "answer": 2, "explanation": "If the condition is False, Python simply skips the indented block and moves to the next unindented statement." },
+        { "id": "q7", "question": "Which of the following is equivalent to a nested if?", "options": ["Using 'and' logical operator", "Using 'or' logical operator", "Using a for loop", "Using 'not' logical operator"], "answer": 0, "explanation": "Using the 'and' operator allows combining multiple conditions, mimicking a nested if." },
+        { "id": "q8", "question": "What will be the output of: if True: print('A') else: print('B') ? (Assuming proper indentation)", "options": ["A", "B", "Syntax Error", "None"], "answer": 0, "explanation": "Since the condition is literally True, the if block will execute." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Looping Constructs",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q9", "question": "Which loop is best when the number of iterations is known in advance?", "options": ["while loop", "for loop", "do-while loop", "infinite loop"], "answer": 1, "explanation": "A 'for' loop is ideal when iterating over a known sequence or a specific number of times." },
+        { "id": "q10", "question": "What function is commonly used with 'for' loops to generate a sequence of numbers?", "options": ["sequence()", "range()", "list()", "generate()"], "answer": 1, "explanation": "The range() function generates a sequence of numbers, often used to control the number of iterations in a for loop." },
+        { "id": "q11", "question": "What will range(3) produce?", "options": ["1, 2, 3", "0, 1, 2", "0, 1, 2, 3", "1, 2, 3, 4"], "answer": 1, "explanation": "range(n) generates numbers from 0 up to n-1." },
+        { "id": "q12", "question": "Which loop depends on a condition remaining True to continue executing?", "options": ["for loop", "while loop", "range loop", "iter loop"], "answer": 1, "explanation": "A 'while' loop executes as long as its condition evaluates to True." },
+        { "id": "q13", "question": "Does Python have a 'do-while' loop natively?", "options": ["Yes", "No", "Only in Python 3", "Yes, using the 'do' keyword"], "answer": 1, "explanation": "Python does not have a built-in do-while loop, unlike C or Java." },
+        { "id": "q14", "question": "What happens if a while loop's condition never becomes False?", "options": ["Syntax error", "It runs exactly once", "Infinite loop", "The interpreter fixes it automatically"], "answer": 2, "explanation": "If the condition never becomes False, the loop becomes an infinite loop." },
+        { "id": "q15", "question": "What is the output of: for i in range(1, 4): print(i, end='') ?", "options": ["0123", "1234", "123", "012"], "answer": 2, "explanation": "range(1, 4) produces 1, 2, 3." },
+        { "id": "q16", "question": "Can you use an 'else' block with a 'for' loop in Python?", "options": ["Yes", "No", "Only if there is no 'if' inside", "Only in while loops"], "answer": 0, "explanation": "Yes, Python allows 'else' blocks with both 'for' and 'while' loops, executing when the loop finishes naturally." },
+        { "id": "q17", "question": "When does the 'else' block of a loop NOT execute?", "options": ["When the loop finishes normally", "When the loop never runs", "When the loop is terminated by a 'break' statement", "When a 'continue' statement is used"], "answer": 2, "explanation": "The 'else' block is skipped if the loop is forcefully exited via 'break'." }
+      ]
+    },
+    {
+      "setId": "s3",
+      "setName": "Jump Statements: break, continue, pass",
+      "difficulty": "Hard",
+      "questions": [
+        { "id": "q18", "question": "Which statement is used to exit a loop entirely before it has finished?", "options": ["stop", "exit", "continue", "break"], "answer": 3, "explanation": "The 'break' statement terminates the current loop prematurely." },
+        { "id": "q19", "question": "Which statement is used to skip the rest of the current iteration and move to the next one?", "options": ["skip", "pass", "continue", "break"], "answer": 2, "explanation": "The 'continue' statement skips the remaining code in the loop body for that iteration." },
+        { "id": "q20", "question": "What is the purpose of the 'pass' statement?", "options": ["To exit a loop", "To skip an iteration", "It acts as a null operation placeholder", "To raise an error"], "answer": 2, "explanation": "'pass' is a placeholder that does nothing, useful when syntax requires a statement but no action is needed." },
+        { "id": "q21", "question": "If 'break' is used inside a nested loop, which loop does it terminate?", "options": ["All loops", "The innermost loop containing it", "The outermost loop", "The program itself"], "answer": 1, "explanation": "The 'break' statement only breaks out of the closest enclosing loop." },
+        { "id": "q22", "question": "Which of these is NOT a valid jump statement in standard Python?", "options": ["break", "continue", "goto", "pass"], "answer": 2, "explanation": "Python does not have a 'goto' statement." },
+        { "id": "q23", "question": "What happens when 'continue' is encountered in a 'while' loop?", "options": ["Loop ends", "Control goes to the 'else' block", "Control jumps back to the condition check", "Program exits"], "answer": 2, "explanation": "In a while loop, 'continue' causes execution to immediately jump to the loop's condition evaluation." },
+        { "id": "q24", "question": "Can 'break' and 'continue' be used outside of loops?", "options": ["Yes, in if-statements", "Yes, in functions", "No, they must be inside loops", "Yes, anywhere"], "answer": 2, "explanation": "These jump statements are strictly associated with loop structures and cause an error if used outside." },
+        { "id": "q25", "question": "What is the output of: for x in range(3): if x == 1: pass else: print(x, end='')", "options": ["02", "12", "012", "0"], "answer": 0, "explanation": "When x is 1, it passes. For x=0 and x=2, it prints. So it outputs 02." }
+      ]
+    }
+  ]
+}

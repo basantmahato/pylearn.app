@@ -1,0 +1,45 @@
+{
+  "chapterId": "ch8",
+  "title": "Chapter 8: Lists",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Basics & Indexing",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "What is a list in Python?", "options": ["An unordered, immutable collection", "An ordered, mutable collection", "A fixed-size array", "A set of unique values"], "answer": 1, "explanation": "Lists in Python are ordered collections of items that can be changed (mutable) after creation." },
+        { "id": "q2", "question": "How do you create an empty list?", "options": ["{}", "[]", "()", "empty()"], "answer": 1, "explanation": "An empty list is created using square brackets [] or the list() constructor." },
+        { "id": "q3", "question": "Which of the following demonstrates a list with mixed data types?", "options": ["[1, 2, 3]", "['a', 'b', 'c']", "[1, 'two', 3.0]", "(1, 'two', 3.0)"], "answer": 2, "explanation": "Lists can hold elements of different data types, such as integers, strings, and floats together." },
+        { "id": "q4", "question": "What is the index of the first element in a Python list?", "options": ["1", "0", "-1", "Depends on the list length"], "answer": 1, "explanation": "Python uses zero-based indexing, meaning the first element is at index 0." },
+        { "id": "q5", "question": "What happens when you try to access an index that does not exist in a list?", "options": ["SyntaxError", "ValueError", "IndexError", "Returns None"], "answer": 2, "explanation": "Accessing an out-of-range index raises an IndexError." },
+        { "id": "q6", "question": "What is the output of `len([10, 20, 30, 40])`?", "options": ["3", "4", "5", "Error"], "answer": 1, "explanation": "The len() function returns the total number of elements in the list." },
+        { "id": "q7", "question": "Can lists contain duplicate values?", "options": ["Yes", "No", "Only numeric values", "Only string values"], "answer": 0, "explanation": "Lists are ordered sequences that can store multiple identical elements." },
+        { "id": "q8", "question": "How do you access the last element of a list using negative indexing?", "options": ["list[0]", "list[-1]", "list[last]", "list[-0]"], "answer": 1, "explanation": "Index -1 refers to the last element, -2 to the second last, and so on." },
+        { "id": "q9", "question": "What is the output of `[1, 2] + [3, 4]`?", "options": ["[4, 6]", "[1, 2, 3, 4]", "Error", "[[1, 2], [3, 4]]"], "answer": 1, "explanation": "The + operator concatenates two lists into a single list." },
+        { "id": "q10", "question": "What does the `*` operator do when applied to a list and an integer, e.g., `[0] * 3`?", "options": ["Multiplies the elements by 3", "Creates a list with elements repeated 3 times", "Raises a TypeError", "Adds 3 to each element"], "answer": 1, "explanation": "The * operator replicates the list elements the specified number of times, producing [0, 0, 0]." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Slicing, Methods & Comprehensions",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "What is the result of `my_list[1:3]` on `my_list = [10, 20, 30, 40]`?", "options": ["[10, 20]", "[20, 30]", "[20, 30, 40]", "[30, 40]"], "answer": 1, "explanation": "Slicing [1:3] starts at index 1 (inclusive) and goes up to index 3 (exclusive), fetching elements 20 and 30." },
+        { "id": "q12", "question": "Which method is used to add a single item to the end of a list?", "options": ["insert()", "add()", "extend()", "append()"], "answer": 3, "explanation": "The append() method adds a single element to the end of a list." },
+        { "id": "q13", "question": "How does `extend()` differ from `append()`?", "options": ["extend() adds elements at the beginning", "extend() adds each element of an iterable to the list", "extend() is used for strings only", "There is no difference"], "answer": 1, "explanation": "append() adds a whole object as a single element, while extend() unpacks an iterable and adds its elements." },
+        { "id": "q14", "question": "Which method removes and returns the last element of a list by default?", "options": ["remove()", "pop()", "delete()", "discard()"], "answer": 1, "explanation": "The pop() method removes and returns an element at a given index, defaulting to the last element if no index is provided." },
+        { "id": "q15", "question": "What does the `remove()` method do?", "options": ["Removes an element by its index", "Removes all occurrences of a value", "Removes the first occurrence of a specific value", "Removes the last element"], "answer": 2, "explanation": "remove(x) deletes the first occurrence of the value x in the list." },
+        { "id": "q16", "question": "Which keyword is used to delete an item at a specific index or delete the entire list?", "options": ["delete", "remove", "pop", "del"], "answer": 3, "explanation": "The 'del' statement can be used like `del list[0]` or `del list` to remove an item or the whole list from memory." },
+        { "id": "q17", "question": "What does the `insert()` method do?", "options": ["Replaces an element at a specified index", "Inserts an element at a specified index", "Swaps two elements", "Sorts the list before insertion"], "answer": 1, "explanation": "insert(index, element) adds an element at the specified position, shifting others to the right." },
+        { "id": "q18", "question": "How do you find the index of the first occurrence of a specific element?", "options": ["find()", "search()", "index()", "locate()"], "answer": 2, "explanation": "The index() method returns the first index at which a specified value occurs." },
+        { "id": "q19", "question": "Which method reverses the elements of a list in-place?", "options": ["reverse()", "reversed()", "flip()", "invert()"], "answer": 0, "explanation": "The reverse() method modifies the list by reversing its elements in-place." },
+        { "id": "q20", "question": "What is the output of `sorted([3, 1, 2])`?", "options": ["[3, 1, 2]", "[1, 2, 3]", "None", "Error"], "answer": 1, "explanation": "The sorted() function returns a new sorted list, leaving the original list unchanged." },
+        { "id": "q21", "question": "How do you sort a list in descending order using the `sort()` method?", "options": ["list.sort(descending=True)", "list.sort(reverse=True)", "list.sort_desc()", "list.sort(-1)"], "answer": 1, "explanation": "Passing the argument reverse=True to the sort() method sorts it in descending order." },
+        { "id": "q22", "question": "What is a list comprehension?", "options": ["A function to analyze list memory usage", "A concise way to create lists using a for loop in a single line", "A module for advanced list operations", "A way to compress list data"], "answer": 1, "explanation": "List comprehensions offer a shorter syntax to create a new list based on the values of an existing iterable." },
+        { "id": "q23", "question": "What will the expression `[x for x in range(3)]` produce?", "options": ["[1, 2, 3]", "[0, 1, 2, 3]", "[0, 1, 2]", "Error"], "answer": 2, "explanation": "The range(3) yields 0, 1, and 2. The comprehension collects these into a list." },
+        { "id": "q24", "question": "Can a list contain other lists as elements?", "options": ["Yes, these are called nested lists", "No, it raises a TypeError", "Only if all nested lists have the same length", "Only tuples can be nested"], "answer": 0, "explanation": "Lists can be nested, allowing creation of structures like matrices or multi-dimensional arrays." },
+        { "id": "q25", "question": "What is the output of `list('abc')`?", "options": ["['abc']", "['a', 'b', 'c']", "Error", "('a', 'b', 'c')"], "answer": 1, "explanation": "The list() constructor converts an iterable (like a string) into a list of its individual characters." }
+      ]
+    }
+  ]
+}

@@ -5,31 +5,34 @@ const path = require('path');
 
 const Quiz = require('../models/Quiz');
 
-const QUIZ_DIR = path.resolve(__dirname, '../../../APP/data/quiz');
+const seedQuizzes = async (category, quizDir) => {
+    // Clear existing quizzes for this category
+    console.log(`  🧹 Clearing existing ${category} quizzes...`);
+    await Quiz.deleteMany({ category: category });
 
-const seedQuizzes = async () => {
-    // Clear existing class12 quizzes to avoid duplicates/orphans from old ID formats
-    console.log('  🧹 Clearing existing Class 12 quizzes...');
-    await Quiz.deleteMany({ category: 'class12' });
+    if (!fs.existsSync(quizDir)) {
+        console.error(`  ❌ Path not found: ${quizDir}`);
+        return;
+    }
 
-    const files = fs.readdirSync(QUIZ_DIR).filter(f => f.endsWith('.json'));
+    const files = fs.readdirSync(quizDir).filter(f => f.endsWith('.json'));
 
     let inserted = 0, updated = 0;
 
     for (const file of files) {
-        const filePath = path.join(QUIZ_DIR, file);
+        const filePath = path.join(quizDir, file);
         const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-        // Prepend class12- to chapterId if not already present
-        const dbChapterId = data.chapterId.startsWith('class12-') ? data.chapterId : `class12-${data.chapterId}`;
+        // Prepend category- to chapterId if not already present
+        const dbChapterId = data.chapterId.startsWith(`${category}-`) ? data.chapterId : `${category}-${data.chapterId}`;
 
         for (const set of (data.sets || [])) {
-            const filter = { chapterId: dbChapterId, setId: set.setId, category: 'class12' };
+            const filter = { chapterId: dbChapterId, setId: set.setId, category: category };
             const update = {
                 chapterId:  dbChapterId,
                 setId:      set.setId,
                 setName:    set.setName,
-                category:   'class12',
+                category:   category,
                 difficulty: set.difficulty || 'Medium',
                 questions:  set.questions  || []
             };
@@ -55,7 +58,9 @@ if (require.main === module) {
     mongoose.connect(process.env.MONGO_URI)
         .then(async () => {
             console.log('MongoDB connected — seeding quizzes…\n');
-            await seedQuizzes();
+            const cat = process.argv[2] || 'class12';
+            const baseDir = process.argv[3] || path.resolve(__dirname, '../../../data/12th/quiz');
+            await seedQuizzes(cat, baseDir);
             console.log('\n✔ Quiz seed complete.');
             process.exit(0);
         })

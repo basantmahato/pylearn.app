@@ -166,6 +166,72 @@ const SamplePapers = () => {
         setEditForm({ ...editForm, sections });
     };
 
+    const addQuestion = (sIdx: number) => {
+        const sections = [...(editForm.sections || [])];
+        const questions = [...(sections[sIdx].questions || [])];
+        questions.push({
+            id: `q${Date.now()}`,
+            question: '',
+            marks: 1,
+            options: ['', '', '', ''],
+            answer: 0,
+            explanation: ''
+        });
+        sections[sIdx] = { ...sections[sIdx], questions };
+        setEditForm({ ...editForm, sections });
+    };
+
+    const updateQuestion = (sIdx: number, qIdx: number, key: keyof SectionQuestion, value: any) => {
+        const sections = [...(editForm.sections || [])];
+        const questions = [...(sections[sIdx].questions || [])];
+        questions[qIdx] = { ...questions[qIdx], [key]: value };
+        sections[sIdx] = { ...sections[sIdx], questions };
+        setEditForm({ ...editForm, sections });
+    };
+
+    const removeQuestion = (sIdx: number, qIdx: number) => {
+        const sections = [...(editForm.sections || [])];
+        const questions = (sections[sIdx].questions || []).filter((_, i) => i !== qIdx);
+        sections[sIdx] = { ...sections[sIdx], questions };
+        setEditForm({ ...editForm, sections });
+    };
+
+    const updateOption = (sIdx: number, qIdx: number, oIdx: number, value: string) => {
+        const sections = [...(editForm.sections || [])];
+        const questions = [...(sections[sIdx].questions || [])];
+        const options = [...(questions[qIdx].options || [])];
+        options[oIdx] = value;
+        questions[qIdx] = { ...questions[qIdx], options };
+        sections[sIdx] = { ...sections[sIdx], questions };
+        setEditForm({ ...editForm, sections });
+    };
+
+    const addOption = (sIdx: number, qIdx: number) => {
+        const sections = [...(editForm.sections || [])];
+        const questions = [...(sections[sIdx].questions || [])];
+        const options = [...(questions[qIdx].options || [])];
+        options.push('');
+        questions[qIdx] = { ...questions[qIdx], options };
+        sections[sIdx] = { ...sections[sIdx], questions };
+        setEditForm({ ...editForm, sections });
+    };
+
+    const removeOption = (sIdx: number, qIdx: number, oIdx: number) => {
+        const sections = [...(editForm.sections || [])];
+        const questions = [...(sections[sIdx].questions || [])];
+        const options = (questions[qIdx].options || []).filter((_, i) => i !== oIdx);
+        questions[qIdx] = { ...questions[qIdx], options };
+        
+        const currentAnswer = questions[qIdx].answer;
+        if (typeof currentAnswer === 'number') {
+            if (currentAnswer === oIdx) questions[qIdx].answer = 0;
+            else if (currentAnswer > oIdx) questions[qIdx].answer = currentAnswer - 1;
+        }
+        
+        sections[sIdx] = { ...sections[sIdx], questions };
+        setEditForm({ ...editForm, sections });
+    };
+
     const handleCategoryChange = (cat: string) => {
         setSelectedCategory(cat);
         setPapers([]);
@@ -312,6 +378,86 @@ const SamplePapers = () => {
                                                 onChange={e => updateSection(sIdx, 'marks', Number(e.target.value))}
                                             />
                                         </div>
+                                    </div>
+
+                                    {/* Questions section */}
+                                    <div className="mt-4 space-y-4 border-t pt-4">
+                                        <div className="flex items-center justify-between">
+                                            <h5 className="font-semibold text-sm">Questions ({sec.questions?.length || 0})</h5>
+                                            <Button variant="outline" size="sm" onClick={() => addQuestion(sIdx)}>
+                                                <Plus className="h-3 w-3 mr-1" /> Add Question
+                                            </Button>
+                                        </div>
+                                        {sec.questions?.map((q, qIdx) => (
+                                            <div key={qIdx} className="p-4 border border-border/50 rounded-lg bg-card relative space-y-3">
+                                                <button
+                                                    className="absolute top-2 right-2 text-destructive hover:opacity-80"
+                                                    onClick={() => removeQuestion(sIdx, qIdx)}
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
+                                                </button>
+                                                
+                                                <div className="space-y-1">
+                                                    <label className="text-xs font-semibold text-muted-foreground">Question</label>
+                                                    <Input
+                                                        value={q.question || ''}
+                                                        onChange={e => updateQuestion(sIdx, qIdx, 'question', e.target.value)}
+                                                        placeholder="What is Python?"
+                                                    />
+                                                </div>
+                                                
+                                                <div className="grid grid-cols-2 gap-3">
+                                                    <div className="space-y-1">
+                                                        <label className="text-xs font-semibold text-muted-foreground">Marks</label>
+                                                        <Input
+                                                            type="number"
+                                                            value={q.marks || ''}
+                                                            onChange={e => updateQuestion(sIdx, qIdx, 'marks', Number(e.target.value))}
+                                                        />
+                                                    </div>
+                                                    <div className="space-y-1">
+                                                        <label className="text-xs font-semibold text-muted-foreground">Explanation</label>
+                                                        <Input
+                                                            value={q.explanation || ''}
+                                                            onChange={e => updateQuestion(sIdx, qIdx, 'explanation', e.target.value)}
+                                                            placeholder="Optional explanation..."
+                                                        />
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="space-y-2 pt-2">
+                                                    <div className="flex items-center justify-between">
+                                                        <label className="text-xs font-semibold text-muted-foreground">Options</label>
+                                                        <Button variant="ghost" size="sm" className="h-6 text-xs px-2" onClick={() => addOption(sIdx, qIdx)}>
+                                                            <Plus className="h-3 w-3 mr-1" /> Option
+                                                        </Button>
+                                                    </div>
+                                                    {q.options?.map((opt, oIdx) => (
+                                                        <div key={oIdx} className="flex items-center gap-2">
+                                                            <input
+                                                                type="radio"
+                                                                name={`answer-${sIdx}-${qIdx}`}
+                                                                checked={q.answer === oIdx}
+                                                                onChange={() => updateQuestion(sIdx, qIdx, 'answer', oIdx)}
+                                                                className="mt-1"
+                                                            />
+                                                            <Input
+                                                                value={opt}
+                                                                onChange={e => updateOption(sIdx, qIdx, oIdx, e.target.value)}
+                                                                placeholder={`Option ${oIdx + 1}`}
+                                                                className="flex-1"
+                                                            />
+                                                            <button
+                                                                className="text-destructive p-1 hover:bg-destructive/10 rounded"
+                                                                onClick={() => removeOption(sIdx, qIdx, oIdx)}
+                                                            >
+                                                                <Trash2 className="h-4 w-4" />
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             ))}

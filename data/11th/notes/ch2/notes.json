@@ -1,0 +1,160 @@
+{
+  "id": "ch2",
+  "title": "Introduction to Problem Solving",
+  "order": 2,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Before you write a single line of Python code, you must know how to solve the problem logically. A computer is essentially a dumb machine; it can only execute exactly what you tell it to do. Problem-solving in Computer Science is the systematic process of analyzing a problem, breaking it down into smaller, manageable pieces, and designing a step-by-step solution. This structured approach prevents messy, buggy code and ensures the program behaves predictably."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.1 The Problem Solving Cycle"
+    },
+    {
+      "type": "paragraph",
+      "text": "Professional software development follows a structured cycle to tackle problems efficiently:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Analyzing the Problem: Understanding exactly what the user wants. Identify the inputs required, the constraints, and the expected output.",
+        "Developing an Algorithm: Creating a step-by-step logical sequence of instructions to solve the problem. This is usually done using pseudo-code or flowcharts.",
+        "Coding (Implementation): Translating the algorithm into a specific programming language like Python.",
+        "Testing and Debugging: Running the code with various inputs to find and fix errors (bugs).",
+        "Documentation: Writing clear explanations of how the code works for future developers or users."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.2 Algorithms"
+    },
+    {
+      "type": "paragraph",
+      "text": "An Algorithm is a precise, finite sequence of unambiguous instructions designed to solve a specific problem. A good algorithm is language-independent, meaning it can be translated into Python, Java, or C++ with equal effectiveness."
+    },
+    {
+      "type": "paragraph",
+      "text": "Characteristics of a Good Algorithm:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Finiteness: The algorithm must eventually stop after a finite number of steps.",
+        "Definiteness: Each step must be clear and unambiguous.",
+        "Input: It must accept zero or more inputs.",
+        "Output: It must produce at least one output.",
+        "Effectiveness: Each step must be basic enough that it could theoretically be done by a human using a pencil and paper."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Algorithm to add two numbers:\nStep 1: Start\nStep 2: Input two numbers, A and B\nStep 3: Calculate Sum = A + B\nStep 4: Print the value of Sum\nStep 5: Stop"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.3 Flowcharts"
+    },
+    {
+      "type": "paragraph",
+      "text": "A Flowchart is a visual, graphical representation of an algorithm. It uses standardized geometric shapes connected by arrows to show the flow of logic. Flowcharts make complex branching and looping logic much easier for humans to comprehend at a glance."
+    },
+    {
+      "type": "paragraph",
+      "text": "Standard Flowchart Symbols:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Oval / Pill: Terminal (Start / Stop). Marks the beginning and end of the flowchart.",
+        "Parallelogram: Input / Output. Used when reading data from the user or printing results.",
+        "Rectangle: Process. Represents calculations, variable assignments, or data manipulation.",
+        "Diamond: Decision. Represents a condition (e.g., 'Is X > Y?'). It always has at least two exit arrows (Yes and No).",
+        "Arrows: Flow Lines. Indicate the direction of logic flow."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.4 Pseudocode"
+    },
+    {
+      "type": "paragraph",
+      "text": "Pseudocode is an informal, high-level description of a computer program. It uses plain English combined with structural conventions of programming languages (like IF, THEN, WHILE). It is not meant to be compiled by a computer; it is strictly a design tool for humans."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Pseudocode to check if a number is Even or Odd:\n\nINPUT number\nIF number MOD 2 equals 0 THEN\n    PRINT \"The number is Even\"\nELSE\n    PRINT \"The number is Odd\"\nEND IF"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.5 Decomposition and Top-Down Design"
+    },
+    {
+      "type": "paragraph",
+      "text": "When faced with a massive, complex problem (like building a video game), attempting to solve it all at once is impossible. Decomposition (or Top-Down Design) is the process of breaking a large problem down into smaller, highly manageable sub-problems. You solve each sub-problem individually, test them, and then combine the solutions to solve the overall massive problem."
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 2 covers the foundational concepts of logical problem solving, focusing on algorithm design, flowchart creation, and the use of pseudocode before writing actual code.",
+    "detailed_summary": "Effective programming begins far away from a keyboard. The Problem Solving Cycle mandates analyzing the problem, designing an algorithm, coding, testing, and documenting. An Algorithm is a finite, unambiguous set of instructions to solve a task. Good algorithms are finite, definite, and effective. Flowcharts provide a graphical representation of these algorithms using standard symbols: Ovals for Start/Stop, Parallelograms for I/O, Rectangles for Processing, and Diamonds for Decisions. Pseudocode serves as an intermediate step, mixing plain English with structural programming logic to design the system architecture. Finally, complex problems are made solvable through Decomposition—breaking massive tasks into smaller, manageable sub-components.",
+    "exam_focus": [
+      "Define an Algorithm and list its core characteristics.",
+      "Identify standard flowchart symbols (especially the Diamond and Parallelogram).",
+      "Write a basic algorithm or pseudocode for simple mathematical logic.",
+      "Explain the concept and benefit of Decomposition."
+    ],
+    "revision_notes": [
+      "Algorithm: Step-by-step logical instructions.",
+      "Flowchart Oval: Start/Stop.",
+      "Flowchart Parallelogram: Input/Output.",
+      "Flowchart Rectangle: Process/Calculate.",
+      "Flowchart Diamond: Decision (If/Else).",
+      "Pseudocode: Plain English + Programming logic.",
+      "Decomposition: Breaking big problems into smaller chunks."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is the primary difference between an Algorithm and a Python program?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Language dependence", "Execution"],
+      "solution": "An Algorithm is a conceptual, step-by-step logical solution to a problem written in plain language. It is language-independent and meant for humans to read. A Python program is the specific implementation of that algorithm written in Python syntax, which is meant to be executed by a computer."
+    },
+    {
+      "q": "Write an Algorithm to find the greater of two numbers, X and Y.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Input X, Y", "Compare using If"],
+      "solution": "Step 1: Start\nStep 2: Input two numbers, X and Y\nStep 3: If X > Y, then go to Step 4. Else, go to Step 5.\nStep 4: Print 'X is greater' and go to Step 6.\nStep 5: Print 'Y is greater or equal'\nStep 6: Stop"
+    },
+    {
+      "q": "In a flowchart, what geometric shape is used to evaluate a condition like 'Is Age >= 18?' and why?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Decision shape"],
+      "solution": "A Diamond shape is used. The Diamond represents a Decision block. It is unique because it takes one input flow but outputs two or more flow paths (usually labeled 'Yes/True' and 'No/False'), allowing the algorithm to branch based on the condition."
+    },
+    {
+      "q": "Write Pseudocode to calculate the area of a rectangle.",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["Input length and width", "Multiply"],
+      "solution": "START\nINPUT Length\nINPUT Width\nSET Area = Length * Width\nPRINT Area\nEND"
+    },
+    {
+      "q": "Why is Decomposition an essential skill for software engineers?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Complexity", "Manageability"],
+      "solution": "Real-world software projects are too massive and complex to be solved as a single monolithic block. Decomposition allows engineers to break a huge problem into smaller, isolated modules. This makes the project easier to understand, allows multiple programmers to work on different parts simultaneously, and makes debugging much simpler."
+    }
+  ]
+}

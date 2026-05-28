@@ -1,14 +1,29 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CATEGORIES, fetchChapters, type Chapter, type Category } from "../../lib/api";
+import { fetchChapters, fetchCourses, type Chapter, type Category, type ApiCourse } from "../../lib/api";
 
 export default function Syllabus() {
-  const [activeCategory, setActiveCategory] = useState<Category>("class12");
+  const [categories, setCategories] = useState<ApiCourse[]>([]);
+  const [activeCategory, setActiveCategory] = useState<Category>("");
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function loadCourses() {
+      try {
+        const data = await fetchCourses();
+        setCategories(data);
+        if (data.length > 0) setActiveCategory(data[0].key);
+      } catch (err) {
+        console.error("Failed to fetch courses:", err);
+      }
+    }
+    loadCourses();
+  }, []);
+
+  useEffect(() => {
+    if (!activeCategory) return;
     async function load() {
       setLoading(true);
       try {
@@ -23,7 +38,7 @@ export default function Syllabus() {
     load();
   }, [activeCategory]);
 
-  const activeCatMeta = CATEGORIES.find(c => c.key === activeCategory)!;
+  const activeCatMeta = categories.find(c => c.key === activeCategory) ?? categories[0];
 
   return (
     <section className="py-24 md:py-28 bg-white" id="syllabus">
@@ -45,7 +60,7 @@ export default function Syllabus() {
 
         {/* Category Switcher */}
         <div className="flex justify-center gap-2.5 mb-14 flex-wrap">
-          {CATEGORIES.map((cat) => {
+          {categories.map((cat) => {
             const active = activeCategory === cat.key;
             return (
               <button
@@ -70,7 +85,7 @@ export default function Syllabus() {
           </div>
         ) : chapters.length === 0 ? (
           <div className="text-center py-20 px-6 bg-bg-surface rounded-3xl border border-dashed border-border">
-            <p className="mt-3 font-bold text-lg text-text-secondary">No chapters added for {activeCatMeta.label} yet.</p>
+            <p className="mt-3 font-bold text-lg text-text-secondary">No chapters added for {activeCatMeta?.label} yet.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -123,7 +138,7 @@ export default function Syllabus() {
             'bg-red-50 border-red-100'
           }`}>
             <p className="text-lg text-text-secondary leading-relaxed">
-              All <strong className="text-text font-black">{chapters.length} chapters</strong> for {activeCatMeta.label} are available <strong className="text-text font-black">completely free</strong>.
+              All <strong className="text-text font-black">{chapters.length} chapters</strong> for {activeCatMeta?.label} are available <strong className="text-text font-black">completely free</strong>.
             </p>
           </div>
         )}

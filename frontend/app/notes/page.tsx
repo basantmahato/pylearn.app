@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import NotesClient from "./NotesClient";
-import { fetchChapters, fetchNotes, CATEGORIES, type Chapter, type NoteBlock } from "../../lib/api";
+import { fetchChapters, fetchNotes, type Chapter, type NoteBlock, fetchCourses, type ApiCourse } from "../../lib/api";
 
 export const metadata: Metadata = {
   title: "Notes — PyLearn | Python Notes for Class 11, 12, BCA, B.Tech & AI/ML",
@@ -11,6 +11,13 @@ export const metadata: Metadata = {
 };
 
 export default async function NotesPage() {
+  let CATEGORIES: ApiCourse[] = [];
+  try {
+    CATEGORIES = await fetchCourses();
+  } catch {
+    CATEGORIES = [];
+  }
+
   // Fetch chapters for all categories in parallel
   const chaptersByCategory: Record<string, Chapter[]> = {};
   let notes: NoteBlock[] = [];
@@ -34,7 +41,7 @@ export default async function NotesPage() {
     <>
       <Navbar />
       <main className="pt-32 min-h-screen bg-bg">
-        <NotesClient chaptersByCategory={chaptersByCategory} notes={notes} error={error} />
+        <NotesClient categories={CATEGORIES} chaptersByCategory={chaptersByCategory} notes={notes} error={error} />
       </main>
       <Footer />
     </>

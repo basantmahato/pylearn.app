@@ -1,0 +1,147 @@
+{
+  "id": "ch8",
+  "title": "Lists",
+  "order": 8,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "A variable can only hold a single piece of data. If you needed to store the grades of 100 students, creating 100 variables (`grade1`, `grade2`...) would be a nightmare. Python solves this with Lists. A List is a built-in data structure that allows you to store an ordered collection of multiple items inside a single variable. Lists are incredibly powerful, flexible, and heavily used in almost every Python script."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.1 Creating and Accessing Lists"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lists are created by placing elements inside square brackets `[]`, separated by commas. Unlike arrays in C or Java, Python lists are heterogeneous, meaning they can hold items of completely different data types simultaneously."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# A homogeneous list (all integers)\nscores = [95, 82, 75, 100]\n\n# A heterogeneous list (mixed data types)\nstudent_record = [\"Basant\", 17, True, 88.5]\n\n# Accessing elements uses the exact same Indexing rules as strings\nprint(scores[0])       # Output: 95\nprint(student_record[-1]) # Output: 88.5"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.2 Lists are Mutable"
+    },
+    {
+      "type": "paragraph",
+      "text": "CRITICAL RULE: Unlike strings, Lists are Mutable. This means you can freely change, add, or remove elements within the list without creating a brand new list in memory."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "fruits = [\"Apple\", \"Banana\", \"Cherry\"]\n\n# Modifying an existing element in place\nfruits[1] = \"Blueberry\"\n\nprint(fruits) # Output: ['Apple', 'Blueberry', 'Cherry']"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.3 Traversing a List"
+    },
+    {
+      "type": "paragraph",
+      "text": "Traversing means visiting every single element in the list, one by one. This is overwhelmingly done using a `for` loop."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "colors = [\"Red\", \"Green\", \"Blue\"]\n\n# The elegant Pythonic way to traverse\nfor color in colors:\n    print(color)\n\n# Traversing using index (Useful if you need to know the index number)\nfor i in range(len(colors)):\n    print(f\"Index {i} holds {colors[i]}\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.4 List Operations"
+    },
+    {
+      "type": "paragraph",
+      "text": "Just like strings, lists support concatenation, replication, and slicing."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Concatenation (+): Joins two lists together. (e.g., `[1, 2] + [3, 4]` -> `[1, 2, 3, 4]`)",
+        "Replication (*): Repeats the list. (e.g., `[0] * 3` -> `[0, 0, 0]`)",
+        "Slicing: Extracts a sub-list. (e.g., `my_list[1:4]` returns a new list containing elements from index 1 to 3)."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.5 Built-in List Methods"
+    },
+    {
+      "type": "paragraph",
+      "text": "Because lists are mutable, many list methods modify the list in-place and return `None`."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "list.append(item): Adds a single item to the very end of the list.",
+        "list.extend(iterable): Appends all elements from another list/sequence to the end.",
+        "list.insert(index, item): Inserts an item at a specific index, shifting other elements to the right.",
+        "list.pop(index): Removes AND returns the item at the given index. If no index is provided, it pops the last item.",
+        "list.remove(value): Removes the first occurrence of the specified value. Crashes if the value is not found.",
+        "list.sort(): Sorts the list in ascending order in-place.",
+        "list.reverse(): Reverses the order of elements in-place."
+      ]
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 8 introduces Lists, Python's most versatile data structure. It covers list creation, the concept of mutability, traversal techniques, and essential list methods.",
+    "detailed_summary": "A List is a built-in Python data structure capable of holding an ordered, sequence of elements. These elements are enclosed in square brackets `[]`. A defining feature of Python lists is that they are heterogeneous; they can simultaneously store integers, strings, floats, and even other lists. Most importantly, lists are Mutable. Unlike strings, elements within a list can be modified, added, or deleted in-place without generating a new object in memory. Lists share indexing and slicing mechanics with strings. Traversal is efficiently handled via `for` loops. Python equips lists with destructive methods (methods that modify the original list) such as `append()` to add items, `pop()` and `remove()` to delete items, and `sort()` to organize items. Understanding when a method modifies in-place versus returning a new object is critical.",
+    "exam_focus": [
+      "Clearly distinguish between Strings (Immutable) and Lists (Mutable).",
+      "Understand the difference between `append()` (adds one item) and `extend()` (adds multiple items).",
+      "Trace list slicing operations.",
+      "Understand the difference between `pop()` (removes by index) and `remove()` (removes by value)."
+    ],
+    "revision_notes": [
+      "Lists use square brackets `[]`.",
+      "Lists are Mutable (changeable in place).",
+      "Lists can hold mixed data types.",
+      "`append(x)` adds `x` to the end.",
+      "`extend([x,y])` merges lists.",
+      "`pop(i)` removes index `i`. `remove(v)` removes value `v`.",
+      "`sort()` and `reverse()` modify the list permanently."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is the primary difference between a String and a List regarding memory?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Mutability"],
+      "solution": "Strings are Immutable; their contents cannot be changed after creation. Lists are Mutable; their elements can be freely modified, replaced, added, or deleted in-place."
+    },
+    {
+      "q": "Given `L = [10, 20, 30]`. What happens if you execute `L.append([40, 50])` versus `L.extend([40, 50])`?",
+      "type": "practical",
+      "difficulty": "Hard",
+      "hints": ["Adding single element vs merging"],
+      "solution": "`L.append([40, 50])` adds the entire list as a SINGLE element at the end. Result: `[10, 20, 30, [40, 50]]`.\n`L.extend([40, 50])` unpacks the list and adds each element individually. Result: `[10, 20, 30, 40, 50]`."
+    },
+    {
+      "q": "What is the difference between the `pop()` and `remove()` methods?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Index vs Value"],
+      "solution": "`pop(index)` removes the element at a specific given index and returns that element. If no index is given, it pops the last element. \n`remove(value)` searches the list for the first occurrence of a specific value and deletes it. It does not return the deleted value."
+    },
+    {
+      "q": "Write a script that takes a list of numbers `[1, 2, 3, 4, 5]` and uses a `for` loop to create a new list containing the squares of these numbers.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Create empty list", "Use append()"],
+      "solution": "```python\nnums = [1, 2, 3, 4, 5]\nsquares = []\nfor n in nums:\n    squares.append(n ** 2)\nprint(squares)  # Output: [1, 4, 9, 16, 25]\n```"
+    },
+    {
+      "q": "Given `A = [1, 2, 3]`, what is the output of `A * 3`?",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["Replication operator"],
+      "solution": "The `*` operator performs replication on lists. The output will be: `[1, 2, 3, 1, 2, 3, 1, 2, 3]`."
+    }
+  ]
+}

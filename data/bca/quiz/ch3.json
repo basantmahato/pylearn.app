@@ -1,0 +1,45 @@
+{
+  "chapterId": "ch3",
+  "title": "Control Statements - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Conditional Logic",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "Which keyword provides alternative conditions in an if statement?", "options": ["else if", "elseif", "elif", "case"], "answer": 2, "explanation": "Python uses 'elif'." },
+        { "id": "q2", "question": "What determines the scope of an if statement block?", "options": ["Curly braces {}", "Parentheses ()", "Indentation", "Semicolons ;"], "answer": 2, "explanation": "Python strictly relies on indentation." },
+        { "id": "q3", "question": "Output if x=5: if x>2: print('A') elif x>4: print('B')?", "options": ["A", "B", "A and B", "Nothing"], "answer": 0, "explanation": "Once a condition is met (x>2), its block executes and the rest are skipped." },
+        { "id": "q4", "question": "Which block executes if all 'if' and 'elif' conditions are False?", "options": ["then", "finally", "except", "else"], "answer": 3, "explanation": "The 'else' block serves as the default fallback." },
+        { "id": "q5", "question": "Can you have an 'if' statement inside another 'if' statement?", "options": ["No", "Yes, it's called nested if", "Only inside a loop", "Yes, but maximum 2 levels"], "answer": 1, "explanation": "Nesting allows complex conditional logic." },
+        { "id": "q6", "question": "What is the equivalent of a ternary operator in Python?", "options": ["condition ? x : y", "x if condition else y", "if condition then x else y", "None"], "answer": 1, "explanation": "Python uses inline if-else syntax." },
+        { "id": "q7", "question": "Is `if 5:` valid in Python?", "options": ["No, it requires a boolean", "Yes, non-zero integers are truthy", "Only in Python 2", "Causes a syntax error"], "answer": 1, "explanation": "Any non-zero number is evaluated as True." },
+        { "id": "q8", "question": "Is `if '':` valid in Python?", "options": ["Yes, and it evaluates to True", "Yes, and it evaluates to False", "No, strings can't be used", "Error"], "answer": 1, "explanation": "An empty string is evaluated as False (falsy)." },
+        { "id": "q9", "question": "How do you check multiple conditions simultaneously?", "options": ["Using commas", "Using bitwise &", "Using logical 'and' / 'or'", "Cannot be done"], "answer": 2, "explanation": "Logical operators combine conditions." },
+        { "id": "q10", "question": "What error do you get if indentation is inconsistent?", "options": ["SyntaxError", "IndentationError", "ValueError", "TypeError"], "answer": 1, "explanation": "Python strictly enforces consistent whitespace." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Loops and Control Flow",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "Which function generates a sequence of numbers for a for loop?", "options": ["sequence()", "range()", "generate()", "list()"], "answer": 1, "explanation": "range() is highly optimized for loops." },
+        { "id": "q12", "question": "What does 'continue' do inside a loop?", "options": ["Terminates loop", "Pauses loop", "Skips rest of iteration and goes to next", "Exits program"], "answer": 2, "explanation": "'continue' forces jump to the next cycle." },
+        { "id": "q13", "question": "What does 'pass' do?", "options": ["Exits function", "Null placeholder", "Skips iteration", "Raises error"], "answer": 1, "explanation": "Syntactically required but does nothing." },
+        { "id": "q14", "question": "Output of: for i in range(1, 4): print(i)?", "options": ["1, 2, 3, 4", "0, 1, 2, 3", "1, 2, 3", "2, 3, 4"], "answer": 2, "explanation": "range(start, stop) excludes the stop value." },
+        { "id": "q15", "question": "What does 'break' do?", "options": ["Pauses program", "Stops current iteration", "Exits the loop entirely", "Restarts loop"], "answer": 2, "explanation": "Terminates the loop prematurely." },
+        { "id": "q16", "question": "What happens if a while loop condition never becomes False?", "options": ["Syntax error", "Runtime error", "Infinite loop", "Loop is skipped"], "answer": 2, "explanation": "The loop runs forever, freezing the program." },
+        { "id": "q17", "question": "Can a for loop iterate over a string?", "options": ["Yes, character by character", "No, only lists", "No, only range()", "Yes, word by word"], "answer": 0, "explanation": "Strings are iterable sequences." },
+        { "id": "q18", "question": "What is the output of `range(5)`?", "options": ["1 to 5", "0 to 5", "0 to 4", "1 to 4"], "answer": 2, "explanation": "Single argument assumes start=0 and stops before 5." },
+        { "id": "q19", "question": "What is the third argument in `range(start, stop, step)`?", "options": ["Multiplier", "Increment amount", "Stop condition", "Time delay"], "answer": 1, "explanation": "The step determines how much to add each iteration." },
+        { "id": "q20", "question": "Can an `else` block be attached to a `for` loop?", "options": ["Yes, it runs if loop completes without 'break'", "No, only for 'if' statements", "Yes, but it's ignored", "Yes, it runs if loop crashes"], "answer": 0, "explanation": "The for-else construct is unique to Python." },
+        { "id": "q21", "question": "When does the `else` block of a `while` loop execute?", "options": ["Never", "If the condition becomes False naturally", "If 'break' is called", "If an error occurs"], "answer": 1, "explanation": "If 'break' is used, the else block is skipped." },
+        { "id": "q22", "question": "How do you loop backwards from 10 to 1?", "options": ["range(10, 1, -1)", "range(1, 10, -1)", "reverse(10)", "for i down to 1"], "answer": 0, "explanation": "Negative step decrements the counter." },
+        { "id": "q23", "question": "What is a 'sentinel value'?", "options": ["A password", "A value used to terminate a loop", "A constant", "A loop counter"], "answer": 1, "explanation": "E.g., enter '-1' to stop." },
+        { "id": "q24", "question": "Which loop is best when you don't know the exact number of iterations beforehand?", "options": ["for loop", "while loop", "do-while loop", "None"], "answer": 1, "explanation": "while loops run until a condition changes, making them dynamic." },
+        { "id": "q25", "question": "Does Python have a `do-while` loop?", "options": ["Yes", "No", "Yes, but only in Python 2", "It is called repeat-until"], "answer": 1, "explanation": "Python only has 'for' and 'while'." }
+      ]
+    }
+  ]
+}

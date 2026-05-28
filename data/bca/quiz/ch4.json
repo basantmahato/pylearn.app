@@ -1,0 +1,45 @@
+{
+  "chapterId": "ch4",
+  "title": "Functions - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Function Basics",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "Which keyword is used to define a custom function in Python?", "options": ["function", "def", "define", "func"], "answer": 1, "explanation": "The 'def' keyword is used to start a function definition." },
+        { "id": "q2", "question": "If a function does not have a return statement, what does it return by default?", "options": ["0", "False", "None", "Error"], "answer": 2, "explanation": "Functions implicitly return the special object 'None' if no return statement is executed." },
+        { "id": "q3", "question": "What are variables defined inside a function called?", "options": ["Global variables", "Local variables", "Class variables", "Static variables"], "answer": 1, "explanation": "Variables created inside a function have 'local scope' and cannot be accessed from outside." },
+        { "id": "q4", "question": "How do you call a function named `my_function`?", "options": ["call my_function()", "my_function()", "run my_function", "execute my_function"], "answer": 1, "explanation": "You use the function name followed by parentheses." },
+        { "id": "q5", "question": "What is the purpose of parameters in a function?", "options": ["To define the function name", "To pass information into the function", "To return a value", "To speed up execution"], "answer": 1, "explanation": "Parameters act as placeholders for the arguments passed in." },
+        { "id": "q6", "question": "What is the difference between a parameter and an argument?", "options": ["No difference", "Parameter is in the definition, argument is in the call", "Argument is in the definition, parameter is in the call", "Arguments are only for math"], "answer": 1, "explanation": "Parameters are variables in the definition; arguments are actual values passed." },
+        { "id": "q7", "question": "Can a function return multiple values in Python?", "options": ["No", "Yes, as a tuple", "Yes, as a string", "Only if it's a list"], "answer": 1, "explanation": "Python packages multiple comma-separated return values into a tuple." },
+        { "id": "q8", "question": "What happens if you pass the wrong number of arguments to a function?", "options": ["Python ignores the extra ones", "TypeError is raised", "Python fills them with None", "SyntaxError"], "answer": 1, "explanation": "The number of arguments must match the expected parameters unless defaults are set." },
+        { "id": "q9", "question": "Which keyword is used to send a value back from a function?", "options": ["send", "output", "return", "yield"], "answer": 2, "explanation": "The 'return' statement exits the function and passes back a value." },
+        { "id": "q10", "question": "What is a global variable?", "options": ["Variable inside a function", "Variable accessible from anywhere in the script", "Variable from another file", "Built-in variable"], "answer": 1, "explanation": "Variables defined outside any function have global scope." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Advanced Functions",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "What is a lambda function?", "options": ["A function that loops infinitely", "A multi-line function", "An anonymous, single-expression function", "A built-in math function"], "answer": 2, "explanation": "Lambda functions are small anonymous functions created with the 'lambda' keyword." },
+        { "id": "q12", "question": "What is recursion?", "options": ["A function returning another function", "A function calling itself", "A loop inside a function", "Error handling technique"], "answer": 1, "explanation": "Recursion occurs when a function calls itself to solve a smaller sub-problem." },
+        { "id": "q13", "question": "What is the crucial component every recursive function must have?", "options": ["A global variable", "A lambda expression", "A base case", "A while loop"], "answer": 2, "explanation": "A base case tells the recursive function when to stop calling itself and start returning." },
+        { "id": "q14", "question": "In `def greet(name, msg=\"Hello\"):`, what is `msg`?", "options": ["A required positional argument", "A default argument", "A global variable", "A lambda parameter"], "answer": 1, "explanation": "`msg` has a default value, making it optional when calling." },
+        { "id": "q15", "question": "What does `*args` do in a function definition?", "options": ["Multiplies the arguments", "Accepts a variable number of positional arguments as a tuple", "Accepts keyword arguments", "Forces arguments to be strings"], "answer": 1, "explanation": "`*args` packs multiple positional arguments into a tuple." },
+        { "id": "q16", "question": "What does `**kwargs` do in a function definition?", "options": ["Accepts a variable number of keyword arguments as a dictionary", "Squares the arguments", "Accepts a list", "None"], "answer": 0, "explanation": "`**kwargs` packs keyword arguments into a dictionary." },
+        { "id": "q17", "question": "How do you access a global variable inside a function to modify it?", "options": ["Just assign a new value", "Use the 'global' keyword", "Use 'super'", "You cannot modify it"], "answer": 1, "explanation": "The 'global' keyword must be used to modify global variables from a local scope." },
+        { "id": "q18", "question": "What is the output of: `f = lambda x: x*2; print(f(3))`?", "options": ["3", "6", "9", "Error"], "answer": 1, "explanation": "The lambda takes 3, multiplies by 2, returning 6." },
+        { "id": "q19", "question": "Which built-in function applies a function to every item in an iterable?", "options": ["filter()", "reduce()", "map()", "apply()"], "answer": 2, "explanation": "map() returns an iterator applying the function to every item." },
+        { "id": "q20", "question": "Which built-in function keeps only items where a function returns True?", "options": ["filter()", "keep()", "select()", "map()"], "answer": 0, "explanation": "filter() tests each element and filters out the False ones." },
+        { "id": "q21", "question": "What happens if a recursive function lacks a base case?", "options": ["It runs exactly 100 times", "SyntaxError", "RecursionError (Stack Overflow)", "It returns None"], "answer": 2, "explanation": "Python limits recursion depth to prevent infinite loops from crashing the OS." },
+        { "id": "q22", "question": "What is function 'overloading'?", "options": ["Having multiple functions with the same name but different parameters", "A heavy function", "Calling a function too much", "Passing too many arguments"], "answer": 0, "explanation": "Note: Python does NOT natively support traditional function overloading." },
+        { "id": "q23", "question": "Can you pass a function as an argument to another function?", "options": ["Yes, Python treats functions as first-class objects", "No", "Only lambda functions", "Only built-in functions"], "answer": 0, "explanation": "Functions can be passed around just like variables." },
+        { "id": "q24", "question": "What is a decorator?", "options": ["A string format", "A function that modifies the behavior of another function", "A UI element", "A comment"], "answer": 1, "explanation": "Decorators wrap functions, usually marked with the @ symbol." },
+        { "id": "q25", "question": "What is the standard name for the main execution function in many languages (sometimes used in Python)?", "options": ["start()", "run()", "main()", "execute()"], "answer": 2, "explanation": "Often defined as `def main():` and called if `__name__ == '__main__'`." }
+      ]
+    }
+  ]
+}

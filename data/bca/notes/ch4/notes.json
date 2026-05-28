@@ -1,0 +1,175 @@
+{
+  "id": "bca-ch4",
+  "title": "Functions",
+  "order": 4,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "As your programs grow larger and more complex, keeping all your code in a single, massive script becomes unmanageable. Functions allow you to break your program into smaller, reusable, and logical chunks. A function is essentially a named block of code designed to perform a specific task. By using functions, you improve readability, prevent code duplication (the DRY principle: Don't Repeat Yourself), and make debugging much easier."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.1 Defining and Calling Functions"
+    },
+    {
+      "type": "paragraph",
+      "text": "In Python, a function is defined using the `def` keyword, followed by the function name, parentheses `()`, and a colon `:`. The code block within every function must be indented. To execute the function, you simply call it by its name followed by parentheses."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Defining a simple function\ndef greet_user():\n    \"\"\"This is a docstring. It explains what the function does.\"\"\"\n    print(\"Hello! Welcome to the BCA Python Course.\")\n\n# Calling the function\ngreet_user()\n# Calling it again reuses the code without rewriting it\ngreet_user()"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.2 Function Arguments (Parameters)"
+    },
+    {
+      "type": "paragraph",
+      "text": "Information can be passed into functions as arguments. Parameters are the variables specified inside the parentheses in the function definition, while arguments are the actual values passed to the function when it is called."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Positional Arguments: Arguments must be included in the exact order they are defined.",
+        "Keyword Arguments: You explicitly specify the parameter name when calling the function, allowing you to pass them in any order.",
+        "Default Arguments: You can assign a default value to a parameter in the function definition. If the caller doesn't provide a value, the default is used."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Function with parameters and a default argument\ndef create_profile(name, age, course=\"BCA\"):\n    print(f\"Name: {name}, Age: {age}, Course: {course}\")\n\n# Positional arguments\ncreate_profile(\"Basant\", 21)\n# Output: Name: Basant, Age: 21, Course: BCA (default used)\n\n# Keyword arguments (order doesn't matter)\ncreate_profile(age=22, name=\"Ravi\", course=\"MCA\")\n# Output: Name: Ravi, Age: 22, Course: MCA"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.3 Return Statements"
+    },
+    {
+      "type": "paragraph",
+      "text": "Instead of printing a result directly to the console, a function can return a computed value back to the caller using the `return` statement. This allows the calling code to store the result in a variable or use it in further calculations. If a function does not have a `return` statement, it implicitly returns `None`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def calculate_area(length, width):\n    area = length * width\n    return area  # Sends the value back\n\n# The returned value is caught and stored in 'room_area'\nroom_area = calculate_area(15, 10)\nprint(f\"The area is {room_area} sq units.\")\n\n# Python can return multiple values as a Tuple\ndef get_user_stats():\n    return \"Basant\", 95, \"A+\"\n\n# Unpacking the returned tuple\nname, score, grade = get_user_stats()\nprint(f\"{name} scored {score} ({grade})\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.4 Variable-Length Arguments (*args and **kwargs)"
+    },
+    {
+      "type": "paragraph",
+      "text": "Sometimes you do not know in advance how many arguments will be passed into your function. Python allows you to handle this using `*args` (for non-keyword arguments) and `**kwargs` (for keyword arguments)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# *args collects extra positional arguments into a Tuple\ndef calculate_sum(*numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    return total\n\nprint(calculate_sum(10, 20, 30)) # Output: 60\nprint(calculate_sum(5, 5))       # Output: 10\n\n# **kwargs collects extra keyword arguments into a Dictionary\ndef print_student_info(**info):\n    for key, value in info.items():\n        print(f\"{key}: {value}\")\n\nprint_student_info(name=\"Basant\", city=\"Delhi\", grade=\"A\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.5 Lambda Functions (Anonymous Functions)"
+    },
+    {
+      "type": "paragraph",
+      "text": "A lambda function is a small, anonymous function defined without a name. It is created using the `lambda` keyword instead of `def`. Lambda functions can take any number of arguments but can only have ONE expression. They are often used as throw-away functions passed as arguments to higher-order functions like `map()` or `filter()`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Regular function\ndef square(x):\n    return x ** 2\n\n# Equivalent Lambda function\n# Syntax: lambda arguments : expression\nsquare_lambda = lambda x: x ** 2\nprint(square_lambda(5)) # Output: 25\n\n# Using lambda with built-in filter() to get only even numbers\nnums = [1, 2, 3, 4, 5, 6]\nevens = list(filter(lambda n: n % 2 == 0, nums))\nprint(evens) # Output: [2, 4, 6]"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.6 Recursive Functions"
+    },
+    {
+      "type": "paragraph",
+      "text": "Recursion is a programming technique where a function calls itself directly or indirectly to solve a smaller instance of the same problem. Every recursive function must have a Base Case (a condition that stops the recursion) to prevent infinite loops and stack overflow errors."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Calculating factorial using recursion (n! = n * (n-1)!)\ndef factorial(n):\n    # Base case: prevents infinite recursion\n    if n == 0 or n == 1:\n        return 1\n    # Recursive step\n    else:\n        return n * factorial(n - 1)\n\nprint(factorial(5)) # Output: 120 (5 * 4 * 3 * 2 * 1)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4.7 Variable Scope (Local vs Global)"
+    },
+    {
+      "type": "paragraph",
+      "text": "Scope determines the visibility and lifetime of a variable. Variables defined inside a function are Local and cannot be accessed outside it. Variables defined outside any function are Global. If you need to modify a global variable from within a function, you must use the `global` keyword."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "score = 0 # Global variable\n\ndef update_score():\n    global score # Tells Python to use the global 'score'\n    score += 10\n    local_var = \"I am local\"\n\nupdate_score()\nprint(score) # Output: 10\n# print(local_var) # This would crash with a NameError"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 4 covers the creation and utilization of functions in Python. It details parameters, return values, variable-length arguments (*args, **kwargs), anonymous lambda functions, recursion, and variable scope.",
+    "detailed_summary": "Functions are critical for writing clean, reusable, and modular code. Defined using the `def` keyword, functions encapsulate logic that can be executed repeatedly. Arguments allow data to flow into functions, with Python supporting positional, keyword, and default arguments for flexibility. The `return` statement sends computed data back to the caller, and Python uniquely allows returning multiple values as tuples. For unpredictable inputs, `*args` and `**kwargs` pack excess arguments into tuples and dictionaries, respectively. Lambda functions provide a shorthand for writing single-expression anonymous functions, highly useful in functional programming techniques like mapping and filtering. Recursion is an elegant technique where functions call themselves, relying heavily on a strict base case to avoid stack overflows. Finally, understanding scope—the difference between local variables (confined to a function) and global variables (accessible anywhere)—is crucial for preventing logic bugs.",
+    "exam_focus": [
+      "Syntax for defining functions and difference between print() vs return.",
+      "How to use default and keyword arguments.",
+      "Understanding what *args and **kwargs do internally.",
+      "Writing simple lambda functions.",
+      "Tracing the execution flow of a recursive function like factorial.",
+      "Understanding the LEGB (Local, Enclosing, Global, Built-in) scope rule."
+    ],
+    "revision_notes": [
+      "`def func():` defines a function.",
+      "Functions implicitly return `None` if no return statement is used.",
+      "`*args` creates a tuple of positional arguments.",
+      "`**kwargs` creates a dictionary of keyword arguments.",
+      "Lambda: `lambda x: x*2`.",
+      "Recursion MUST have a base case.",
+      "Use the `global` keyword to modify global variables inside functions."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is a docstring, and why is it important?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Documentation", "Triple quotes"],
+      "solution": "A docstring (documentation string) is a multi-line string literal specified right after the function definition line using triple quotes. It explains what the function does, what arguments it takes, and what it returns. It is crucial for code readability and maintainability. Tools and IDEs use docstrings to provide automatic tooltips to developers using your function."
+    },
+    {
+      "q": "Write a Python function named `is_prime(n)` that takes an integer `n` and returns `True` if it is a prime number, and `False` otherwise.",
+      "type": "practical",
+      "difficulty": "Hard",
+      "hints": ["Prime numbers are > 1", "Loop from 2 to the square root of n (or n-1)", "Use the modulo operator %"],
+      "solution": "```python\ndef is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\n# Test the function\nprint(is_prime(7))  # True\nprint(is_prime(10)) # False\n```"
+    },
+    {
+      "q": "What is the output of the following recursive function if called with `func(3)`?\n```python\ndef func(n):\n    if n == 0:\n        return 0\n    return n + func(n - 1)\n```",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Trace the calls: 3 + func(2)", "func(2) = 2 + func(1)", "func(1) = 1 + func(0)"],
+      "solution": "The output is 6.\nTrace:\nfunc(3) returns 3 + func(2)\nfunc(2) returns 2 + func(1)\nfunc(1) returns 1 + func(0)\nfunc(0) returns 0 (Base case)\nWorking backwards: 1+0 = 1, 2+1 = 3, 3+3 = 6."
+    },
+    {
+      "q": "Write a lambda function that takes two arguments, `a` and `b`, and returns their product. Assign it to a variable named `multiply`.",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["lambda arguments: expression"],
+      "solution": "```python\nmultiply = lambda a, b: a * b\n\n# Testing the lambda\nprint(multiply(5, 4)) # Output: 20\n```"
+    },
+    {
+      "q": "Explain the difference between `*args` and `**kwargs` with an example.",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Positional vs Keyword", "Tuple vs Dictionary"],
+      "solution": "`*args` is used to pass a variable number of non-keyword (positional) arguments to a function. Python packs these arguments into a Tuple. \n`**kwargs` is used to pass a variable number of keyword (named) arguments. Python packs these into a Dictionary.\nExample:\n```python\ndef test_func(*args, **kwargs):\n    print('Args tuple:', args)\n    print('Kwargs dict:', kwargs)\n\ntest_func(1, 2, 3, name='Basant', age=21)\n# Args tuple: (1, 2, 3)\n# Kwargs dict: {'name': 'Basant', 'age': 21}\n```"
+    }
+  ]
+}

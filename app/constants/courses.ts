@@ -1,4 +1,4 @@
-export type Category = "class11" | "class12" | "bca" | "btech" | "aiml";
+export type Category = "class11" | "class12" | "bca" | "btech";
 
 export interface CategoryMeta {
   key: Category;
@@ -36,12 +36,5 @@ export const CATEGORIES: CategoryMeta[] = [
     description: "CS / IT Engineering",
     color: "#f59e0b", // Accent Warm
     lightColor: "#fffbeb",
-  },
-  {
-    key: "aiml",
-    label: "AI / ML",
-    description: "Modern Data Science",
-    color: "#ef4444", // Error/Accent Red
-    lightColor: "#fef2f2",
   },
 ];

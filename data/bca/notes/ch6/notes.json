@@ -1,0 +1,132 @@
+{
+  "id": "bca-ch6",
+  "title": "Lists, Tuples, Sets, Dictionaries",
+  "order": 6,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Variables holding single values (like `x = 5`) are insufficient for complex software. Python provides four built-in Data Structures to store collections of data: Lists, Tuples, Sets, and Dictionaries. Each structure has unique properties regarding ordering, mutability (changeability), and handling of duplicate data. Choosing the right data structure is the foundation of writing efficient algorithms."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6.1 Lists [ ]"
+    },
+    {
+      "type": "paragraph",
+      "text": "A list is a data structure that is ordered and mutable (changeable). It allows duplicate members. Lists are incredibly versatile and can store heterogeneous data (different data types in the same list). Lists are defined using square brackets `[]`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Creating a list\nfruits = [\"apple\", \"banana\", \"cherry\", \"apple\"]\n\n# Lists are ordered and indexed (zero-based)\nprint(fruits[1])         # Output: banana\n\n# Lists are mutable (you can change elements)\nfruits[0] = \"mango\"\nprint(fruits)            # ['mango', 'banana', 'cherry', 'apple']\n\n# List Methods\nfruits.append(\"orange\")  # Adds to the end\nfruits.insert(1, \"kiwi\") # Inserts at index 1\nfruits.remove(\"banana\")  # Removes the first occurrence\npopped = fruits.pop()    # Removes and returns the LAST element\n\nprint(len(fruits))       # Returns the length of the list\nfruits.sort()            # Sorts the list alphabetically/numerically in place"
+    },
+    {
+      "type": "paragraph",
+      "text": "A powerful feature of Python is List Comprehensions, which offer a shorter syntax to create a new list based on the values of an existing list or iterable."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Creating a list of squares for even numbers from 0 to 9\n# Syntax: [expression for item in iterable if condition]\nsquares = [x**2 for x in range(10) if x % 2 == 0]\nprint(squares) # Output: [0, 4, 16, 36, 64]"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6.2 Tuples ( )"
+    },
+    {
+      "type": "paragraph",
+      "text": "A tuple is a collection which is ordered and unchangeable (immutable). Once a tuple is created, you cannot add, remove, or change elements. Tuples are defined using parentheses `()`. Because they are immutable, tuples are faster and more memory-efficient than lists. They are used to protect data that should not be modified."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Creating a tuple\ncoordinates = (10.5, 20.1, 5.0)\n\n# Accessing elements (just like lists)\nprint(coordinates[0]) # Output: 10.5\n\n# Attempting to change an element raises a TypeError\n# coordinates[1] = 99.9  <-- ERROR\n\n# Single element tuple MUST have a trailing comma\nsingle = (5,) \nprint(type(single)) # <class 'tuple'>\n\n# Tuple Unpacking\nx, y, z = coordinates\nprint(f\"X is {x}, Y is {y}\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6.3 Sets { }"
+    },
+    {
+      "type": "paragraph",
+      "text": "A set is a collection which is unordered, unindexed, and does not allow duplicate elements. Sets are defined using curly braces `{}`. Because sets are backed by a hash table, checking if an item exists in a set (`in` operator) is blazingly fast (O(1) time complexity)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Creating a set\nids = {101, 102, 103, 101, 102} \nprint(ids) # Output: {101, 102, 103} (Duplicates automatically removed!)\n\n# Note: To create an empty set, you MUST use set(), not {}\nempty_set = set()\n\n# Set Methods\nids.add(104)\nids.remove(101)\n\n# Mathematical Set Operations\nsetA = {1, 2, 3, 4}\nsetB = {3, 4, 5, 6}\n\nprint(setA.union(setB))        # {1, 2, 3, 4, 5, 6} (or setA | setB)\nprint(setA.intersection(setB)) # {3, 4} (or setA & setB)\nprint(setA.difference(setB))   # {1, 2} (or setA - setB)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6.4 Dictionaries {key: value}"
+    },
+    {
+      "type": "paragraph",
+      "text": "A dictionary is a collection which is ordered (as of Python 3.7), changeable, and does not allow duplicate keys. Dictionaries store data in `key: value` pairs. They are incredibly powerful for mapping relationships. Keys must be immutable types (like strings, numbers, or tuples), while values can be anything."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Creating a dictionary\nstudent = {\n    \"name\": \"Basant\",\n    \"age\": 21,\n    \"course\": \"BCA\"\n}\n\n# Accessing values via keys\nprint(student[\"name\"]) # Output: Basant\n\n# Using get() is safer; it returns None if the key doesn't exist instead of crashing\nprint(student.get(\"grade\", \"Not Graded\")) # Output: Not Graded\n\n# Modifying and Adding\nstudent[\"age\"] = 22             # Updates existing key\nstudent[\"college\"] = \"DU\"       # Adds a new key-value pair\n\n# Removing\ndel student[\"course\"]\n\n# Iterating through a dictionary\nfor key, value in student.items():\n    print(f\"{key}: {value}\")"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 6 introduces Python's core data structures: Lists (ordered/mutable), Tuples (ordered/immutable), Sets (unordered/unique), and Dictionaries (key-value maps).",
+    "detailed_summary": "Python provides four versatile collections to handle multiple items. Lists are ordered, indexed sequences created with square brackets; they are highly mutable, allowing insertion, deletion, and modification. Tuples, defined with parentheses, are similar to lists but are strictly immutable, providing data safety and performance benefits. Sets, defined with curly braces, are unordered collections of unique elements. Backed by hash tables, sets automatically filter out duplicates and offer mathematical operations like unions and intersections. Dictionaries use curly braces containing key-value pairs, acting as powerful associative arrays (Hash Maps). Keys must be immutable and unique. Modern Python (3.7+) guarantees that dictionaries preserve insertion order. Mastery of these four structures, alongside list comprehensions and dictionary iteration (.items(), .keys(), .values()), is essential for efficient Python programming.",
+    "exam_focus": [
+      "Compare and contrast List vs. Tuple (Mutability).",
+      "Compare and contrast List vs. Set (Ordering and Duplicates).",
+      "Understand how to create an empty Set vs empty Dictionary.",
+      "Syntax for List Comprehensions.",
+      "Dictionary methods: `.get()`, `.items()`, `.keys()`, `.values()`.",
+      "Set operations: Union (`|`), Intersection (`&`), Difference (`-`)."
+    ],
+    "revision_notes": [
+      "List: `[]`, ordered, mutable, allows duplicates.",
+      "Tuple: `()`, ordered, immutable, allows duplicates.",
+      "Set: `set()`, unordered, mutable, NO duplicates.",
+      "Dict: `{}` or `dict()`, ordered, mutable, unique keys mapping to values.",
+      "`dict.get(key)` is safer than `dict[key]` (prevents KeyError)."
+    ]
+  },
+  "practice": [
+    {
+      "q": "Why would you choose to use a Tuple instead of a List?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Immutability", "Performance", "Safety"],
+      "solution": "You would choose a Tuple over a List when you have a sequence of data that should NEVER change during the execution of the program (e.g., geographic coordinates, database connection settings). Because Tuples are immutable, Python optimizes them, making them slightly faster and more memory-efficient than Lists. Furthermore, because they are immutable, Tuples can be used as keys in a Dictionary, whereas Lists cannot."
+    },
+    {
+      "q": "Given a list `numbers = [1, 2, 2, 3, 4, 4, 5]`, write a single line of Python code to remove all duplicates and return a sorted list of unique numbers.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Convert to a Set to remove duplicates", "Convert back to a List", "Use sorted()"],
+      "solution": "```python\nnumbers = [1, 2, 2, 3, 4, 4, 5]\n# set(numbers) removes duplicates.\n# sorted() sorts them and returns a list.\nunique_numbers = sorted(set(numbers))\nprint(unique_numbers)  # Output: [1, 2, 3, 4, 5]\n```"
+    },
+    {
+      "q": "Write a Python script that takes a string, counts the frequency of each character, and stores the results in a dictionary.",
+      "type": "practical",
+      "difficulty": "Hard",
+      "hints": ["Initialize an empty dict", "Iterate over the string", "If char is in dict, increment; else, set to 1"],
+      "solution": "```python\ntext = 'hello'\nchar_count = {}\n\nfor char in text:\n    if char in char_count:\n        char_count[char] += 1\n    else:\n        char_count[char] = 1\n\nprint(char_count)  \n# Output: {'h': 1, 'e': 1, 'l': 2, 'o': 1}\n\n# Alternative using .get():\n# for char in text:\n#     char_count[char] = char_count.get(char, 0) + 1\n```"
+    },
+    {
+      "q": "What is the output of the following code and why?\n```python\nstudent = {'name': 'Basant'}\nprint(student.get('age'))\nprint(student['age'])\n```",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Key doesn't exist", "Behavior of .get() vs []"],
+      "solution": "The output of `print(student.get('age'))` is `None`. The `.get()` method safely attempts to retrieve the key, and if it doesn't exist, it defaults to returning `None`.\nThe line `print(student['age'])` will crash the program and raise a `KeyError: 'age'`. Direct indexing requires the key to exist in the dictionary."
+    },
+    {
+      "q": "Explain List Comprehension and convert the following loop into a list comprehension:\n```python\nresults = []\nfor i in range(5):\n    results.append(i * 10)\n```",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["[expression for item in iterable]"],
+      "solution": "List comprehension is a concise and highly optimized way to create a new list by applying an expression to each item in an existing iterable. It is generally faster than using a standard for-loop with `.append()`.\nConversion:\n```python\nresults = [i * 10 for i in range(5)]\n```"
+    }
+  ]
+}

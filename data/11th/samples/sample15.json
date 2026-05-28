@@ -1,0 +1,388 @@
+{
+  "paperId": "11th-sample-15",
+  "title": "Class 11 Python Sample Paper 15",
+  "subtitle": "Class 11 Computer Science Assessment",
+  "duration": "90 minutes",
+  "totalMarks": 100,
+  "difficulty": "Medium",
+  "sections": [
+    {
+      "sectionId": "A",
+      "title": "Multiple Choice Questions",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "In Python, what is the data type of the result of 'input()' function?",
+          "options": [
+            "int",
+            "float",
+            "string",
+            "boolean"
+          ],
+          "answer": 2,
+          "id": "A1"
+        },
+        {
+          "question": "Which of the following is a valid dictionary declaration?",
+          "options": [
+            "d = {1: 'A', 2: 'B'}",
+            "d = [1: 'A', 2: 'B']",
+            "d = (1: 'A', 2: 'B')",
+            "d = <1: 'A', 2: 'B'>"
+          ],
+          "answer": 0,
+          "id": "A2"
+        },
+        {
+          "question": "Tuples are ____ in nature.",
+          "options": [
+            "mutable",
+            "immutable",
+            "dynamic",
+            "expandable"
+          ],
+          "answer": 1,
+          "id": "A3"
+        },
+        {
+          "question": "What does a CPU do?",
+          "options": [
+            "Storage",
+            "Processing",
+            "Networking",
+            "Printing"
+          ],
+          "answer": 1,
+          "id": "A4"
+        },
+        {
+          "question": "Tuples are ____ in nature.",
+          "options": [
+            "mutable",
+            "immutable",
+            "dynamic",
+            "expandable"
+          ],
+          "answer": 1,
+          "id": "A5"
+        },
+        {
+          "question": "What does a CPU do?",
+          "options": [
+            "Storage",
+            "Processing",
+            "Networking",
+            "Printing"
+          ],
+          "answer": 1,
+          "id": "A6"
+        },
+        {
+          "question": "Which of the following is NOT a core data type in Python?",
+          "options": [
+            "List",
+            "Dictionary",
+            "Class",
+            "Tuple"
+          ],
+          "answer": 2,
+          "id": "A7"
+        },
+        {
+          "question": "Tuples are ____ in nature.",
+          "options": [
+            "mutable",
+            "immutable",
+            "dynamic",
+            "expandable"
+          ],
+          "answer": 1,
+          "id": "A8"
+        },
+        {
+          "question": "Which method is used to add an element at the end of a list?",
+          "options": [
+            "add()",
+            "append()",
+            "insert()",
+            "extend()"
+          ],
+          "answer": 1,
+          "id": "A9"
+        },
+        {
+          "question": "What does a CPU do?",
+          "options": [
+            "Storage",
+            "Processing",
+            "Networking",
+            "Printing"
+          ],
+          "answer": 1,
+          "id": "A10"
+        }
+      ]
+    },
+    {
+      "sectionId": "B",
+      "title": "Short Answer Questions",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B1"
+        },
+        {
+          "question": "Differentiate between compiler and interpreter.",
+          "marks": 3,
+          "keywords": [
+            "entire program",
+            "line by line",
+            "fast",
+            "slow",
+            "translation"
+          ],
+          "id": "B2"
+        },
+        {
+          "question": "Explain the difference between '/' and '//' operators in Python.",
+          "marks": 3,
+          "keywords": [
+            "float division",
+            "floor division",
+            "integer",
+            "decimal"
+          ],
+          "id": "B3"
+        },
+        {
+          "question": "What are keywords in Python? Give 2 examples.",
+          "marks": 3,
+          "keywords": [
+            "reserved words",
+            "special meaning",
+            "if",
+            "else",
+            "for",
+            "while"
+          ],
+          "id": "B4"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B5"
+        },
+        {
+          "question": "Define string slicing with an example.",
+          "marks": 3,
+          "keywords": [
+            "substring",
+            "start",
+            "stop",
+            "step",
+            "colon",
+            "sequence"
+          ],
+          "id": "B6"
+        },
+        {
+          "question": "What is cyberbullying? How can it be prevented?",
+          "marks": 3,
+          "keywords": [
+            "harassment",
+            "online",
+            "reporting",
+            "blocking",
+            "safety"
+          ],
+          "id": "B7"
+        },
+        {
+          "question": "What is cyberbullying? How can it be prevented?",
+          "marks": 3,
+          "keywords": [
+            "harassment",
+            "online",
+            "reporting",
+            "blocking",
+            "safety"
+          ],
+          "id": "B8"
+        },
+        {
+          "question": "Differentiate between compiler and interpreter.",
+          "marks": 3,
+          "keywords": [
+            "entire program",
+            "line by line",
+            "fast",
+            "slow",
+            "translation"
+          ],
+          "id": "B9"
+        },
+        {
+          "question": "What are keywords in Python? Give 2 examples.",
+          "marks": 3,
+          "keywords": [
+            "reserved words",
+            "special meaning",
+            "if",
+            "else",
+            "for",
+            "while"
+          ],
+          "id": "B10"
+        }
+      ]
+    },
+    {
+      "sectionId": "C",
+      "title": "Code Writing",
+      "marks": 30,
+      "questions": [
+        {
+          "question": "Create a dictionary of 3 students with their marks and write code to find the highest marks.",
+          "marks": 5,
+          "hints": [
+            "Use max() with dict.values()",
+            "Iterate over dictionary",
+            "Track max marks"
+          ],
+          "id": "C1"
+        },
+        {
+          "question": "Write a Python script to print the Fibonacci series up to n terms.",
+          "marks": 5,
+          "hints": [
+            "Initialize a=0, b=1",
+            "Use a loop",
+            "Update a and b"
+          ],
+          "id": "C2"
+        },
+        {
+          "question": "Write a program to count vowels in a given string.",
+          "marks": 5,
+          "hints": [
+            "Define a string of vowels",
+            "Iterate through characters",
+            "Keep a count"
+          ],
+          "id": "C3"
+        },
+        {
+          "question": "Write a Python script to print the Fibonacci series up to n terms.",
+          "marks": 5,
+          "hints": [
+            "Initialize a=0, b=1",
+            "Use a loop",
+            "Update a and b"
+          ],
+          "id": "C4"
+        },
+        {
+          "question": "Write a program to find the largest number in a list without using the max() function.",
+          "marks": 5,
+          "hints": [
+            "Assume first element is largest",
+            "Iterate and compare",
+            "Update largest"
+          ],
+          "id": "C5"
+        },
+        {
+          "question": "Create a dictionary of 3 students with their marks and write code to find the highest marks.",
+          "marks": 5,
+          "hints": [
+            "Use max() with dict.values()",
+            "Iterate over dictionary",
+            "Track max marks"
+          ],
+          "id": "C6"
+        }
+      ]
+    },
+    {
+      "sectionId": "D",
+      "title": "Error Finding & Output Prediction",
+      "marks": 20,
+      "questions": [
+        {
+          "question": "Find the error:\nx = 10\nif x = 10:\n    print('Yes')",
+          "marks": 3,
+          "answer": "SyntaxError: invalid syntax",
+          "explanation": "Assignment operator '=' is used instead of comparison operator '=='.",
+          "id": "D1"
+        },
+        {
+          "question": "Predict the output:\nlst = [1, 2, 3]\nlst.append([4, 5])\nprint(len(lst))",
+          "marks": 3,
+          "answer": "4",
+          "explanation": "The list [4, 5] is appended as a single element, so the list becomes [1, 2, 3, [4, 5]].",
+          "id": "D2"
+        },
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 3,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D3"
+        },
+        {
+          "question": "Predict the output:\ns = 'Python'\nprint(s[::-1])",
+          "marks": 3,
+          "answer": "nohtyP",
+          "explanation": "The slice [::-1] reverses the string.",
+          "id": "D4"
+        },
+        {
+          "question": "Predict the output:\ns = 'Python'\nprint(s[::-1])",
+          "marks": 2,
+          "answer": "nohtyP",
+          "explanation": "The slice [::-1] reverses the string.",
+          "id": "D5"
+        },
+        {
+          "question": "Predict the output:\nprint(2 ** 3 ** 2)",
+          "marks": 2,
+          "answer": "512",
+          "explanation": "Exponentiation is evaluated right-to-left. 3**2 is 9, and 2**9 is 512.",
+          "id": "D6"
+        },
+        {
+          "question": "Find the error:\nd = {1: 'a', 2: 'b'}\nprint(d[3])",
+          "marks": 2,
+          "answer": "KeyError: 3",
+          "explanation": "The key 3 does not exist in the dictionary.",
+          "id": "D7"
+        },
+        {
+          "question": "Find the error:\nfor i in range(5)\n    print(i)",
+          "marks": 2,
+          "answer": "SyntaxError: expected ':'",
+          "explanation": "Missing colon ':' at the end of the for loop statement.",
+          "id": "D8"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "id": "ch3",
+  "title": "Getting Started with Python",
+  "order": 3,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Python was created by Guido van Rossum and first released in 1991. It is a high-level, interpreted, general-purpose programming language. Python's design philosophy emphasizes code readability through its notable use of significant whitespace (indentation). It is wildly popular in fields ranging from Web Development to Artificial Intelligence and Data Science."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3.1 Features of Python"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python has several key characteristics that make it an excellent choice for both beginners and industry professionals:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Easy to Learn and Read: Python's syntax is very close to plain English. It removes clutter like curly braces and semicolons.",
+        "Interpreted Language: Python code is executed line-by-line by an interpreter, which makes debugging easier, though it can run slightly slower than compiled languages like C++.",
+        "Platform Independent (Cross-Platform): Python code written on a Windows machine will run perfectly on a Mac or Linux machine without modification.",
+        "Free and Open Source: Python is free to download, use, and distribute.",
+        "Massive Standard Library: Python comes 'batteries included' with a huge library of pre-written code for tasks like networking, file I/O, and math."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3.2 Execution Modes"
+    },
+    {
+      "type": "paragraph",
+      "text": "You can interact with Python in two primary ways: Interactive Mode and Script Mode."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Interactive Mode: Using the Python shell (indicated by the `>>>` prompt). You type a single command, press Enter, and see the result immediately. It is excellent for quick testing and calculations, but code is not saved.",
+        "Script Mode: You write multiple lines of code in a text file (with a `.py` extension) using an IDE like IDLE or VS Code. The entire file is then executed at once. This is how actual programs are written because the code is permanently saved."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3.3 Python Tokens"
+    },
+    {
+      "type": "paragraph",
+      "text": "In a Python program, the smallest individual unit of code is called a Token. The Python interpreter breaks your code down into tokens before executing it. There are five main categories of tokens."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Keywords: Reserved words that have special meaning to the interpreter. You cannot use them as variable names. Examples: `if`, `for`, `while`, `def`, `True`.",
+        "Identifiers: Names created by the programmer to label variables, functions, and classes. (e.g., `age`, `calculate_sum`).",
+        "Literals: Raw, fixed data values directly written into the code. Examples: `42` (Integer literal), `\"Hello\"` (String literal), `3.14` (Float literal).",
+        "Operators: Symbols that trigger specific mathematical or logical computations. Examples: `+`, `-`, `=`, `==`, `and`.",
+        "Punctuators (Delimiters): Symbols used to organize code structures. Examples: `( )`, `[ ]`, `:`, `,`."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3.4 Rules for Naming Identifiers"
+    },
+    {
+      "type": "paragraph",
+      "text": "When creating a name for a variable or function (an identifier), you MUST follow strict Python rules. If you break these rules, Python will throw a SyntaxError."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Must start with a letter (A-Z, a-z) or an underscore (_).",
+        "CANNOT start with a number (e.g., `1st_place` is invalid).",
+        "Can contain letters, numbers, and underscores, but NO other special characters (no spaces, no @, no $).",
+        "Cannot be a reserved Python keyword (e.g., you cannot name a variable `if` or `for`).",
+        "Python is case-sensitive! `Age`, `age`, and `AGE` are considered three entirely different variables."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Valid Identifiers\nplayer_score = 100\n_hidden_value = 5\nname2 = \"Alice\"\n\n# Invalid Identifiers\n# 2nd_player = 50   (Starts with a number)\n# total-cost = 20   (Contains a hyphen/minus sign)\n# class = \"11th\"    ('class' is a reserved keyword)"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 3 introduces the Python programming language, highlighting its features, execution modes (Interactive vs. Script), and the fundamental building blocks of code known as Tokens.",
+    "detailed_summary": "Python is a high-level, interpreted, and cross-platform language known for its extreme readability and vast standard library. Developers use Interactive Mode (the shell) for quick, line-by-line testing, and Script Mode for writing and saving complete programs in `.py` files. The Python interpreter analyzes code by breaking it down into Tokens, the smallest lexical units. The five token types are Keywords (reserved structural words like `if` or `def`), Identifiers (programmer-defined names for variables/functions), Literals (fixed raw data values), Operators (math/logic symbols), and Punctuators (symbols like commas and colons for structure). Naming identifiers requires adhering to strict rules: they must begin with a letter or underscore, cannot contain special characters or spaces, cannot be keywords, and are strictly case-sensitive.",
+    "exam_focus": [
+      "Understand the difference between Interactive and Script mode.",
+      "List the 5 types of Python tokens.",
+      "Identify valid vs invalid identifier names based on Python's naming rules.",
+      "Recognize that Python is case-sensitive and interpreted."
+    ],
+    "revision_notes": [
+      "Python is Interpreted and Platform Independent.",
+      "Interactive mode = temporary, Script mode = saved to file.",
+      "Tokens: Keywords, Identifiers, Literals, Operators, Punctuators.",
+      "Identifiers cannot start with a number.",
+      "Identifiers cannot use spaces or special characters (except `_`).",
+      "Python is Case-Sensitive."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What does it mean that Python is a 'cross-platform' language?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Operating Systems"],
+      "solution": "Cross-platform (or platform-independent) means that a Python program written and saved on one operating system (like Windows) can be transferred to and executed perfectly on a completely different operating system (like macOS or Linux) without needing to rewrite the code."
+    },
+    {
+      "q": "Which of the following are INVALID Python identifiers, and why? \n1) `student_name` \n2) `2nd_place` \n3) `total sum` \n4) `_internal` \n5) `for`",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Rules for naming identifiers"],
+      "solution": "1) `student_name` is Valid.\n2) `2nd_place` is Invalid (Cannot start with a number).\n3) `total sum` is Invalid (Cannot contain spaces).\n4) `_internal` is Valid.\n5) `for` is Invalid (It is a reserved Python keyword)."
+    },
+    {
+      "q": "Explain the difference between a Keyword and an Identifier.",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Reserved vs User-created"],
+      "solution": "A Keyword is a reserved word built into the Python language that has a specific, unchangeable structural meaning (like `if`, `while`, `True`). An Identifier is a custom name created by the programmer to label data, such as a variable name or a function name. You cannot use a keyword as an identifier."
+    },
+    {
+      "q": "What is the smallest individual unit in a Python program called? Give two examples.",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Lexical unit"],
+      "solution": "The smallest individual unit is called a Token. Examples include a Keyword (like `def`), an Operator (like `+`), or a Literal (like `100`)."
+    },
+    {
+      "q": "Why would a developer choose Script Mode over Interactive Mode?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Saving work", "Multiple lines"],
+      "solution": "Interactive mode evaluates code line-by-line instantly but does not save the code. If you close the shell, your work is gone. A developer uses Script mode because it allows them to write hundreds of lines of code, save it permanently as a `.py` file on the hard drive, and execute the entire program repeatedly whenever needed."
+    }
+  ]
+}

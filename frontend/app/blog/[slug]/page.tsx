@@ -73,7 +73,7 @@ function generateJsonLd(blog: Blog): string {
       name: "PyLearn",
       logo: {
         "@type": "ImageObject",
-        url: "https://pylearn.app/logo.png",
+        url: "https://pylearn.app/icon.png",
       },
     },
     keywords: blog.tags?.join(", "),

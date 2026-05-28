@@ -23,6 +23,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
   openGraph: {
     title: "PyLearn — Master Python for Class 11, 12, BCA & B.Tech",
     description:
@@ -50,7 +55,7 @@ export default function RootLayout({
     "@type": "EducationalOrganization",
     "name": "PyLearn",
     "url": BASE_URL,
-    "logo": `${BASE_URL}/logo.png`,
+    "logo": `${BASE_URL}/icon.png`,
     "description": "Premium Python learning resources for students and engineers.",
     "sameAs": [
       "https://github.com/pylearn",

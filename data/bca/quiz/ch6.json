@@ -1,0 +1,45 @@
+{
+  "chapterId": "ch6",
+  "title": "Lists, Tuples, Sets, Dictionaries - BCA Level",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Identifying and Creating",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "Which brackets are used to define a List?", "options": ["{}", "()", "[]", "<>"], "answer": 2, "explanation": "Lists are defined using square brackets []." },
+        { "id": "q2", "question": "Which data structure stores data in key-value pairs?", "options": ["List", "Tuple", "Set", "Dictionary"], "answer": 3, "explanation": "Dictionaries use {key: value} mapping." },
+        { "id": "q3", "question": "Which of the following is immutable?", "options": ["List", "Dictionary", "Set", "Tuple"], "answer": 3, "explanation": "Tuples cannot be modified after creation." },
+        { "id": "q4", "question": "How do you create an empty dictionary?", "options": ["dict()", "{}", "Both A and B", "[]"], "answer": 2, "explanation": "Both `{}` and `dict()` create an empty dictionary." },
+        { "id": "q5", "question": "How do you create an empty set?", "options": ["set()", "{}", "Both A and B", "[]"], "answer": 0, "explanation": "`{}` creates a dictionary, so you MUST use `set()` for an empty set." },
+        { "id": "q6", "question": "Which structure guarantees that all elements are unique?", "options": ["List", "Tuple", "Set", "Dictionary (Keys)"], "answer": 2, "explanation": "Sets inherently disallow duplicate values." },
+        { "id": "q7", "question": "Can a List contain elements of different data types?", "options": ["Yes, it is heterogeneous", "No, it must be homogeneous", "Only in Python 3", "Only strings and ints"], "answer": 0, "explanation": "Lists can hold integers, strings, objects, or even other lists simultaneously." },
+        { "id": "q8", "question": "How do you define a tuple with a single element?", "options": ["(1)", "[1]", "(1,)", "tuple(1)"], "answer": 2, "explanation": "A trailing comma is required to differentiate it from a mathematical parenthesis." },
+        { "id": "q9", "question": "Are dictionaries ordered in modern Python (3.7+)?", "options": ["No", "Yes, they maintain insertion order", "Yes, they are alphabetically sorted", "Depends on the keys"], "answer": 1, "explanation": "Since Python 3.7, dictionaries preserve the order in which items are inserted." },
+        { "id": "q10", "question": "What is the primary advantage of a Set or Dictionary over a List?", "options": ["They use less memory", "They allow duplicates", "Extremely fast lookups (O(1))", "They maintain alphabetical order"], "answer": 2, "explanation": "Sets and dicts use Hash Tables, making membership checking virtually instantaneous." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Operations and Methods",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "How do you add an element to the end of a list?", "options": ["insert()", "push()", "add()", "append()"], "answer": 3, "explanation": "The append() method adds an item to the end." },
+        { "id": "q12", "question": "What happens if you try to add a duplicate value to a Set?", "options": ["It raises an error", "It is added successfully", "It is ignored", "It replaces the old value"], "answer": 2, "explanation": "Sets only store unique values; duplicates are silently ignored." },
+        { "id": "q13", "question": "Which method retrieves a dict value safely (no error if missing)?", "options": ["dict['key']", "dict.fetch('key')", "dict.get('key')", "dict.find('key')"], "answer": 2, "explanation": "get() returns None (or a default) if the key isn't found." },
+        { "id": "q14", "question": "Which list method removes and returns the last element?", "options": ["remove()", "pop()", "delete()", "discard()"], "answer": 1, "explanation": "pop() targets the end of the list by default." },
+        { "id": "q15", "question": "How do you merge two lists `L1` and `L2`?", "options": ["L1 + L2", "L1.extend(L2)", "Both A and B", "L1.append(L2)"], "answer": 2, "explanation": "Both `+` and `extend()` merge them; `append()` would put L2 inside L1 as a nested list." },
+        { "id": "q16", "question": "How do you get all the keys of a dictionary `d`?", "options": ["d.keys()", "d.get_keys()", "d.all()", "d.items()"], "answer": 0, "explanation": "d.keys() returns a view object containing the keys." },
+        { "id": "q17", "question": "What does `d.items()` return?", "options": ["Only values", "List of keys", "A view of (key, value) tuples", "Error"], "answer": 2, "explanation": "Often used in loops: `for key, val in d.items():`" },
+        { "id": "q18", "question": "What happens if you use `d['key'] = value` and the key already exists?", "options": ["Error", "Value is appended", "The old value is overwritten", "Nothing happens"], "answer": 2, "explanation": "Dictionaries cannot have duplicate keys, so it updates the value." },
+        { "id": "q19", "question": "Which operator finds the intersection of two sets?", "options": ["|", "&", "-", "^"], "answer": 1, "explanation": "The ampersand (&) finds elements common to both sets." },
+        { "id": "q20", "question": "What does `list.insert(index, obj)` do?", "options": ["Replaces the object at index", "Inserts the object before the index", "Deletes the object", "None"], "answer": 1, "explanation": "It shifts existing elements to the right to make room." },
+        { "id": "q21", "question": "How do you remove a specific key from a dictionary?", "options": ["remove(key)", "del d[key]", "pop(key)", "Both B and C"], "answer": 3, "explanation": "Both `del` and `pop()` can remove dictionary keys." },
+        { "id": "q22", "question": "What is list comprehension?", "options": ["Compressing a list", "A concise way to create lists using a for-loop inside brackets", "Converting a list to string", "A sorting algorithm"], "answer": 1, "explanation": "Example: `[x*2 for x in range(5)]`." },
+        { "id": "q23", "question": "Can a list be used as a key in a dictionary?", "options": ["Yes", "No", "Only if it has numbers", "Only in Python 2"], "answer": 1, "explanation": "Keys must be immutable (hashable). Lists are mutable." },
+        { "id": "q24", "question": "What does `set.union(other_set)` do?", "options": ["Returns elements in both", "Combines elements, removing duplicates", "Subtracts the second from the first", "Returns elements in one but not both"], "answer": 1, "explanation": "Union brings all unique elements together." },
+        { "id": "q25", "question": "What is a 'shallow copy' of a list?", "options": ["A copy that references the same nested objects", "A copy stored in slow memory", "A fully independent clone", "An empty list"], "answer": 0, "explanation": "Use `copy.deepcopy()` if you need independent nested lists." }
+      ]
+    }
+  ]
+}

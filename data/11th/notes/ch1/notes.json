@@ -1,0 +1,162 @@
+{
+  "id": "ch1",
+  "title": "Computer System and Organization",
+  "order": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "A computer is an electronic device that processes raw data into meaningful information. It operates under the control of instructions stored in its own memory. The fundamental principle behind all computers, from smartphones to supercomputers, is the Input-Process-Output (IPO) cycle. A complete computer system consists of both hardware (the physical, tangible parts) and software (the intangible instructions that tell the hardware what to do)."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.1 Basic Computer Organization"
+    },
+    {
+      "type": "paragraph",
+      "text": "The architecture of a typical computer system is defined by the Von Neumann model, which consists of three core units: the Input/Output Unit, the Central Processing Unit (CPU), and the Memory Unit. These units are interconnected by electronic pathways called buses."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Input Unit: Devices like keyboards, mice, and scanners that feed raw data into the system.",
+        "Output Unit: Devices like monitors and printers that display the processed information to the user.",
+        "Central Processing Unit (CPU): The 'brain' of the computer where all calculations and logic operations occur."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.2 The Central Processing Unit (CPU)"
+    },
+    {
+      "type": "paragraph",
+      "text": "The CPU is the most critical component of a computer system. It is responsible for fetching instructions from memory, decoding them, executing them, and storing the results. The CPU itself is divided into three primary sub-components."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Arithmetic Logic Unit (ALU): Performs mathematical calculations (addition, subtraction) and logical comparisons (AND, OR, NOT, greater than).",
+        "Control Unit (CU): Acts as the traffic cop. It directs the flow of data between the ALU, memory, and I/O devices. It fetches instructions, decodes them, and tells the ALU what operation to perform.",
+        "Registers: Ultra-fast, tiny, temporary storage locations situated directly inside the CPU. They hold the data currently being processed and the address of the next instruction."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.3 Memory System"
+    },
+    {
+      "type": "paragraph",
+      "text": "Computer memory is organized in a hierarchy based on speed, cost, and capacity. At the top of the hierarchy are CPU registers (fastest, smallest, most expensive). At the bottom are secondary storage devices like Hard Drives (slowest, largest, cheapest)."
+    },
+    {
+      "type": "paragraph",
+      "text": "Primary Memory (Main Memory): This memory is directly accessible by the CPU. It is volatile, meaning data is lost when power is turned off."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "RAM (Random Access Memory): Read/Write memory used to hold currently running programs and data.",
+        "ROM (Read Only Memory): Non-volatile memory containing firmware, such as the BIOS required to boot the computer."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Secondary Memory: Non-volatile storage used for long-term data retention. Examples include Hard Disk Drives (HDDs), Solid State Drives (SSDs), and USB flash drives."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.4 Types of Software"
+    },
+    {
+      "type": "paragraph",
+      "text": "Hardware without software is useless. Software is classified into two main categories: System Software and Application Software."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "System Software: Programs designed to operate, control, and extend the processing capabilities of the computer itself. Examples include Operating Systems (Windows, Linux), device drivers, and language translators (compilers, interpreters).",
+        "Application Software: Programs designed to perform specific tasks for the user. Examples include word processors, web browsers, and video games."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.5 Operating System (OS)"
+    },
+    {
+      "type": "paragraph",
+      "text": "The Operating System is the most critical piece of System Software. It acts as an interface between the user and the computer hardware. Without an OS, you would have to write complex low-level code just to save a file or display text on the screen."
+    },
+    {
+      "type": "paragraph",
+      "text": "Key Functions of an OS:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Process Management: Allocating CPU time to different running applications.",
+        "Memory Management: Keeping track of what data is in RAM and deciding which programs get memory.",
+        "File Management: Organizing files into directories and controlling access rights.",
+        "Device Management: Communicating with hardware peripherals via drivers."
+      ]
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 1 introduces the fundamental architecture of a computer, detailing the CPU components, memory hierarchy, and the distinction between hardware, system software, and application software.",
+    "detailed_summary": "A computer system is built upon the Von Neumann architecture, functioning via the Input-Process-Output (IPO) cycle. The core is the CPU, which comprises the Arithmetic Logic Unit (ALU) for calculations, the Control Unit (CU) for directing data flow, and Registers for ultra-fast data holding. The memory hierarchy dictates system speed and cost, categorizing memory into Primary (volatile RAM, non-volatile ROM) and Secondary (persistent storage like HDDs and SSDs). Software brings the hardware to life and is split into System Software (operating systems, drivers) and Application Software (user tools). The Operating System acts as the crucial intermediary, managing processes, memory, files, and peripheral devices.",
+    "exam_focus": [
+      "Understand the difference between the ALU and CU.",
+      "Differentiate between RAM and ROM, and Primary vs Secondary Memory.",
+      "Identify the core functions of an Operating System.",
+      "Categorize given software as System or Application software."
+    ],
+    "revision_notes": [
+      "IPO Cycle: Input -> Process -> Output.",
+      "CPU = ALU + CU + Registers.",
+      "RAM: Volatile, fast, working memory.",
+      "ROM: Non-volatile, stores BIOS.",
+      "System Software manages hardware (e.g., Windows).",
+      "Application Software does user tasks (e.g., MS Word)."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is the function of the Control Unit (CU) in the CPU?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Traffic cop", "Decoding"],
+      "solution": "The Control Unit acts as the central coordinator of the computer. It fetches instructions from memory, decodes them, and directs the ALU, memory, and I/O devices on how to execute those instructions. It does not perform actual calculations; it just controls the data flow."
+    },
+    {
+      "q": "Why is RAM considered volatile memory?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Power loss"],
+      "solution": "RAM is considered volatile because it requires continuous electrical power to maintain the data stored in it. The moment the computer is turned off or loses power, all data residing in the RAM is immediately erased and lost permanently."
+    },
+    {
+      "q": "Classify the following as System Software or Application Software: Ubuntu Linux, Microsoft PowerPoint, Printer Driver, Google Chrome.",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Hardware management vs User tasks"],
+      "solution": "System Software: Ubuntu Linux (Operating System), Printer Driver (Device Driver). \nApplication Software: Microsoft PowerPoint (Presentation Tool), Google Chrome (Web Browser)."
+    },
+    {
+      "q": "What is the purpose of an Operating System?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Interface", "Resource management"],
+      "solution": "An Operating System (OS) serves as the main interface between the user, application software, and the physical computer hardware. It hides the complexity of the hardware and provides essential services like process scheduling, memory allocation, file organization, and device management."
+    },
+    {
+      "q": "Explain the difference between primary memory and secondary memory with examples.",
+      "type": "theory",
+      "difficulty": "Hard",
+      "hints": ["CPU access", "Volatility", "Storage capacity"],
+      "solution": "Primary Memory (Main Memory) is directly accessible by the CPU. It is very fast, relatively expensive, and has limited capacity. Most primary memory (like RAM) is volatile. Example: DDR4 RAM sticks on a motherboard. \nSecondary Memory is not directly accessible by the CPU; data must first be loaded into RAM. It is slower, cheaper, and used for massive, permanent, non-volatile data storage. Examples: Hard Disk Drives (HDDs) and Solid State Drives (SSDs)."
+    }
+  ]
+}

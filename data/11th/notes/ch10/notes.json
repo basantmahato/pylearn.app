@@ -1,0 +1,137 @@
+{
+  "id": "ch10",
+  "title": "Dictionaries",
+  "order": 10,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Lists and Tuples are accessed using integer indices (0, 1, 2). This is great for sequences, but terrible if you want to look up data based on a label (e.g., finding the grade of 'Basant' without knowing his exact position in the list). Dictionaries solve this problem. A Dictionary is an unordered, mutable collection of Key-Value pairs. It acts like a real-world dictionary: you look up a word (the Key) to find its definition (the Value)."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.1 Creating Dictionaries"
+    },
+    {
+      "type": "paragraph",
+      "text": "Dictionaries are enclosed in curly braces `{}`. Each item consists of a Key and a Value separated by a colon `:`. Items are separated by commas. Keys MUST be unique and Immutable (like Strings, Integers, or Tuples). Values can be anything (including Lists or other Dictionaries)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Creating a dictionary\nstudent_grades = {\n    \"Basant\": 95,\n    \"Alice\": 88,\n    \"Bob\": 72\n}\n\n# Creating an empty dictionary\nempty_dict = {}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.2 Accessing and Modifying Data"
+    },
+    {
+      "type": "paragraph",
+      "text": "You access a value not by its index number, but by providing its Key inside square brackets. Because dictionaries are Mutable, you can easily add new Key-Value pairs or update existing ones."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "inventory = {\"Apples\": 10, \"Bananas\": 5}\n\n# Accessing a value\nprint(inventory[\"Apples\"])  # Output: 10\n\n# Adding a new Key-Value pair\ninventory[\"Oranges\"] = 20\n\n# Updating an existing value\ninventory[\"Bananas\"] = 8\n\nprint(inventory) # Output: {'Apples': 10, 'Bananas': 8, 'Oranges': 20}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.3 The get() Method"
+    },
+    {
+      "type": "paragraph",
+      "text": "If you try to access a key that does not exist using `dict['key']`, Python will instantly crash with a KeyError. To safely retrieve data, use the `.get(key)` method. If the key is missing, it returns `None` (or a default value) instead of crashing."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "user = {\"name\": \"John\", \"age\": 30}\n\n# print(user[\"email\"])  <-- CRASH! KeyError\n\nprint(user.get(\"email\"))                 # Output: None\nprint(user.get(\"email\", \"Not Provided\")) # Output: Not Provided"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.4 Dictionary Methods"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "dict.keys(): Returns a view of all the keys in the dictionary.",
+        "dict.values(): Returns a view of all the values.",
+        "dict.items(): Returns a view of all Key-Value pairs as Tuples. (Highly useful for loops).",
+        "dict.pop(key): Removes the specified key and returns its value.",
+        "dict.update(other_dict): Merges another dictionary into the current one."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.5 Traversing a Dictionary"
+    },
+    {
+      "type": "paragraph",
+      "text": "You can loop through a dictionary in several ways depending on whether you need the keys, the values, or both."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "scores = {\"Math\": 90, \"Science\": 85}\n\n# Looping through keys (Default behavior)\nfor subject in scores:\n    print(subject)\n\n# Looping through both Keys and Values using .items()\nfor subject, mark in scores.items():\n    print(f\"Got {mark} in {subject}\")"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 10 covers Dictionaries, Python's powerful Key-Value data structure. It explains how to map labels to data, preventing KeyErrors, and utilizing dictionary-specific methods.",
+    "detailed_summary": "Dictionaries provide a massive paradigm shift from sequence-based data types (Lists, Tuples). Instead of using integer indices, Dictionaries map custom labels (Keys) to data (Values). Keys are strictly required to be Immutable (like Strings or Tuples) to maintain data integrity, whereas Values can be any data type. Dictionaries are Mutable, allowing dynamic addition and updating of Key-Value pairs via bracket notation `dict[key] = value`. A common pitfall is the `KeyError`, which occurs when accessing a non-existent key. This is mitigated by using the `.get(key, default)` method, which fails silently and safely. Iteration over dictionaries is highly versatile, with methods like `.keys()`, `.values()`, and particularly `.items()` allowing developers to simultaneously traverse both keys and their corresponding values in a single `for` loop.",
+    "exam_focus": [
+      "Understand the rule that Dictionary Keys must be Immutable.",
+      "Explain how the `get()` method prevents KeyErrors.",
+      "Know how to extract both Keys and Values using a `for` loop and the `.items()` method.",
+      "Perform basic operations like adding a new pair or updating an existing value."
+    ],
+    "revision_notes": [
+      "Dictionaries use curly braces `{}`.",
+      "Format: `{\"Key\": \"Value\"}`.",
+      "Keys MUST be unique and Immutable. Values can be anything.",
+      "`dict[\"Key\"] = newValue` updates or adds data.",
+      "`dict.get(\"Key\")` prevents crashing if Key is missing.",
+      "`for k, v in dict.items():` loops through everything."
+    ]
+  },
+  "practice": [
+    {
+      "q": "Why can a List not be used as a Dictionary Key?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Mutability rules"],
+      "solution": "Dictionary Keys must be heavily optimized by Python for instant lookup (using a process called hashing). For this to work, the Key's value must NEVER change. Because a List is Mutable, it could potentially change after being assigned as a key, which would corrupt the dictionary. Therefore, only Immutable types like Strings, Integers, and Tuples can be used as keys."
+    },
+    {
+      "q": "Given `d = {'a': 1, 'b': 2}`. What is the difference between `print(d['c'])` and `print(d.get('c'))`?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Crashing vs Safe access"],
+      "solution": "`print(d['c'])` will instantly crash the program by throwing a `KeyError` because the key 'c' does not exist in the dictionary. `print(d.get('c'))` will safely execute and return `None` without crashing."
+    },
+    {
+      "q": "Write a script to create a dictionary containing 3 student names as keys and their ages as values. Then, use a loop to print out 'Name is Age years old'.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Use .items()"],
+      "solution": "```python\nstudents = {'Ravi': 16, 'Sneha': 17, 'Aman': 16}\nfor name, age in students.items():\n    print(f'{name} is {age} years old')\n```"
+    },
+    {
+      "q": "How do you add a new Key-Value pair `\"Country\": \"India\"` to an existing dictionary named `profile`?",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["Bracket assignment"],
+      "solution": "You simply assign the value to the new key using bracket notation: `profile[\"Country\"] = \"India\"`."
+    },
+    {
+      "q": "What method would you use to merge the contents of `dict2` into `dict1`?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Updating"],
+      "solution": "You use the `update()` method: `dict1.update(dict2)`. If there are overlapping keys, the values from `dict2` will overwrite those in `dict1`."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "chapterId": "ch4",
+  "title": "Chapter 4: Python Fundamentals",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Python Tokens and Core Concepts",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "What is the smallest individual unit in a Python program?", "options": ["Keyword", "Identifier", "Token", "Statement"], "answer": 2, "explanation": "A token is the smallest individual unit in a program. Examples include keywords, identifiers, literals, etc." },
+        { "id": "q2", "question": "Which of the following is a valid Python keyword?", "options": ["print", "input", "return", "math"], "answer": 2, "explanation": "'return' is a reserved keyword in Python, while print and input are built-in functions." },
+        { "id": "q3", "question": "Which of these is NOT a valid identifier?", "options": ["my_var", "1st_var", "_var", "var_1"], "answer": 1, "explanation": "Identifiers cannot start with a digit in Python." },
+        { "id": "q4", "question": "Which symbol is used for single-line comments in Python?", "options": ["//", "/*", "#", "<!--"], "answer": 2, "explanation": "The hash (#) symbol is used to denote single-line comments." },
+        { "id": "q5", "question": "Python relies on ____ to define block structures.", "options": ["Curly braces", "Indentation", "Parentheses", "Semicolons"], "answer": 1, "explanation": "Unlike C/C++ which use braces, Python uses indentation to define code blocks." },
+        { "id": "q6", "question": "Which punctuation marks are used to define a string literal?", "options": ["Quotes", "Square Brackets", "Parentheses", "Commas"], "answer": 0, "explanation": "Strings are enclosed in single, double, or triple quotes." },
+        { "id": "q7", "question": "What is a docstring?", "options": ["A string concatenation method", "A string used for multi-line documentation", "A built-in variable", "A command line tool"], "answer": 1, "explanation": "Docstrings are multi-line strings used to document modules, classes, and functions." },
+        { "id": "q8", "question": "Which of the following is the default extension of a Python file?", "options": [".pt", ".py", ".pyt", ".txt"], "answer": 1, "explanation": "Python scripts are saved with the .py extension." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Data Types, Variables & I/O",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q9", "question": "Which function is used to take input from the user?", "options": ["get()", "scan()", "input()", "read()"], "answer": 2, "explanation": "The input() function reads a line from input, converts it to a string, and returns it." },
+        { "id": "q10", "question": "What is the default return type of the input() function?", "options": ["int", "float", "bool", "str"], "answer": 3, "explanation": "The input() function always returns data as a string (str)." },
+        { "id": "q11", "question": "Which built-in function gives the data type of a variable?", "options": ["type()", "id()", "print()", "datatype()"], "answer": 0, "explanation": "The type() function returns the class/type of an object." },
+        { "id": "q12", "question": "What will be the output of type(5.5)?", "options": ["<class 'int'>", "<class 'float'>", "<class 'double'>", "<class 'str'>"], "answer": 1, "explanation": "5.5 is a decimal number, so its type is float." },
+        { "id": "q13", "question": "Which of the following is a mutable data type in Python?", "options": ["Tuple", "String", "List", "Integer"], "answer": 2, "explanation": "Lists can be changed after creation, making them mutable. Tuples, strings, and integers are immutable." },
+        { "id": "q14", "question": "How do you print 'Hello' and 'World' on different lines using one print statement?", "options": ["print('Hello\\nWorld')", "print('Hello', 'World')", "print('Hello\\tWorld')", "print('Hello+World')"], "answer": 0, "explanation": "The newline character '\\n' causes the subsequent text to appear on the next line." },
+        { "id": "q15", "question": "What is the output of print(10, 20, sep='-')?", "options": ["10 20", "10-20", "1020", "Error"], "answer": 1, "explanation": "The sep parameter specifies how to separate the printed values." },
+        { "id": "q16", "question": "If a = 5, what does the id(a) function return?", "options": ["5", "Memory address of the object", "Type of a", "Size of a"], "answer": 1, "explanation": "id() returns the unique memory address (identity) of an object." }
+      ]
+    },
+    {
+      "setId": "s3",
+      "setName": "Operators and Expressions",
+      "difficulty": "Hard",
+      "questions": [
+        { "id": "q17", "question": "Which operator is used for exponentiation (power) in Python?", "options": ["^", "**", "*", "//"], "answer": 1, "explanation": "The ** operator performs exponentiation. E.g., 2 ** 3 is 8." },
+        { "id": "q18", "question": "What is the output of 15 // 2?", "options": ["7.5", "7", "8", "1"], "answer": 1, "explanation": "The // operator performs floor division, discarding the fractional part." },
+        { "id": "q19", "question": "What is the output of 15 % 2?", "options": ["7.5", "7", "1", "0"], "answer": 2, "explanation": "The % operator (modulus) returns the remainder of the division. 15 divided by 2 leaves a remainder of 1." },
+        { "id": "q20", "question": "Which of the following is an assignment operator?", "options": ["==", "=", "!=", "<="], "answer": 1, "explanation": "The single equals sign (=) is used to assign values to variables. == is for comparison." },
+        { "id": "q21", "question": "What is the output of 3 * 'A'?", "options": ["A", "3A", "AAA", "Error"], "answer": 2, "explanation": "Multiplying a string by an integer repeats the string that many times." },
+        { "id": "q22", "question": "Which operator has the highest precedence?", "options": ["+", "*", "**", "()"], "answer": 3, "explanation": "Parentheses () have the highest precedence, forcing expressions inside them to be evaluated first." },
+        { "id": "q23", "question": "What will be the result of True and False?", "options": ["True", "False", "1", "0"], "answer": 1, "explanation": "The 'and' operator returns True only if both operands are True. Otherwise, it returns False." },
+        { "id": "q24", "question": "What is the output of (5 > 3) and (2 < 4)?", "options": ["True", "False", "Error", "None"], "answer": 0, "explanation": "Both conditions are True, so the overall expression evaluates to True." },
+        { "id": "q25", "question": "In Python, the expression `not True` evaluates to?", "options": ["False", "0", "Error", "None"], "answer": 0, "explanation": "The 'not' operator inverts the boolean value, so not True becomes False." }
+      ]
+    }
+  ]
+}

@@ -5,15 +5,17 @@ import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import {
   fetchSamplePapers,
-  CATEGORIES,
+  fetchCourses,
   type SamplePaper,
   type Category,
+  type ApiCourse,
 } from "../../../../lib/api";
 
 // ── Static params ─────────────────────────────────────────────────────────────
 export async function generateStaticParams() {
   try {
     const params: { category: string; paperId: string }[] = [];
+    const CATEGORIES = await fetchCourses();
     for (const cat of CATEGORIES) {
       const papers = await fetchSamplePapers(cat.key);
       papers.forEach((p) => {
@@ -34,6 +36,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category, paperId } = await params;
   try {
+    const CATEGORIES = await fetchCourses();
     const papers = await fetchSamplePapers(category as Category);
     const paper = papers.find((p) => p.paperId === paperId);
     if (!paper) return {};
@@ -61,6 +64,11 @@ export default async function SamplePaperPage({
   params: Promise<{ category: string; paperId: string }>;
 }) {
   const { category, paperId } = await params;
+
+  let CATEGORIES: ApiCourse[] = [];
+  try {
+    CATEGORIES = await fetchCourses();
+  } catch {}
 
   const catMeta = CATEGORIES.find((c) => c.key === category);
   if (!catMeta) notFound();

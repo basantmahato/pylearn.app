@@ -1,0 +1,217 @@
+{
+  "id": "bca-ch1",
+  "title": "Introduction to Python",
+  "order": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Welcome to the world of Python programming! Python is one of the most popular, versatile, and powerful programming languages in the world today. Whether you are interested in web development, data science, artificial intelligence, automation, or software engineering, Python is the foundational language that powers modern computing. In this chapter, we will dive deep into its history, explore why it is so beloved by developers, and learn how to write your very first Python program."
+    },
+    {
+      "type": "paragraph",
+      "text": "Unlike languages such as C or Java which require strict syntax and compilation steps, Python is designed to be highly readable and intuitive. It uses English-like keywords instead of complex punctuation, making it an excellent language for beginners and experts alike."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.1 History and Features of Python"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python was conceived in the late 1980s by Guido van Rossum at the Centrum Wiskunde & Informatica (CWI) in the Netherlands. It was initially designed as a successor to the ABC programming language. The first version, Python 0.9.0, was officially released in February 1991. The name 'Python' does not come from the snake, but rather from Guido's love for the British comedy group 'Monty Python's Flying Circus'."
+    },
+    {
+      "type": "paragraph",
+      "text": "Over the decades, Python has evolved significantly. Python 2.0 was released in 2000, introducing list comprehensions and a garbage collection system. The major overhaul, Python 3.0, was released in 2008. It cleaned up the language to remove redundancy, though it intentionally broke backward compatibility with Python 2. Today, Python 3 is the undisputed standard."
+    },
+    {
+      "type": "paragraph",
+      "text": "Python boasts several key features that make it stand out:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Simple and Easy to Learn: Python has a minimalistic and clean syntax. Reading a good Python program feels almost like reading English.",
+        "Free and Open Source: You can freely distribute copies of the software, read the source code, and modify it.",
+        "High-Level Language: You never have to worry about low-level details like managing memory or CPU registers.",
+        "Platform Independent (Portable): Python programs can run on Windows, Linux, macOS, and even mobile operating systems without requiring any modifications to the code.",
+        "Interpreted Language: Python code is executed line by line, which makes debugging much easier than in compiled languages.",
+        "Dynamically Typed: You do not need to explicitly declare the data type of a variable. The interpreter infers it at runtime.",
+        "Vast Standard Library: Python comes 'batteries included'. It has built-in modules for everything from web scraping to cryptography.",
+        "Object-Oriented and Procedural: Python supports multiple programming paradigms, allowing you to write code in the way that best fits the problem."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.2 Installing Python and Setup"
+    },
+    {
+      "type": "paragraph",
+      "text": "Before you can start coding, you must install the Python interpreter on your computer. The official distribution can be downloaded from python.org. When installing on Windows, it is absolutely critical to check the box that says 'Add Python to PATH'. This allows you to run Python from your command prompt or terminal from any directory."
+    },
+    {
+      "type": "paragraph",
+      "text": "To verify that Python is installed correctly, open your terminal (Command Prompt or PowerShell) and type:"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "python --version\n# Expected output: Python 3.x.x"
+    },
+    {
+      "type": "paragraph",
+      "text": "When you install Python, you also get PIP (Python Package Installer), which is used to download third-party libraries, and IDLE (Integrated Development and Learning Environment), which is Python's default, lightweight editor."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.3 Python IDEs (IDLE, VS Code, PyCharm)"
+    },
+    {
+      "type": "paragraph",
+      "text": "While you can write Python code in a basic text editor like Notepad, using an Integrated Development Environment (IDE) significantly boosts productivity by providing syntax highlighting, auto-completion, and debugging tools."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "IDLE: Bundled with Python. It has an interactive shell for quick testing and a basic file editor. Best for absolute beginners.",
+        "VS Code (Visual Studio Code): A free, open-source editor by Microsoft. By installing the official Python extension, VS Code becomes an incredibly powerful, lightweight IDE. It is currently the most popular choice among professional developers.",
+        "PyCharm: Developed by JetBrains. It is a heavy-duty, feature-rich IDE built specifically for Python. It offers advanced code analysis, deep database integration, and professional refactoring tools. Excellent for large-scale enterprise projects.",
+        "Jupyter Notebook: Widely used in Data Science and Machine Learning. It allows you to create documents that contain live code, equations, visualizations, and narrative text."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.4 Writing and Running Your First Script"
+    },
+    {
+      "type": "paragraph",
+      "text": "Let's write the classic 'Hello, World!' program. In Python, this is remarkably simple compared to languages like Java which require boilerplate class definitions."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# This is a single-line comment. It is ignored by the interpreter.\nprint('Hello, World!')\n\n\"\"\"\nThis is a multi-line comment (docstring).\nIt can span multiple lines.\n\"\"\"\nprint('Welcome to BCA Python!')"
+    },
+    {
+      "type": "paragraph",
+      "text": "To run this script:\n1. Save the file as `app.py`.\n2. Open your terminal.\n3. Navigate to the folder where the file is saved.\n4. Type `python app.py` and press Enter."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.5 Variables and Data Types"
+    },
+    {
+      "type": "paragraph",
+      "text": "A variable is a named location in the computer's memory used to store data. Because Python is dynamically typed, you do not need to declare the variable's type (like `int x = 5`). You simply assign a value to a name, and Python figures out the type automatically."
+    },
+    {
+      "type": "paragraph",
+      "text": "Variables must follow certain naming rules (Identifiers):\n- Must start with a letter (a-z, A-Z) or an underscore (_).\n- Cannot start with a number.\n- Can contain numbers (0-9) inside them.\n- Are case-sensitive (`Age` is different from `age`).\n- Cannot be a reserved keyword (like `if`, `else`, `class`)."
+    },
+    {
+      "type": "paragraph",
+      "text": "Python has several fundamental built-in data types:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Integers (int): Whole numbers without a decimal point. (e.g., 10, -5, 0)",
+        "Floating Point (float): Numbers with a decimal point. (e.g., 3.14, -0.001)",
+        "Strings (str): A sequence of characters enclosed in single, double, or triple quotes. (e.g., 'Hello')",
+        "Booleans (bool): Represents logical values. Can only be True or False (note the capitalization).",
+        "NoneType (None): Represents the absence of a value or a null value."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Variable Assignment\nage = 20                # int\nprice = 99.99           # float\nname = \"Basant\"         # str\nis_student = True       # bool\ncollege = None          # NoneType\n\n# Python allows chained assignment\nx = y = z = 10\n\n# Python allows multiple assignment in one line\na, b, c = 1, 2.5, \"BCA\"\n\n# The type() function tells you the data type of a variable\nprint(type(age))        # Output: <class 'int'>\nprint(type(is_student)) # Output: <class 'bool'>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.6 Input and Output Functions"
+    },
+    {
+      "type": "paragraph",
+      "text": "Programs are useless if they cannot interact with the user. Python provides `input()` to receive data from the user and `print()` to display data."
+    },
+    {
+      "type": "paragraph",
+      "text": "The `input()` function pauses program execution and waits for the user to type something and press Enter. A CRITICAL rule to remember: `input()` ALWAYS returns a string (str), regardless of what the user types. If you need a number, you must typecast it."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Standard input (returns a string)\nuser_name = input(\"Enter your name: \")\n\n# Typecasting input to an integer\n# If the user types '25', it is converted from str to int\nage = int(input(\"Enter your age: \"))\n\n# Output using print()\n# You can pass multiple arguments separated by commas\nprint(\"Hello\", user_name, \"you are\", age, \"years old.\")\n\n# Using f-strings (Formatted string literals - modern and preferred)\nprint(f\"Next year, {user_name} will be {age + 1} years old.\")"
+    },
+    {
+      "type": "paragraph",
+      "text": "The `print()` function also takes special arguments like `sep` (separator) and `end`. By default, `print()` separates arguments with a space and ends with a newline (`\\n`)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Changing the default separator and end characters\nprint(\"A\", \"B\", \"C\", sep=\"-\")         # Output: A-B-C\nprint(\"Loading\", end=\"...\")         # Does not move to a new line\nprint(\"Done!\")                      # Output: Loading...Done!"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 1 introduces Python's history, setup, and core syntax. It covers variable creation, dynamic typing, fundamental data types (int, float, str, bool), and standard I/O mechanisms using input() and print().",
+    "detailed_summary": "Python is a high-level, interpreted, dynamically typed language created by Guido van Rossum. It emphasizes readability and developer productivity. Setting up Python involves installing the interpreter and choosing an IDE like VS Code or PyCharm. In Python, variables are created the moment you assign a value to them, without strict type declarations. Data types like integers, floats, strings, and booleans handle the representation of different kinds of information. The print() function pushes data to the console, utilizing formatting like f-strings for clean output. The input() function reads data from the console, always returning a string, which often requires typecasting (using int() or float()) before mathematical operations can be performed.",
+    "exam_focus": [
+      "Explain the key features of Python (Interpreted, dynamically typed, platform independent).",
+      "Understand the rules for naming identifiers/variables.",
+      "Identify the output of type() function calls.",
+      "Explain why input() must be wrapped in int() or float() for numerical operations.",
+      "Understand how to use sep and end parameters in the print() function."
+    ],
+    "revision_notes": [
+      "Creator: Guido van Rossum (1991).",
+      "Dynamic Typing: x = 5 (int), then x = 'hello' (str) is perfectly valid.",
+      "Types: int, float, str, bool, NoneType.",
+      "Typecasting: int('5') -> 5, str(10) -> '10', float(3) -> 3.0.",
+      "I/O: print(f'Hello {name}') is the modern way to format strings."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is Python and why is it categorized as an interpreted language?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Mention execution process", "Compare with compiled languages like C"],
+      "solution": "Python is a high-level programming language. It is categorized as an interpreted language because its source code is executed line-by-line by the Python interpreter at runtime, rather than being compiled completely into machine code beforehand. This makes debugging easier and allows for cross-platform execution."
+    },
+    {
+      "q": "Write a Python script that takes a user's birth year as input and calculates their age (assuming the current year is 2024).",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["Use input()", "Convert the string input to an int using int()", "Subtract from 2024"],
+      "solution": "```python\nbirth_year_str = input('Enter your birth year: ')\nbirth_year = int(birth_year_str)\ncurrent_year = 2024\nage = current_year - birth_year\nprint(f'You are {age} years old.')\n```"
+    },
+    {
+      "q": "Explain dynamic typing with an example.",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Reassigning variables", "No data type declaration"],
+      "solution": "Dynamic typing means that variables do not have a fixed data type declared before use; the type is determined at runtime based on the assigned value. Furthermore, a variable can change its type throughout the program.\nExample:\n```python\nx = 10      # x is an integer\nprint(type(x))\nx = 'Text'  # x is now a string\nprint(type(x))\n```"
+    },
+    {
+      "q": "Write a single print statement that outputs: 'One*Two*Three' without typing the asterisks inside the string literal.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Use the sep argument"],
+      "solution": "```python\nprint('One', 'Two', 'Three', sep='*')\n```"
+    },
+    {
+      "q": "What are the rules for naming variables in Python? Give 2 examples of invalid variable names.",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Letters, numbers, underscores", "Starting characters", "Keywords"],
+      "solution": "Rules:\n1. Must start with a letter or an underscore (_).\n2. Cannot start with a number.\n3. Can only contain alphanumeric characters and underscores (A-z, 0-9, and _).\n4. Case-sensitive (age vs Age).\n5. Cannot be a reserved keyword (e.g., if, for, class).\n\nInvalid Examples:\n1. `1st_name` (Starts with a number)\n2. `class` (Reserved keyword)\n3. `my-var` (Contains a hyphen)"
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "id": "bca-ch3",
+  "title": "Control Statements",
+  "order": 3,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "By default, a Python script executes sequentially—line by line, from top to bottom. However, real-world problems require decision-making and repetition. Control statements alter the flow of execution. They allow your program to skip lines of code, choose between different blocks of code, or repeat blocks of code. This chapter covers conditional statements (if-elif-else) and loops (for, while)."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3.1 Decision Making: if, elif, and else"
+    },
+    {
+      "type": "paragraph",
+      "text": "Decision making is anticipation of conditions occurring while execution of the program and specifying actions taken according to the conditions. Python relies on indentation (whitespace at the beginning of a line) to define the scope of the code block under a condition."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "if statement: The simplest decision-making statement. It evaluates a boolean expression. If True, the indented block is executed.",
+        "else statement: An optional block that follows an if. It executes only when the if condition evaluates to False.",
+        "elif statement: Short for 'else if'. It allows you to check multiple expressions for True and execute a block of code as soon as one of the conditions evaluates to True."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "marks = 85\n\n# Using if, elif, and else for branching logic\nif marks >= 90:\n    print(\"Grade: A+\")\nelif marks >= 80:\n    print(\"Grade: A\")\nelif marks >= 70:\n    print(\"Grade: B\")\nelse:\n    print(\"Grade: C\")\n\n# Nested If\n# You can have an if statement inside another if statement\nage = 20\nhas_ticket = True\n\nif age >= 18:\n    if has_ticket:\n        print(\"You can enter the theater.\")\n    else:\n        print(\"You need a ticket to enter.\")\nelse:\n    print(\"You are too young for this movie.\")"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python also supports a one-line conditional expression, often called the Ternary Operator. It is useful for simple assignments based on a condition."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "score = 65\n# Format: [value_if_true] if [condition] else [value_if_false]\nresult = \"Pass\" if score >= 50 else \"Fail\"\nprint(result) # Output: Pass"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3.2 The 'for' Loop"
+    },
+    {
+      "type": "paragraph",
+      "text": "A `for` loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string). Unlike traditional C-style for loops that use counters (`for(i=0; i<10; i++)`), Python's `for` loop behaves like an iterator method."
+    },
+    {
+      "type": "paragraph",
+      "text": "To loop through a set of code a specified number of times, we can use the `range()` function. The `range()` function returns a sequence of numbers, starting from 0 by default, increments by 1 (by default), and ends at a specified number."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Looping over a string\nfor char in \"BCA\":\n    print(char)\n\n# Using range(stop)\n# Generates numbers from 0 up to (but not including) 5\nfor i in range(5):\n    print(i, end=\" \")  # Output: 0 1 2 3 4\nprint() # Newline\n\n# Using range(start, stop, step)\n# Generates numbers from 2 to 10, jumping by 2\nfor i in range(2, 11, 2):\n    print(i, end=\" \")  # Output: 2 4 6 8 10"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3.3 The 'while' Loop"
+    },
+    {
+      "type": "paragraph",
+      "text": "With the `while` loop we can execute a set of statements as long as a condition is true. This is particularly useful when you do not know beforehand how many times the loop needs to run (e.g., waiting for user input, game loops)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "count = 1\nwhile count <= 3:\n    print(f\"Count is {count}\")\n    count += 1  # Crucial: Must update the variable to avoid an infinite loop\n\n# Output:\n# Count is 1\n# Count is 2\n# Count is 3"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3.4 Loop Control: break, continue, pass"
+    },
+    {
+      "type": "paragraph",
+      "text": "Sometimes you need to alter the normal execution of a loop. Python provides three statements for this:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "break: Terminates the loop entirely and transfers execution to the statement immediately following the loop.",
+        "continue: Causes the loop to skip the remainder of its body and immediately retest its condition prior to reiterating.",
+        "pass: The pass statement is a null operation; nothing happens when it executes. It is useful as a placeholder when a statement is required syntactically, but no code needs to be executed."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Using break\nfor i in range(1, 10):\n    if i == 5:\n        break\n    print(i, end=\" \")\n# Output: 1 2 3 4\nprint() # Newline\n\n# Using continue\nfor i in range(1, 6):\n    if i == 3:\n        continue\n    print(i, end=\" \")\n# Output: 1 2 4 5\n\n# Using pass\nif True:\n    pass # I will write code here later, but I don't want a syntax error now"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3.5 Loop with 'else' block"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python supports a unique feature: attaching an `else` block to a `for` or `while` loop. The code in the `else` block executes ONLY if the loop finishes completely naturally (i.e., it is NOT terminated by a `break` statement). This is highly useful for search operations."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "target = 7\n# Searching for a number\nfor i in range(5):\n    if i == target:\n        print(\"Found it!\")\n        break\nelse:\n    # This runs because the loop finished all iterations and 'break' was never hit\n    print(\"Target not found in the range.\")"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 3 explains how to control the execution flow of a Python program using conditional branching (if, elif, else) and iteration structures (for, while), along with statements to alter loops (break, continue, pass).",
+    "detailed_summary": "Control statements dictate the order in which code is executed. Conditional statements evaluate boolean expressions to branch code execution; Python enforces block structure via indentation, eliminating the need for curly braces. The 'for' loop is designed to iterate over sequences (like strings or ranges) automatically, acting as an iterator rather than a traditional counter. The 'while' loop runs continuously as long as a condition remains true, making it ideal for event-driven programming. Loop execution can be fine-tuned using 'break' to exit prematurely, 'continue' to skip an iteration, and 'pass' as a syntactic placeholder. Uniquely, Python allows an 'else' clause on loops, which executes only if the loop completes without encountering a 'break', providing an elegant solution for search algorithms.",
+    "exam_focus": [
+      "Syntax and strict indentation rules for if-elif-else blocks.",
+      "The exact behavior of the range() function (start, stop, step).",
+      "The critical difference between break and continue.",
+      "Understanding when and why a while loop becomes an infinite loop.",
+      "When the 'else' block attached to a loop executes."
+    ],
+    "revision_notes": [
+      "if/elif/else: Only one block executes in an if-elif-else chain.",
+      "range(1, 5) generates 1, 2, 3, 4 (stop is exclusive).",
+      "break exits the loop immediately.",
+      "continue jumps to the next iteration.",
+      "pass does absolutely nothing (placeholder).",
+      "Loop else block executes only if the loop finishes naturally (no break)."
+    ]
+  },
+  "practice": [
+    {
+      "q": "Write a Python program to check if a given year is a leap year using nested if statements.",
+      "type": "practical",
+      "difficulty": "Hard",
+      "hints": ["Divisible by 4", "If divisible by 100, must also be divisible by 400"],
+      "solution": "```python\nyear = int(input('Enter year: '))\nif year % 4 == 0:\n    if year % 100 == 0:\n        if year % 400 == 0:\n            print(f'{year} is a Leap Year')\n        else:\n            print(f'{year} is NOT a Leap Year')\n    else:\n        print(f'{year} is a Leap Year')\nelse:\n    print(f'{year} is NOT a Leap Year')\n```"
+    },
+    {
+      "q": "What is the difference between a `for` loop and a `while` loop? When should you use each?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Known number of iterations", "Condition-based"],
+      "solution": "A `for` loop is typically used when the number of iterations is known beforehand, or when iterating over a definite sequence (like a list, string, or range). A `while` loop is used when the number of iterations is unknown and depends on a condition remaining True. You use `while` for event-driven loops (e.g., waiting for specific user input)."
+    },
+    {
+      "q": "Write a program using a `for` loop and `range()` to print all even numbers between 1 and 20.",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["Use the step parameter in range()"],
+      "solution": "```python\n# Using range(start, stop, step)\nfor i in range(2, 21, 2):\n    print(i, end=' ')\n```"
+    },
+    {
+      "q": "Explain the purpose of the `pass` statement. Provide an example.",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Placeholder", "Syntax error prevention"],
+      "solution": "The `pass` statement is a null operation. It does nothing when executed. It is used as a placeholder in Python because Python requires an indented block of code after a colon (e.g., in an `if` statement or function definition). If you have not written the code yet, using `pass` prevents a SyntaxError.\n```python\nif condition:\n    pass # To do: Implement this later\n```"
+    },
+    {
+      "q": "What will be the output of the following code? Explain why.\n```python\nfor x in range(3):\n    if x == 1:\n        break\n    print(x)\nelse:\n    print('Done')\n```",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Loop else behavior", "Break execution"],
+      "solution": "Output:\n0\nExplanation: The loop starts with x=0. It prints 0. In the next iteration, x=1. The `if x == 1` condition is True, so the `break` statement executes. The loop terminates immediately. Because the loop was terminated by a `break`, the `else` block is skipped. Therefore, 'Done' is never printed."
+    }
+  ]
+}

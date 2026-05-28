@@ -1,0 +1,141 @@
+{
+  "id": "bca-ch9",
+  "title": "Object-Oriented Programming (OOP)",
+  "order": 9,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Procedural programming involves writing sequences of instructions to act upon data. As applications scale, managing disconnected functions and global variables becomes chaotic. Object-Oriented Programming (OOP) is a paradigm that binds data and the functions that operate on that data together into a single unit called an Object. This approach models real-world entities, making code far more organized, reusable, and scalable."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.1 Classes and Objects"
+    },
+    {
+      "type": "paragraph",
+      "text": "A Class is a blueprint or template for creating objects. It defines the structure (attributes/variables) and behaviors (methods/functions) that the objects created from it will possess. An Object is a concrete instance of a class. You can create hundreds of distinct objects from a single class."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Defining a Class\nclass Car:\n    # The __init__ method is the Constructor.\n    # It is called automatically when a new object is created.\n    def __init__(self, brand, color):\n        # 'self' refers to the specific object being created\n        self.brand = brand  # Attribute\n        self.color = color  # Attribute\n        self.is_running = False\n\n    # A Method (a function belonging to the class)\n    def start_engine(self):\n        self.is_running = True\n        print(f\"The {self.color} {self.brand} engine is started.\")\n\n# Instantiating (creating) Objects\ncar1 = Car(\"Toyota\", \"Red\")\ncar2 = Car(\"Honda\", \"Blue\")\n\n# Accessing attributes and calling methods\nprint(car1.brand)      # Output: Toyota\ncar2.start_engine()    # Output: The Blue Honda engine is started."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.2 The Four Pillars of OOP"
+    },
+    {
+      "type": "paragraph",
+      "text": "Object-Oriented Programming is built upon four fundamental principles:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Encapsulation: Bundling data and methods into a single unit and restricting direct access to some of the object's components. This prevents external code from accidentally corrupting the internal state.",
+        "Inheritance: A mechanism where a new class (Child/Subclass) inherits the attributes and methods of an existing class (Parent/Superclass). This promotes massive code reusability.",
+        "Polymorphism: The ability for different objects to respond to the same method call in their own specific way. (e.g., 'draw()' does something different for a Circle object vs a Square object).",
+        "Abstraction: Hiding complex implementation details and exposing only the necessary features of an object."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.3 Encapsulation and Data Hiding"
+    },
+    {
+      "type": "paragraph",
+      "text": "Unlike Java or C++, Python does not have strict 'private' or 'protected' access modifiers. Instead, Python relies on a naming convention. Prefixing an attribute with a single underscore `_` signals that it is meant for internal use (protected). Prefixing with a double underscore `__` invokes 'name mangling', heavily discouraging external access (private)."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class BankAccount:\n    def __init__(self, owner, balance):\n        self.owner = owner          # Public attribute\n        self.__balance = balance    # Private attribute (double underscore)\n\n    # Public method acting as a getter\n    def get_balance(self):\n        return self.__balance\n\n    # Public method acting as a setter with validation\n    def deposit(self, amount):\n        if amount > 0:\n            self.__balance += amount\n\naccount = BankAccount(\"Basant\", 1000)\nprint(account.owner)            # Works fine\n# print(account.__balance)      # Raises AttributeError! Cannot access directly\nprint(account.get_balance())    # Output: 1000 (Safe access)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.4 Inheritance and Super()"
+    },
+    {
+      "type": "paragraph",
+      "text": "Inheritance allows a child class to absorb everything from a parent class. The child can then add its own unique attributes or override parent methods. The `super()` function is used inside the child class to invoke methods (especially `__init__`) from the parent class."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Parent Class\nclass Animal:\n    def __init__(self, name):\n        self.name = name\n\n    def speak(self):\n        return \"Some sound\"\n\n# Child Class inheriting from Animal\nclass Dog(Animal):\n    def __init__(self, name, breed):\n        super().__init__(name)  # Call Parent's __init__ to set 'name'\n        self.breed = breed\n\n    # Method Overriding: Replacing the parent's speak method\n    def speak(self):\n        return \"Woof!\"\n\nmy_dog = Dog(\"Buddy\", \"Golden Retriever\")\nprint(f\"{my_dog.name} is a {my_dog.breed} and says {my_dog.speak()}\")\n# Output: Buddy is a Golden Retriever and says Woof!"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9.5 Polymorphism"
+    },
+    {
+      "type": "paragraph",
+      "text": "Polymorphism (Many Forms) allows functions to accept objects of different classes, as long as they implement the expected method. Python naturally supports duck typing ('If it walks like a duck and quacks like a duck, it must be a duck')."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "class Cat(Animal):\n    def speak(self):\n        return \"Meow!\"\n\n# This function demonstrates polymorphism.\n# It doesn't care if 'pet' is a Dog, Cat, or any other Animal,\n# as long as it has a speak() method.\ndef make_pet_speak(pet):\n    print(pet.speak())\n\nmake_pet_speak(Dog(\"Max\", \"Pug\")) # Output: Woof!\nmake_pet_speak(Cat(\"Luna\"))       # Output: Meow!"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 9 covers Object-Oriented Programming (OOP) in Python, focusing on Classes, Objects, the __init__ constructor, Encapsulation, Inheritance, and Polymorphism.",
+    "detailed_summary": "Object-Oriented Programming shifts the focus from writing sequential instructions to designing interacting objects that model the real world. A Class is a structural blueprint created using the `class` keyword. It encapsulates variables (Attributes) and functions (Methods). The `__init__` method serves as the constructor, automatically initializing objects upon instantiation. The `self` parameter is universally used to represent the specific instance being operated on. Python implements Encapsulation via naming conventions: `__` prefixes activate name mangling to simulate private access, forcing developers to interact with data through controlled getter and setter methods. Inheritance enables a Child class to inherit functionality from a Parent class (e.g., `class Dog(Animal):`), drastically reducing code duplication. The `super()` function connects the child to the parent's logic. Method overriding and duck typing empower Polymorphism, allowing different objects to share the same interface while providing unique underlying implementations.",
+    "exam_focus": [
+      "Define Class, Object, and the purpose of the `__init__` method.",
+      "Understand the absolute necessity of the `self` parameter in class methods.",
+      "Explain the Four Pillars of OOP (Encapsulation, Inheritance, Polymorphism, Abstraction).",
+      "Implement simple inheritance and utilize `super()`.",
+      "Explain how Python handles private attributes using double underscores."
+    ],
+    "revision_notes": [
+      "`class ClassName:` defines a class.",
+      "`def __init__(self):` is the constructor.",
+      "`self.var` creates an instance attribute.",
+      "`__attribute` creates a 'private' attribute via name mangling.",
+      "`class Child(Parent):` establishes inheritance.",
+      "`super().__init__()` calls the parent constructor."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is the purpose of the `__init__` method in a Python class?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Constructor", "Initialization"],
+      "solution": "The `__init__` method is the constructor in Python. It is a special 'magic' method that is automatically called by Python the moment a new object of that class is instantiated. Its primary purpose is to initialize the object's attributes with initial values."
+    },
+    {
+      "q": "Why is the `self` parameter required in almost all class methods?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Multiple objects", "Instance reference"],
+      "solution": "A class is just a blueprint, but many objects can be created from it. When a method is called on an object (e.g., `car1.start()`), Python internally passes the object itself as the first argument. The `self` parameter receives this reference. This is how the method knows WHICH specific object's data (attributes) it should read or modify."
+    },
+    {
+      "q": "Write a `Rectangle` class with a constructor that takes `width` and `height`. Add a method `area()` that returns the calculated area.",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["def __init__(self, width, height):", "return self.width * self.height"],
+      "solution": "```python\nclass Rectangle:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n\n    def area(self):\n        return self.width * self.height\n\n# Testing the class\nrect = Rectangle(10, 5)\nprint(rect.area())  # Output: 50\n```"
+    },
+    {
+      "q": "Explain Inheritance and write a quick example where a class `Manager` inherits from a class `Employee`.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Code reuse", "class Manager(Employee):"],
+      "solution": "Inheritance is a mechanism where a child class acquires the properties and behaviors of a parent class, promoting massive code reuse.\n```python\nclass Employee:\n    def __init__(self, name, salary):\n        self.name = name\n        self.salary = salary\n\nclass Manager(Employee):\n    def __init__(self, name, salary, department):\n        super().__init__(name, salary) # Call parent constructor\n        self.department = department\n\nm = Manager('Alice', 90000, 'IT')\nprint(m.name, m.department)\n```"
+    },
+    {
+      "q": "How do you make an attribute 'private' in Python, and why would you want to?",
+      "type": "theory",
+      "difficulty": "Hard",
+      "hints": ["Double underscore __", "Encapsulation", "Name mangling"],
+      "solution": "You make an attribute private by prefixing its name with double underscores (e.g., `self.__balance`). This triggers a Python feature called 'name mangling', which changes the internal name of the variable to make it extremely difficult to access from outside the class. You do this to achieve Encapsulation—preventing external code from directly altering internal state, forcing them to use validated setter methods instead."
+    }
+  ]
+}

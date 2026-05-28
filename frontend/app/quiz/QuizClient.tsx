@@ -2,10 +2,10 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import type { Chapter, QuizSet, Category } from "../../lib/api";
-import { CATEGORIES } from "../../lib/api";
+import type { Chapter, QuizSet, Category, ApiCourse } from "../../lib/api";
 
 interface Props {
+  categories: ApiCourse[];
   chaptersByCategory: Record<string, Chapter[]>;
   quizSetsByCategory: Record<string, QuizSet[]>;
   error: string;
@@ -15,9 +15,9 @@ interface Props {
 
 import StateView from "../components/StateView";
 
-export default function QuizClient({ chaptersByCategory, quizSetsByCategory, error }: Props) {
-  const [activeCategory, setActiveCategory] = useState<Category>("class12");
-  const activeCatMeta = CATEGORIES.find((c) => c.key === activeCategory)!;
+export default function QuizClient({ categories, chaptersByCategory, quizSetsByCategory, error }: Props) {
+  const [activeCategory, setActiveCategory] = useState<Category>(() => categories[0]?.key ?? "class12");
+  const activeCatMeta = categories.find((c) => c.key === activeCategory) ?? categories[0];
 
   const chapters = useMemo(() => 
     (chaptersByCategory[activeCategory] ?? []).sort((a, b) => a.order - b.order),
@@ -30,7 +30,7 @@ export default function QuizClient({ chaptersByCategory, quizSetsByCategory, err
   );
 
   const [activeChapter, setActiveChapter] = useState<string>(
-    () => (chaptersByCategory["class12"] ?? [])[0]?.chapterId ?? ""
+    () => (chaptersByCategory[activeCategory] ?? [])[0]?.chapterId ?? ""
   );
 
   const handleCategoryChange = (cat: Category) => {
@@ -68,7 +68,7 @@ export default function QuizClient({ chaptersByCategory, quizSetsByCategory, err
 
         {/* Category Tabs */}
         <div className="flex justify-center gap-2.5 mb-8 flex-wrap">
-          {CATEGORIES.map((cat) => {
+          {categories.map((cat) => {
             const active = activeCategory === cat.key;
             return (
               <button

@@ -1,0 +1,52 @@
+{
+  "chapterId": "ch3",
+  "title": "Getting Started with Python",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Introduction to Python",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "Who created the Python programming language?", "options": ["Dennis Ritchie", "James Gosling", "Guido van Rossum", "Bjarne Stroustrup"], "answer": 2, "explanation": "Python was created by Guido van Rossum and first released in 1991." },
+        { "id": "q2", "question": "Which of the following describes Python?", "options": ["Compiled", "Interpreted", "Assembly", "Machine level"], "answer": 1, "explanation": "Python is an interpreted, high-level, general-purpose programming language." },
+        { "id": "q3", "question": "What is the standard file extension for a Python script?", "options": [".java", ".cpp", ".py", ".pt"], "answer": 2, "explanation": "Python scripts are saved with the .py extension." },
+        { "id": "q4", "question": "Which of the following is used to define a single-line comment in Python?", "options": ["//", "/* */", "#", "--"], "answer": 2, "explanation": "The hash character (#) is used to indicate a single-line comment." },
+        { "id": "q5", "question": "Is Python case-sensitive?", "options": ["Yes", "No", "Only for variables", "Only for functions"], "answer": 0, "explanation": "Python strictly distinguishes between uppercase and lowercase letters." },
+        { "id": "q6", "question": "Which function is used to display output on the screen?", "options": ["echo", "printf", "print", "write"], "answer": 2, "explanation": "The print() function sends data to the standard output device." },
+        { "id": "q7", "question": "Which of the following is NOT a valid Python identifier?", "options": ["my_var", "1st_var", "var1", "_var"], "answer": 1, "explanation": "Variable names cannot start with a number." },
+        { "id": "q8", "question": "What does IDLE stand for in Python?", "options": ["Interactive Development and Learning Environment", "Integrated Design Environment", "Integrated Developer Learning Engine", "Interactive Developer Logic Engine"], "answer": 0, "explanation": "IDLE is Python's default IDE, bundled with the default implementation." },
+        { "id": "q9", "question": "In Python, a variable is created when...", "options": ["Declared with a type", "You first assign a value to it", "The program starts", "You use the 'var' keyword"], "answer": 1, "explanation": "Python variables are created dynamically upon assignment." },
+        { "id": "q10", "question": "Which symbol is used for variable assignment?", "options": ["==", "=>", "=", ":="], "answer": 2, "explanation": "The single equals sign (=) assigns a value to a variable." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Data Types and Operators",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "Which function returns the data type of a variable?", "options": ["typeof()", "type()", "datatype()", "is_type()"], "answer": 1, "explanation": "The type() function is used to determine an object's type." },
+        { "id": "q12", "question": "What data type is the value 5.0?", "options": ["int", "string", "float", "double"], "answer": 2, "explanation": "Numbers with a decimal point are represented as floats in Python." },
+        { "id": "q13", "question": "Which of these is a valid boolean value in Python?", "options": ["true", "TRUE", "True", "T"], "answer": 2, "explanation": "Boolean values in Python must have the first letter capitalized (True/False)." },
+        { "id": "q14", "question": "How do you read string input from the user?", "options": ["read()", "input()", "get()", "scan()"], "answer": 1, "explanation": "The input() function reads a line from input, converts it to a string, and returns it." },
+        { "id": "q15", "question": "What is the result of 10 // 3 in Python?", "options": ["3.33", "3", "1", "0"], "answer": 1, "explanation": "The // operator performs floor division, rounding down to the nearest integer." },
+        { "id": "q16", "question": "What is the result of 10 % 3?", "options": ["3", "1", "0", "0.33"], "answer": 1, "explanation": "The % operator returns the remainder of the division." },
+        { "id": "q17", "question": "Which operator is used for exponentiation (power)?", "options": ["^", "**", "//", "%"], "answer": 1, "explanation": "The ** operator raises the left operand to the power of the right operand." },
+        { "id": "q18", "question": "What is the output of print('A' + 'B')?", "options": ["A B", "AB", "Error", "None"], "answer": 1, "explanation": "The + operator concatenates strings." },
+        { "id": "q19", "question": "What is the correct way to convert a string '10' into an integer?", "options": ["integer('10')", "int('10')", "parse('10')", "to_int('10')"], "answer": 1, "explanation": "The int() function converts a string or number to an integer." },
+        { "id": "q20", "question": "Which of these operators has the highest precedence?", "options": ["Addition (+)", "Multiplication (*)", "Parentheses ()", "Exponentiation (**)"], "answer": 2, "explanation": "Expressions inside parentheses are evaluated first." }
+      ]
+    },
+    {
+      "setId": "s3",
+      "setName": "Expressions and Statements",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q21", "question": "Which statement correctly assigns multiple variables in one line?", "options": ["a = b = c = 1, 2, 3", "a, b, c = 1, 2, 3", "a; b; c = 1; 2; 3", "a=1 b=2 c=3"], "answer": 1, "explanation": "Python supports tuple unpacking for multiple assignments." },
+        { "id": "q22", "question": "What will be the output of print(3 * 'A')?", "options": ["3A", "A A A", "AAA", "Error"], "answer": 2, "explanation": "Multiplying a string by an integer repeats the string." },
+        { "id": "q23", "question": "Is `_var` a valid variable name?", "options": ["Yes", "No", "Only for constants", "Only in classes"], "answer": 0, "explanation": "Identifiers can start with an underscore." },
+        { "id": "q24", "question": "What is a 'statement' in Python?", "options": ["A line of text", "An instruction that the Python interpreter can execute", "A comment", "A function call only"], "answer": 1, "explanation": "A statement is an instruction that the interpreter executes (e.g., assignment, print)." },
+        { "id": "q25", "question": "What is the output of `bool('')`?", "options": ["True", "False", "Error", "None"], "answer": 1, "explanation": "An empty string evaluates to False." }
+      ]
+    }
+  ]
+}

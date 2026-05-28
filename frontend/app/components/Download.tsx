@@ -17,8 +17,12 @@ export default function Download() {
 
           <div className="relative z-10">
             {/* App Icon */}
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-gradient-to-br from-primary to-blue-400 mx-auto mb-8 flex items-center justify-center text-3xl md:text-4xl font-black text-white shadow-[0_20px_40px_rgba(0,90,181,0.4)] animate-pulse">
-              Py
+            <div className="relative w-20 h-20 md:w-24 md:h-24 mx-auto mb-8 shadow-[0_20px_40px_rgba(0,90,181,0.3)] rounded-[22%] overflow-hidden hover:scale-105 transition-transform duration-300 bg-white">
+              <img 
+                src="/icon.png" 
+                alt="PyLearn App Icon" 
+                className="w-full h-full object-cover rounded-[22%]" 
+              />
             </div>
 
             {/* <div className="bg-blue-500/20 text-[#7bb8f0] px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-6 inline-flex border border-blue-500/30">

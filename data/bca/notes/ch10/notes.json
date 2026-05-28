@@ -1,0 +1,154 @@
+{
+  "id": "bca-ch10",
+  "title": "Modules and Packages",
+  "order": 10,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "As software projects grow to encompass thousands of lines of code, maintaining everything in a single file becomes impossible. To manage complexity, Python allows you to logically organize your Python code by grouping related functions, classes, and variables into separate files called Modules. When modules are organized into directory hierarchies, they form Packages. This system is the backbone of Python's massive ecosystem of third-party libraries."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.1 What is a Module?"
+    },
+    {
+      "type": "paragraph",
+      "text": "A module is simply a file containing Python definitions and statements. The file name is the module name with the suffix `.py` appended. By using modules, you can write a function once in one file, and use it in dozens of other files without rewriting it."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# File: mymath.py (This is our custom module)\ndef add(a, b):\n    return a + b\n\ndef multiply(a, b):\n    return a * b\n\nPI = 3.14159\n\n\n# File: main.py (This is our main script)\nimport mymath\n\n# Accessing functions and variables inside the module using dot notation\nresult = mymath.add(5, 10)\nprint(\"The sum is:\", result)\nprint(\"Value of PI is:\", mymath.PI)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.2 Different Ways to Import"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python offers several ways to import modules, allowing you to control how much of the module is loaded and what namespace is used."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "import module_name: Imports the whole module. You must use `module_name.function()` to access its contents.",
+        "import module_name as alias: Gives the module a nickname, useful for long module names (e.g., `import pandas as pd`).",
+        "from module_name import thing: Imports a specific function/variable directly into your file's namespace. You can use it without the dot notation.",
+        "from module_name import *: Imports absolutely everything. This is generally discouraged as it can silently overwrite variables in your file."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Standard import\nimport math\nprint(math.sqrt(16))  # Output: 4.0\n\n# Importing with an alias\nimport datetime as dt\nprint(dt.datetime.now())\n\n# Specific import\nfrom random import randint, choice\nprint(randint(1, 100))        # Notice we don't type 'random.randint'\nprint(choice(['A', 'B', 'C']))"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.3 The Standard Library"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python comes with 'batteries included'. When you install Python, you automatically get the Python Standard Library, a massive collection of pre-written modules for performing common tasks."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "os: Operating system interfaces (file paths, creating directories).",
+        "sys: System-specific parameters and functions (command-line arguments).",
+        "math: Mathematical functions (trigonometry, logarithms).",
+        "random: Generate pseudo-random numbers.",
+        "datetime: Basic date and time types.",
+        "json: JSON encoder and decoder."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.4 What is a Package?"
+    },
+    {
+      "type": "paragraph",
+      "text": "A Package is a way of structuring Python's module namespace by using 'dotted module names'. Physically, a package is just a directory/folder containing multiple `.py` files. Crucially, for Python to recognize a directory as a package, it must contain a special file named `__init__.py` (it can be completely empty)."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "my_project/\n|-- main.py\n|-- my_package/          <-- This directory is a package\n    |-- __init__.py      <-- Tells Python this is a package\n    |-- string_utils.py  <-- A module inside the package\n    |-- math_utils.py    <-- A module inside the package"
+    },
+    {
+      "type": "paragraph",
+      "text": "To import from a package, you use dot notation: `from my_package.math_utils import add`."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10.5 Third-Party Packages and pip"
+    },
+    {
+      "type": "paragraph",
+      "text": "The true power of Python lies in its global community. There are hundreds of thousands of third-party packages available on the Python Package Index (PyPI). To install these, you use Python's package installer, called `pip`."
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "# Running pip in the terminal (Command Prompt/PowerShell)\n# Installs the 'requests' library for making HTTP requests\npip install requests\n\n# List all installed packages\npip list\n\n# Uninstall a package\npip uninstall requests"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 10 explains how to structure large Python applications using Modules and Packages, how to utilize the Standard Library, and how to install external libraries using pip.",
+    "detailed_summary": "As codebases expand, keeping all code in one file leads to unmaintainable spaghetti code. Modules solve this by allowing developers to write code in separate `.py` files and `import` them where needed. Python provides various import syntaxes, including `import x`, `import x as y`, and `from x import y`, to manage namespace pollution. Python's philosophy of 'batteries included' means it ships with a massive Standard Library containing modules like `os`, `sys`, and `datetime` for immediate use. When related modules are grouped into a directory containing an `__init__.py` file, they form a Package. Beyond the standard library, developers can access a global repository of open-source code (PyPI) by using the `pip` package manager via the command line to install, update, and remove third-party libraries.",
+    "exam_focus": [
+      "Understand the conceptual difference between a Module (a file) and a Package (a directory).",
+      "Identify the purpose of the `__init__.py` file.",
+      "Explain the different import statements and when to use an alias (`as`).",
+      "Name at least 3 modules from the Python Standard Library and their uses.",
+      "Understand what `pip` is and write the command to install a package."
+    ],
+    "revision_notes": [
+      "Module = A single .py file.",
+      "Package = A folder of .py files containing `__init__.py`.",
+      "`import math` requires `math.sqrt()`. `from math import sqrt` allows just `sqrt()`.",
+      "`pip install <package_name>` installs external libraries."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is the purpose of the `__init__.py` file in a directory?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Directory vs Package", "Python recognition"],
+      "solution": "The `__init__.py` file is required to make Python treat directories containing the file as packages. Without it, Python will simply see a normal folder and will not allow you to import modules from inside it using the dot notation. (Note: While Python 3.3+ supports implicit namespace packages without it, using `__init__.py` remains the standard best practice for regular packages)."
+    },
+    {
+      "q": "Why is it generally discouraged to use `from module import *`?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Namespace pollution", "Overwriting variables"],
+      "solution": "Using the wildcard import `*` brings every function, class, and variable from that module directly into your current file's namespace. This can cause 'namespace pollution', where variables in the imported module silently overwrite variables or functions you have defined in your own file, leading to bugs that are extremely difficult to track down. It also makes the code harder to read, as it's unclear where a specific function came from."
+    },
+    {
+      "q": "Write a Python script that uses the `random` module to simulate rolling a standard 6-sided die.",
+      "type": "practical",
+      "difficulty": "Easy",
+      "hints": ["import random", "random.randint(min, max)"],
+      "solution": "```python\nimport random\n\n# randint is inclusive of both endpoints\nroll = random.randint(1, 6)\nprint(f'You rolled a {roll}!')\n```"
+    },
+    {
+      "q": "What is the Python Package Index (PyPI) and what command-line tool is used to interact with it?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Repository", "pip"],
+      "solution": "PyPI (Python Package Index) is the official third-party software repository for Python. It hosts hundreds of thousands of open-source packages created by developers worldwide. The command-line tool used to interact with PyPI (to install, upgrade, or uninstall packages) is `pip` (Python Package Installer)."
+    },
+    {
+      "q": "Assuming you have a file named `calculator.py` containing a function `multiply(a, b)`. Write the code to import and use this function in a separate file named `main.py` located in the same folder.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["import calculator", "or from calculator import..."],
+      "solution": "```python\n# In main.py\n\n# Method 1:\nimport calculator\nres = calculator.multiply(5, 4)\n\n# Method 2 (Preferred if only using one function):\nfrom calculator import multiply\nres = multiply(5, 4)\n\nprint(res)\n```"
+    }
+  ]
+}

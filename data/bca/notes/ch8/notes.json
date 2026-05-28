@@ -1,0 +1,139 @@
+{
+  "id": "bca-ch8",
+  "title": "Exception Handling",
+  "order": 8,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "No matter how well you write your code, external factors will inevitably cause it to fail. A user might enter a letter when you expected a number, a network connection might drop, or a file might go missing. When Python encounters an error during execution, it raises an Exception. If this exception is not handled, the program crashes instantly. Exception handling allows you to intercept these errors, execute fallback code, and keep your program running smoothly."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.1 Syntax Errors vs. Exceptions"
+    },
+    {
+      "type": "paragraph",
+      "text": "It is important to distinguish between Syntax Errors and Exceptions (Runtime Errors). Syntax Errors occur before the code even runs because the grammar of the Python language was violated (e.g., missing a colon). Exceptions occur while the code is running, when a syntactically correct statement fails (e.g., dividing by zero)."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.2 The try and except Blocks"
+    },
+    {
+      "type": "paragraph",
+      "text": "The core of exception handling involves wrapping risky code inside a `try` block. If the code inside the `try` block executes successfully, the `except` block is skipped. If an error occurs, the rest of the `try` block is aborted, and Python jumps immediately to the `except` block."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "try:\n    # Risky code\n    num = int(input(\"Enter a number: \"))\n    result = 100 / num\n    print(f\"Result is {result}\")\nexcept ZeroDivisionError:\n    # Handles division by zero\n    print(\"Error: You cannot divide by zero!\")\nexcept ValueError:\n    # Handles invalid input (like typing 'abc' instead of a number)\n    print(\"Error: Please enter a valid integer.\")\nexcept Exception as e:\n    # Catch-all for any other unexpected errors\n    # 'as e' captures the error object so we can print the exact reason\n    print(f\"An unexpected error occurred: {e}\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.3 The else and finally Blocks"
+    },
+    {
+      "type": "paragraph",
+      "text": "Python's exception handling provides two additional, optional blocks: `else` and `finally`."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "else: Executes ONLY if the try block completes successfully without any exceptions being raised. It is useful for code that should only run if the risky operation succeeded.",
+        "finally: Executes ALWAYS, regardless of whether an exception occurred or not. It is primarily used for cleanup actions, such as closing files or releasing database connections."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "try:\n    file = open(\"data.txt\", \"r\")\n    data = file.read()\nexcept FileNotFoundError:\n    print(\"The file is missing.\")\nelse:\n    print(\"File read successfully! Length:\", len(data))\nfinally:\n    # This will run whether the file was found or not\n    print(\"Execution of try-except block finished.\")\n    # Note: Checking if 'file' exists before closing is best practice here"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.4 Raising Exceptions Manually"
+    },
+    {
+      "type": "paragraph",
+      "text": "As a developer, you might write a function that requires specific input to work properly. If the user provides bad data, you can actively trigger an error using the `raise` keyword. This forces the calling code to handle the problem."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def set_age(age):\n    if age < 0:\n        # Manually triggering a ValueError with a custom message\n        raise ValueError(\"Age cannot be negative.\")\n    print(f\"Age set to {age}\")\n\ntry:\n    set_age(-5)\nexcept ValueError as e:\n    print(f\"Caught an error: {e}\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8.5 Custom User-Defined Exceptions"
+    },
+    {
+      "type": "paragraph",
+      "text": "For large applications, the built-in exceptions (ValueError, TypeError) might not be descriptive enough for your specific business logic. You can create your own custom exception classes by inheriting from Python's base `Exception` class."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Defining a custom exception\nclass InsufficientFundsError(Exception):\n    pass\n\ndef withdraw(balance, amount):\n    if amount > balance:\n        raise InsufficientFundsError(f\"Cannot withdraw {amount}. Balance is {balance}.\")\n    return balance - amount\n\ntry:\n    new_balance = withdraw(100, 500)\nexcept InsufficientFundsError as e:\n    print(f\"Transaction Denied: {e}\")"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 8 teaches how to make software robust by intercepting and handling runtime errors using try, except, else, and finally blocks, as well as raising custom exceptions.",
+    "detailed_summary": "Robust programs must anticipate failure. Python uses Exceptions to signal that a runtime error has occurred. Without intervention, an exception immediately halts the program and prints a traceback. By encapsulating risky operations inside a `try` block, developers can catch specific errors in corresponding `except` blocks, allowing the program to gracefully recover or alert the user. The `except Exception as e` syntax is a powerful tool to capture unexpected errors and log their details. The `else` block provides a clean separation for code that depends on the success of the `try` block. The `finally` block guarantees execution regardless of success or failure, making it critical for resource management (closing files/connections). Developers can also enforce logic rules by using `raise` to throw built-in or custom user-defined exceptions (which are classes inheriting from Exception).",
+    "exam_focus": [
+      "Differentiate between SyntaxErrors and runtime Exceptions.",
+      "Understand the exact execution flow of try -> except -> else -> finally.",
+      "Identify common built-in exceptions like ValueError, TypeError, ZeroDivisionError, and IndexError.",
+      "Write code to manually raise exceptions.",
+      "Create a custom Exception class using inheritance."
+    ],
+    "revision_notes": [
+      "try: Risky code goes here.",
+      "except SpecificError: Runs if SpecificError is raised.",
+      "else: Runs only if NO exceptions occur.",
+      "finally: Runs ALWAYS (cleanup).",
+      "`raise ValueError('Msg')` throws an error manually.",
+      "Custom errors inherit from `Exception`: `class MyError(Exception): pass`."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is the difference between a Syntax Error and an Exception?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Grammar vs Logic", "When do they occur?"],
+      "solution": "A Syntax Error occurs before the code is executed; the Python interpreter refuses to run the file because the code violates the grammatical rules of the language (e.g., missing a quote or parenthesis). An Exception (Runtime Error) occurs during the execution of syntactically correct code, usually due to invalid data operations (e.g., dividing by zero or opening a non-existent file)."
+    },
+    {
+      "q": "Write a script that asks the user for two numbers and divides the first by the second. Handle both `ValueError` (if they type letters) and `ZeroDivisionError` (if they type 0 for the second number).",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Use multiple except blocks"],
+      "solution": "```python\ntry:\n    num1 = float(input('Enter numerator: '))\n    num2 = float(input('Enter denominator: '))\n    result = num1 / num2\n    print(f'Result: {result}')\nexcept ValueError:\n    print('Invalid input. Please enter numbers only.')\nexcept ZeroDivisionError:\n    print('Math error. Cannot divide by zero.')\n```"
+    },
+    {
+      "q": "Under what condition does the `else` block of a try-except statement execute?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Success vs Failure"],
+      "solution": "The `else` block executes strictly when the `try` block completes its execution successfully, meaning absolutely NO exceptions were raised. If an exception is raised and caught by an `except` block, the `else` block is skipped."
+    },
+    {
+      "q": "Write a function `validate_password(pwd)` that checks if a password is at least 8 characters long. If it is shorter, use the `raise` keyword to throw a `ValueError` with the message 'Password too short'.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Check len()", "raise ValueError()"],
+      "solution": "```python\ndef validate_password(pwd):\n    if len(pwd) < 8:\n        raise ValueError('Password too short')\n    print('Password is valid')\n\n# Testing it\ntry:\n    validate_password('abc12')\nexcept ValueError as e:\n    print(f'Error caught: {e}')\n```"
+    },
+    {
+      "q": "Why is it generally considered bad practice to write a bare `except:` block (one without specifying the exception type)?",
+      "type": "theory",
+      "difficulty": "Hard",
+      "hints": ["KeyboardInterrupt", "Hiding bugs"],
+      "solution": "A bare `except:` block catches ALL exceptions, including SystemExit and KeyboardInterrupt (which happens when you press Ctrl+C to stop a frozen program). This can make it impossible to kill a runaway script. Furthermore, it hides logic bugs; if a developer makes a typo (NameError), the bare except catches it and treats it like an expected error, masking the real problem. It is always better to catch specific exceptions or, at worst, use `except Exception as e:` which catches application errors but lets system interruptions pass through."
+    }
+  ]
+}

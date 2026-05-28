@@ -9,14 +9,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-sm font-black text-white">
-                Py
-              </div>
+            <Link href="/" className="flex items-center gap-3 mb-6 no-underline hover:opacity-90 transition-opacity">
+              <img 
+                src="/icon.png" 
+                alt="PyLearn Logo" 
+                className="w-10 h-10 object-cover rounded-[22%] overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.15)]" 
+              />
               <span className="font-black text-xl text-white tracking-tight">
-                Learn<span className="text-[#4d96e0]">.app</span>
+                PyLearn<span className="text-[#4d96e0]">.app</span>
               </span>
-            </div>
+            </Link>
             <p className="text-sm leading-relaxed max-w-[280px]">
               The all-in-one learning app for Python and Computer Science students. Notes, quizzes, and sample papers — beautifully designed.
             </p>

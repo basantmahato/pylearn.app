@@ -26,14 +26,16 @@ export default function Navbar() {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5 no-underline">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center text-lg font-black text-white shadow-[0_4px_12px_rgba(0,90,181,0.35)]">
-              Py
-            </div>
+          <Link href="/" className="flex items-center gap-2.5 no-underline">
+            <img 
+              src="/icon.png" 
+              alt="PyLearn Logo" 
+              className="w-10 h-10 object-cover rounded-[22%] overflow-hidden shadow-[0_4px_12px_rgba(0,90,181,0.15)] transition-transform hover:scale-105" 
+            />
             <span className="font-black text-xl text-text tracking-tight">
-              Learn<span className="text-primary">.app</span>
+              PyLearn<span className="text-primary">.app</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Nav Links */}
           <DesktopNav />

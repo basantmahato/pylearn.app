@@ -1,0 +1,45 @@
+{
+  "chapterId": "ch10",
+  "title": "Dictionaries",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Dictionary Basics",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "What is a dictionary in Python?", "options": ["A sequence of mutable items", "An ordered collection of elements", "An unordered collection of unique key-value pairs", "A set of unique elements"], "answer": 2, "explanation": "Dictionaries in Python are collections of unique key-value pairs." },
+        { "id": "q2", "question": "Which of the following creates an empty dictionary?", "options": ["d = []", "d = ()", "d = {}", "d = empty()"], "answer": 2, "explanation": "Curly braces {} or dict() create an empty dictionary." },
+        { "id": "q3", "question": "What type of brackets are used to enclose dictionary elements?", "options": ["()", "[]", "{}", "<>"], "answer": 2, "explanation": "Dictionary elements are enclosed in curly braces {}." },
+        { "id": "q4", "question": "Which of the following can be used as a valid dictionary key?", "options": ["List", "Dictionary", "Tuple", "Set"], "answer": 2, "explanation": "Keys must be immutable. Tuples are immutable, so they can be keys (if they contain only immutable elements)." },
+        { "id": "q5", "question": "Can a dictionary contain duplicate keys?", "options": ["Yes", "No", "Depends on the Python version", "Only if the values are also duplicates"], "answer": 1, "explanation": "Dictionaries cannot have duplicate keys. Assigning a value to an existing key overwrites the old value." },
+        { "id": "q6", "question": "If d = {'a': 1, 'b': 2}, how do you access the value associated with key 'a'?", "options": ["d('a')", "d['a']", "d.a", "d.get('a', 'b')"], "answer": 1, "explanation": "Square brackets [] are used to access the value for a given key." },
+        { "id": "q7", "question": "What error is raised if you try to access a key that does not exist using d[key]?", "options": ["KeyError", "IndexError", "ValueError", "NameError"], "answer": 0, "explanation": "Accessing a missing key with square brackets raises a KeyError." },
+        { "id": "q8", "question": "Which method safely retrieves the value of a key, returning None if the key is not found?", "options": ["fetch()", "get()", "find()", "retrieve()"], "answer": 1, "explanation": "The get() method returns the value for the key if it exists, otherwise it returns a default value (None by default)." },
+        { "id": "q9", "question": "How do you add a new key-value pair 'c': 3 to dictionary d?", "options": ["d.add('c', 3)", "d['c'] = 3", "d.append('c': 3)", "d.insert('c', 3)"], "answer": 1, "explanation": "You can add a new pair by simply assigning a value to a new key using square brackets." },
+        { "id": "q10", "question": "What does the keys() method return?", "options": ["A list of all values", "A list of all keys", "A view object of all keys in the dictionary", "A view object of all values"], "answer": 2, "explanation": "d.keys() returns a dict_keys view object containing all the keys in the dictionary." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Advanced Dictionary Operations",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q11", "question": "What does the values() method do?", "options": ["Returns all the keys", "Returns a view object of all the values", "Returns the dictionary in reverse", "Sorts the dictionary by values"], "answer": 1, "explanation": "d.values() returns a dict_values view object containing all the values." },
+        { "id": "q12", "question": "Which method returns a view object of tuples representing the key-value pairs?", "options": ["pairs()", "tuples()", "elements()", "items()"], "answer": 3, "explanation": "d.items() returns a dict_items view object containing tuples of (key, value) pairs." },
+        { "id": "q13", "question": "How do you remove a specific key-value pair and return its value?", "options": ["d.remove(key)", "d.delete(key)", "d.pop(key)", "d.discard(key)"], "answer": 2, "explanation": "The pop(key) method removes the specified key and returns its corresponding value." },
+        { "id": "q14", "question": "What does the popitem() method do in Python 3.7+?", "options": ["Removes a random item", "Removes the first inserted item", "Removes the last inserted item", "Removes the largest item"], "answer": 2, "explanation": "In Python 3.7+, dictionaries are ordered by insertion, and popitem() removes and returns the last inserted key-value pair." },
+        { "id": "q15", "question": "Which method empties all items from a dictionary?", "options": ["empty()", "clear()", "delete_all()", "reset()"], "answer": 1, "explanation": "The clear() method removes all key-value pairs, leaving an empty dictionary." },
+        { "id": "q16", "question": "How can you merge dictionary d2 into dictionary d1?", "options": ["d1.update(d2)", "d1.merge(d2)", "d1.combine(d2)", "d1.add(d2)"], "answer": 0, "explanation": "The update() method updates the dictionary with the key-value pairs from another dictionary." },
+        { "id": "q17", "question": "Can a list be used as a dictionary key?", "options": ["Yes, always", "No, because lists are mutable (unhashable)", "Yes, if the list is empty", "No, because lists are too large"], "answer": 1, "explanation": "Lists are mutable and therefore unhashable, meaning they cannot be used as dictionary keys." },
+        { "id": "q18", "question": "What is the output of len({'a': 1, 'b': 2, 'a': 3})?", "options": ["1", "2", "3", "Error"], "answer": 1, "explanation": "The dictionary has 2 unique keys. The key 'a' is overwritten with value 3, so there are only 2 items." },
+        { "id": "q19", "question": "What is dictionary comprehension?", "options": ["A way to comprehend errors in dictionaries", "A concise way to create dictionaries from iterables", "A built-in function to sort dictionaries", "A module to extend dictionary features"], "answer": 1, "explanation": "Dictionary comprehension provides a compact way to create dictionaries (e.g., {k: v for k, v in iterable})." },
+        { "id": "q20", "question": "How do you check if a key 'name' exists in a dictionary d?", "options": ["if 'name' in d.keys():", "if 'name' in d:", "Both A and B", "if d.has_key('name'):"], "answer": 2, "explanation": "Both 'if key in d' and 'if key in d.keys()' check for existence, though 'if key in d' is more Pythonic." },
+        { "id": "q21", "question": "What does the 'in' operator check by default in a dictionary?", "options": ["Keys", "Values", "Items", "Length"], "answer": 0, "explanation": "The 'in' operator checks for membership among the dictionary's keys." },
+        { "id": "q22", "question": "What does the setdefault(key, default) method do?", "options": ["Sets a default dictionary", "Returns value if key exists, otherwise sets key to default and returns default", "Deletes the key if it matches default", "Only sets the key but returns nothing"], "answer": 1, "explanation": "setdefault() is used to get the value of a key, but if the key doesn't exist, it inserts the key with a specified default value." },
+        { "id": "q23", "question": "What is the output of dict(a=1, b=2)?", "options": ["{'a': 1, 'b': 2}", "['a': 1, 'b': 2]", "Error", "('a': 1, 'b': 2)"], "answer": 0, "explanation": "The dict() constructor can accept keyword arguments to create a dictionary directly." },
+        { "id": "q24", "question": "How do you create a shallow copy of a dictionary d?", "options": ["d.clone()", "d.copy()", "copy(d)", "d.duplicate()"], "answer": 1, "explanation": "The copy() method returns a shallow copy of the dictionary." },
+        { "id": "q25", "question": "What happens if you use the 'del' statement on a dictionary key that doesn't exist?", "options": ["Nothing happens", "Returns False", "Raises a KeyError", "Deletes a random key"], "answer": 2, "explanation": "Using del d[key] when the key does not exist raises a KeyError." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "id": "ch6",
+  "title": "Flow of Control",
+  "order": 6,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Normally, a Python script executes sequentially, line by line, from top to bottom. However, real-world applications require programs to make decisions and repeat tasks. 'Flow of Control' refers to the order in which statements are executed. We use Decision-Making statements to skip code based on conditions, and Iteration (Looping) statements to execute code repeatedly."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6.1 Decision Making: The 'if' Statement"
+    },
+    {
+      "type": "paragraph",
+      "text": "The `if` statement allows a block of code to run ONLY if a specific boolean condition evaluates to `True`. Python relies heavily on Indentation (whitespace) to determine which lines of code belong inside the `if` block. If the indentation is wrong, the program will crash with an IndentationError."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "age = 15\n\nif age >= 18:\n    # This line is indented, so it belongs to the 'if' block\n    print(\"You are eligible to vote.\")\n\n# This line is not indented, so it runs regardless of the condition\nprint(\"Program execution finished.\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6.2 if-else and if-elif-else"
+    },
+    {
+      "type": "paragraph",
+      "text": "The `else` statement provides a fallback block of code that runs if the initial `if` condition is `False`. When you have more than two possible outcomes, you use `elif` (short for else if) to chain multiple conditions together. Python checks them from top to bottom and stops at the first one that is True."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "marks = 85\n\nif marks >= 90:\n    print(\"Grade: A\")\nelif marks >= 80:\n    # This runs if marks < 90 AND marks >= 80\n    print(\"Grade: B\")\nelif marks >= 70:\n    print(\"Grade: C\")\nelse:\n    # This is the catch-all if none of the above are True\n    print(\"Grade: F\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6.3 Iteration: The 'for' Loop"
+    },
+    {
+      "type": "paragraph",
+      "text": "A `for` loop is used to iterate over a sequence (like a list, a string, or a range of numbers). It executes a block of code a specific, known number of times. It is almost always used in conjunction with the `range()` function."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "range(stop): Generates numbers from 0 up to, but NOT including, 'stop'.",
+        "range(start, stop): Generates numbers from 'start' up to, but NOT including, 'stop'.",
+        "range(start, stop, step): Generates numbers from 'start', jumping by 'step'."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "# Prints 0, 1, 2, 3, 4\nfor i in range(5):\n    print(i)\n\n# Prints 2, 4, 6, 8 (Starts at 2, goes up to 9, steps by 2)\nfor i in range(2, 10, 2):\n    print(i)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6.4 Iteration: The 'while' Loop"
+    },
+    {
+      "type": "paragraph",
+      "text": "A `while` loop executes a block of code repeatedly AS LONG AS a specific boolean condition remains `True`. It is used when you do not know beforehand exactly how many times the loop needs to run (e.g., waiting for a user to type 'quit'). Warning: If the condition never becomes False, you will create an Infinite Loop, and the program will crash or freeze."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "count = 0\nwhile count < 3:\n    print(\"Count is:\", count)\n    # CRITICAL: We must update the variable, or the loop runs forever!\n    count += 1"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6.5 Jump Statements: break and continue"
+    },
+    {
+      "type": "paragraph",
+      "text": "Jump statements allow you to alter the normal flow of a loop."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "break: Immediately and completely terminates the loop, regardless of the condition.",
+        "continue: Skips the rest of the current iteration and jumps immediately back to the top of the loop for the next iteration."
+      ]
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 6 covers Flow of Control, teaching how to make decisions using if-elif-else statements and how to repeat tasks using for and while loops.",
+    "detailed_summary": "Programs must be dynamic, breaking away from top-to-bottom sequential execution. Python uses Decision-Making statements (`if`, `elif`, `else`) to execute code blocks conditionally based on Boolean logic. Python strictly enforces indentation to define these code blocks. For repetitive tasks, Iteration statements are used. The `for` loop is designed for definite iteration over sequences, heavily relying on the `range()` function to generate numerical sequences. The `while` loop handles indefinite iteration, running repeatedly as long as a condition evaluates to True, requiring developers to manually update variables to prevent infinite loops. Finally, jump statements give granular control over loops: `break` violently terminates the entire loop, while `continue` aborts only the current iteration, jumping back to the loop's start.",
+    "exam_focus": [
+      "Understand how indentation defines code blocks in Python.",
+      "Trace the output of complex `if-elif-else` chains.",
+      "Predict the exact sequence generated by `range(start, stop, step)`. Remember 'stop' is exclusive.",
+      "Explain the exact difference between `break` and `continue` inside a loop."
+    ],
+    "revision_notes": [
+      "Indentation (whitespace) replaces `{}` used in other languages.",
+      "`elif` means 'else if'.",
+      "`range(1, 5)` generates 1, 2, 3, 4. (It STOPS before 5).",
+      "`for` loop: Known number of iterations.",
+      "`while` loop: Unknown number of iterations; runs while condition is True.",
+      "`break`: Smash out of the loop.",
+      "`continue`: Skip this cycle, start the next one."
+    ]
+  },
+  "practice": [
+    {
+      "q": "Why is indentation critical in Python?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Code blocks", "Syntax error"],
+      "solution": "Unlike other languages that use curly braces `{}` to group code, Python uses indentation (whitespace/tabs) to define code blocks. If a block of code belonging to an `if` statement or `for` loop is not properly indented, Python will throw an `IndentationError` and the script will refuse to run."
+    },
+    {
+      "q": "What exact numbers will `list(range(5, 1, -1))` generate?",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Start, Stop, Step", "Negative step", "Stop is exclusive"],
+      "solution": "It will generate `5, 4, 3, 2`. It starts at 5, steps backward by -1, and STOPS before it reaches the stop value of 1."
+    },
+    {
+      "q": "Write a script that uses a `for` loop to print the multiplication table of 7 (from 7x1 to 7x10).",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["range(1, 11)"],
+      "solution": "```python\nfor i in range(1, 11):\n    print(f'7 x {i} = {7 * i}')\n```"
+    },
+    {
+      "q": "Explain the difference between a `for` loop and a `while` loop. When should you use which?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Definite vs Indefinite iteration"],
+      "solution": "A `for` loop is used for 'definite iteration'—when you know exactly how many times the loop should run beforehand (e.g., iterating through a list of 10 items or using `range(5)`). A `while` loop is used for 'indefinite iteration'—when you don't know how many times it will run, but you want it to keep running as long as a specific condition remains True (e.g., waiting for user input)."
+    },
+    {
+      "q": "What is an infinite loop, and how does the `break` statement help prevent it?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Condition never turns false", "Terminating"],
+      "solution": "An infinite loop occurs when a `while` loop's condition never evaluates to False (often because the programmer forgot to update the counter variable inside the loop), causing the program to freeze or crash. The `break` statement can be used inside an `if` condition within the loop to forcefully terminate the loop and escape it, even if the `while` condition is still True."
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import QuizClient from "./QuizClient";
-import { fetchChapters, fetchQuizzes, CATEGORIES, type Chapter, type QuizSet } from "../../lib/api";
+import { fetchChapters, fetchQuizzes, type Chapter, type QuizSet, fetchCourses, type ApiCourse } from "../../lib/api";
 
 export const metadata: Metadata = {
   title: "Quiz — PyLearn | Practice Python MCQs for Class 11, 12, BCA, B.Tech & AI/ML",
@@ -11,6 +11,13 @@ export const metadata: Metadata = {
 };
 
 export default async function QuizPage() {
+  let CATEGORIES: ApiCourse[] = [];
+  try {
+    CATEGORIES = await fetchCourses();
+  } catch {
+    CATEGORIES = [];
+  }
+
   const chaptersByCategory: Record<string, Chapter[]> = {};
   const quizSetsByCategory: Record<string, QuizSet[]> = {};
   let error = "";
@@ -36,6 +43,7 @@ export default async function QuizPage() {
       <Navbar />
       <main className="pt-32 min-h-screen bg-bg">
         <QuizClient
+          categories={CATEGORIES}
           chaptersByCategory={chaptersByCategory}
           quizSetsByCategory={quizSetsByCategory}
           error={error}

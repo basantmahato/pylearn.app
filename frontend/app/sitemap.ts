@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { CATEGORIES, Category } from "../lib/api";
+import { fetchCourses, Category, ApiCourse } from "../lib/api";
 import { slugify } from "../lib/slugify";
 
 const BASE_URL = "https://pylearn.com/"; // ← update to your production domain
@@ -36,6 +36,11 @@ interface BlogItem {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  
+  let CATEGORIES: ApiCourse[] = [];
+  try {
+    CATEGORIES = await fetchCourses();
+  } catch {}
 
   // ── Static pages ────────────────────────────────────────────────────────────
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -73,7 +78,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── Category index pages (notes / quiz / samples per category) ───────────────
   const categoryRoutes: MetadataRoute.Sitemap = CATEGORIES.flatMap(
-    (cat: { key: Category }) => [
+    (cat: ApiCourse) => [
       {
         url: `${BASE_URL}/notes/${cat.key}`,
         lastModified: now,

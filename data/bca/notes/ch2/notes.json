@@ -1,0 +1,195 @@
+{
+  "id": "bca-ch2",
+  "title": "Operators and Expressions",
+  "order": 2,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Programming is all about data manipulation. Operators are special symbols in Python that carry out arithmetic or logical computation. The value that the operator operates on is called the operand. For example, in the expression `4 + 5`, `4` and `5` are operands and `+` is the operator. This chapter covers the vast array of operators available in Python, from simple math to complex bitwise manipulation."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.1 Arithmetic Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Arithmetic operators are used to perform mathematical operations like addition, subtraction, multiplication, etc."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Addition (+): Adds values on either side of the operator.",
+        "Subtraction (-): Subtracts right hand operand from left hand operand.",
+        "Multiplication (*): Multiplies values on either side of the operator.",
+        "Division (/): Divides left hand operand by right hand operand. Always returns a float in Python 3.",
+        "Modulus (%): Divides left hand operand by right hand operand and returns remainder.",
+        "Exponentiation (**): Performs exponential (power) calculation on operators.",
+        "Floor Division (//): The division of operands where the result is the quotient in which the digits after the decimal point are removed."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "a = 15\nb = 4\n\nprint(f\"{a} + {b} = {a + b}\")   # 19\nprint(f\"{a} - {b} = {a - b}\")   # 11\nprint(f\"{a} * {b} = {a * b}\")   # 60\nprint(f\"{a} / {b} = {a / b}\")   # 3.75  (Standard division)\nprint(f\"{a} % {b} = {a % b}\")   # 3     (Remainder)\nprint(f\"{a} // {b} = {a // b}\") # 3     (Floor division, drops the .75)\nprint(f\"{a} ** 2 = {a ** 2}\")   # 225   (15 to the power of 2)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.2 Relational (Comparison) Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Relational operators compare the values on either side of them and decide the relation among them. They are also called comparison operators. The return value of a comparison is always a boolean (`True` or `False`)."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Equal (==): If the values of two operands are equal, then the condition becomes true.",
+        "Not Equal (!=): If values of two operands are not equal, then condition becomes true.",
+        "Greater Than (>): If the value of left operand is greater than the value of right operand, then condition becomes true.",
+        "Less Than (<): If the value of left operand is less than the value of right operand, then condition becomes true.",
+        "Greater Than or Equal (>=): If the value of left operand is greater than or equal to the value of right operand, then condition becomes true.",
+        "Less Than or Equal (<=): If the value of left operand is less than or equal to the value of right operand, then condition becomes true."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "x = 10\ny = 12\n\nprint(x == y)  # False\nprint(x != y)  # True\nprint(x > y)   # False\nprint(x < y)   # True\n\n# Python supports chained comparisons!\nprint(5 < x <= 15)  # True (Equivalent to: 5 < x and x <= 15)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.3 Logical Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Logical operators are used to combine conditional statements. Python uses plain English words for these operators."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "and: Returns True if both statements are true.",
+        "or: Returns True if one of the statements is true.",
+        "not: Reverse the result, returns False if the result is true."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Important Concept: Short-Circuit Evaluation. Python evaluates logical expressions from left to right. In an `and` expression, if the first operand is False, Python knows the whole expression must be False, so it skips evaluating the second operand. In an `or` expression, if the first operand is True, Python knows the whole expression is True, so it skips the second."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "a = True\nb = False\n\nprint(a and b) # False\nprint(a or b)  # True\nprint(not a)   # False\n\n# Short-circuiting example\nx = 10\ny = 0\n# If Python evaluated (y != 0) first, it's fine. \n# But if it evaluated (x / y > 2) when y is 0, it would crash (ZeroDivisionError).\n# By checking (y != 0) first with 'and', the crash is prevented if y is 0.\nif y != 0 and (x / y) > 2:\n    print(\"Valid\")"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.4 Assignment Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Assignment operators are used to assign values to variables. The most basic is `=`. Python also provides compound assignment operators which perform an arithmetic operation and an assignment in one step."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "c = 10      # Standard assignment\n\nc += 5      # Equivalent to c = c + 5 (c is now 15)\nc -= 2      # Equivalent to c = c - 2 (c is now 13)\nc *= 2      # Equivalent to c = c * 2 (c is now 26)\nc /= 2      # Equivalent to c = c / 2 (c is now 13.0)\nc //= 3     # Equivalent to c = c // 3 (c is now 4.0)\nc **= 3     # Equivalent to c = c ** 3 (c is now 64.0)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.5 Bitwise Operators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Bitwise operators act on operands as if they were strings of binary digits. They operate bit by bit, hence the name. These are generally used in low-level programming, cryptography, and network programming."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "& (Bitwise AND): Sets each bit to 1 if both bits are 1.",
+        "| (Bitwise OR): Sets each bit to 1 if one of two bits is 1.",
+        "^ (Bitwise XOR): Sets each bit to 1 if only one of two bits is 1.",
+        "~ (Bitwise NOT): Inverts all the bits.",
+        "<< (Left Shift): Shift left by pushing zeros in from the right and let the leftmost bits fall off. (Effectively multiplies by 2^n).",
+        ">> (Right Shift): Shift right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off. (Effectively divides by 2^n)."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "x = 10  # Binary: 1010\ny = 4   # Binary: 0100\n\nprint(x & y)   # 0 (Binary: 0000)\nprint(x | y)   # 14 (Binary: 1110)\nprint(x ^ y)   # 14 (Binary: 1110)\nprint(~x)      # -11 (Inverts the bits, resulting in -(x+1))\nprint(x << 1)  # 20 (Binary: 10100) - Multiplied by 2\nprint(x >> 1)  # 5  (Binary: 0101)  - Divided by 2"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2.6 Operator Precedence"
+    },
+    {
+      "type": "paragraph",
+      "text": "When an expression contains more than one operator, the order of evaluation depends on the operator precedence. For example, multiplication has a higher precedence than addition."
+    },
+    {
+      "type": "paragraph",
+      "text": "General Order of Precedence (Highest to Lowest):\n1. Parentheses `()`\n2. Exponentiation `**`\n3. Unary plus/minus `+x`, `-x`, `~x`\n4. Multiplication/Division `*`, `/`, `//`, `%`\n5. Addition/Subtraction `+`, `-`\n6. Bitwise Shifts `<<`, `>>`\n7. Bitwise AND `&`\n8. Bitwise XOR `^`\n9. Bitwise OR `|`\n10. Comparisons `==`, `!=`, `>`, `<`, `>=`, `<=`, `is`, `is not`, `in`, `not in`\n11. Logical NOT `not`\n12. Logical AND `and`\n13. Logical OR `or`"
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 2 covers the fundamental operators in Python, including arithmetic, relational, logical, assignment, and bitwise operators, along with operator precedence.",
+    "detailed_summary": "Operators are the building blocks of expressions in Python. Arithmetic operators (+, -, *, /, //, %, **) handle mathematical computations, with a critical distinction between standard division (/) which returns a float, and floor division (//) which returns a truncated integer. Relational operators compare values and return booleans, and Python uniquely allows chained comparisons (e.g., 0 < x < 10). Logical operators (and, or, not) combine conditions and utilize short-circuit evaluation for efficiency and safety. Assignment operators simplify updating variables. Bitwise operators manipulate data at the binary level, which is crucial for systems programming. Finally, operator precedence determines the order of operations, similar to BEDMAS/BODMAS in mathematics.",
+    "exam_focus": [
+      "Difference between / (true division) and // (floor division).",
+      "Understanding modulo (%) for finding remainders and checking even/odd.",
+      "How short-circuit evaluation works in `and` and `or` expressions.",
+      "Evaluating complex expressions using operator precedence.",
+      "Calculating bitwise AND, OR, and Shift operations."
+    ],
+    "revision_notes": [
+      "/ returns float, // returns int.",
+      "** is exponentiation (power).",
+      "Chained comparison: 10 < x <= 20 is valid.",
+      "Logical precedence: not > and > or.",
+      "Bitwise left shift (<< n) multiplies by 2^n."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is the difference between `/` and `//` in Python 3?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Think about floats vs integers", "Floor division"],
+      "solution": "The `/` operator performs true division and always returns a floating-point number (e.g., 5 / 2 = 2.5). The `//` operator performs floor division, returning the largest possible integer. It truncates the decimal part (e.g., 5 // 2 = 2)."
+    },
+    {
+      "q": "Evaluate the expression: `result = 10 + 5 * 2 ** 3 - 4 / 2`. Show the steps.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Follow PEMDAS/Precedence: ** first, then *, /, then +, -"],
+      "solution": "1. Exponentiation: 2 ** 3 = 8\nExpression becomes: 10 + 5 * 8 - 4 / 2\n2. Multiplication and Division (left to right): 5 * 8 = 40, and 4 / 2 = 2.0\nExpression becomes: 10 + 40 - 2.0\n3. Addition and Subtraction (left to right): 10 + 40 = 50, then 50 - 2.0 = 48.0\nFinal Answer: 48.0"
+    },
+    {
+      "q": "Write a Python script that takes a 3-digit number from the user and prints the sum of its digits using the `%` and `//` operators.",
+      "type": "practical",
+      "difficulty": "Hard",
+      "hints": ["Use % 10 to get the last digit", "Use // 10 to remove the last digit"],
+      "solution": "```python\nnum_str = input('Enter a 3-digit number: ')\nnum = int(num_str)\n\n# Extract digits\nd3 = num % 10          # Gets the ones place\nnum = num // 10        # Removes the ones place\nd2 = num % 10          # Gets the tens place\nnum = num // 10        # Removes the tens place\nd1 = num               # What's left is the hundreds place\n\nprint(f'Sum of digits: {d1 + d2 + d3}')\n```"
+    },
+    {
+      "q": "Explain short-circuit evaluation with a code snippet.",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["and", "or", "skipping evaluation"],
+      "solution": "Short-circuit evaluation means Python stops evaluating a logical expression as soon as the final result is determined. \nFor `A and B`: if A is False, the whole expression must be False, so B is never evaluated.\nFor `A or B`: if A is True, the whole expression must be True, so B is never evaluated.\n\n```python\n# This will NOT raise a ZeroDivisionError because the first part is False\nx = 0\nif x != 0 and (10 / x > 2):\n    print('Valid')\n```"
+    },
+    {
+      "q": "What is the output of `8 << 2`? Explain why.",
+      "type": "practical",
+      "difficulty": "Medium",
+      "hints": ["Bitwise left shift", "Multiply by 2^n"],
+      "solution": "The output is 32.\nExplanation: The bitwise left shift operator `<<` shifts the binary representation of 8 to the left by 2 positions. \nBinary of 8 is 1000. \nShifting left by 2 adds two zeros: 100000. \n100000 in decimal is 32.\nAlternatively, `x << n` is mathematically equivalent to `x * (2^n)`. So, 8 * (2^2) = 8 * 4 = 32."
+    }
+  ]
+}

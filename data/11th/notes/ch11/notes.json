@@ -1,0 +1,144 @@
+{
+  "id": "ch11",
+  "title": "Cyber Safety and Societal Impacts",
+  "order": 11,
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "The internet is a powerful tool, but it is also fraught with dangers ranging from identity theft to cyberbullying. As future software developers and digital citizens, it is critical to understand not only how to write code, but how to navigate the digital world safely, ethically, and responsibly. Cyber Safety involves protecting your personal information, respecting others' digital rights, and understanding the societal impact of computing."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.1 Digital Footprint"
+    },
+    {
+      "type": "paragraph",
+      "text": "Every time you browse the web, post on social media, or send an email, you leave behind a trail of data. This trail is called your Digital Footprint. It can be categorized into two types:"
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Active Digital Footprint: Data you intentionally submit online (e.g., uploading a photo, sending a tweet, or filling out a form).",
+        "Passive Digital Footprint: Data collected about you without your explicit knowledge (e.g., websites tracking your IP address, browser cookies, and search history)."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A negative digital footprint can severely impact future college admissions or job prospects. Always think before you post."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.2 Cyber Crime and Threats"
+    },
+    {
+      "type": "paragraph",
+      "text": "Cybercrime refers to criminal activities carried out using computers or the internet."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Phishing: The fraudulent practice of sending emails masquerading as reputable companies to trick individuals into revealing personal information, such as passwords and credit card numbers.",
+        "Malware (Malicious Software): Software specifically designed to disrupt, damage, or gain unauthorized access to a computer. This includes Viruses, Worms, Trojans, and Ransomware.",
+        "Cyberbullying: The use of electronic communication to bully a person, typically by sending messages of an intimidating or threatening nature.",
+        "Identity Theft: Stealing someone's personal information to commit fraud, such as applying for loans under their name."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.3 Intellectual Property (IP) Rights"
+    },
+    {
+      "type": "paragraph",
+      "text": "Intellectual Property refers to creations of the mind, such as inventions, literary and artistic works, designs, symbols, names, and software. You cannot legally copy and use someone else's IP without permission."
+    },
+    {
+      "type": "bullet_list",
+      "items": [
+        "Copyright: A legal right that grants the creator of original work exclusive rights to its use and distribution (e.g., a movie, a novel, or source code).",
+        "Patent: An exclusive right granted for an invention (e.g., a new type of computer processor).",
+        "Trademark: A recognizable sign, design, or expression which identifies products or services of a particular source (e.g., the Apple logo)."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.4 Open Source Software (OSS)"
+    },
+    {
+      "type": "paragraph",
+      "text": "Open Source Software is software with source code that anyone can inspect, modify, and enhance. Python itself is Open Source. This is in stark contrast to Proprietary Software (like Microsoft Windows or Adobe Photoshop), where the source code is heavily guarded and modifying it is illegal."
+    },
+    {
+      "type": "paragraph",
+      "text": "Benefits of OSS include transparency, community-driven improvements, and usually, it is free of cost."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11.5 E-Waste Management"
+    },
+    {
+      "type": "paragraph",
+      "text": "As technology advances, older devices are discarded at an alarming rate. Electronic Waste (E-waste) contains toxic chemicals like lead, mercury, and cadmium. If thrown into regular landfills, these chemicals seep into the soil and water, causing severe environmental and health hazards. Proper recycling of e-waste through authorized facilities is a critical societal responsibility."
+    }
+  ],
+  "summary": {
+    "short_summary": "Chapter 11 covers Cyber Safety and Societal Impacts, teaching students how to manage their digital footprint, protect themselves from cyber threats like phishing, and respect intellectual property rights.",
+    "detailed_summary": "In the modern digital age, technical skills must be paired with ethical responsibility and safety awareness. A user's Digital Footprint is the permanent trail of active and passive data left online. Understanding this is crucial as cybercrimes escalate. Major threats include Phishing (social engineering to steal credentials), Malware (viruses, ransomware), Identity Theft, and Cyberbullying. Beyond safety, students must respect Intellectual Property (IP) rights, which protect creations via Copyrights, Patents, and Trademarks. This introduces the concept of Software Licensing, contrasting Proprietary Software with Open Source Software (OSS) like Python, which encourages community modification. Finally, the chapter addresses the physical impact of computing: E-waste. The rapid disposal of electronics introduces toxic heavy metals into the environment, necessitating responsible recycling practices.",
+    "exam_focus": [
+      "Distinguish between Active and Passive Digital Footprints.",
+      "Define Phishing and explain how to identify a phishing attempt.",
+      "Understand the difference between Copyright, Patent, and Trademark.",
+      "Explain the core philosophy of Open Source Software (OSS).",
+      "Discuss the environmental hazards of improper E-waste disposal."
+    ],
+    "revision_notes": [
+      "Active Footprint: You upload it. Passive: Websites track it.",
+      "Phishing: Fake emails trying to steal passwords.",
+      "Malware: Viruses, Trojans, Ransomware.",
+      "Copyright protects art/code. Patent protects inventions. Trademark protects logos.",
+      "Open Source Software allows anyone to view and edit the code.",
+      "E-waste contains toxic lead and mercury; it MUST be recycled properly."
+    ]
+  },
+  "practice": [
+    {
+      "q": "What is a 'Passive Digital Footprint'?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Without explicit action", "Tracking"],
+      "solution": "A passive digital footprint is the data collected about you online without your active or explicit submission. Examples include websites tracking your IP address, saving cookies to monitor your browsing habits, or recording your search queries."
+    },
+    {
+      "q": "You receive an email claiming to be from your bank, stating your account will be suspended unless you click a link and enter your password. What type of cyber threat is this?",
+      "type": "theory",
+      "difficulty": "Easy",
+      "hints": ["Social engineering", "Fake identity"],
+      "solution": "This is a classic example of Phishing. The attacker is masquerading as a trusted entity (the bank) to trick you into voluntarily handing over sensitive credentials."
+    },
+    {
+      "q": "What is the difference between Open Source Software and Proprietary Software?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Source code visibility", "Modifications"],
+      "solution": "Open Source Software (like Python or Linux) publishes its underlying source code publicly, allowing anyone to inspect, modify, and distribute it freely. Proprietary Software (like MS Word or iOS) keeps its source code strictly hidden; users only buy a license to use the compiled program, and modifying the code is illegal."
+    },
+    {
+      "q": "Why is it dangerous to throw old cell phones and laptops into the regular trash?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["E-waste", "Toxic chemicals"],
+      "solution": "Electronic waste (E-waste) contains hazardous toxic heavy metals such as lead, mercury, and cadmium. If dumped in regular landfills, these chemicals can leak into the soil and groundwater, causing severe environmental damage and posing massive health risks to humans and animals."
+    },
+    {
+      "q": "If a company invents a revolutionary new physical cooling fan for a CPU, which Intellectual Property right should they apply for: a Copyright, a Patent, or a Trademark?",
+      "type": "theory",
+      "difficulty": "Medium",
+      "hints": ["Invention vs Art vs Logo"],
+      "solution": "They should apply for a Patent. Patents are used to protect new, physical inventions and processes. A Copyright is for creative works (like code or books), and a Trademark is for brand identifiers (like logos or slogans)."
+    }
+  ]
+}

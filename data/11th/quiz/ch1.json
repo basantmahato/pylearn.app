@@ -1,0 +1,45 @@
+{
+  "chapterId": "ch1",
+  "title": "Computer System and Organization",
+  "sets": [
+    {
+      "setId": "s1",
+      "setName": "Hardware, CPU and Memory",
+      "difficulty": "Easy",
+      "questions": [
+        { "id": "q1", "question": "What does CPU stand for?", "options": ["Central Process Unit", "Computer Processing Unit", "Central Processing Unit", "Central Program Unit"], "answer": 2, "explanation": "CPU stands for Central Processing Unit, which is the brain of the computer." },
+        { "id": "q2", "question": "Which of the following is known as the brain of the computer?", "options": ["Monitor", "CPU", "Keyboard", "Memory"], "answer": 1, "explanation": "The CPU is known as the brain of the computer as it performs all data processing operations." },
+        { "id": "q3", "question": "What are the main components of a CPU?", "options": ["ALU, CU, and Registers", "ALU and Memory", "Control Unit and Monitor", "Registers and RAM"], "answer": 0, "explanation": "A CPU consists of Arithmetic Logic Unit (ALU), Control Unit (CU), and Registers." },
+        { "id": "q4", "question": "Which part of the CPU performs mathematical operations?", "options": ["Control Unit", "Registers", "ALU", "Memory"], "answer": 2, "explanation": "The Arithmetic Logic Unit (ALU) is responsible for all arithmetic and logical operations." },
+        { "id": "q5", "question": "Which of the following memory is volatile in nature?", "options": ["ROM", "RAM", "Hard Disk", "CD-ROM"], "answer": 1, "explanation": "RAM (Random Access Memory) is volatile; its contents are lost when power is turned off." },
+        { "id": "q6", "question": "Which of the following memory is non-volatile in nature?", "options": ["RAM", "Cache", "Registers", "ROM"], "answer": 3, "explanation": "ROM (Read Only Memory) retains its contents even when the computer is turned off." },
+        { "id": "q7", "question": "How many bits are in one Byte?", "options": ["4", "8", "16", "32"], "answer": 1, "explanation": "1 Byte is equal to 8 bits." },
+        { "id": "q8", "question": "1 Kilobyte (KB) is equal to how many Bytes?", "options": ["1000 Bytes", "1024 Bytes", "1048 Bytes", "2048 Bytes"], "answer": 1, "explanation": "In computer architecture, 1 KB is defined as 1024 Bytes." },
+        { "id": "q9", "question": "Which of the following is an input device?", "options": ["Printer", "Monitor", "Keyboard", "Speaker"], "answer": 2, "explanation": "A keyboard is used to provide input data to the computer." },
+        { "id": "q10", "question": "Which of the following is an output device?", "options": ["Mouse", "Scanner", "Microphone", "Monitor"], "answer": 3, "explanation": "A monitor displays output visually to the user." },
+        { "id": "q11", "question": "Which memory holds the startup instructions of a computer?", "options": ["RAM", "ROM", "Hard Disk", "Cache"], "answer": 1, "explanation": "ROM stores the BIOS, which contains the startup instructions for the computer." },
+        { "id": "q12", "question": "Which very high-speed memory is placed between the CPU and Main Memory?", "options": ["ROM", "Flash Memory", "Cache Memory", "Virtual Memory"], "answer": 2, "explanation": "Cache memory acts as a high-speed buffer between the CPU and RAM." }
+      ]
+    },
+    {
+      "setId": "s2",
+      "setName": "Software, Translators and Data Units",
+      "difficulty": "Medium",
+      "questions": [
+        { "id": "q13", "question": "What type of software controls internal computer operations?", "options": ["Application Software", "System Software", "Utility Software", "Open Source Software"], "answer": 1, "explanation": "System software, like an Operating System, controls internal computer operations." },
+        { "id": "q14", "question": "Which of the following is an example of Application Software?", "options": ["Windows 10", "Linux", "Microsoft Word", "Device Driver"], "answer": 2, "explanation": "MS Word is designed to help users perform specific tasks, making it application software." },
+        { "id": "q15", "question": "What does OS stand for?", "options": ["Open System", "Operating System", "Optical Storage", "Output System"], "answer": 1, "explanation": "OS stands for Operating System." },
+        { "id": "q16", "question": "Which program translates high-level language to machine code line-by-line?", "options": ["Compiler", "Assembler", "Interpreter", "Linker"], "answer": 2, "explanation": "An Interpreter translates code line-by-line and executes it immediately." },
+        { "id": "q17", "question": "Which program translates an entire high-level program into machine code at once?", "options": ["Compiler", "Assembler", "Interpreter", "Loader"], "answer": 0, "explanation": "A Compiler reads the entire program and translates it fully into machine code." },
+        { "id": "q18", "question": "What is the base of the Binary number system?", "options": ["2", "8", "10", "16"], "answer": 0, "explanation": "Binary has a base of 2, using only digits 0 and 1." },
+        { "id": "q19", "question": "What language is understood directly by the computer hardware?", "options": ["High-Level Language", "Assembly Language", "Machine Language", "Natural Language"], "answer": 2, "explanation": "Machine language (binary) is the only language directly understood by the hardware." },
+        { "id": "q20", "question": "Which of the following is considered a Utility Program?", "options": ["Web Browser", "Antivirus Software", "Word Processor", "Spreadsheet"], "answer": 1, "explanation": "Antivirus programs help maintain and protect the system, making them utility software." },
+        { "id": "q21", "question": "What does a group of 4 bits represent?", "options": ["Byte", "Nibble", "Word", "Block"], "answer": 1, "explanation": "A nibble is a four-bit aggregation, or half an octet." },
+        { "id": "q22", "question": "Which of these is a form of Secondary Storage?", "options": ["RAM", "Cache", "Registers", "Hard Disk Drive"], "answer": 3, "explanation": "A Hard Disk Drive (HDD) is used for permanent, secondary data storage." },
+        { "id": "q23", "question": "What does CD-ROM stand for?", "options": ["Compact Disk Read Only Memory", "Computer Disk Read Only Memory", "Compact Data Read Only Memory", "Computer Data Read Only Memory"], "answer": 0, "explanation": "CD-ROM stands for Compact Disk Read Only Memory." },
+        { "id": "q24", "question": "What is the primary purpose of a Device Driver?", "options": ["To play videos", "To create documents", "To act as an interface between OS and hardware", "To protect against viruses"], "answer": 2, "explanation": "Device drivers tell the OS how to communicate with a specific piece of hardware." },
+        { "id": "q25", "question": "Which unit is responsible for controlling the flow of data within the CPU?", "options": ["ALU", "Control Unit", "Memory Unit", "Secondary Storage"], "answer": 1, "explanation": "The Control Unit directs the operation of the processor and controls data flow." }
+      ]
+    }
+  ]
+}
