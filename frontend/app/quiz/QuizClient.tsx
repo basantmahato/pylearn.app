@@ -44,8 +44,8 @@ export default function QuizClient({ categories, chaptersByCategory, quizSetsByC
     [quizSets, activeChapter, activeCategory]
   );
 
-  if (error) {
-    return <StateView message={`Failed to load quiz bank: ${error}`} type="error" />;
+  if (error || categories.length === 0) {
+    return <StateView message={error ? `Failed to load quiz bank: ${error}` : "No categories available."} type="error" />;
   }
 
   return (
