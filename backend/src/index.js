@@ -43,9 +43,18 @@ const { initScheduler } = require('./services/notificationScheduler');
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    
-    // Start automated push notification scheduler
+
+if (process.env.VERCEL !== '1') {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+        
+        // Start automated push notification scheduler
+        initScheduler();
+    });
+} else {
+    // If deployed on Vercel, init scheduler (Note: setIntervals don't persist well in serverless functions)
     initScheduler();
-});
+}
+
+// Export for Vercel Serverless Functions
+module.exports = app;
