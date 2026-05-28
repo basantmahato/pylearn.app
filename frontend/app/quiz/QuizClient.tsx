@@ -190,7 +190,7 @@ export default function QuizClient({ categories, chaptersByCategory, quizSetsByC
                           {set.setName}
                         </h3>
                         <p className="text-[0.82rem] text-text-secondary">
-                          {set.questions.length} questions
+                          {set.questions?.length || 0} questions
                         </p>
                         <div className="mt-4 flex items-center gap-1.5 text-primary font-bold text-[0.85rem]">
                           Start Quiz

@@ -15,8 +15,8 @@ import { Platform } from "react-native";
 // For Android emulator, localhost maps to 10.0.2.2
 const BASE_URL =
   Platform.OS === "android"
-    ? "http://192.168.31.60:5000/api/v1"
-    : "http://localhost:5000/api/v1";
+    ? "https://darkslategray-pony-246218.hostingersite.com/api/v1"
+    : "https://darkslategray-pony-246218.hostingersite.com/api/v1";
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,

@@ -1,4 +1,4 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:5000/api/v1";
+const BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://darkslategray-pony-246218.hostingersite.com/api/v1";
 
 export type Category = string;
 
