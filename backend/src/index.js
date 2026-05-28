@@ -51,9 +51,6 @@ if (process.env.VERCEL !== '1') {
         // Start automated push notification scheduler
         initScheduler();
     });
-} else {
-    // If deployed on Vercel, init scheduler (Note: setIntervals don't persist well in serverless functions)
-    initScheduler();
 }
 
 // Export for Vercel Serverless Functions

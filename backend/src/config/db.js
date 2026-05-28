@@ -58,8 +58,10 @@ const connectDB = async () => {
         // Run category/course seeding
         await seedCourses();
     } catch (err) {
-        console.error(`Error: ${err.message}`);
-        process.exit(1);
+        console.error(`Error connecting to MongoDB: ${err.message}`);
+        // In a serverless environment, exiting the process causes FUNCTION_INVOCATION_FAILED.
+        // It's better to throw the error or let it fail gracefully.
+        // process.exit(1);
     }
 };
 
