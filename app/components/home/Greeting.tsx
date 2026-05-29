@@ -20,13 +20,18 @@ export function Greeting() {
   }, [checkIn]);
 
   return (
-    <View className="mb-10 flex-row justify-between items-end">
-      <View className="space-y-1">
-        <Text className="text-4xl font-extrabold tracking-tight text-on-surface">Hey, {userName}</Text>
+    <View className="mb-10 flex-row justify-between items-end gap-2">
+      <View className="flex-1">
+        <Text 
+          className="text-2xl md:text-3xl font-extrabold tracking-tight text-on-surface"
+          numberOfLines={2}
+        >
+          Hey, {userName}
+        </Text>
       </View>
-      <View className="bg-surface-container-lowest shadow-sm rounded-2xl px-4 py-2 flex-row items-center gap-2 border border-surface-container-high">
-        <MaterialCommunityIcons name="fire" size={20} color="#f97316" />
-        <Text className="font-bold text-on-surface">{streak} Day Streak</Text>
+      <View className="bg-surface-container-lowest shadow-sm rounded-xl px-3 py-1.5 flex-row items-center gap-1.5 border border-surface-container-high shrink-0">
+        <MaterialCommunityIcons name="fire" size={18} color="#f97316" />
+        <Text className="font-bold text-sm text-on-surface">{streak} Day Streak</Text>
       </View>
     </View>
   );

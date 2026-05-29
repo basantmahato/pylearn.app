@@ -85,8 +85,6 @@ export default function ChapterDetailScreen() {
           AdEventType.CLOSED,
           () => {
             setAdShown(true);
-            unsubscribeLoaded();
-            unsubscribeClosed();
           }
         );
 
@@ -96,18 +94,19 @@ export default function ChapterDetailScreen() {
             console.warn("Interstitial Ad error:", error);
             setAdLoadingState(false);
             setAdShown(true);
-            unsubscribeLoaded();
-            unsubscribeClosed();
-            unsubscribeError();
           }
         );
 
         interstitial.load();
 
         return () => {
-          unsubscribeLoaded();
-          unsubscribeClosed();
-          unsubscribeError();
+          try {
+            unsubscribeLoaded();
+            unsubscribeClosed();
+            unsubscribeError();
+          } catch (e) {
+            // Ignore cleanup errors
+          }
         };
       } catch (err) {
         console.warn("Failed to setup interstitial ad:", err);

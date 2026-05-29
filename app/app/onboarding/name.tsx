@@ -75,7 +75,7 @@ export default function OnboardingNameScreen() {
                 placeholderTextColor="#717785"
                 className="flex-1 text-lg font-medium text-on-surface"
                 autoFocus
-                maxLength={30}
+                maxLength={12}
                 autoCapitalize="words"
               />
               {name.length > 0 && (
@@ -90,7 +90,7 @@ export default function OnboardingNameScreen() {
           </View>
 
           <Text className="text-sm text-on-surface-variant">
-            {name.length}/30 characters
+            {name.length}/12 characters
           </Text>
         </View>
 

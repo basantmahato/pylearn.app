@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "169076259449",
-    "project_id": "pylearn-f7377",
-    "storage_bucket": "pylearn-f7377.firebasestorage.app"
+    "project_number": "363028126797",
+    "project_id": "pylearn-5f0ff",
+    "storage_bucket": "pylearn-5f0ff.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:169076259449:android:2b3a1beb201b70cbbcb2a8",
+        "mobilesdk_app_id": "1:363028126797:android:ae7d7e6382c863a4a91004",
         "android_client_info": {
-          "package_name": "com.pylearn.app"
+          "package_name": "com.pylearn.android"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBJFi6OnVaGrokBhxFdGe5Z8dAOZ8xsEc4"
+          "current_key": "AIzaSyBlfg5O2CbzNJL0ZUjAX5aKLwuz_3E_suA"
         }
       ],
       "services": {

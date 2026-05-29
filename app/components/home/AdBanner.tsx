@@ -24,6 +24,8 @@ if (Platform.OS !== "web") {
 }
 
 export function AdBanner() {
+  const [errorText, setErrorText] = React.useState<string | null>(null);
+
   const { data: config, loading } = useApi<RemoteAdConfig | null>(
     () => apiClient.get("/ads/config").then((res) => res.data).catch(() => null),
     []
@@ -48,12 +50,21 @@ export function AdBanner() {
   }
 
   return (
-    <View className="mt-12 w-full bg-surface-container rounded-2xl overflow-hidden border-2 border-dashed border-outline-variant/30">
+    <View className="mt-12 w-full bg-surface-container rounded-2xl overflow-hidden border-2 border-dashed border-outline-variant/30 min-h-[60px] justify-center items-center">
+      {errorText && (
+        <Text className="text-red-500 text-xs text-center font-bold absolute p-2 z-10">
+          {errorText}
+        </Text>
+      )}
       <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
+        }}
+        onAdFailedToLoad={(error: any) => {
+          console.warn("Banner failed to load:", error);
+          setErrorText(`Ad Error: ${error.message}`);
         }}
       />
     </View>
