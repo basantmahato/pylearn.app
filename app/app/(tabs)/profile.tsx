@@ -9,6 +9,7 @@ import { AVATAR_OPTIONS, useUserStore } from "@/lib/storage";
 import { useCourseStore } from "@/lib/course-store";
 import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
+import { CourseSelector } from "@/components/home/CourseSelector";
 
 const AVATAR_ICONS: Record<string, string> = {
   fox: "firefox",
@@ -260,6 +261,8 @@ export default function ProfileScreen() {
             </Pressable>
           )}
         </View>
+
+        <CourseSelector />
 
         {/* Stats Grid */}
         <View className="flex-row gap-3 mb-6">

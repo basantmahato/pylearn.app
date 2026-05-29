@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
 
 import { BentoCard } from "@/components/home/BentoCard";
-import { CourseSelector } from "@/components/home/CourseSelector";
 import { Greeting } from "@/components/home/Greeting";
 import { ProgressHero } from "@/components/home/ProgressHero";
 import { BENTO_CARDS } from "@/constants/home";
@@ -83,9 +82,6 @@ export default function HomeScreen() {
         contentContainerClassName="pb-32 px-6 pt-6"
         showsVerticalScrollIndicator={false}
       >
-        {/* Course Selection */}
-        <CourseSelector />
-
         {/* Greeting & Streak */}
         <Greeting />
 
